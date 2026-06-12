@@ -1,12 +1,12 @@
 <!doctype html>
-<html lang="en">
+<html lang="ru">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Mama's Table | Homemade Meals Delivered Fresh in Miami</title>
+    <title>Mama's Table | Домашняя еда с доставкой в Miami</title>
     <meta
       name="description"
-      content="Premium home-style Ukrainian, European, Mediterranean and comfort-style meals prepared by request and delivered across Miami, Hallandale, Hollywood and nearby areas."
+      content="Премиальная домашняя кухня: украинские, восточноевропейские, азиатские, кавказские и средиземноморские блюда на заказ в Miami, Hallandale, Hollywood и рядом."
     />
     <meta name="theme-color" content="#fbf7ef" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -19,92 +19,99 @@
   </head>
   <body>
     <header class="site-header" data-header>
-      <a class="brand" href="#top" aria-label="Mama's Table home">
+      <a class="brand" href="#top" aria-label="Mama's Table">
         <span class="brand-mark">MT</span>
         <span>
           <strong>Mama's Table</strong>
-          <small>Home kitchen • Miami</small>
+          <small data-i18n="brand.small">Домашняя кухня • Miami</small>
         </span>
       </a>
 
       <nav class="main-nav" aria-label="Primary navigation">
-        <a href="#how">How it works</a>
-        <a href="#menu">Menu</a>
-        <a href="#delivery">Delivery</a>
-        <a href="#faq">FAQ</a>
+        <a href="#how" data-i18n="nav.how">Как заказать</a>
+        <a href="#menu" data-i18n="nav.menu">Меню</a>
+        <a href="#delivery" data-i18n="nav.delivery">Доставка</a>
+        <a href="#faq" data-i18n="nav.faq">FAQ</a>
       </nav>
 
-      <a class="header-cta" href="#menu">
-        <i data-lucide="shopping-bag"></i>
-        <span>Order Now</span>
-      </a>
+      <div class="header-actions">
+        <div class="lang-switch" aria-label="Language switch">
+          <button class="lang-btn is-active" type="button" data-lang="ru">RU</button>
+          <button class="lang-btn" type="button" data-lang="en">EN</button>
+          <button class="lang-btn" type="button" data-lang="uk">UA</button>
+        </div>
+        <a class="header-cta" href="#menu">
+          <i data-lucide="shopping-bag"></i>
+          <span data-i18n="actions.orderNow">Заказать</span>
+        </a>
+      </div>
     </header>
 
     <main id="top">
       <section class="hero">
         <div class="hero-copy reveal">
-          <p class="eyebrow">Boutique home meal delivery</p>
-          <h1>Homemade Meals, Delivered Fresh in Miami</h1>
-          <p class="hero-lede">
-            Fresh Ukrainian, European, Mediterranean and comfort-style meals prepared by request and delivered across Miami, Hallandale, Hollywood and nearby areas.
+          <p class="eyebrow" data-i18n="hero.eyebrow">Премиальная домашняя кухня</p>
+          <h1 data-i18n="hero.title">Домашняя еда с доставкой в Miami</h1>
+          <p class="hero-lede" data-i18n="hero.lede">
+            Украинские, восточноевропейские, азиатские, кавказские и средиземноморские блюда готовятся под заказ и доставляются по Miami, Hallandale, Hollywood и ближайшим районам.
           </p>
           <div class="hero-actions">
             <a class="btn btn-primary" href="#menu">
               <i data-lucide="shopping-cart"></i>
-              <span>Order Now</span>
+              <span data-i18n="actions.orderNow">Заказать</span>
             </a>
-            <a class="btn btn-secondary" href="#featured">
+            <a class="btn btn-secondary" href="#menu">
               <i data-lucide="utensils"></i>
-              <span>View Menu</span>
+              <span data-i18n="actions.viewMenu">Смотреть меню</span>
             </a>
           </div>
           <div class="trust-badges" aria-label="Trust badges">
-            <span>Freshly Made</span>
-            <span>24–48h Preorder</span>
-            <span>Local Delivery</span>
-            <span>Family Kitchen</span>
+            <span data-i18n="badges.fresh">Готовим свежим</span>
+            <span data-i18n="badges.preorder">Предзаказ 24–48ч</span>
+            <span data-i18n="badges.local">Локальная доставка</span>
+            <span data-i18n="badges.family">Семейная кухня</span>
           </div>
         </div>
 
         <div class="hero-visual reveal">
           <img src="assets/images/hero-table.jpg" alt="Premium homemade dishes served family-style" />
           <div class="hero-card">
-            <span>Today's favorite</span>
-            <strong>Family Dinner Tray</strong>
-            <small>Serves 4-6 • from $95</small>
+            <span data-i18n="hero.cardLabel">Популярный выбор</span>
+            <strong data-i18n="hero.cardTitle">Семейный ужин</strong>
+            <small data-i18n="hero.cardMeta">На 4-6 гостей • от $95</small>
           </div>
         </div>
       </section>
 
       <section class="section how-section" id="how">
         <div class="section-heading reveal">
-          <p class="eyebrow">Simple preorder flow</p>
-          <h2>How it works</h2>
+          <p class="eyebrow" data-i18n="how.eyebrow">Простой предзаказ</p>
+          <h2 data-i18n="how.title">Как это работает</h2>
         </div>
         <div class="steps-grid">
           <article class="step-card reveal">
             <span>01</span>
-            <i data-lucide="list-checks"></i>
-            <h3>Choose your meals</h3>
-            <p>Browse soups, mains, salads, blini, trays and custom family orders.</p>
+            <i data-lucide="globe"></i>
+            <h3 data-i18n="how.stepOneTitle">Выберите кухню</h3>
+            <p data-i18n="how.stepOneCopy">Украинская, восточноевропейская, азиатская, кавказская или средиземноморская.</p>
           </article>
           <article class="step-card reveal">
             <span>02</span>
-            <i data-lucide="calendar-clock"></i>
-            <h3>Place your preorder</h3>
-            <p>Select quantities, add your delivery area and send the order request.</p>
+            <i data-lucide="list-filter"></i>
+            <h3 data-i18n="how.stepTwoTitle">Выберите тип блюда</h3>
+            <p data-i18n="how.stepTwoCopy">Первые блюда, вторые блюда, салаты, выпечка, сеты или индивидуальный заказ.</p>
           </article>
           <article class="step-card reveal">
             <span>03</span>
             <i data-lucide="chef-hat"></i>
-            <h3>We cook fresh</h3>
-            <p>Meals are prepared by request in small batches, not pulled from a shelf.</p>
+            <h3 data-i18n="how.stepThreeTitle">Мы готовим свежим</h3>
+            <p data-i18n="how.stepThreeCopy">Блюда готовятся небольшими партиями к вашему времени, а не заранее с полки.</p>
           </article>
           <article class="step-card reveal">
             <span>04</span>
             <i data-lucide="map-pin"></i>
-            <h3>Delivery or pickup</h3>
-            <p>Available across Miami, Hallandale, Hollywood and nearby neighborhoods.</p>
+            <h3 data-i18n="how.stepFourTitle">Доставка или самовывоз</h3>
+            <p data-i18n="how.stepFourCopy">Miami, Hallandale, Hollywood, Aventura, Sunny Isles, North Miami и рядом.</p>
           </article>
         </div>
       </section>
@@ -112,82 +119,103 @@
       <section class="section menu-section" id="menu">
         <div class="menu-layout">
           <div class="menu-main">
-            <div class="section-heading reveal" id="featured">
-              <p class="eyebrow">Featured meals</p>
-              <h2>Fresh meals made for everyday dinners and small gatherings</h2>
-              <p>
-                Add items to your order list, adjust quantities, then send the request through WhatsApp. No online payment is required right now.
+            <div class="section-heading reveal">
+              <p class="eyebrow" data-i18n="menu.eyebrow">Структура меню</p>
+              <h2 data-i18n="menu.title">Сначала кухня, потом тип блюда, потом ассортимент</h2>
+              <p data-i18n="menu.subtitle">
+                Выберите кухню, затем уровень блюда: первые блюда, вторые блюда, салаты, выпечка, семейные сеты или custom order. После этого откроются карточки с фото, описанием и ценой.
               </p>
             </div>
 
-            <div class="meal-grid" data-featured-grid></div>
-
-            <div class="category-head reveal">
-              <div>
-                <p class="eyebrow">Menu categories</p>
-                <h2>Browse by craving</h2>
+            <div class="menu-flow reveal">
+              <div class="flow-step">
+                <div class="flow-label">
+                  <span>01</span>
+                  <div>
+                    <p class="eyebrow" data-i18n="menu.stepCuisineEyebrow">Выбор кухни</p>
+                    <h3 data-i18n="menu.stepCuisineTitle">Какая кухня нужна?</h3>
+                  </div>
+                </div>
+                <div class="cuisine-grid" data-cuisine-grid></div>
               </div>
-              <p>Build a dinner from soups, mains, salads, blini, family trays and custom requests.</p>
+
+              <div class="flow-step">
+                <div class="flow-label">
+                  <span>02</span>
+                  <div>
+                    <p class="eyebrow" data-i18n="menu.stepCourseEyebrow">Уровень блюда</p>
+                    <h3 data-i18n="menu.stepCourseTitle">Первые, вторые или другое</h3>
+                  </div>
+                </div>
+                <div class="course-chips" data-course-chips aria-label="Dish type"></div>
+              </div>
             </div>
 
-            <div class="category-chips" data-category-chips aria-label="Meal categories"></div>
+            <div class="selected-menu-bar reveal">
+              <div>
+                <p class="eyebrow" data-i18n="menu.assortmentEyebrow">Ассортимент</p>
+                <h2 data-selected-title>Украинская кухня</h2>
+              </div>
+              <p data-selected-summary>Выбраны все блюда.</p>
+            </div>
+
             <div class="catalog-grid" data-catalog-grid></div>
           </div>
 
           <aside class="order-panel reveal" id="order-panel" aria-label="Order summary">
             <div class="order-panel-head">
               <div>
-                <span class="eyebrow">Your order</span>
-                <h2>Order list</h2>
+                <span class="eyebrow" data-i18n="cart.eyebrow">Ваш заказ</span>
+                <h2 data-i18n="cart.title">Корзина</h2>
               </div>
               <span class="cart-count" data-cart-count>0</span>
             </div>
             <div class="cart-list" data-cart-list></div>
             <div class="cart-empty" data-cart-empty>
               <i data-lucide="shopping-basket"></i>
-              <p>Add meals to build your preorder.</p>
+              <p data-i18n="cart.empty">Добавьте блюда, чтобы собрать предзаказ.</p>
             </div>
             <div class="cart-total">
-              <span>Estimated total</span>
+              <span data-i18n="cart.total">Примерная сумма</span>
               <strong data-cart-total>$0</strong>
             </div>
             <a class="btn btn-primary cart-whatsapp" href="#menu" data-checkout-link>
               <i data-lucide="message-circle"></i>
-              <span data-checkout-label>Order on WhatsApp</span>
+              <span data-checkout-label>Заказать в WhatsApp</span>
             </a>
-            <p class="cart-note">Final availability, delivery fee and pickup time are confirmed by message.</p>
+            <p class="cart-note" data-i18n="cart.note">Наличие, доставка и время самовывоза подтверждаются в сообщении.</p>
           </aside>
         </div>
       </section>
 
       <section class="section why-section" id="about">
         <div class="why-copy reveal">
-          <p class="eyebrow">Why customers love us</p>
-          <h2>Home-cooked comfort with a premium ordering experience</h2>
-          <p>
-            Mama's Table is designed for busy families, small events and anyone who wants generous homemade food without grocery shopping, cooking or cleanup.
+          <p class="eyebrow" data-i18n="why.eyebrow">Почему выбирают нас</p>
+          <h2 data-i18n="why.title">Домашний вкус с премиальной подачей заказа</h2>
+          <p data-i18n="why.copy">
+            Mama's Table подходит для семейных ужинов, гостей, небольших событий и тех дней, когда хочется настоящей домашней еды без закупки продуктов и готовки.
           </p>
         </div>
         <div class="why-grid">
           <article class="why-card reveal">
             <i data-lucide="heart-handshake"></i>
-            <h3>Homemade taste</h3>
-            <p>Warm familiar meals with Eastern European soul and modern presentation.</p>
+            <h3 data-i18n="why.cardOneTitle">Домашний вкус</h3>
+            <p data-i18n="why.cardOneCopy">Теплая еда с украинским, восточноевропейским и семейным характером.</p>
           </article>
           <article class="why-card reveal">
             <i data-lucide="leaf"></i>
-            <h3>Fresh ingredients</h3>
-            <p>Cooked close to your pickup or delivery time, with seasonal sides and herbs.</p>
+            <h3 data-i18n="why.cardTwoTitle">Свежие ингредиенты</h3>
+            <p data-i18n="why.cardTwoCopy">Готовим ближе к вашему времени доставки или самовывоза.</p>
           </article>
           <article class="why-card reveal">
             <i data-lucide="sliders-horizontal"></i>
-            <h3>Flexible menu</h3>
-            <p>Mix soups, mains, salads, blini, trays and custom comfort-style requests.</p>
+            <h3 data-i18n="why.cardThreeTitle">Гибкое меню</h3>
+            <p data-i18n="why.cardThreeCopy">Можно собрать заказ из разных кухонь или попросить индивидуальный стол.</p>
           </article>
           <article class="why-card reveal">
             <i data-lucide="party-popper"></i>
-            <h3>Family dinners and events</h3>
-            <p>Perfect for weeknights, guests, office lunches, birthdays and holiday tables.</p>
+            <h3 data-i18n="why.cardFourTitle">Для семьи и событий</h3>
+            <p data-i18n="why.cardFourCopy">Ужины, гости, офисные ланчи, дни рождения и праздничные столы.</p>
           </article>
         </div>
       </section>
@@ -195,10 +223,10 @@
       <section class="section delivery-section" id="delivery">
         <div class="delivery-card reveal">
           <div>
-            <p class="eyebrow">Delivery area</p>
-            <h2>Local delivery across Miami and nearby areas</h2>
-            <p>
-              Delivery and pickup are available by preorder. Larger family trays and custom orders are best requested 24–48 hours in advance.
+            <p class="eyebrow" data-i18n="delivery.eyebrow">Зона доставки</p>
+            <h2 data-i18n="delivery.title">Локальная доставка по Miami и рядом</h2>
+            <p data-i18n="delivery.copy">
+              Доставка и самовывоз доступны по предзаказу. Для семейных сетов и индивидуальных столов лучше писать за 24–48 часов.
             </p>
           </div>
           <div class="area-grid">
@@ -214,22 +242,22 @@
 
       <section class="section testimonials-section">
         <div class="section-heading reveal">
-          <p class="eyebrow">Testimonials</p>
-          <h2>What customers say</h2>
+          <p class="eyebrow" data-i18n="testimonials.eyebrow">Отзывы</p>
+          <h2 data-i18n="testimonials.title">Что говорят клиенты</h2>
         </div>
         <div class="testimonial-grid">
           <article class="testimonial-card reveal">
-            <p>"The borscht and varenyky tasted like a real family dinner, but the presentation felt restaurant-level."</p>
+            <p data-i18n="testimonials.one">"Борщ и вареники были как настоящий семейный ужин, но подача выглядела очень аккуратно."</p>
             <strong>Anna K.</strong>
             <span>Hallandale Beach</span>
           </article>
           <article class="testimonial-card reveal">
-            <p>"We ordered trays for friends visiting from out of town. Everything arrived fresh, labeled and easy to serve."</p>
+            <p data-i18n="testimonials.two">"Заказывали сеты для гостей. Все приехало свежим, подписанным и удобным для подачи."</p>
             <strong>Michael R.</strong>
             <span>Hollywood</span>
           </article>
           <article class="testimonial-card reveal">
-            <p>"Simple ordering, generous portions and the food felt homemade in the best way."</p>
+            <p data-i18n="testimonials.three">"Понятный заказ, большие порции и очень домашний вкус."</p>
             <strong>Olena S.</strong>
             <span>Miami</span>
           </article>
@@ -238,70 +266,70 @@
 
       <section class="section faq-section" id="faq">
         <div class="section-heading reveal">
-          <p class="eyebrow">FAQ</p>
-          <h2>Before you order</h2>
+          <p class="eyebrow" data-i18n="faq.eyebrow">FAQ</p>
+          <h2 data-i18n="faq.title">Перед заказом</h2>
         </div>
         <div class="faq-list">
           <details class="reveal" open>
-            <summary>How far in advance should I order?</summary>
-            <p>Most meals require a 24–48 hour preorder. Larger trays and custom events should be requested earlier.</p>
+            <summary data-i18n="faq.oneQ">За сколько времени нужно заказать?</summary>
+            <p data-i18n="faq.oneA">Большинство блюд лучше заказывать за 24–48 часов. Большие сеты и custom orders лучше обсуждать заранее.</p>
           </details>
           <details class="reveal">
-            <summary>Is payment online?</summary>
-            <p>No online payment is required for now. Send the order request and final details are confirmed by message.</p>
+            <summary data-i18n="faq.twoQ">Оплата онлайн уже подключена?</summary>
+            <p data-i18n="faq.twoA">Пока нет. Вы отправляете заявку, а наличие, итоговая сумма и способ оплаты подтверждаются в сообщении.</p>
           </details>
           <details class="reveal">
-            <summary>Can I customize a dish?</summary>
-            <p>Yes. Add notes about allergies, preferences, portions or event format in the order form.</p>
+            <summary data-i18n="faq.threeQ">Можно ли изменить блюдо?</summary>
+            <p data-i18n="faq.threeA">Да. Укажите аллергии, пожелания, количество гостей или любимые блюда в форме заказа.</p>
           </details>
           <details class="reveal">
-            <summary>Do you deliver outside Miami?</summary>
-            <p>Delivery is focused on Miami, Hallandale, Hollywood, Aventura, Sunny Isles and North Miami. Nearby areas can be checked by request.</p>
+            <summary data-i18n="faq.fourQ">Можно выбрать блюда из разных кухонь?</summary>
+            <p data-i18n="faq.fourA">Да. Корзина сохраняет блюда из разных кухонь, поэтому можно собрать один общий заказ.</p>
           </details>
         </div>
       </section>
 
       <section class="section contact-section" id="contact">
         <div class="contact-copy reveal">
-          <p class="eyebrow">Contact / Order form</p>
-          <h2>Tell us where and when you want your meals</h2>
-          <p>
-            The form prepares a WhatsApp message with your contact details and current order list. You can also add custom requests for family dinners or events.
+          <p class="eyebrow" data-i18n="contact.eyebrow">Форма заказа</p>
+          <h2 data-i18n="contact.title">Напишите, куда и когда нужен заказ</h2>
+          <p data-i18n="contact.copy">
+            Форма подготовит WhatsApp-сообщение с контактами, выбранными блюдами и комментариями.
           </p>
         </div>
 
         <form class="contact-form reveal" data-order-form>
           <label>
-            <span>Name</span>
-            <input name="name" type="text" autocomplete="name" placeholder="Your name" required />
+            <span data-i18n="form.name">Имя</span>
+            <input name="name" type="text" autocomplete="name" data-i18n-placeholder="form.namePlaceholder" placeholder="Ваше имя" required />
           </label>
           <label>
-            <span>Phone / WhatsApp</span>
+            <span data-i18n="form.phone">Телефон / WhatsApp</span>
             <input name="phone" type="tel" autocomplete="tel" placeholder="+1..." required />
           </label>
           <label>
-            <span>Delivery area</span>
-            <input name="area" type="text" placeholder="Miami, Hallandale, Hollywood..." required />
+            <span data-i18n="form.area">Район доставки</span>
+            <input name="area" type="text" data-i18n-placeholder="form.areaPlaceholder" placeholder="Miami, Hallandale, Hollywood..." required />
           </label>
           <label>
-            <span>Delivery or pickup</span>
+            <span data-i18n="form.fulfillment">Доставка или самовывоз</span>
             <select name="fulfillment" required>
-              <option value="Delivery">Delivery</option>
-              <option value="Pickup">Pickup</option>
-              <option value="Not sure yet">Not sure yet</option>
+              <option value="delivery" data-i18n="form.delivery">Доставка</option>
+              <option value="pickup" data-i18n="form.pickup">Самовывоз</option>
+              <option value="unsure" data-i18n="form.unsure">Пока не уверен(а)</option>
             </select>
           </label>
           <label>
-            <span>Preferred date</span>
-            <input name="date" type="text" placeholder="Example: Saturday, 6 PM" />
+            <span data-i18n="form.date">Желаемая дата</span>
+            <input name="date" type="text" data-i18n-placeholder="form.datePlaceholder" placeholder="Например: суббота, 18:00" />
           </label>
           <label class="form-wide">
-            <span>Notes / custom order</span>
-            <textarea name="notes" rows="5" placeholder="Allergies, guests, pickup vs delivery, favorite dishes..."></textarea>
+            <span data-i18n="form.notes">Комментарий / custom order</span>
+            <textarea name="notes" rows="5" data-i18n-placeholder="form.notesPlaceholder" placeholder="Аллергии, количество гостей, доставка или самовывоз, любимые блюда..."></textarea>
           </label>
           <button class="btn btn-primary form-wide" type="submit">
             <i data-lucide="send"></i>
-            <span>Prepare WhatsApp Order</span>
+            <span data-i18n="form.submit">Подготовить WhatsApp-заказ</span>
           </button>
           <p class="form-status" data-form-status role="status" aria-live="polite"></p>
         </form>
@@ -309,17 +337,17 @@
     </main>
 
     <a class="mobile-order-bar" href="#order-panel">
-      <span data-mobile-count>0 items</span>
+      <span data-mobile-count>0 блюд</span>
       <strong data-mobile-total>$0</strong>
-      <em>Order Now</em>
+      <em data-i18n="actions.orderNow">Заказать</em>
     </a>
 
     <footer class="site-footer">
       <div>
         <strong>Mama's Table</strong>
-        <span>Homemade meals delivered fresh in Miami.</span>
+        <span data-i18n="footer.copy">Домашняя еда, приготовленная свежей в Miami.</span>
       </div>
-      <a href="#top">Back to top</a>
+      <a href="#top" data-i18n="footer.top">Наверх</a>
     </footer>
 
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
