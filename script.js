@@ -47,7 +47,7 @@ const copy = {
       categoriesTitle: "Выберите категорию",
       featuredTitle: "Популярные блюда",
       backHome: "На главную",
-      backMenu: "Назад ко всем категориям",
+      backMenu: "Назад к меню",
     },
     why: {
       title: "Почему клиенты любят нас",
@@ -151,7 +151,7 @@ const copy = {
       categoriesTitle: "Choose a category",
       featuredTitle: "Popular dishes",
       backHome: "Back home",
-      backMenu: "Back to all categories",
+      backMenu: "Back to menu",
     },
     why: {
       title: "Why Customers Love Us",
@@ -255,7 +255,7 @@ const copy = {
       categoriesTitle: "Оберіть категорію",
       featuredTitle: "Популярні страви",
       backHome: "На головну",
-      backMenu: "Назад до всіх категорій",
+      backMenu: "Назад до меню",
     },
     why: {
       title: "Чому клієнти люблять нас",
@@ -698,12 +698,12 @@ const createMenuOverviewPage = () => `
 const createCategoryPage = (category) => `
   <div class="menu-page">
     <header class="route-hero route-hero-image reveal">
+      <a class="back-link route-back-link" href="#/menu">
+        <i data-lucide="arrow-left"></i>
+        <span>${escapeHtml(t("menuPage.backMenu"))}</span>
+      </a>
       <img src="${escapeHtml(category.image)}" alt="${escapeHtml(text(category.title))}" />
-      <div>
-        <a class="back-link" href="#/menu">
-          <i data-lucide="arrow-left"></i>
-          <span>${escapeHtml(t("menuPage.backMenu"))}</span>
-        </a>
+      <div class="route-hero-copy">
         <p class="eyebrow">${escapeHtml(t("nav.menu"))}</p>
         <h1>${escapeHtml(text(category.title))}</h1>
         <p>${escapeHtml(text(category.description))}</p>

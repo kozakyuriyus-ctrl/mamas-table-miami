@@ -710,20 +710,32 @@ p {
 .route-hero-image {
   display: grid;
   grid-template-columns: minmax(0, 0.95fr) minmax(360px, 1.05fr);
+  grid-template-areas: "image copy";
   padding: 0;
 }
 
 .route-hero-image > img {
+  grid-area: image;
   width: 100%;
   height: 100%;
   min-height: 340px;
   object-fit: cover;
+  object-position: center;
 }
 
-.route-hero-image > div {
+.route-hero-copy {
+  grid-area: copy;
   display: grid;
   align-content: center;
   padding: clamp(28px, 4vw, 56px);
+}
+
+.route-back-link {
+  grid-area: copy;
+  align-self: start;
+  justify-self: start;
+  z-index: 2;
+  margin: clamp(22px, 3vw, 34px) 0 0 clamp(28px, 4vw, 56px);
 }
 
 .back-link {
@@ -1457,7 +1469,7 @@ p {
   }
 
   .route-view {
-    padding: 94px 14px 34px;
+    padding: 86px 14px 34px;
   }
 
   .route-hero,
@@ -1467,18 +1479,50 @@ p {
 
   .route-hero-image {
     grid-template-columns: 1fr;
+    grid-template-areas:
+      "back"
+      "image"
+      "copy";
+    gap: 0;
+    padding: 0;
+    background: var(--cream);
+  }
+
+  .route-back-link {
+    grid-area: back;
+    align-self: auto;
+    justify-self: start;
+    margin: 16px 16px 14px;
   }
 
   .route-hero-image > img {
-    min-height: 220px;
+    grid-area: image;
+    width: calc(100% - 32px);
+    height: clamp(340px, 42vh, 400px);
+    margin: 0 16px;
+    min-height: 0;
+    border-radius: 8px;
+    object-fit: cover;
+    object-position: center;
   }
 
-  .route-hero-image > div {
-    padding: 22px 18px;
+  .route-hero-copy {
+    grid-area: copy;
+    padding: 22px 18px 24px;
+    background: var(--cream);
   }
 
   .route-hero h1 {
-    font-size: clamp(38px, 12vw, 52px);
+    font-size: clamp(38px, 11vw, 48px);
+    line-height: 1;
+  }
+
+  .route-hero p:not(.eyebrow) {
+    max-width: none;
+    margin-top: 14px;
+    color: var(--green);
+    font-size: clamp(16px, 4.4vw, 18px);
+    line-height: 1.42;
   }
 
   .hero-content {
