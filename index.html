@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Mama's Table | Homemade Food in Miami & Hallandale</title>
+    <meta
+      name="description"
+      content="Mama's Table prepares homemade Eastern European, Ukrainian, Asian, Caucasian, and Mediterranean food for delivery and pickup around Miami and Hallandale."
+    />
+    <meta name="theme-color" content="#171411" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header" data-header>
+      <a class="brand" href="#top" aria-label="Mama's Table">
+        <span class="brand-mark">MT</span>
+        <span class="brand-copy">
+          <strong>Mama's Table</strong>
+          <small>Miami / Hallandale</small>
+        </span>
+      </a>
+
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="#menu" data-i18n="nav.menu">Меню</a>
+        <a href="#delivery" data-i18n="nav.delivery">Доставка</a>
+        <a href="#about" data-i18n="nav.about">О нас</a>
+        <a href="#order" data-i18n="nav.order">Заказать</a>
+      </nav>
+
+      <div class="header-actions">
+        <div class="lang-switch" aria-label="Language">
+          <button class="lang-btn is-active" type="button" data-lang="ru">RU</button>
+          <button class="lang-btn" type="button" data-lang="uk">UA</button>
+          <button class="lang-btn" type="button" data-lang="en">EN</button>
+        </div>
+        <a class="icon-btn" href="#order" data-i18n-aria="actions.orderAria" aria-label="Start order">
+          <i data-lucide="shopping-bag"></i>
+        </a>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-label="Mama's Table">
+        <picture class="hero-media">
+          <img
+            src="assets/images/hero-table.jpg"
+            alt="Family-style table with Ukrainian, Caucasian, Mediterranean, and Asian homemade dishes"
+          />
+        </picture>
+        <div class="hero-shade"></div>
+        <div class="hero-inner">
+          <p class="eyebrow" data-i18n="hero.eyebrow">Домашняя еда на заказ</p>
+          <h1>Mama's Table</h1>
+          <p class="hero-lede" data-i18n="hero.lede">
+            Теплая домашняя кухня Восточной Европы, Украины, Азии, Кавказа и Средиземноморья для вашего стола в Miami и Hallandale.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#order">
+              <i data-lucide="message-circle"></i>
+              <span data-i18n="actions.orderWhatsapp">Заказать в WhatsApp</span>
+            </a>
+            <a class="btn btn-secondary" href="#menu">
+              <i data-lucide="utensils"></i>
+              <span data-i18n="actions.viewMenu">Смотреть меню</span>
+            </a>
+          </div>
+          <div class="hero-meta" aria-label="Service highlights">
+            <span data-i18n="hero.metaOne">Доставка и самовывоз</span>
+            <span data-i18n="hero.metaTwo">Предзаказ от 24 часов</span>
+            <span data-i18n="hero.metaThree">Семейные сеты и праздники</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="quick-strip" aria-label="Highlights">
+        <div class="strip-item">
+          <i data-lucide="map-pin"></i>
+          <span data-i18n="strip.area">Miami, Hallandale и рядом</span>
+        </div>
+        <div class="strip-item">
+          <i data-lucide="clock-3"></i>
+          <span data-i18n="strip.fresh">Готовим к вашему времени</span>
+        </div>
+        <div class="strip-item">
+          <i data-lucide="sparkles"></i>
+          <span data-i18n="strip.private">Домашний формат, ресторанная подача</span>
+        </div>
+      </section>
+
+      <section class="section cuisine-section" id="menu">
+        <div class="section-kicker" data-i18n="menu.kicker">Кухни</div>
+        <div class="section-heading">
+          <h2 data-i18n="menu.title">Меню, которое собирает семью за одним столом</h2>
+          <p data-i18n="menu.subtitle">
+            Временная структура меню уже готова для запуска. Позже можно заменить позиции, цены и фотографии на ваши реальные блюда.
+          </p>
+        </div>
+
+        <div class="cuisine-grid">
+          <article class="cuisine-card feature-card">
+            <img src="assets/images/ukrainian-table.jpg" alt="Ukrainian homemade varenyky and borscht" />
+            <div>
+              <p data-i18n="cuisine.ukrainianLabel">Украинская и восточноевропейская</p>
+              <h3 data-i18n="cuisine.ukrainianTitle">Борщ, вареники, голубцы, домашние салаты</h3>
+            </div>
+          </article>
+          <article class="cuisine-card">
+            <img src="assets/images/caucasus-mediterranean.jpg" alt="Caucasian and Mediterranean dishes" />
+            <div>
+              <p data-i18n="cuisine.caucasusLabel">Кавказ и Средиземноморье</p>
+              <h3 data-i18n="cuisine.caucasusTitle">Хачапури, долма, гриль, овощи, соусы</h3>
+            </div>
+          </article>
+          <article class="cuisine-card">
+            <img src="assets/images/asian-table.jpg" alt="Asian homemade noodles and dumplings" />
+            <div>
+              <p data-i18n="cuisine.asianLabel">Азиатская домашняя кухня</p>
+              <h3 data-i18n="cuisine.asianTitle">Дамплинги, лапша, рис, свежие закуски</h3>
+            </div>
+          </article>
+        </div>
+
+        <div class="menu-shell">
+          <div class="menu-tabs" role="tablist" aria-label="Menu categories">
+            <button class="tab-btn is-active" type="button" data-menu-tab="family" role="tab" aria-selected="true"></button>
+            <button class="tab-btn" type="button" data-menu-tab="ukrainian" role="tab" aria-selected="false"></button>
+            <button class="tab-btn" type="button" data-menu-tab="caucasus" role="tab" aria-selected="false"></button>
+            <button class="tab-btn" type="button" data-menu-tab="asian" role="tab" aria-selected="false"></button>
+          </div>
+          <div class="menu-list" data-menu-list></div>
+        </div>
+      </section>
+
+      <section class="section service-section">
+        <div class="section-kicker" data-i18n="service.kicker">Формат</div>
+        <div class="service-layout">
+          <div class="service-copy">
+            <h2 data-i18n="service.title">Готовим как дома, оформляем как для гостей</h2>
+            <p data-i18n="service.copy">
+              Mama's Table подходит для семейного ужина, дня рождения, встречи друзей, небольшого офиса или спокойного воскресного обеда без готовки.
+            </p>
+          </div>
+          <div class="service-steps" aria-label="Order process">
+            <div class="step-row">
+              <span>01</span>
+              <div>
+                <h3 data-i18n="service.stepOneTitle">Выберите стиль стола</h3>
+                <p data-i18n="service.stepOneCopy">Сеты, отдельные блюда или индивидуальное меню под событие.</p>
+              </div>
+            </div>
+            <div class="step-row">
+              <span>02</span>
+              <div>
+                <h3 data-i18n="service.stepTwoTitle">Оставьте заявку</h3>
+                <p data-i18n="service.stepTwoCopy">Через форму, WhatsApp или Instagram. Мы уточним детали и время.</p>
+              </div>
+            </div>
+            <div class="step-row">
+              <span>03</span>
+              <div>
+                <h3 data-i18n="service.stepThreeTitle">Получите свежую еду</h3>
+                <p data-i18n="service.stepThreeCopy">Доставка по району или удобный самовывоз.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section delivery-section" id="delivery">
+        <div class="delivery-panel">
+          <div>
+            <div class="section-kicker" data-i18n="delivery.kicker">Зона работы</div>
+            <h2 data-i18n="delivery.title">Miami, Hallandale и соседние районы</h2>
+            <p data-i18n="delivery.copy">
+              Доставка и самовывоз доступны по предварительному заказу. Для больших сетов и праздников лучше бронировать дату заранее.
+            </p>
+            <div class="delivery-actions">
+              <a class="btn btn-primary" href="#order">
+                <i data-lucide="send"></i>
+                <span data-i18n="delivery.cta">Проверить доставку</span>
+              </a>
+              <a class="text-link" href="#order" data-i18n="delivery.pickup">Хочу самовывоз</a>
+            </div>
+          </div>
+          <div class="area-list" data-area-list></div>
+        </div>
+      </section>
+
+      <section class="section about-section" id="about">
+        <div class="about-layout">
+          <div class="about-image-stack">
+            <img src="assets/images/hero-table.jpg" alt="Mama's Table food spread" />
+            <img src="assets/images/caucasus-mediterranean.jpg" alt="Mediterranean and Caucasian homemade table" />
+          </div>
+          <div class="about-copy">
+            <div class="section-kicker" data-i18n="about.kicker">О бренде</div>
+            <h2 data-i18n="about.title">Еда с характером, теплом и большим столом</h2>
+            <p data-i18n="about.copyOne">
+              Это не массовый кейтеринг. Это домашняя кухня, где блюда готовятся небольшими партиями, с понятными продуктами и уважением к традициям.
+            </p>
+            <p data-i18n="about.copyTwo">
+              В одном меню встречаются украинский борщ, кавказские сыры и зелень, средиземноморские овощи и азиатские акценты.
+            </p>
+            <div class="signature">
+              <span>Mama's Table</span>
+              <small data-i18n="about.signature">made for generous homes</small>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section order-section" id="order">
+        <div class="order-layout">
+          <div class="order-copy">
+            <div class="section-kicker" data-i18n="order.kicker">Заявка</div>
+            <h2 data-i18n="order.title">Расскажите, какой стол нужен</h2>
+            <p data-i18n="order.copy">
+              Заполните короткую форму, и мы подготовим сообщение для WhatsApp. Для настоящего запуска останется добавить ваш номер и Instagram.
+            </p>
+            <div class="contact-pills">
+              <a href="#" data-whatsapp-link>
+                <i data-lucide="message-circle"></i>
+                <span>WhatsApp</span>
+              </a>
+              <a href="https://instagram.com/" target="_blank" rel="noreferrer" data-instagram-link>
+                <i data-lucide="camera"></i>
+                <span>Instagram</span>
+              </a>
+            </div>
+          </div>
+
+          <form class="order-form" data-order-form>
+            <label>
+              <span data-i18n="form.name">Имя</span>
+              <input name="name" type="text" autocomplete="name" data-i18n-placeholder="form.namePlaceholder" placeholder="Ваше имя" required />
+            </label>
+            <label>
+              <span data-i18n="form.phone">Телефон или WhatsApp</span>
+              <input name="phone" type="tel" autocomplete="tel" data-i18n-placeholder="form.phonePlaceholder" placeholder="+1..." required />
+            </label>
+            <label>
+              <span data-i18n="form.area">Район</span>
+              <input name="area" type="text" data-i18n-placeholder="form.areaPlaceholder" placeholder="Miami, Hallandale..." required />
+            </label>
+            <label>
+              <span data-i18n="form.date">Дата и время</span>
+              <input name="date" type="text" data-i18n-placeholder="form.datePlaceholder" placeholder="Например: Saturday, 6 PM" />
+            </label>
+            <label>
+              <span data-i18n="form.guests">Количество гостей</span>
+              <select name="guests">
+                <option value="2-4">2-4</option>
+                <option value="5-8">5-8</option>
+                <option value="9-14">9-14</option>
+                <option value="15+">15+</option>
+              </select>
+            </label>
+            <label>
+              <span data-i18n="form.style">Что хочется?</span>
+              <select name="style" data-style-select>
+                <option value="Family Table">Family Table</option>
+                <option value="Ukrainian / Eastern European">Ukrainian / Eastern European</option>
+                <option value="Caucasus / Mediterranean">Caucasus / Mediterranean</option>
+                <option value="Asian Table">Asian Table</option>
+                <option value="Custom Event">Custom Event</option>
+              </select>
+            </label>
+            <label class="form-wide">
+              <span data-i18n="form.notes">Комментарий</span>
+              <textarea name="notes" rows="5" data-i18n-placeholder="form.notesPlaceholder" placeholder="Аллергии, любимые блюда, формат события..."></textarea>
+            </label>
+            <button class="btn btn-primary form-wide" type="submit">
+              <i data-lucide="send"></i>
+              <span data-i18n="form.submit">Подготовить заказ</span>
+            </button>
+            <p class="form-status" data-form-status role="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div>
+        <strong>Mama's Table</strong>
+        <span data-i18n="footer.tagline">Homemade food for Miami & Hallandale</span>
+      </div>
+      <a href="#top" data-i18n="footer.top">Наверх</a>
+    </footer>
+
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
