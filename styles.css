@@ -83,14 +83,21 @@ textarea {
 
 .brand-mark {
   display: grid;
-  width: 42px;
+  width: 34px;
   height: 42px;
   place-items: center;
-  border: 1px solid rgba(183, 138, 85, 0.45);
-  border-radius: 50%;
   color: var(--gold);
-  font-family: "Playfair Display", Georgia, serif;
-  font-weight: 700;
+}
+
+.brand-mark svg {
+  display: block;
+  width: 28px;
+  height: 38px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
 }
 
 .brand strong {
@@ -773,9 +780,18 @@ p {
   width: 24px;
   height: 24px;
   transform: translate(-50%, -50%) rotate(45deg);
+  border: 2px solid rgba(255, 253, 248, 0.92);
   border-radius: 50% 50% 50% 0;
-  background: #d9442f;
-  box-shadow: 0 8px 24px rgba(217, 68, 47, 0.34);
+  background: var(--green);
+  box-shadow: 0 8px 24px rgba(36, 63, 34, 0.28);
+}
+
+.map-card span::after {
+  position: absolute;
+  inset: 6px;
+  content: "";
+  border-radius: 50%;
+  background: var(--gold);
 }
 
 .delivery-note {
@@ -997,6 +1013,7 @@ p {
 
 .site-footer {
   display: flex;
+  align-items: center;
   justify-content: space-between;
   gap: 24px;
   width: min(calc(100% - 40px), calc(var(--max) - 160px));
@@ -1008,9 +1025,62 @@ p {
   font-weight: 700;
 }
 
-.site-footer div {
+.footer-brand {
+  display: grid;
+  gap: 4px;
+}
+
+.footer-brand strong {
+  color: var(--ink);
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 19px;
+  line-height: 1;
+}
+
+.footer-brand span {
+  font-size: 12px;
+}
+
+.footer-links,
+.social-links {
   display: flex;
-  gap: 24px;
+  align-items: center;
+}
+
+.footer-links {
+  gap: 28px;
+}
+
+.footer-links a {
+  color: var(--muted);
+}
+
+.footer-links a:hover {
+  color: var(--green);
+}
+
+.social-links {
+  gap: 10px;
+}
+
+.social-link {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border: 1px solid rgba(36, 63, 34, 0.16);
+  border-radius: 50%;
+  color: var(--green);
+  font-size: 11px;
+  font-weight: 900;
+  transition: transform 180ms ease, background 180ms ease, color 180ms ease, border-color 180ms ease;
+}
+
+.social-link:hover {
+  transform: translateY(-2px);
+  border-color: var(--green);
+  background: var(--green);
+  color: #fffdfa;
 }
 
 .reveal {
@@ -1076,8 +1146,13 @@ p {
   }
 
   .brand-mark {
-    width: 38px;
+    width: 30px;
     height: 38px;
+  }
+
+  .brand-mark svg {
+    width: 24px;
+    height: 34px;
   }
 
   .brand strong {
@@ -1245,7 +1320,9 @@ p {
   }
 
   .site-footer,
-  .site-footer div {
+  .footer-links,
+  .social-links {
+    align-items: flex-start;
     flex-direction: column;
   }
 }

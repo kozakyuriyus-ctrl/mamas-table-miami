@@ -7,7 +7,7 @@ const tr = (ru, en, uk) => ({ ru, en, uk });
 const copy = {
   ru: {
     meta: { title: "Mama's Table | Домашняя еда с доставкой в Miami" },
-    nav: { how: "Как заказать", menu: "Меню", delivery: "Доставка", faq: "FAQ", contact: "Контакты" },
+    nav: { how: "Как заказать", menu: "Меню", delivery: "Доставка", about: "О нас", faq: "FAQ", contact: "Контакты" },
     actions: { orderNow: "Заказать", viewMenu: "Смотреть меню" },
     hero: {
       eyebrow: "Премиальная домашняя кухня",
@@ -93,6 +93,7 @@ const copy = {
       remove: "Убрать",
       itemWord: "блюд",
     },
+    footer: { privacy: "Privacy Policy", terms: "Terms of Service" },
     order: {
       title: "Заявка Mama's Table",
       list: "Список блюд",
@@ -103,7 +104,7 @@ const copy = {
   },
   en: {
     meta: { title: "Mama's Table | Homemade Meals Delivered Fresh in Miami" },
-    nav: { how: "How It Works", menu: "Menu", delivery: "Delivery", faq: "FAQ", contact: "Contact" },
+    nav: { how: "How It Works", menu: "Menu", delivery: "Delivery", about: "About Us", faq: "FAQ", contact: "Contact" },
     actions: { orderNow: "Order Now", viewMenu: "View Menu" },
     hero: {
       eyebrow: "Premium homemade kitchen",
@@ -189,6 +190,7 @@ const copy = {
       remove: "Remove",
       itemWord: "items",
     },
+    footer: { privacy: "Privacy Policy", terms: "Terms of Service" },
     order: {
       title: "Mama's Table order request",
       list: "Order list",
@@ -199,7 +201,7 @@ const copy = {
   },
   uk: {
     meta: { title: "Mama's Table | Домашня їжа з доставкою в Miami" },
-    nav: { how: "Як замовити", menu: "Меню", delivery: "Доставка", faq: "FAQ", contact: "Контакти" },
+    nav: { how: "Як замовити", menu: "Меню", delivery: "Доставка", about: "Про нас", faq: "FAQ", contact: "Контакти" },
     actions: { orderNow: "Замовити", viewMenu: "Дивитися меню" },
     hero: {
       eyebrow: "Преміальна домашня кухня",
@@ -285,6 +287,7 @@ const copy = {
       remove: "Прибрати",
       itemWord: "страв",
     },
+    footer: { privacy: "Privacy Policy", terms: "Terms of Service" },
     order: {
       title: "Заявка Mama's Table",
       list: "Список страв",
