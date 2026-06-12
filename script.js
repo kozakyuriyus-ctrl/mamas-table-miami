@@ -40,7 +40,15 @@ const copy = {
       fourText: "Получите еду свежей и вовремя.",
     },
     popular: { title: "Популярные блюда", viewAll: "Все меню" },
-    categories: { title: "Категории меню" },
+    categories: { title: "Категории меню", subtitle: "Выберите категорию, чтобы посмотреть полный список блюд.", open: "Открыть меню" },
+    menuPage: {
+      title: "Меню Mama's Table",
+      subtitle: "Выберите категорию или добавьте популярные блюда в заказ.",
+      categoriesTitle: "Выберите категорию",
+      featuredTitle: "Популярные блюда",
+      backHome: "На главную",
+      backMenu: "Назад ко всем категориям",
+    },
     why: {
       title: "Почему клиенты любят нас",
       oneTitle: "Домашний вкус",
@@ -136,7 +144,15 @@ const copy = {
       fourText: "Get your meals fresh and on time.",
     },
     popular: { title: "Popular Dishes", viewAll: "View Full Menu" },
-    categories: { title: "Menu Categories" },
+    categories: { title: "Menu Categories", subtitle: "Choose a category to view the full dish list.", open: "Open menu" },
+    menuPage: {
+      title: "Mama's Table Menu",
+      subtitle: "Choose a category or add popular dishes to your order.",
+      categoriesTitle: "Choose a category",
+      featuredTitle: "Popular dishes",
+      backHome: "Back home",
+      backMenu: "Back to all categories",
+    },
     why: {
       title: "Why Customers Love Us",
       oneTitle: "Homemade Taste",
@@ -232,7 +248,15 @@ const copy = {
       fourText: "Отримайте їжу свіжою і вчасно.",
     },
     popular: { title: "Популярні страви", viewAll: "Все меню" },
-    categories: { title: "Категорії меню" },
+    categories: { title: "Категорії меню", subtitle: "Оберіть категорію, щоб переглянути повний список страв.", open: "Відкрити меню" },
+    menuPage: {
+      title: "Меню Mama's Table",
+      subtitle: "Оберіть категорію або додайте популярні страви до замовлення.",
+      categoriesTitle: "Оберіть категорію",
+      featuredTitle: "Популярні страви",
+      backHome: "На головну",
+      backMenu: "Назад до всіх категорій",
+    },
     why: {
       title: "Чому клієнти люблять нас",
       oneTitle: "Домашній смак",
@@ -295,16 +319,44 @@ const copy = {
   },
 };
 
-const dishes = [
+const menuItems = [
   {
     id: "borscht",
+    category: "soups",
+    popular: true,
     price: 9.5,
     image: "assets/images/mamas-table-hero-family.jpg",
     name: tr("Борщ", "Borscht", "Борщ"),
     description: tr("Традиционный украинский борщ со сметаной и зеленью.", "Traditional Ukrainian beet soup with sour cream and herbs.", "Традиційний український борщ зі сметаною та зеленню."),
   },
   {
+    id: "chicken-soup",
+    category: "soups",
+    price: 8.5,
+    image: "assets/images/hero-table.jpg",
+    name: tr("Домашний куриный суп", "Homemade Chicken Soup", "Домашній курячий суп"),
+    description: tr("Легкий куриный бульон с овощами, зеленью и домашней лапшой.", "Light chicken broth with vegetables, herbs and homemade noodles.", "Легкий курячий бульйон з овочами, зеленню та домашньою локшиною."),
+  },
+  {
+    id: "mushroom-soup",
+    category: "soups",
+    price: 9,
+    image: "assets/images/caucasus-mediterranean.jpg",
+    name: tr("Грибной суп", "Mushroom Soup", "Грибний суп"),
+    description: tr("Насыщенный суп с грибами, картофелем и мягкими травами.", "Rich mushroom soup with potatoes and gentle herbs.", "Насичений суп з грибами, картоплею та м'якими травами."),
+  },
+  {
+    id: "solyanka",
+    category: "soups",
+    price: 11.5,
+    image: "assets/images/mamas-table-hero-family.jpg",
+    name: tr("Солянка", "Solyanka", "Солянка"),
+    description: tr("Пикантный восточноевропейский суп с мясом, лимоном и оливками.", "Savory Eastern European soup with meats, lemon and olives.", "Пікантний східноєвропейський суп з м'ясом, лимоном та оливками."),
+  },
+  {
     id: "varenyky",
+    category: "main-dishes",
+    popular: true,
     price: 12.5,
     image: "assets/images/mamas-table-hero-family.jpg",
     name: tr("Вареники", "Vareniki", "Вареники"),
@@ -312,6 +364,8 @@ const dishes = [
   },
   {
     id: "cabbage-rolls",
+    category: "main-dishes",
+    popular: true,
     price: 14.5,
     image: "assets/images/mamas-table-hero-family.jpg",
     name: tr("Голубцы", "Cabbage Rolls", "Голубці"),
@@ -319,35 +373,199 @@ const dishes = [
   },
   {
     id: "chicken-kyiv",
+    category: "main-dishes",
+    popular: true,
     price: 14.5,
     image: "assets/images/chicken-comfort.jpg",
     name: tr("Котлеты с пюре", "Chicken Kyiv", "Котлети з пюре"),
     description: tr("Сочная куриная котлета с маслом и картофельным пюре.", "Juicy chicken breast stuffed with garlic butter, served with mashed potatoes.", "Соковита куряча котлета з маслом і картопляним пюре."),
   },
   {
+    id: "plov",
+    category: "main-dishes",
+    price: 15.5,
+    image: "assets/images/caucasus-mediterranean.jpg",
+    name: tr("Плов", "Plov", "Плов"),
+    description: tr("Ароматный рис с мясом, морковью и специями в кавказском стиле.", "Aromatic rice with meat, carrots and Caucasian-style spices.", "Ароматний рис з м'ясом, морквою та спеціями у кавказькому стилі."),
+  },
+  {
     id: "olivier",
+    category: "salads",
+    popular: true,
     price: 8.5,
     image: "assets/images/ukrainian-table.jpg",
     name: tr("Оливье", "Olivier Salad", "Олів'є"),
     description: tr("Классический домашний салат с овощами, яйцом, курицей и майонезом.", "Classic homemade salad with vegetables, eggs, chicken and mayonnaise.", "Класичний домашній салат з овочами, яйцем, куркою та майонезом."),
   },
   {
+    id: "vinaigrette",
+    category: "salads",
+    price: 8,
+    image: "assets/images/ukrainian-table.jpg",
+    name: tr("Винегрет", "Vinaigrette Salad", "Вінегрет"),
+    description: tr("Свекла, картофель, морковь, соленые огурцы и легкая заправка.", "Beets, potatoes, carrots, pickles and a light dressing.", "Буряк, картопля, морква, солоні огірки та легка заправка."),
+  },
+  {
+    id: "greek-salad",
+    category: "salads",
+    price: 9.5,
+    image: "assets/images/caucasus-mediterranean.jpg",
+    name: tr("Греческий салат", "Greek Salad", "Грецький салат"),
+    description: tr("Овощи, фета, оливки и средиземноморская заправка.", "Vegetables, feta, olives and Mediterranean dressing.", "Овочі, фета, оливки та середземноморська заправка."),
+  },
+  {
+    id: "beet-walnut-salad",
+    category: "salads",
+    price: 8.5,
+    image: "assets/images/hero-table.jpg",
+    name: tr("Свекольный салат", "Beet Walnut Salad", "Буряковий салат"),
+    description: tr("Свекла с грецким орехом, чесноком и мягкой домашней заправкой.", "Beets with walnuts, garlic and a soft homemade dressing.", "Буряк з волоським горіхом, часником та м'якою домашньою заправкою."),
+  },
+  {
     id: "blini",
+    category: "crepes-blini",
+    popular: true,
     price: 10.5,
     image: "assets/images/blini-crepes.jpg",
     name: tr("Блины / Налистники", "Crepes / Blini", "Млинці / Налисники"),
     description: tr("Тонкие блины с разными начинками.", "Thin crepes with various fillings.", "Тонкі млинці з різними начинками."),
   },
+  {
+    id: "cheese-nalistniki",
+    category: "crepes-blini",
+    price: 11.5,
+    image: "assets/images/blini-crepes.jpg",
+    name: tr("Налистники с творогом", "Cheese Nalistniki", "Налисники з сиром"),
+    description: tr("Нежные налистники с творожной начинкой и сметаной.", "Tender crepes filled with sweet farmer cheese and sour cream.", "Ніжні налисники з сирною начинкою та сметаною."),
+  },
+  {
+    id: "chicken-crepes",
+    category: "crepes-blini",
+    price: 12.5,
+    image: "assets/images/chicken-comfort.jpg",
+    name: tr("Блины с курицей и грибами", "Chicken Mushroom Crepes", "Млинці з куркою та грибами"),
+    description: tr("Сытные блины с курицей, грибами и сливочным соусом.", "Savory crepes with chicken, mushrooms and cream sauce.", "Ситні млинці з куркою, грибами та вершковим соусом."),
+  },
+  {
+    id: "berry-crepes",
+    category: "crepes-blini",
+    price: 10.5,
+    image: "assets/images/blini-crepes.jpg",
+    name: tr("Блины с ягодами", "Berry Crepes", "Млинці з ягодами"),
+    description: tr("Тонкие блины с ягодами и легкой сладкой начинкой.", "Thin crepes with berries and a light sweet filling.", "Тонкі млинці з ягодами та легкою солодкою начинкою."),
+  },
+  {
+    id: "family-dinner",
+    category: "family-sets",
+    price: 95,
+    image: "assets/images/mamas-table-hero-family.jpg",
+    name: tr("Семейный ужин", "Family Dinner", "Сімейна вечеря"),
+    description: tr("Сбалансированный набор на 4–6 гостей с супом, основными блюдами и салатом.", "A balanced set for 4–6 guests with soup, mains and salad.", "Збалансований набір на 4–6 гостей із супом, основними стравами та салатом."),
+  },
+  {
+    id: "ukrainian-family-tray",
+    category: "family-sets",
+    price: 120,
+    image: "assets/images/ukrainian-table.jpg",
+    name: tr("Украинский семейный набор", "Ukrainian Family Tray", "Український сімейний набір"),
+    description: tr("Борщ, вареники, голубцы, салаты и домашняя выпечка для стола.", "Borscht, vareniki, cabbage rolls, salads and homemade pastries.", "Борщ, вареники, голубці, салати та домашня випічка для столу."),
+  },
+  {
+    id: "mediterranean-family-tray",
+    category: "family-sets",
+    price: 110,
+    image: "assets/images/caucasus-mediterranean.jpg",
+    name: tr("Средиземноморский набор", "Mediterranean Family Tray", "Середземноморський набір"),
+    description: tr("Мясные блюда, салаты, овощи и соусы для легкого семейного ужина.", "Meat dishes, salads, vegetables and sauces for an easy family dinner.", "М'ясні страви, салати, овочі та соуси для легкої сімейної вечері."),
+  },
+  {
+    id: "comfort-dinner-set",
+    category: "family-sets",
+    price: 88,
+    image: "assets/images/chicken-comfort.jpg",
+    name: tr("Уютный семейный набор", "Comfort Dinner Set", "Затишний сімейний набір"),
+    description: tr("Котлеты, гарнир, салат и блины для уютного домашнего вечера.", "Cutlets, sides, salad and crepes for a cozy homemade evening.", "Котлети, гарнір, салат і млинці для затишного домашнього вечора."),
+  },
+  {
+    id: "holiday-table",
+    category: "holiday-orders",
+    price: 150,
+    image: "assets/images/hero-table.jpg",
+    name: tr("Праздничный стол", "Holiday Table", "Святковий стіл"),
+    description: tr("Индивидуальный набор блюд для семейных праздников и встреч.", "A custom dish set for family holidays and gatherings.", "Індивідуальний набір страв для сімейних свят і зустрічей."),
+  },
+  {
+    id: "party-varenyky-tray",
+    category: "holiday-orders",
+    price: 65,
+    image: "assets/images/mamas-table-hero-family.jpg",
+    name: tr("Большой поднос вареников", "Vareniki Party Tray", "Великий піднос вареників"),
+    description: tr("Большой поднос вареников для гостей, офиса или семейного события.", "A large vareniki tray for guests, office orders or family events.", "Великий піднос вареників для гостей, офісу або сімейної події."),
+  },
+  {
+    id: "blini-platter",
+    category: "holiday-orders",
+    price: 55,
+    image: "assets/images/blini-crepes.jpg",
+    name: tr("Платтер блинов", "Blini Platter", "Платер млинців"),
+    description: tr("Ассорти блинов и налистников с солеными и сладкими начинками.", "Assorted blini and crepes with savory and sweet fillings.", "Асорті млинців і налисників із солоними та солодкими начинками."),
+  },
+  {
+    id: "custom-event-menu",
+    category: "holiday-orders",
+    price: 180,
+    image: "assets/images/caucasus-mediterranean.jpg",
+    name: tr("Индивидуальное праздничное меню", "Custom Event Menu", "Індивідуальне святкове меню"),
+    description: tr("Меню под количество гостей, кухни, пожелания и формат мероприятия.", "A menu planned around guest count, cuisines, preferences and event style.", "Меню під кількість гостей, кухні, побажання та формат події."),
+  },
 ];
 
 const categories = [
-  { id: "soups", image: "assets/images/mamas-table-hero-family.jpg", icon: "utensils", title: tr("Первые блюда", "Soups", "Перші страви") },
-  { id: "mains", image: "assets/images/chicken-comfort.jpg", icon: "chef-hat", title: tr("Основные блюда", "Main Dishes", "Основні страви") },
-  { id: "salads", image: "assets/images/ukrainian-table.jpg", icon: "leaf", title: tr("Салаты", "Salads", "Салати") },
-  { id: "crepes", image: "assets/images/blini-crepes.jpg", icon: "layers", title: tr("Блины и налистники", "Crepes & Blini", "Млинці та налисники") },
-  { id: "family", image: "assets/images/hero-table.jpg", icon: "users", title: tr("Семейные наборы", "Family Sets", "Сімейні набори") },
-  { id: "holiday", image: "assets/images/caucasus-mediterranean.jpg", icon: "gift", title: tr("Праздничные заказы", "Holiday Orders", "Святкові замовлення") },
+  {
+    id: "soups",
+    image: "assets/images/mamas-table-hero-family.jpg",
+    icon: "utensils",
+    title: tr("Первые блюда", "Soups", "Перші страви"),
+    description: tr("Домашние супы, которые готовятся свежими под предзаказ.", "Homemade soups prepared fresh for preorder.", "Домашні супи, які готуються свіжими під передзамовлення."),
+  },
+  {
+    id: "main-dishes",
+    image: "assets/images/chicken-comfort.jpg",
+    icon: "chef-hat",
+    title: tr("Основные блюда", "Main Dishes", "Основні страви"),
+    description: tr("Сытные украинские, восточноевропейские и кавказские блюда для обеда или ужина.", "Comforting Ukrainian, Eastern European and Caucasian mains for lunch or dinner.", "Ситні українські, східноєвропейські та кавказькі страви для обіду або вечері."),
+  },
+  {
+    id: "salads",
+    image: "assets/images/ukrainian-table.jpg",
+    icon: "leaf",
+    title: tr("Салаты", "Salads", "Салати"),
+    description: tr("Классические домашние и свежие средиземноморские салаты.", "Classic homemade and fresh Mediterranean salads.", "Класичні домашні та свіжі середземноморські салати."),
+  },
+  {
+    id: "crepes-blini",
+    image: "assets/images/blini-crepes.jpg",
+    icon: "layers",
+    title: tr("Блины / Налистники", "Crepes / Blini", "Млинці / Налисники"),
+    description: tr("Тонкие блины и налистники со сладкими и солеными начинками.", "Thin crepes and blini with sweet and savory fillings.", "Тонкі млинці та налисники із солодкими й солоними начинками."),
+  },
+  {
+    id: "family-sets",
+    image: "assets/images/hero-table.jpg",
+    icon: "users",
+    title: tr("Семейные наборы", "Family Sets", "Сімейні набори"),
+    description: tr("Готовые наборы для 4–6 гостей и семейных ужинов.", "Ready sets for 4–6 guests and family dinners.", "Готові набори для 4–6 гостей і сімейних вечерь."),
+  },
+  {
+    id: "holiday-orders",
+    image: "assets/images/caucasus-mediterranean.jpg",
+    icon: "gift",
+    title: tr("Праздничные заказы", "Holiday Orders", "Святкові замовлення"),
+    description: tr("Праздничные блюда и индивидуальные меню для встреч, гостей и событий.", "Holiday dishes and custom menus for gatherings, guests and events.", "Святкові страви та індивідуальні меню для зустрічей, гостей і подій."),
+  },
 ];
+
+const popularDishes = menuItems.filter((dish) => dish.popular);
 
 const state = {
   lang: localStorage.getItem("mamasTableLang") || "ru",
@@ -360,7 +578,11 @@ const text = (value) => value[state.lang] || value.ru || value.en || "";
 
 const t = (path) => path.split(".").reduce((obj, key) => obj?.[key], copy[state.lang]) || path;
 
-const dishById = (id) => dishes.find((dish) => dish.id === id);
+const dishById = (id) => menuItems.find((dish) => dish.id === id);
+
+const categoryById = (id) => categories.find((category) => category.id === id);
+
+const menuItemsByCategory = (id) => menuItems.filter((dish) => dish.category === id);
 
 const cartEntries = () =>
   Array.from(state.cart.entries())
@@ -399,18 +621,138 @@ const createDishCard = (dish) => `
 `;
 
 const createCategoryCard = (category) => `
-  <a class="category-card reveal" href="#menu">
+  <a class="category-card reveal" href="#/${escapeHtml(category.id)}">
     <img src="${escapeHtml(category.image)}" alt="${escapeHtml(text(category.title))}" loading="lazy" />
     <span>
       <i data-lucide="${escapeHtml(category.icon)}"></i>
       <strong>${escapeHtml(text(category.title))}</strong>
+      <small>${escapeHtml(t("categories.open"))}</small>
     </span>
   </a>
 `;
 
 const renderStaticData = () => {
-  document.querySelector("[data-dish-grid]").innerHTML = dishes.map(createDishCard).join("");
+  document.querySelector("[data-dish-grid]").innerHTML = popularDishes.map(createDishCard).join("");
   document.querySelector("[data-category-grid]").innerHTML = categories.map(createCategoryCard).join("");
+  refreshIcons();
+  observeReveals();
+};
+
+const routeFromHash = () => {
+  const hash = window.location.hash.trim();
+  if (!hash.startsWith("#/")) return null;
+  return hash.slice(2) || "menu";
+};
+
+const createRouteOrderCard = () => `
+  <aside class="order-card route-order-card reveal" id="route-order-card" data-route-order-card>
+    <div class="order-head">
+      <h3>${escapeHtml(t("cart.title"))}</h3>
+      <span data-cart-count>0</span>
+    </div>
+    <div class="cart-list" data-cart-list></div>
+    <div class="cart-empty" data-cart-empty>${escapeHtml(t("cart.empty"))}</div>
+    <div class="cart-total">
+      <span>${escapeHtml(t("cart.total"))}</span>
+      <strong data-cart-total>$0</strong>
+    </div>
+    <a class="btn btn-primary cart-checkout" href="#/menu" data-checkout-link>
+      <span data-checkout-label>${escapeHtml(t("cart.checkout"))}</span>
+    </a>
+  </aside>
+`;
+
+const createMenuOverviewPage = () => `
+  <div class="menu-page">
+    <header class="route-hero reveal">
+      <a class="back-link" href="#top">
+        <i data-lucide="arrow-left"></i>
+        <span>${escapeHtml(t("menuPage.backHome"))}</span>
+      </a>
+      <p class="eyebrow">${escapeHtml(t("nav.menu"))}</p>
+      <h1>${escapeHtml(t("menuPage.title"))}</h1>
+      <p>${escapeHtml(t("menuPage.subtitle"))}</p>
+    </header>
+
+    <div class="menu-page-layout">
+      <div class="menu-content">
+        <section class="menu-panel reveal">
+          <div class="section-title">
+            <h2>${escapeHtml(t("menuPage.categoriesTitle"))}</h2>
+          </div>
+          <div class="category-grid route-category-grid">${categories.map(createCategoryCard).join("")}</div>
+        </section>
+
+        <section class="menu-panel reveal">
+          <div class="section-title">
+            <h2>${escapeHtml(t("menuPage.featuredTitle"))}</h2>
+          </div>
+          <div class="dish-grid menu-dish-grid">${popularDishes.map(createDishCard).join("")}</div>
+        </section>
+      </div>
+      ${createRouteOrderCard()}
+    </div>
+  </div>
+`;
+
+const createCategoryPage = (category) => `
+  <div class="menu-page">
+    <header class="route-hero route-hero-image reveal">
+      <img src="${escapeHtml(category.image)}" alt="${escapeHtml(text(category.title))}" />
+      <div>
+        <a class="back-link" href="#/menu">
+          <i data-lucide="arrow-left"></i>
+          <span>${escapeHtml(t("menuPage.backMenu"))}</span>
+        </a>
+        <p class="eyebrow">${escapeHtml(t("nav.menu"))}</p>
+        <h1>${escapeHtml(text(category.title))}</h1>
+        <p>${escapeHtml(text(category.description))}</p>
+      </div>
+    </header>
+
+    <div class="menu-page-layout">
+      <section class="menu-panel menu-content reveal">
+        <div class="dish-grid menu-dish-grid">${menuItemsByCategory(category.id).map(createDishCard).join("")}</div>
+      </section>
+      ${createRouteOrderCard()}
+    </div>
+  </div>
+`;
+
+const renderRoute = () => {
+  const route = routeFromHash();
+  const homeView = document.querySelector("[data-home-view]");
+  const routeView = document.querySelector("[data-route-view]");
+  const category = route ? categoryById(route) : null;
+  const isRoute = route === "menu" || Boolean(category);
+
+  if (!isRoute) {
+    homeView.hidden = false;
+    routeView.hidden = true;
+    routeView.innerHTML = "";
+    document.body.classList.remove("is-route-view");
+    document.title = t("meta.title");
+    renderCart();
+    renderDishQuantities();
+    refreshIcons();
+    observeReveals();
+
+    if (window.location.hash && !window.location.hash.startsWith("#/")) {
+      requestAnimationFrame(() => {
+        document.querySelector(window.location.hash)?.scrollIntoView({ block: "start" });
+      });
+    }
+    return;
+  }
+
+  homeView.hidden = true;
+  routeView.hidden = false;
+  routeView.innerHTML = route === "menu" ? createMenuOverviewPage() : createCategoryPage(category);
+  document.body.classList.add("is-route-view");
+  document.title = route === "menu" ? `${t("menuPage.title")} | Mama's Table` : `${text(category.title)} | Mama's Table`;
+  window.scrollTo({ top: 0, behavior: "smooth" });
+  renderCart();
+  renderDishQuantities();
   refreshIcons();
   observeReveals();
 };
@@ -442,14 +784,10 @@ const whatsappUrl = (message) => `https://wa.me/${BUSINESS.whatsappNumber}?text=
 
 const renderCart = () => {
   const entries = cartEntries();
-  const list = document.querySelector("[data-cart-list]");
-  const empty = document.querySelector("[data-cart-empty]");
-  const checkoutLink = document.querySelector("[data-checkout-link]");
-  const checkoutLabel = document.querySelector("[data-checkout-label]");
   const total = cartTotal();
   const count = cartCount();
 
-  list.innerHTML = entries
+  const cartHtml = entries
     .map(
       ({ dish, quantity }) => `
         <div class="cart-item">
@@ -468,25 +806,37 @@ const renderCart = () => {
     )
     .join("");
 
-  empty.hidden = entries.length > 0;
-  document.querySelector("[data-cart-count]").textContent = count;
-  document.querySelector("[data-cart-total]").textContent = money(total);
+  document.querySelectorAll("[data-cart-list]").forEach((list) => {
+    list.innerHTML = cartHtml;
+  });
+  document.querySelectorAll("[data-cart-empty]").forEach((empty) => {
+    empty.hidden = entries.length > 0;
+  });
+  document.querySelectorAll("[data-cart-count]").forEach((element) => {
+    element.textContent = count;
+  });
+  document.querySelectorAll("[data-cart-total]").forEach((element) => {
+    element.textContent = money(total);
+  });
   document.querySelector("[data-mobile-count]").textContent = `${count} ${t("cart.itemWord")}`;
   document.querySelector("[data-mobile-total]").textContent = money(total);
 
-  if (entries.length) {
-    checkoutLink.href = whatsappUrl(buildOrderMessage());
-    checkoutLink.target = "_blank";
-    checkoutLink.rel = "noopener noreferrer";
-    checkoutLink.removeAttribute("aria-disabled");
-    checkoutLabel.textContent = t("cart.checkout");
-  } else {
-    checkoutLink.href = "#menu";
-    checkoutLink.removeAttribute("target");
-    checkoutLink.removeAttribute("rel");
-    checkoutLink.setAttribute("aria-disabled", "true");
-    checkoutLabel.textContent = t("cart.addFirst");
-  }
+  document.querySelectorAll("[data-checkout-link]").forEach((checkoutLink) => {
+    const checkoutLabel = checkoutLink.querySelector("[data-checkout-label]");
+    if (entries.length) {
+      checkoutLink.href = whatsappUrl(buildOrderMessage());
+      checkoutLink.target = "_blank";
+      checkoutLink.rel = "noopener noreferrer";
+      checkoutLink.removeAttribute("aria-disabled");
+      if (checkoutLabel) checkoutLabel.textContent = t("cart.checkout");
+    } else {
+      checkoutLink.href = "#/menu";
+      checkoutLink.removeAttribute("target");
+      checkoutLink.removeAttribute("rel");
+      checkoutLink.setAttribute("aria-disabled", "true");
+      if (checkoutLabel) checkoutLabel.textContent = t("cart.addFirst");
+    }
+  });
 };
 
 const applyTranslations = () => {
@@ -511,13 +861,14 @@ const handleClick = (event) => {
   const minus = event.target.closest("[data-minus]");
   const remove = event.target.closest("[data-remove]");
   const quick = event.target.closest("[data-whatsapp-quick]");
+  const mobileOrder = event.target.closest("[data-mobile-order]");
 
   if (lang) {
     state.lang = lang.dataset.lang;
     localStorage.setItem("mamasTableLang", state.lang);
     applyTranslations();
     renderStaticData();
-    renderCart();
+    renderRoute();
   }
 
   if (add) setQuantity(add.dataset.add, cartQuantity(add.dataset.add) + 1);
@@ -528,6 +879,11 @@ const handleClick = (event) => {
   if (quick) {
     event.preventDefault();
     window.open(whatsappUrl(buildOrderMessage()), "_blank", "noopener,noreferrer");
+  }
+
+  if (mobileOrder && routeFromHash()) {
+    event.preventDefault();
+    document.querySelector("[data-route-order-card]")?.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 };
 
@@ -569,7 +925,9 @@ document.addEventListener("DOMContentLoaded", () => {
   setupHeader();
   applyTranslations();
   renderStaticData();
+  renderRoute();
   renderCart();
   document.addEventListener("click", handleClick);
+  window.addEventListener("hashchange", renderRoute);
   refreshIcons();
 });

@@ -37,7 +37,7 @@
 
       <nav class="main-nav" aria-label="Primary navigation">
         <a href="#how" data-i18n="nav.how">Как заказать</a>
-        <a href="#menu" data-i18n="nav.menu">Меню</a>
+        <a href="#/menu" data-i18n="nav.menu">Меню</a>
         <a href="#delivery" data-i18n="nav.delivery">Доставка</a>
         <a href="#about" data-i18n="nav.about">О нас</a>
         <a href="#faq" data-i18n="nav.faq">FAQ</a>
@@ -58,6 +58,7 @@
     </header>
 
     <main id="top">
+      <div data-home-view>
       <section class="hero">
         <div class="hero-content reveal">
           <div class="hero-copy">
@@ -71,7 +72,7 @@
                 <span data-i18n="actions.orderNow">Заказать</span>
                 <i data-lucide="message-circle"></i>
               </a>
-              <a class="btn btn-secondary" href="#menu" data-i18n="actions.viewMenu">Смотреть меню</a>
+              <a class="btn btn-secondary" href="#/menu" data-i18n="actions.viewMenu">Смотреть меню</a>
             </div>
           </div>
 
@@ -145,7 +146,7 @@
       <section class="section" id="menu">
         <div class="section-title">
           <h2 data-i18n="popular.title">Популярные блюда</h2>
-          <a class="small-action" href="#categories" data-i18n="popular.viewAll">Все меню</a>
+          <a class="small-action" href="#/menu" data-i18n="popular.viewAll">Все меню</a>
         </div>
         <div class="dish-grid" data-dish-grid></div>
       </section>
@@ -153,6 +154,7 @@
       <section class="section section-tight" id="categories">
         <div class="section-title section-title-center">
           <h2 data-i18n="categories.title">Категории меню</h2>
+          <p data-i18n="categories.subtitle">Выберите категорию, чтобы посмотреть полный список блюд.</p>
         </div>
         <div class="category-grid" data-category-grid></div>
       </section>
@@ -281,14 +283,17 @@
             <span data-i18n="cart.total">Примерная сумма</span>
             <strong data-cart-total>$0</strong>
           </div>
-          <a class="btn btn-primary cart-checkout" href="#menu" data-checkout-link>
+          <a class="btn btn-primary cart-checkout" href="#/menu" data-checkout-link>
             <span data-checkout-label>Отправить заказ в WhatsApp</span>
           </a>
         </aside>
       </section>
+      </div>
+
+      <section class="route-view" data-route-view hidden></section>
     </main>
 
-    <a class="mobile-order-bar" href="#order-card">
+    <a class="mobile-order-bar" href="#order-card" data-mobile-order>
       <span data-mobile-count>0</span>
       <strong data-mobile-total>$0</strong>
       <em data-i18n="actions.orderNow">Заказать</em>
