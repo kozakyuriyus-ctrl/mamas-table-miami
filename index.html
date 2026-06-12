@@ -104,34 +104,46 @@
         </div>
 
         <div class="cuisine-grid">
-          <article class="cuisine-card feature-card">
+          <a class="cuisine-card feature-card" href="#assortment" data-cuisine-card="ukrainian" data-i18n-aria="cuisine.ukrainianAria" aria-label="Open Ukrainian food menu">
             <img src="assets/images/ukrainian-table.jpg" alt="Ukrainian homemade varenyky and borscht" />
             <div>
               <p data-i18n="cuisine.ukrainianLabel">Украинская и восточноевропейская</p>
               <h3 data-i18n="cuisine.ukrainianTitle">Борщ, вареники, голубцы, домашние салаты</h3>
+              <span class="card-link" data-i18n="cuisine.openMenu">Открыть меню</span>
             </div>
-          </article>
-          <article class="cuisine-card">
+          </a>
+          <a class="cuisine-card" href="#assortment" data-cuisine-card="caucasus" data-i18n-aria="cuisine.caucasusAria" aria-label="Open Caucasian food menu">
             <img src="assets/images/caucasus-mediterranean.jpg" alt="Caucasian and Mediterranean dishes" />
             <div>
-              <p data-i18n="cuisine.caucasusLabel">Кавказ и Средиземноморье</p>
-              <h3 data-i18n="cuisine.caucasusTitle">Хачапури, долма, гриль, овощи, соусы</h3>
+              <p data-i18n="cuisine.caucasusLabel">Кавказская кухня</p>
+              <h3 data-i18n="cuisine.caucasusTitle">Хачапури, долма, хинкали, гриль, зелень</h3>
+              <span class="card-link" data-i18n="cuisine.openMenu">Открыть меню</span>
             </div>
-          </article>
-          <article class="cuisine-card">
+          </a>
+          <a class="cuisine-card" href="#assortment" data-cuisine-card="mediterranean" data-i18n-aria="cuisine.mediterraneanAria" aria-label="Open Mediterranean food menu">
+            <img src="assets/images/caucasus-mediterranean.jpg" alt="Mediterranean homemade vegetables, herbs, and bread" />
+            <div>
+              <p data-i18n="cuisine.mediterraneanLabel">Средиземноморская кухня</p>
+              <h3 data-i18n="cuisine.mediterraneanTitle">Мезе, салаты, овощи, хумус, теплый хлеб</h3>
+              <span class="card-link" data-i18n="cuisine.openMenu">Открыть меню</span>
+            </div>
+          </a>
+          <a class="cuisine-card" href="#assortment" data-cuisine-card="asian" data-i18n-aria="cuisine.asianAria" aria-label="Open Asian food menu">
             <img src="assets/images/asian-table.jpg" alt="Asian homemade noodles and dumplings" />
             <div>
               <p data-i18n="cuisine.asianLabel">Азиатская домашняя кухня</p>
               <h3 data-i18n="cuisine.asianTitle">Дамплинги, лапша, рис, свежие закуски</h3>
+              <span class="card-link" data-i18n="cuisine.openMenu">Открыть меню</span>
             </div>
-          </article>
+          </a>
         </div>
 
-        <div class="menu-shell">
+        <div class="menu-shell" id="assortment">
           <div class="menu-tabs" role="tablist" aria-label="Menu categories">
-            <button class="tab-btn is-active" type="button" data-menu-tab="family" role="tab" aria-selected="true"></button>
+            <button class="tab-btn is-active" type="button" data-menu-tab="all" role="tab" aria-selected="true"></button>
             <button class="tab-btn" type="button" data-menu-tab="ukrainian" role="tab" aria-selected="false"></button>
             <button class="tab-btn" type="button" data-menu-tab="caucasus" role="tab" aria-selected="false"></button>
+            <button class="tab-btn" type="button" data-menu-tab="mediterranean" role="tab" aria-selected="false"></button>
             <button class="tab-btn" type="button" data-menu-tab="asian" role="tab" aria-selected="false"></button>
           </div>
           <div class="menu-list" data-menu-list></div>

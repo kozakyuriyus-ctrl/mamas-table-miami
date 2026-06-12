@@ -33,21 +33,29 @@ const copy = {
       kicker: "Кухни",
       title: "Меню, которое собирает семью за одним столом",
       subtitle:
-        "Временная структура меню уже готова для запуска. Позже можно заменить позиции, цены и фотографии на ваши реальные блюда.",
+        "Выберите кухню: откроются первые блюда, вторые, закуски, выпечка и сеты. Позиции временные, но собраны как полноценный стартовый ассортимент.",
       tabs: {
-        family: "Семейные сеты",
-        ukrainian: "Украинское",
-        caucasus: "Кавказ и Средиземноморье",
-        asian: "Азиатское",
+        all: "Топ блюд",
+        ukrainian: "Украинская еда",
+        caucasus: "Кавказская еда",
+        mediterranean: "Средиземноморская",
+        asian: "Азиатская еда",
       },
     },
     cuisine: {
       ukrainianLabel: "Украинская и восточноевропейская",
       ukrainianTitle: "Борщ, вареники, голубцы, домашние салаты",
-      caucasusLabel: "Кавказ и Средиземноморье",
-      caucasusTitle: "Хачапури, долма, гриль, овощи, соусы",
+      ukrainianAria: "Открыть меню украинской кухни",
+      caucasusLabel: "Кавказская кухня",
+      caucasusTitle: "Хачапури, долма, хинкали, гриль, зелень",
+      caucasusAria: "Открыть меню кавказской кухни",
+      mediterraneanLabel: "Средиземноморская кухня",
+      mediterraneanTitle: "Мезе, салаты, овощи, хумус, теплый хлеб",
+      mediterraneanAria: "Открыть меню средиземноморской кухни",
       asianLabel: "Азиатская домашняя кухня",
       asianTitle: "Дамплинги, лапша, рис, свежие закуски",
+      asianAria: "Открыть меню азиатской кухни",
+      openMenu: "Открыть меню",
     },
     service: {
       kicker: "Формат",
@@ -104,7 +112,8 @@ const copy = {
       styles: {
         family: "Семейный стол",
         ukrainian: "Украинское / Восточноевропейское",
-        caucasus: "Кавказ / Средиземноморье",
+        caucasus: "Кавказская кухня",
+        mediterranean: "Средиземноморская кухня",
         asian: "Азиатский стол",
         custom: "Индивидуальное событие",
       },
@@ -249,21 +258,29 @@ const copy = {
       kicker: "Кухні",
       title: "Меню, яке збирає родину за одним столом",
       subtitle:
-        "Тимчасова структура меню вже готова для запуску. Пізніше можна замінити позиції, ціни та фотографії на ваші реальні страви.",
+        "Оберіть кухню: відкриються перші страви, другі, закуски, випічка та сети. Позиції тимчасові, але зібрані як повноцінний стартовий асортимент.",
       tabs: {
-        family: "Сімейні сети",
-        ukrainian: "Українське",
-        caucasus: "Кавказ і Середземномор'я",
-        asian: "Азійське",
+        all: "Топ страв",
+        ukrainian: "Українська їжа",
+        caucasus: "Кавказька їжа",
+        mediterranean: "Середземноморська",
+        asian: "Азійська їжа",
       },
     },
     cuisine: {
       ukrainianLabel: "Українська та східноєвропейська",
       ukrainianTitle: "Борщ, вареники, голубці, домашні салати",
-      caucasusLabel: "Кавказ і Середземномор'я",
-      caucasusTitle: "Хачапурі, долма, гриль, овочі, соуси",
+      ukrainianAria: "Відкрити меню української кухні",
+      caucasusLabel: "Кавказька кухня",
+      caucasusTitle: "Хачапурі, долма, хінкалі, гриль, зелень",
+      caucasusAria: "Відкрити меню кавказької кухні",
+      mediterraneanLabel: "Середземноморська кухня",
+      mediterraneanTitle: "Мезе, салати, овочі, хумус, теплий хліб",
+      mediterraneanAria: "Відкрити меню середземноморської кухні",
       asianLabel: "Азійська домашня кухня",
       asianTitle: "Дамплінги, локшина, рис, свіжі закуски",
+      asianAria: "Відкрити меню азійської кухні",
+      openMenu: "Відкрити меню",
     },
     service: {
       kicker: "Формат",
@@ -320,7 +337,8 @@ const copy = {
       styles: {
         family: "Сімейний стіл",
         ukrainian: "Українське / Східноєвропейське",
-        caucasus: "Кавказ / Середземномор'я",
+        caucasus: "Кавказька кухня",
+        mediterranean: "Середземноморська кухня",
         asian: "Азійський стіл",
         custom: "Індивідуальна подія",
       },
@@ -360,21 +378,29 @@ const copy = {
       kicker: "Cuisines",
       title: "A menu made for gathering around one table",
       subtitle:
-        "The launch menu structure is ready. Real dishes, prices, and photos can be swapped in later.",
+        "Choose a cuisine to open first courses, mains, appetizers, baked dishes, and family sets. These are launch-ready sample items.",
       tabs: {
-        family: "Family sets",
-        ukrainian: "Ukrainian",
-        caucasus: "Caucasus & Mediterranean",
-        asian: "Asian",
+        all: "Top dishes",
+        ukrainian: "Ukrainian food",
+        caucasus: "Caucasian food",
+        mediterranean: "Mediterranean",
+        asian: "Asian food",
       },
     },
     cuisine: {
       ukrainianLabel: "Ukrainian and Eastern European",
       ukrainianTitle: "Borscht, varenyky, holubtsi, homemade salads",
-      caucasusLabel: "Caucasus and Mediterranean",
-      caucasusTitle: "Khachapuri, dolma, grill, vegetables, sauces",
+      ukrainianAria: "Open Ukrainian food menu",
+      caucasusLabel: "Caucasian food",
+      caucasusTitle: "Khachapuri, dolma, khinkali, grill, herbs",
+      caucasusAria: "Open Caucasian food menu",
+      mediterraneanLabel: "Mediterranean food",
+      mediterraneanTitle: "Mezze, salads, vegetables, hummus, warm bread",
+      mediterraneanAria: "Open Mediterranean food menu",
       asianLabel: "Asian homemade food",
       asianTitle: "Dumplings, noodles, rice, fresh small plates",
+      asianAria: "Open Asian food menu",
+      openMenu: "Open menu",
     },
     service: {
       kicker: "Format",
@@ -431,7 +457,8 @@ const copy = {
       styles: {
         family: "Family Table",
         ukrainian: "Ukrainian / Eastern European",
-        caucasus: "Caucasus / Mediterranean",
+        caucasus: "Caucasian food",
+        mediterranean: "Mediterranean food",
         asian: "Asian Table",
         custom: "Custom Event",
       },
@@ -656,9 +683,720 @@ copy.uk.menuItems = {
   ],
 };
 
+copy.ru.menuItems = {
+  all: [
+    {
+      kind: "Первое",
+      name: "Борщ с пампушками",
+      price: "от $16",
+      text: "Глубокий украинский борщ со сметаной, зеленью и чесночными пампушками.",
+      tags: ["украинская", "горячее", "топ"],
+    },
+    {
+      kind: "Второе",
+      name: "Вареники ассорти",
+      price: "от $24",
+      text: "Картофель, творог, вишня или сезонная начинка, подача с луком, маслом и сметаной.",
+      tags: ["ручная лепка", "семейное", "comfort"],
+    },
+    {
+      kind: "Выпечка",
+      name: "Хачапури по-аджарски",
+      price: "от $28",
+      text: "Теплая сырная лодочка с мягким тестом, зеленью и насыщенной домашней подачей.",
+      tags: ["кавказ", "сыр", "share"],
+    },
+    {
+      kind: "Второе",
+      name: "Долма с йогуртовым соусом",
+      price: "от $32",
+      text: "Виноградные листья с нежной начинкой, зеленью, гранатом и прохладным соусом.",
+      tags: ["кавказ", "закуска", "herbs"],
+    },
+    {
+      kind: "Закуски",
+      name: "Средиземноморский мезе-сет",
+      price: "от $42",
+      text: "Хумус, табуле, оливки, овощи, соусы и теплый хлеб для легкого общего стола.",
+      tags: ["мезе", "vegetarian", "party"],
+    },
+    {
+      kind: "Второе",
+      name: "Дамплинги и лапша",
+      price: "от $34",
+      text: "Домашние дамплинги, овощная лапша, огуречный салат и соусы в азиатском стиле.",
+      tags: ["азиатская", "share", "sauce"],
+    },
+    {
+      kind: "Сет",
+      name: "Mama's Family Table",
+      price: "от $89",
+      text: "Готовый семейный стол из первых, вторых, закусок и соусов под ваш вечер.",
+      tags: ["4-6 гостей", "предзаказ", "best start"],
+    },
+    {
+      kind: "Второе",
+      name: "Гриль, плов и овощи",
+      price: "от $76",
+      text: "Ароматный рис, домашний гриль, запеченные овощи, зелень и несколько соусов.",
+      tags: ["сытно", "семья", "ужин"],
+    },
+  ],
+  ukrainian: [
+    {
+      kind: "Первое",
+      name: "Красный борщ",
+      price: "от $16",
+      text: "Классический борщ с насыщенным бульоном, свеклой, капустой, зеленью и сметаной.",
+      tags: ["первое", "classic", "warm"],
+    },
+    {
+      kind: "Первое",
+      name: "Домашний куриный суп",
+      price: "от $14",
+      text: "Легкий бульон с курицей, овощами, зеленью и лапшой или картофелем.",
+      tags: ["легко", "детям", "comfort"],
+    },
+    {
+      kind: "Второе",
+      name: "Вареники с картофелем",
+      price: "от $22",
+      text: "Мягкое тесто, картофельная начинка, жареный лук, масло и сметана.",
+      tags: ["ручная лепка", "семейное", "подача"],
+    },
+    {
+      kind: "Второе",
+      name: "Голубцы в томатном соусе",
+      price: "от $42",
+      text: "Нежные голубцы с рисом и мясом, медленно томленные в домашнем соусе.",
+      tags: ["tray", "slow cooked", "family"],
+    },
+    {
+      kind: "Второе",
+      name: "Котлета по-киевски",
+      price: "от $24",
+      text: "Хрустящая корочка, сочная курица, ароматное масло внутри и картофельный гарнир.",
+      tags: ["premium", "main", "crispy"],
+    },
+    {
+      kind: "Закуски",
+      name: "Салатный стол",
+      price: "от $18",
+      text: "Оливье, винегрет, свекольный салат, соленья и свежие сезонные добавки.",
+      tags: ["праздник", "закуски", "seasonal"],
+    },
+  ],
+  caucasus: [
+    {
+      kind: "Первое",
+      name: "Харчо",
+      price: "от $18",
+      text: "Пряный суп с рисом, томатом, зеленью, чесноком и глубоким домашним вкусом.",
+      tags: ["первое", "spiced", "warm"],
+    },
+    {
+      kind: "Второе",
+      name: "Хинкали",
+      price: "от $28",
+      text: "Сочные хинкали с мясной или сырной начинкой, зеленью и перцем.",
+      tags: ["ручная лепка", "juicy", "share"],
+    },
+    {
+      kind: "Выпечка",
+      name: "Хачапури",
+      price: "от $28",
+      text: "Домашняя сырная выпечка с золотистой корочкой, мягкой серединой и зеленью.",
+      tags: ["сыр", "baked", "favorite"],
+    },
+    {
+      kind: "Второе",
+      name: "Чахохбили",
+      price: "от $36",
+      text: "Курица в томатах, зелени, чесноке и специях, подается с рисом или хлебом.",
+      tags: ["main", "sauce", "herbs"],
+    },
+    {
+      kind: "Закуски",
+      name: "Долма",
+      price: "от $32",
+      text: "Виноградные листья с начинкой, йогуртовый соус, гранат и свежая зелень.",
+      tags: ["small bites", "yogurt", "greens"],
+    },
+    {
+      kind: "Второе",
+      name: "Гриль-сет",
+      price: "от $76",
+      text: "Мясо или курица на гриле, овощи, рис, лаваш, зелень и домашние соусы.",
+      tags: ["family", "dinner", "grill"],
+    },
+  ],
+  mediterranean: [
+    {
+      kind: "Первое",
+      name: "Чечевичный суп",
+      price: "от $15",
+      text: "Теплый суп с чечевицей, овощами, лимоном, оливковым маслом и зеленью.",
+      tags: ["первое", "light", "vegetarian"],
+    },
+    {
+      kind: "Закуски",
+      name: "Хумус и мезе",
+      price: "от $24",
+      text: "Хумус, овощи, оливки, соусы, свежие травы и теплый хлеб для подачи в центр стола.",
+      tags: ["мезе", "share", "fresh"],
+    },
+    {
+      kind: "Салат",
+      name: "Греческий салат",
+      price: "от $18",
+      text: "Огурцы, томаты, фета, оливки, зелень и оливковое масло.",
+      tags: ["fresh", "salad", "classic"],
+    },
+    {
+      kind: "Второе",
+      name: "Мусака",
+      price: "от $38",
+      text: "Запеченные баклажаны, мясной или овощной слой, нежный соус и сырная корочка.",
+      tags: ["baked", "main", "rich"],
+    },
+    {
+      kind: "Второе",
+      name: "Сувлаки с овощами",
+      price: "от $34",
+      text: "Курица или овощи, теплый хлеб, салат, лимон и йогуртовый соус.",
+      tags: ["main", "grill", "bright"],
+    },
+    {
+      kind: "Второе",
+      name: "Запеченные овощи и табуле",
+      price: "от $32",
+      text: "Баклажан, перец, цукини, табуле, зелень и цитрусовая заправка.",
+      tags: ["vegetarian", "tray", "events"],
+    },
+  ],
+  asian: [
+    {
+      kind: "Первое",
+      name: "Том-ям в домашнем стиле",
+      price: "от $19",
+      text: "Ароматный кисло-острый суп с грибами, овощами, травами и белком на выбор.",
+      tags: ["первое", "spicy", "bright"],
+    },
+    {
+      kind: "Первое",
+      name: "Рамен-бульон",
+      price: "от $18",
+      text: "Теплый бульон с лапшой, яйцом, зеленью и овощами.",
+      tags: ["noodles", "warm", "comfort"],
+    },
+    {
+      kind: "Второе",
+      name: "Домашние дамплинги",
+      price: "от $26",
+      text: "Сочные дамплинги с соусом, кунжутом, зеленым луком и легким чили.",
+      tags: ["ручная лепка", "sauce", "share"],
+    },
+    {
+      kind: "Второе",
+      name: "Лапша с овощами",
+      price: "от $19",
+      text: "Лапша с овощами, зеленью, кунжутом и сбалансированным домашним соусом.",
+      tags: ["wok style", "fresh", "main"],
+    },
+    {
+      kind: "Второе",
+      name: "Жареный рис",
+      price: "от $18",
+      text: "Рис с овощами, яйцом или белком на выбор, зеленью и соусом.",
+      tags: ["rice", "lunch", "custom"],
+    },
+    {
+      kind: "Закуски",
+      name: "Азиатские закуски",
+      price: "от $42",
+      text: "Огуречный салат, спринг-роллы, соусы, зелень и небольшие теплые блюда.",
+      tags: ["party", "small bites", "fresh"],
+    },
+  ],
+};
+
+copy.uk.menuItems = {
+  all: [
+    {
+      kind: "Перша страва",
+      name: "Борщ із пампушками",
+      price: "від $16",
+      text: "Глибокий український борщ зі сметаною, зеленню та часниковими пампушками.",
+      tags: ["українська", "гаряче", "топ"],
+    },
+    {
+      kind: "Друга страва",
+      name: "Вареники асорті",
+      price: "від $24",
+      text: "Картопля, сир, вишня або сезонна начинка, подача з цибулею, маслом і сметаною.",
+      tags: ["ручна ліпка", "сімейне", "comfort"],
+    },
+    {
+      kind: "Випічка",
+      name: "Хачапурі по-аджарськи",
+      price: "від $28",
+      text: "Теплий сирний човник із м'яким тістом, зеленню та щедрою домашньою подачею.",
+      tags: ["кавказ", "сир", "share"],
+    },
+    {
+      kind: "Друга страва",
+      name: "Долма з йогуртовим соусом",
+      price: "від $32",
+      text: "Виноградне листя з ніжною начинкою, зеленню, гранатом і прохолодним соусом.",
+      tags: ["кавказ", "закуска", "herbs"],
+    },
+    {
+      kind: "Закуски",
+      name: "Середземноморський мезе-сет",
+      price: "від $42",
+      text: "Хумус, табуле, оливки, овочі, соуси та теплий хліб для легкого спільного столу.",
+      tags: ["мезе", "vegetarian", "party"],
+    },
+    {
+      kind: "Друга страва",
+      name: "Дамплінги і локшина",
+      price: "від $34",
+      text: "Домашні дамплінги, овочева локшина, огірковий салат і соуси в азійському стилі.",
+      tags: ["азійська", "share", "sauce"],
+    },
+    {
+      kind: "Сет",
+      name: "Mama's Family Table",
+      price: "від $89",
+      text: "Готовий сімейний стіл із перших, других, закусок і соусів під ваш вечір.",
+      tags: ["4-6 гостей", "передзамовлення", "best start"],
+    },
+    {
+      kind: "Друга страва",
+      name: "Гриль, плов і овочі",
+      price: "від $76",
+      text: "Ароматний рис, домашній гриль, запечені овочі, зелень і кілька соусів.",
+      tags: ["ситно", "родина", "вечеря"],
+    },
+  ],
+  ukrainian: [
+    {
+      kind: "Перша страва",
+      name: "Червоний борщ",
+      price: "від $16",
+      text: "Класичний борщ із насиченим бульйоном, буряком, капустою, зеленню та сметаною.",
+      tags: ["перше", "classic", "warm"],
+    },
+    {
+      kind: "Перша страва",
+      name: "Домашній курячий суп",
+      price: "від $14",
+      text: "Легкий бульйон із куркою, овочами, зеленню та локшиною або картоплею.",
+      tags: ["легко", "дітям", "comfort"],
+    },
+    {
+      kind: "Друга страва",
+      name: "Вареники з картоплею",
+      price: "від $22",
+      text: "М'яке тісто, картопляна начинка, смажена цибуля, масло та сметана.",
+      tags: ["ручна ліпка", "сімейне", "подача"],
+    },
+    {
+      kind: "Друга страва",
+      name: "Голубці в томатному соусі",
+      price: "від $42",
+      text: "Ніжні голубці з рисом і м'ясом, повільно томлені в домашньому соусі.",
+      tags: ["tray", "slow cooked", "family"],
+    },
+    {
+      kind: "Друга страва",
+      name: "Котлета по-київськи",
+      price: "від $24",
+      text: "Хрустка скоринка, соковита курка, ароматне масло всередині та картопляний гарнір.",
+      tags: ["premium", "main", "crispy"],
+    },
+    {
+      kind: "Закуски",
+      name: "Салатний стіл",
+      price: "від $18",
+      text: "Олів'є, вінегрет, буряковий салат, соління та свіжі сезонні додатки.",
+      tags: ["свято", "закуски", "seasonal"],
+    },
+  ],
+  caucasus: [
+    {
+      kind: "Перша страва",
+      name: "Харчо",
+      price: "від $18",
+      text: "Пряний суп із рисом, томатом, зеленню, часником і глибоким домашнім смаком.",
+      tags: ["перше", "spiced", "warm"],
+    },
+    {
+      kind: "Друга страва",
+      name: "Хінкалі",
+      price: "від $28",
+      text: "Соковиті хінкалі з м'ясною або сирною начинкою, зеленню та перцем.",
+      tags: ["ручна ліпка", "juicy", "share"],
+    },
+    {
+      kind: "Випічка",
+      name: "Хачапурі",
+      price: "від $28",
+      text: "Домашня сирна випічка із золотистою скоринкою, м'якою серединою та зеленню.",
+      tags: ["сир", "baked", "favorite"],
+    },
+    {
+      kind: "Друга страва",
+      name: "Чахохбілі",
+      price: "від $36",
+      text: "Курка в томатах, зелені, часнику та спеціях, подається з рисом або хлібом.",
+      tags: ["main", "sauce", "herbs"],
+    },
+    {
+      kind: "Закуски",
+      name: "Долма",
+      price: "від $32",
+      text: "Виноградне листя з начинкою, йогуртовий соус, гранат і свіжа зелень.",
+      tags: ["small bites", "yogurt", "greens"],
+    },
+    {
+      kind: "Друга страва",
+      name: "Гриль-сет",
+      price: "від $76",
+      text: "М'ясо або курка на грилі, овочі, рис, лаваш, зелень і домашні соуси.",
+      tags: ["family", "dinner", "grill"],
+    },
+  ],
+  mediterranean: [
+    {
+      kind: "Перша страва",
+      name: "Сочевичний суп",
+      price: "від $15",
+      text: "Теплий суп із сочевицею, овочами, лимоном, оливковою олією та зеленню.",
+      tags: ["перше", "light", "vegetarian"],
+    },
+    {
+      kind: "Закуски",
+      name: "Хумус і мезе",
+      price: "від $24",
+      text: "Хумус, овочі, оливки, соуси, свіжі трави та теплий хліб для центру столу.",
+      tags: ["мезе", "share", "fresh"],
+    },
+    {
+      kind: "Салат",
+      name: "Грецький салат",
+      price: "від $18",
+      text: "Огірки, томати, фета, оливки, зелень та оливкова олія.",
+      tags: ["fresh", "salad", "classic"],
+    },
+    {
+      kind: "Друга страва",
+      name: "Мусака",
+      price: "від $38",
+      text: "Запечені баклажани, м'ясний або овочевий шар, ніжний соус і сирна скоринка.",
+      tags: ["baked", "main", "rich"],
+    },
+    {
+      kind: "Друга страва",
+      name: "Сувлакі з овочами",
+      price: "від $34",
+      text: "Курка або овочі, теплий хліб, салат, лимон і йогуртовий соус.",
+      tags: ["main", "grill", "bright"],
+    },
+    {
+      kind: "Друга страва",
+      name: "Запечені овочі і табуле",
+      price: "від $32",
+      text: "Баклажан, перець, цукині, табуле, зелень і цитрусова заправка.",
+      tags: ["vegetarian", "tray", "events"],
+    },
+  ],
+  asian: [
+    {
+      kind: "Перша страва",
+      name: "Том-ям у домашньому стилі",
+      price: "від $19",
+      text: "Ароматний кисло-гострий суп із грибами, овочами, травами та білком на вибір.",
+      tags: ["перше", "spicy", "bright"],
+    },
+    {
+      kind: "Перша страва",
+      name: "Рамен-бульйон",
+      price: "від $18",
+      text: "Теплий бульйон із локшиною, яйцем, зеленню та овочами.",
+      tags: ["noodles", "warm", "comfort"],
+    },
+    {
+      kind: "Друга страва",
+      name: "Домашні дамплінги",
+      price: "від $26",
+      text: "Соковиті дамплінги з соусом, кунжутом, зеленою цибулею та легким чилі.",
+      tags: ["ручна ліпка", "sauce", "share"],
+    },
+    {
+      kind: "Друга страва",
+      name: "Локшина з овочами",
+      price: "від $19",
+      text: "Локшина з овочами, зеленню, кунжутом і збалансованим домашнім соусом.",
+      tags: ["wok style", "fresh", "main"],
+    },
+    {
+      kind: "Друга страва",
+      name: "Смажений рис",
+      price: "від $18",
+      text: "Рис з овочами, яйцем або білком на вибір, зеленню та соусом.",
+      tags: ["rice", "lunch", "custom"],
+    },
+    {
+      kind: "Закуски",
+      name: "Азійські закуски",
+      price: "від $42",
+      text: "Огірковий салат, спринг-роли, соуси, зелень і невеликі теплі страви.",
+      tags: ["party", "small bites", "fresh"],
+    },
+  ],
+};
+
+copy.en.menuItems = {
+  all: [
+    {
+      kind: "First course",
+      name: "Borscht with Pampushky",
+      price: "from $16",
+      text: "Deep Ukrainian borscht with sour cream, herbs, and garlic pampushky.",
+      tags: ["ukrainian", "warm", "top"],
+    },
+    {
+      kind: "Main",
+      name: "Assorted Varenyky",
+      price: "from $24",
+      text: "Potato, farmer cheese, cherry, or seasonal filling with onion, butter, and sour cream.",
+      tags: ["handmade", "family", "comfort"],
+    },
+    {
+      kind: "Baked",
+      name: "Adjarian Khachapuri",
+      price: "from $28",
+      text: "Warm cheese-filled bread with soft dough, herbs, and generous homemade styling.",
+      tags: ["caucasian", "cheese", "share"],
+    },
+    {
+      kind: "Main",
+      name: "Dolma with Yogurt Sauce",
+      price: "from $32",
+      text: "Grape leaves with a tender filling, herbs, pomegranate, and cool sauce.",
+      tags: ["caucasian", "small bites", "herbs"],
+    },
+    {
+      kind: "Appetizers",
+      name: "Mediterranean Mezze Set",
+      price: "from $42",
+      text: "Hummus, tabbouleh, olives, vegetables, sauces, and warm bread for sharing.",
+      tags: ["mezze", "vegetarian", "party"],
+    },
+    {
+      kind: "Main",
+      name: "Dumplings & Noodles",
+      price: "from $34",
+      text: "Homemade dumplings, vegetable noodles, cucumber salad, and Asian-style sauces.",
+      tags: ["asian", "share", "sauce"],
+    },
+    {
+      kind: "Set",
+      name: "Mama's Family Table",
+      price: "from $89",
+      text: "A ready family table with soups, mains, appetizers, and sauces for your evening.",
+      tags: ["4-6 guests", "pre-order", "best start"],
+    },
+    {
+      kind: "Main",
+      name: "Grill, Pilaf & Vegetables",
+      price: "from $76",
+      text: "Fragrant rice, homemade grill, roasted vegetables, herbs, and several sauces.",
+      tags: ["hearty", "family", "dinner"],
+    },
+  ],
+  ukrainian: [
+    {
+      kind: "First course",
+      name: "Red Borscht",
+      price: "from $16",
+      text: "Classic borscht with rich broth, beet, cabbage, herbs, and sour cream.",
+      tags: ["soup", "classic", "warm"],
+    },
+    {
+      kind: "First course",
+      name: "Homemade Chicken Soup",
+      price: "from $14",
+      text: "Light broth with chicken, vegetables, herbs, and noodles or potatoes.",
+      tags: ["light", "kids", "comfort"],
+    },
+    {
+      kind: "Main",
+      name: "Potato Varenyky",
+      price: "from $22",
+      text: "Soft dough, potato filling, fried onion, butter, and sour cream.",
+      tags: ["handmade", "family", "serve"],
+    },
+    {
+      kind: "Main",
+      name: "Holubtsi in Tomato Sauce",
+      price: "from $42",
+      text: "Tender cabbage rolls with rice and meat, slowly cooked in homemade sauce.",
+      tags: ["tray", "slow cooked", "family"],
+    },
+    {
+      kind: "Main",
+      name: "Chicken Kyiv",
+      price: "from $24",
+      text: "Crisp crust, juicy chicken, aromatic butter inside, and a potato side.",
+      tags: ["premium", "main", "crispy"],
+    },
+    {
+      kind: "Appetizers",
+      name: "Salad Table",
+      price: "from $18",
+      text: "Olivier, vinaigrette, beet salad, pickles, and fresh seasonal additions.",
+      tags: ["holiday", "appetizers", "seasonal"],
+    },
+  ],
+  caucasus: [
+    {
+      kind: "First course",
+      name: "Kharcho",
+      price: "from $18",
+      text: "Spiced soup with rice, tomato, herbs, garlic, and deep homemade flavor.",
+      tags: ["soup", "spiced", "warm"],
+    },
+    {
+      kind: "Main",
+      name: "Khinkali",
+      price: "from $28",
+      text: "Juicy khinkali with meat or cheese filling, herbs, and pepper.",
+      tags: ["handmade", "juicy", "share"],
+    },
+    {
+      kind: "Baked",
+      name: "Khachapuri",
+      price: "from $28",
+      text: "Homemade cheese bread with a golden crust, soft center, and herbs.",
+      tags: ["cheese", "baked", "favorite"],
+    },
+    {
+      kind: "Main",
+      name: "Chakhokhbili",
+      price: "from $36",
+      text: "Chicken in tomato, herbs, garlic, and spices, served with rice or bread.",
+      tags: ["main", "sauce", "herbs"],
+    },
+    {
+      kind: "Appetizers",
+      name: "Dolma",
+      price: "from $32",
+      text: "Grape leaves with filling, yogurt sauce, pomegranate, and fresh herbs.",
+      tags: ["small bites", "yogurt", "greens"],
+    },
+    {
+      kind: "Main",
+      name: "Grill Set",
+      price: "from $76",
+      text: "Grilled meat or chicken, vegetables, rice, lavash, herbs, and homemade sauces.",
+      tags: ["family", "dinner", "grill"],
+    },
+  ],
+  mediterranean: [
+    {
+      kind: "First course",
+      name: "Lentil Soup",
+      price: "from $15",
+      text: "Warm lentil soup with vegetables, lemon, olive oil, and herbs.",
+      tags: ["soup", "light", "vegetarian"],
+    },
+    {
+      kind: "Appetizers",
+      name: "Hummus & Mezze",
+      price: "from $24",
+      text: "Hummus, vegetables, olives, sauces, fresh herbs, and warm bread for the table.",
+      tags: ["mezze", "share", "fresh"],
+    },
+    {
+      kind: "Salad",
+      name: "Greek Salad",
+      price: "from $18",
+      text: "Cucumbers, tomatoes, feta, olives, herbs, and olive oil.",
+      tags: ["fresh", "salad", "classic"],
+    },
+    {
+      kind: "Main",
+      name: "Moussaka",
+      price: "from $38",
+      text: "Baked eggplant, meat or vegetable layer, soft sauce, and cheese crust.",
+      tags: ["baked", "main", "rich"],
+    },
+    {
+      kind: "Main",
+      name: "Souvlaki with Vegetables",
+      price: "from $34",
+      text: "Chicken or vegetables, warm bread, salad, lemon, and yogurt sauce.",
+      tags: ["main", "grill", "bright"],
+    },
+    {
+      kind: "Main",
+      name: "Roasted Vegetables & Tabbouleh",
+      price: "from $32",
+      text: "Eggplant, pepper, zucchini, tabbouleh, herbs, and citrus dressing.",
+      tags: ["vegetarian", "tray", "events"],
+    },
+  ],
+  asian: [
+    {
+      kind: "First course",
+      name: "Homestyle Tom Yum",
+      price: "from $19",
+      text: "Aromatic sour-spicy soup with mushrooms, vegetables, herbs, and protein choice.",
+      tags: ["soup", "spicy", "bright"],
+    },
+    {
+      kind: "First course",
+      name: "Ramen Broth",
+      price: "from $18",
+      text: "Warm broth with noodles, egg, herbs, and vegetables.",
+      tags: ["noodles", "warm", "comfort"],
+    },
+    {
+      kind: "Main",
+      name: "Homemade Dumplings",
+      price: "from $26",
+      text: "Juicy dumplings with sauce, sesame, scallions, and a gentle chili note.",
+      tags: ["handmade", "sauce", "share"],
+    },
+    {
+      kind: "Main",
+      name: "Noodles with Vegetables",
+      price: "from $19",
+      text: "Noodles with vegetables, herbs, sesame, and balanced homemade sauce.",
+      tags: ["wok style", "fresh", "main"],
+    },
+    {
+      kind: "Main",
+      name: "Fried Rice",
+      price: "from $18",
+      text: "Rice with vegetables, egg or protein choice, herbs, and sauce.",
+      tags: ["rice", "lunch", "custom"],
+    },
+    {
+      kind: "Appetizers",
+      name: "Asian Small Plates",
+      price: "from $42",
+      text: "Cucumber salad, spring rolls, sauces, herbs, and small warm dishes.",
+      tags: ["party", "small bites", "fresh"],
+    },
+  ],
+};
+
 let state = {
   lang: "ru",
-  menuTab: "family",
+  menuTab: "all",
 };
 
 const getText = (path) => {
@@ -696,6 +1434,10 @@ const renderMenu = () => {
     button.setAttribute("aria-selected", key === state.menuTab ? "true" : "false");
   });
 
+  document.querySelectorAll("[data-cuisine-card]").forEach((button) => {
+    button.classList.toggle("is-active", button.dataset.cuisineCard === state.menuTab);
+  });
+
   const list = document.querySelector("[data-menu-list]");
   const items = copy[state.lang].menuItems[state.menuTab];
   list.innerHTML = items
@@ -703,7 +1445,10 @@ const renderMenu = () => {
       (item) => `
         <article class="menu-item">
           <header>
-            <h3>${item.name}</h3>
+            <div class="menu-title-group">
+              <span class="menu-kind">${item.kind}</span>
+              <h3>${item.name}</h3>
+            </div>
             <span class="menu-price">${item.price}</span>
           </header>
           <p>${item.text}</p>
@@ -782,6 +1527,15 @@ const setupInteractions = () => {
     button.addEventListener("click", () => {
       state.menuTab = button.dataset.menuTab;
       renderMenu();
+    });
+  });
+
+  document.querySelectorAll("[data-cuisine-card]").forEach((button) => {
+    button.addEventListener("click", (event) => {
+      event.preventDefault();
+      state.menuTab = button.dataset.cuisineCard;
+      renderMenu();
+      document.querySelector("#assortment").scrollIntoView({ behavior: "smooth", block: "start" });
     });
   });
 
