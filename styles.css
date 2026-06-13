@@ -28,7 +28,7 @@ html {
 #about,
 #faq,
 #contact {
-  scroll-margin-top: calc(var(--header-height) + 54px);
+  scroll-margin-top: var(--header-height);
 }
 
 body {
@@ -412,20 +412,17 @@ p {
 }
 
 .how-strip {
-  display: grid;
-  align-content: center;
   width: min(100%, var(--max));
-  min-height: calc(100svh - var(--header-height) - 54px);
   margin: 0 auto;
-  padding: 48px clamp(20px, 5vw, 80px) 56px;
+  padding: 80px clamp(20px, 5vw, 80px);
   border-bottom: 1px solid var(--line);
   background: rgba(255, 253, 248, 0.78);
   text-align: center;
 }
 
 .how-strip h2 {
-  margin-bottom: 18px;
-  font-size: clamp(28px, 3vw, 36px);
+  margin-bottom: 14px;
+  font-size: clamp(36px, 4vw, 48px);
 }
 
 .how-grid {
@@ -462,14 +459,14 @@ p {
 }
 
 .how-card h3 {
-  font-size: 14px;
+  font-size: clamp(16px, 1.15vw, 18px);
   font-weight: 900;
 }
 
 .how-card p {
-  max-width: 190px;
+  max-width: 220px;
   color: var(--muted);
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 600;
 }
 
@@ -1608,6 +1605,10 @@ p {
 }
 
 @media (max-width: 760px) {
+  :root {
+    --header-height: 70px;
+  }
+
   body {
     padding-bottom: 78px;
   }
@@ -1782,7 +1783,20 @@ p {
   }
 
   .how-strip {
-    padding: 40px 18px 46px;
+    padding: 48px 18px;
+  }
+
+  .how-strip h2 {
+    margin-bottom: 12px;
+    font-size: clamp(30px, 9vw, 36px);
+  }
+
+  .how-card h3 {
+    font-size: 16px;
+  }
+
+  .how-card p {
+    font-size: 14px;
   }
 
   .how-grid,
