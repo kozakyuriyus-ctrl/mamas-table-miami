@@ -1020,11 +1020,21 @@ const scrollToCategoryDishes = (behavior = "smooth") => {
   window.scrollTo({ top, behavior });
 };
 
+const revealCategoryDishes = () => {
+  document.querySelectorAll("[data-category-dishes] .reveal").forEach((element) => {
+    element.classList.add("is-visible");
+  });
+};
+
 const scheduleCategoryDishesScroll = () => {
+  window.scrollTo({ top: 0, behavior: "auto" });
   requestAnimationFrame(() => {
     requestAnimationFrame(() => {
       scrollToCategoryDishes();
-      window.setTimeout(() => scrollToCategoryDishes("auto"), 420);
+      window.setTimeout(() => {
+        scrollToCategoryDishes("auto");
+        revealCategoryDishes();
+      }, 420);
     });
   });
 };
@@ -1216,6 +1226,7 @@ const renderRoute = () => {
   observeReveals();
 
   if (category && isMobileViewport()) {
+    revealCategoryDishes();
     scheduleCategoryDishesScroll();
   } else {
     window.scrollTo({ top: 0, behavior: "smooth" });
