@@ -996,6 +996,39 @@ const categoryById = (id) => categories.find((category) => category.id === id);
 
 const menuItemsByCategory = (id) => menuItems.filter((dish) => dish.category === id);
 
+const categoryRouteAliases = {
+  "first-dishes": "soups",
+  soups: "soups",
+  "main-dishes": "main-dishes",
+  salads: "salads",
+};
+
+const normalizeRoute = (route) => categoryRouteAliases[route] || route;
+
+const isMobileViewport = () => window.matchMedia("(max-width: 760px)").matches;
+
+const categoryScrollOffset = () => {
+  const header = document.querySelector("[data-header]");
+  const headerHeight = header?.getBoundingClientRect().height || Number.parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--header-height")) || 0;
+  return headerHeight + 18;
+};
+
+const scrollToCategoryDishes = (behavior = "smooth") => {
+  const dishPanel = document.querySelector("[data-category-dishes]");
+  if (!dishPanel) return;
+  const top = Math.max(0, dishPanel.getBoundingClientRect().top + window.scrollY - categoryScrollOffset());
+  window.scrollTo({ top, behavior });
+};
+
+const scheduleCategoryDishesScroll = () => {
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      scrollToCategoryDishes();
+      window.setTimeout(() => scrollToCategoryDishes("auto"), 420);
+    });
+  });
+};
+
 const cartEntries = () =>
   Array.from(state.cart.entries())
     .map(([id, quantity]) => ({ dish: dishById(id), quantity }))
@@ -1061,8 +1094,9 @@ const renderStaticData = () => {
 
 const routeFromHash = () => {
   const hash = window.location.hash.trim();
-  if (!hash.startsWith("#/")) return null;
-  return hash.slice(2) || "menu";
+  if (!hash) return null;
+  if (hash.startsWith("#/")) return normalizeRoute(hash.slice(2) || "menu");
+  return categoryRouteAliases[hash.slice(1)] || null;
 };
 
 const scrollToAnchorHash = () => {
@@ -1141,7 +1175,7 @@ const createCategoryPage = (category) => `
     </header>
 
     <div class="menu-page-layout">
-      <section class="menu-panel menu-content reveal">
+      <section class="menu-panel menu-content category-dishes-panel reveal" id="${escapeHtml(category.id)}-dishes" data-category-dishes>
         <div class="dish-grid menu-dish-grid">${menuItemsByCategory(category.id).map(createDishCard).join("")}</div>
       </section>
       ${createRouteOrderCard()}
@@ -1176,11 +1210,16 @@ const renderRoute = () => {
   routeView.innerHTML = route === "menu" ? createMenuOverviewPage() : createCategoryPage(category);
   document.body.classList.add("is-route-view");
   document.title = route === "menu" ? `${t("menuPage.title")} | Mama's Table` : `${text(category.title)} | Mama's Table`;
-  window.scrollTo({ top: 0, behavior: "smooth" });
   renderCart();
   renderDishQuantities();
   refreshIcons();
   observeReveals();
+
+  if (category && isMobileViewport()) {
+    scheduleCategoryDishesScroll();
+  } else {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
 };
 
 const setQuantity = (id, quantity) => {

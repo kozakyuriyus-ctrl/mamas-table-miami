@@ -857,6 +857,10 @@ p {
   padding: 24px;
 }
 
+.category-dishes-panel {
+  scroll-margin-top: calc(var(--header-height) + 18px);
+}
+
 .route-category-grid {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
