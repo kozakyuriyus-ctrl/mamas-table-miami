@@ -277,15 +277,14 @@
             <h3 data-i18n="cart.title">Ваш заказ</h3>
             <span data-cart-count>0</span>
           </div>
-          <div class="cart-list" data-cart-list></div>
-          <div class="cart-empty" data-cart-empty data-i18n="cart.empty">Добавьте блюда из меню.</div>
-          <div class="cart-total">
-            <span data-i18n="cart.total">Примерная сумма</span>
-            <strong data-cart-total>$0</strong>
+          <div class="cart-summary" data-cart-summary></div>
+          <div class="cart-actions" data-cart-actions></div>
+          <div class="cart-details" data-cart-details>
+            <div class="cart-list" data-cart-list></div>
           </div>
-          <a class="btn btn-primary cart-checkout" href="#/menu" data-checkout-link>
-            <span data-checkout-label>Отправить заказ в WhatsApp</span>
-          </a>
+          <div class="cart-empty" data-cart-empty data-i18n="cart.empty">Добавьте блюда из меню.</div>
+          <div class="checkout-panel" data-checkout-panel></div>
+          <div class="cart-thankyou" data-cart-thankyou></div>
         </aside>
       </section>
       </div>
@@ -296,7 +295,7 @@
     <a class="mobile-order-bar" href="#order-card" data-mobile-order>
       <span data-mobile-count>0</span>
       <strong data-mobile-total>$0</strong>
-      <em data-i18n="actions.orderNow">Заказать</em>
+      <em data-i18n="cart.checkout">Оформить заказ</em>
     </a>
 
     <footer class="site-footer">

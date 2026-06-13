@@ -97,12 +97,37 @@ const copy = {
       emptyTitle: "Корзина пуста",
       emptyText: "Добавьте блюда из меню, чтобы оформить заказ.",
       emptyAction: "Смотреть меню",
+      viewOrder: "Посмотреть заказ",
+      hideOrder: "Скрыть заказ",
       total: "Примерная сумма",
       add: "Добавить",
-      checkout: "Отправить заказ в WhatsApp",
+      checkout: "Оформить заказ",
       addFirst: "Сначала добавьте блюда",
       remove: "Убрать",
-      itemWord: "блюд",
+      itemWord: "позиций",
+      unitPrice: "за ед.",
+    },
+    checkout: {
+      title: "Оформление заказа",
+      intro: "Заполните данные, и мы свяжемся с вами для подтверждения.",
+      name: "Имя",
+      phone: "Телефон",
+      fulfillment: "Способ получения",
+      delivery: "Доставка",
+      pickup: "Самовывоз",
+      address: "Адрес доставки",
+      date: "Дата заказа",
+      time: "Время заказа",
+      payment: "Способ оплаты",
+      cash: "Cash",
+      zelle: "Zelle",
+      card: "Card",
+      other: "Other",
+      comment: "Комментарий к заказу",
+      submit: "Отправить заказ",
+      required: "Заполните обязательные поля",
+      thankYou: "Спасибо, заказ получен. Мы скоро свяжемся с вами.",
+      close: "Закрыть",
     },
     order: {
       title: "Заявка Mama's Table",
@@ -204,12 +229,37 @@ const copy = {
       emptyTitle: "Your cart is empty",
       emptyText: "Add dishes from the menu to place an order.",
       emptyAction: "View menu",
+      viewOrder: "View order",
+      hideOrder: "Hide order",
       total: "Estimated Total",
       add: "Add to Order",
-      checkout: "Send Order on WhatsApp",
+      checkout: "Checkout",
       addFirst: "Add dishes first",
       remove: "Remove",
       itemWord: "items",
+      unitPrice: "each",
+    },
+    checkout: {
+      title: "Checkout",
+      intro: "Fill in your details and we will contact you to confirm.",
+      name: "Name",
+      phone: "Phone",
+      fulfillment: "Receiving method",
+      delivery: "Delivery",
+      pickup: "Pickup",
+      address: "Delivery address",
+      date: "Order date",
+      time: "Order time",
+      payment: "Payment method",
+      cash: "Cash",
+      zelle: "Zelle",
+      card: "Card",
+      other: "Other",
+      comment: "Order comment",
+      submit: "Submit order",
+      required: "Please fill in the required fields",
+      thankYou: "Thank you, your order has been received. We will contact you soon.",
+      close: "Close",
     },
     order: {
       title: "Mama's Table order request",
@@ -311,12 +361,37 @@ const copy = {
       emptyTitle: "Кошик порожній",
       emptyText: "Додайте страви з меню, щоб оформити замовлення.",
       emptyAction: "Дивитися меню",
+      viewOrder: "Переглянути замовлення",
+      hideOrder: "Сховати замовлення",
       total: "Орієнтовна сума",
       add: "Додати",
-      checkout: "Надіслати замовлення у WhatsApp",
+      checkout: "Оформити замовлення",
       addFirst: "Спочатку додайте страви",
       remove: "Прибрати",
-      itemWord: "страв",
+      itemWord: "позицій",
+      unitPrice: "за од.",
+    },
+    checkout: {
+      title: "Оформлення замовлення",
+      intro: "Заповніть дані, і ми зв'яжемося з вами для підтвердження.",
+      name: "Ім'я",
+      phone: "Телефон",
+      fulfillment: "Спосіб отримання",
+      delivery: "Доставка",
+      pickup: "Самовивіз",
+      address: "Адреса доставки",
+      date: "Дата замовлення",
+      time: "Час замовлення",
+      payment: "Спосіб оплати",
+      cash: "Cash",
+      zelle: "Zelle",
+      card: "Card",
+      other: "Other",
+      comment: "Коментар до замовлення",
+      submit: "Надіслати замовлення",
+      required: "Заповніть обов'язкові поля",
+      thankYou: "Дякуємо, замовлення отримано. Ми скоро з вами зв'яжемося.",
+      close: "Закрити",
     },
     order: {
       title: "Заявка Mama's Table",
@@ -867,9 +942,25 @@ const categories = [
 
 const popularDishes = menuItems.filter((dish) => dish.popular);
 
+const createDefaultCheckoutForm = () => ({
+  name: "",
+  phone: "",
+  fulfillmentType: "delivery",
+  address: "",
+  date: "",
+  time: "",
+  paymentMethod: "cash",
+  comment: "",
+});
+
 const state = {
   lang: localStorage.getItem("mamasTableLang") || "ru",
   cart: new Map(),
+  cartExpanded: false,
+  checkoutOpen: false,
+  checkoutError: false,
+  checkoutForm: createDefaultCheckoutForm(),
+  submittedOrder: null,
 };
 
 const badgeLabels = {
@@ -883,6 +974,21 @@ const money = (value) => `$${value.toFixed(2).replace(/\\.00$/, "")}`;
 const text = (value) => value[state.lang] || value.ru || value.en || "";
 
 const t = (path) => path.split(".").reduce((obj, key) => obj?.[key], copy[state.lang]) || path;
+
+const slavicPlural = (count, one, few, many) => {
+  const value = Math.abs(count);
+  const mod10 = value % 10;
+  const mod100 = value % 100;
+  if (mod10 === 1 && mod100 !== 11) return one;
+  if (mod10 >= 2 && mod10 <= 4 && (mod100 < 12 || mod100 > 14)) return few;
+  return many;
+};
+
+const cartItemLabel = (count) => {
+  if (state.lang === "ru") return slavicPlural(count, "позиция", "позиции", "позиций");
+  if (state.lang === "uk") return slavicPlural(count, "позиція", "позиції", "позицій");
+  return count === 1 ? "item" : "items";
+};
 
 const dishById = (id) => menuItems.find((dish) => dish.id === id);
 
@@ -975,15 +1081,14 @@ const createRouteOrderCard = () => `
       <h3>${escapeHtml(t("cart.title"))}</h3>
       <span data-cart-count>0</span>
     </div>
-    <div class="cart-list" data-cart-list></div>
-    <div class="cart-empty" data-cart-empty>${escapeHtml(t("cart.empty"))}</div>
-    <div class="cart-total">
-      <span>${escapeHtml(t("cart.total"))}</span>
-      <strong data-cart-total>$0</strong>
+    <div class="cart-summary" data-cart-summary></div>
+    <div class="cart-actions" data-cart-actions></div>
+    <div class="cart-details" data-cart-details>
+      <div class="cart-list" data-cart-list></div>
     </div>
-    <a class="btn btn-primary cart-checkout" href="#/menu" data-checkout-link>
-      <span data-checkout-label>${escapeHtml(t("cart.checkout"))}</span>
-    </a>
+    <div class="cart-empty" data-cart-empty>${escapeHtml(t("cart.empty"))}</div>
+    <div class="checkout-panel" data-checkout-panel></div>
+    <div class="cart-thankyou" data-cart-thankyou></div>
   </aside>
 `;
 
@@ -1080,8 +1185,14 @@ const renderRoute = () => {
 
 const setQuantity = (id, quantity) => {
   const safeQuantity = Math.max(0, Math.min(quantity, 99));
+  if (safeQuantity > 0) state.submittedOrder = null;
   if (safeQuantity === 0) state.cart.delete(id);
   else state.cart.set(id, safeQuantity);
+  if (!state.cart.size) {
+    state.cartExpanded = false;
+    state.checkoutOpen = false;
+    state.checkoutError = false;
+  }
   renderCart();
   renderDishQuantities();
 };
@@ -1112,18 +1223,30 @@ const createCartEmptyState = () => `
   </div>
 `;
 
-const renderCart = () => {
-  const entries = cartEntries();
-  const total = cartTotal();
-  const count = cartCount();
+const createCartSummary = (count, total) => `
+  <p>${count} ${escapeHtml(cartItemLabel(count))} · <strong>${money(total)}</strong></p>
+`;
 
-  const cartHtml = entries
+const createCartActions = () => `
+  <button class="cart-secondary-action" type="button" data-toggle-cart>
+    ${escapeHtml(state.cartExpanded ? t("cart.hideOrder") : t("cart.viewOrder"))}
+  </button>
+  <button class="btn btn-primary cart-checkout" type="button" data-open-checkout>
+    ${escapeHtml(t("cart.checkout"))}
+  </button>
+`;
+
+const createCartDetails = (entries) =>
+  entries
     .map(
       ({ dish, quantity }) => `
         <div class="cart-item">
-          <div>
-            <strong>${escapeHtml(text(dish.name))}</strong>
-            <span>${money(dish.price * quantity)}</span>
+          <div class="cart-item-main">
+            <div>
+              <strong>${escapeHtml(text(dish.name))}</strong>
+              <span>${money(dish.price)} ${escapeHtml(t("cart.unitPrice"))} · x${quantity}</span>
+            </div>
+            <em>${money(dish.price * quantity)}</em>
           </div>
           <div class="cart-row">
             <button type="button" data-minus="${escapeHtml(dish.id)}">−</button>
@@ -1136,41 +1259,181 @@ const renderCart = () => {
     )
     .join("");
 
+const createCheckoutForm = () => {
+  const form = state.checkoutForm;
+  const isDelivery = form.fulfillmentType === "delivery";
+  const checked = (field, value) => (form[field] === value ? " checked" : "");
+  const selected = (field, value) => (form[field] === value ? " selected" : "");
+
+  return `
+    <form class="checkout-form" data-checkout-form novalidate>
+      <div class="checkout-head">
+        <div>
+          <h4>${escapeHtml(t("checkout.title"))}</h4>
+          <p>${escapeHtml(t("checkout.intro"))}</p>
+        </div>
+        <button type="button" data-close-checkout>${escapeHtml(t("checkout.close"))}</button>
+      </div>
+      <div class="form-grid">
+        <label class="form-field">
+          <span>${escapeHtml(t("checkout.name"))} *</span>
+          <input data-checkout-field name="name" type="text" value="${escapeHtml(form.name)}" autocomplete="name" required />
+        </label>
+        <label class="form-field">
+          <span>${escapeHtml(t("checkout.phone"))} *</span>
+          <input data-checkout-field name="phone" type="tel" value="${escapeHtml(form.phone)}" autocomplete="tel" required />
+        </label>
+        <fieldset class="form-field form-field-wide">
+          <legend>${escapeHtml(t("checkout.fulfillment"))} *</legend>
+          <div class="radio-group">
+            <label>
+              <input data-checkout-field name="fulfillmentType" type="radio" value="delivery"${checked("fulfillmentType", "delivery")} />
+              <span>${escapeHtml(t("checkout.delivery"))}</span>
+            </label>
+            <label>
+              <input data-checkout-field name="fulfillmentType" type="radio" value="pickup"${checked("fulfillmentType", "pickup")} />
+              <span>${escapeHtml(t("checkout.pickup"))}</span>
+            </label>
+          </div>
+        </fieldset>
+        <label class="form-field form-field-wide${isDelivery ? "" : " is-hidden"}">
+          <span>${escapeHtml(t("checkout.address"))}${isDelivery ? " *" : ""}</span>
+          <input data-checkout-field name="address" type="text" value="${escapeHtml(form.address)}" autocomplete="street-address" ${isDelivery ? "required" : ""} />
+        </label>
+        <label class="form-field">
+          <span>${escapeHtml(t("checkout.date"))} *</span>
+          <input data-checkout-field name="date" type="date" value="${escapeHtml(form.date)}" required />
+        </label>
+        <label class="form-field">
+          <span>${escapeHtml(t("checkout.time"))} *</span>
+          <input data-checkout-field name="time" type="time" value="${escapeHtml(form.time)}" required />
+        </label>
+        <label class="form-field form-field-wide">
+          <span>${escapeHtml(t("checkout.payment"))} *</span>
+          <select data-checkout-field name="paymentMethod" required>
+            <option value="cash"${selected("paymentMethod", "cash")}>${escapeHtml(t("checkout.cash"))}</option>
+            <option value="zelle"${selected("paymentMethod", "zelle")}>${escapeHtml(t("checkout.zelle"))}</option>
+            <option value="card"${selected("paymentMethod", "card")}>${escapeHtml(t("checkout.card"))}</option>
+            <option value="other"${selected("paymentMethod", "other")}>${escapeHtml(t("checkout.other"))}</option>
+          </select>
+        </label>
+        <label class="form-field form-field-wide">
+          <span>${escapeHtml(t("checkout.comment"))}</span>
+          <textarea data-checkout-field name="comment" rows="3">${escapeHtml(form.comment)}</textarea>
+        </label>
+      </div>
+      <p class="form-error" ${state.checkoutError ? "" : "hidden"}>${escapeHtml(t("checkout.required"))}</p>
+      <button class="btn btn-primary checkout-submit" type="submit">${escapeHtml(t("checkout.submit"))}</button>
+    </form>
+  `;
+};
+
+const createCartThankYouState = () => `
+  <div class="cart-thankyou-state">
+    <i data-lucide="check-circle-2"></i>
+    <p>${escapeHtml(t("checkout.thankYou"))}</p>
+  </div>
+`;
+
+const syncCheckoutFormFromElement = (form) => {
+  const data = new FormData(form);
+  state.checkoutForm = {
+    name: String(data.get("name") || "").trim(),
+    phone: String(data.get("phone") || "").trim(),
+    fulfillmentType: String(data.get("fulfillmentType") || "delivery"),
+    address: String(data.get("address") || "").trim(),
+    date: String(data.get("date") || ""),
+    time: String(data.get("time") || ""),
+    paymentMethod: String(data.get("paymentMethod") || "cash"),
+    comment: String(data.get("comment") || "").trim(),
+  };
+};
+
+const buildOrderData = () => {
+  const entries = cartEntries();
+  const fulfillmentType = state.checkoutForm.fulfillmentType === "pickup" ? "pickup" : "delivery";
+  return {
+    customer: {
+      name: state.checkoutForm.name,
+      phone: state.checkoutForm.phone,
+    },
+    fulfillment: {
+      type: fulfillmentType,
+      ...(fulfillmentType === "delivery" ? { address: state.checkoutForm.address } : {}),
+      date: state.checkoutForm.date,
+      time: state.checkoutForm.time,
+    },
+    paymentMethod: state.checkoutForm.paymentMethod,
+    ...(state.checkoutForm.comment ? { comment: state.checkoutForm.comment } : {}),
+    items: entries.map(({ dish, quantity }) => ({
+      id: dish.id,
+      name: text(dish.name),
+      quantity,
+      unitPrice: dish.price,
+      lineTotal: dish.price * quantity,
+    })),
+    total: cartTotal(),
+    language: state.lang === "uk" ? "ua" : state.lang,
+    createdAt: new Date().toISOString(),
+  };
+};
+
+const isOrderDataValid = (orderData) =>
+  Boolean(
+    orderData.items.length &&
+      orderData.customer.name &&
+      orderData.customer.phone &&
+      orderData.fulfillment.type &&
+      orderData.fulfillment.date &&
+      orderData.fulfillment.time &&
+      orderData.paymentMethod &&
+      (orderData.fulfillment.type !== "delivery" || orderData.fulfillment.address),
+  );
+
+const renderCart = () => {
+  const entries = cartEntries();
+  const total = cartTotal();
+  const count = cartCount();
+  const hasEntries = entries.length > 0;
+  const hasSubmittedOrder = Boolean(state.submittedOrder) && !hasEntries;
+
+  document.querySelectorAll(".order-card").forEach((card) => {
+    card.classList.toggle("is-empty", !hasEntries && !hasSubmittedOrder);
+    card.classList.toggle("is-submitted", hasSubmittedOrder);
+    card.classList.toggle("is-expanded", state.cartExpanded && hasEntries);
+    card.classList.toggle("is-checkout-open", state.checkoutOpen && hasEntries);
+  });
+  document.querySelectorAll("[data-cart-summary]").forEach((summary) => {
+    summary.innerHTML = hasEntries ? createCartSummary(count, total) : "";
+    summary.hidden = !hasEntries;
+  });
+  document.querySelectorAll("[data-cart-actions]").forEach((actions) => {
+    actions.innerHTML = hasEntries ? createCartActions() : "";
+    actions.hidden = !hasEntries;
+  });
   document.querySelectorAll("[data-cart-list]").forEach((list) => {
-    list.innerHTML = cartHtml;
+    list.innerHTML = hasEntries ? createCartDetails(entries) : "";
+  });
+  document.querySelectorAll("[data-cart-details]").forEach((details) => {
+    details.hidden = !hasEntries || !state.cartExpanded;
   });
   document.querySelectorAll("[data-cart-empty]").forEach((empty) => {
     empty.innerHTML = createCartEmptyState();
-    empty.hidden = entries.length > 0;
+    empty.hidden = hasEntries || hasSubmittedOrder;
   });
-  document.querySelectorAll(".order-card").forEach((card) => {
-    card.classList.toggle("is-empty", entries.length === 0);
+  document.querySelectorAll("[data-checkout-panel]").forEach((panel) => {
+    panel.innerHTML = hasEntries && state.checkoutOpen ? createCheckoutForm() : "";
+    panel.hidden = !hasEntries || !state.checkoutOpen;
+  });
+  document.querySelectorAll("[data-cart-thankyou]").forEach((thankYou) => {
+    thankYou.innerHTML = hasSubmittedOrder ? createCartThankYouState() : "";
+    thankYou.hidden = !hasSubmittedOrder;
   });
   document.querySelectorAll("[data-cart-count]").forEach((element) => {
     element.textContent = count;
   });
-  document.querySelectorAll("[data-cart-total]").forEach((element) => {
-    element.textContent = money(total);
-  });
-  document.querySelector("[data-mobile-count]").textContent = `${count} ${t("cart.itemWord")}`;
+  document.querySelector("[data-mobile-count]").textContent = `${count} ${cartItemLabel(count)}`;
   document.querySelector("[data-mobile-total]").textContent = money(total);
-
-  document.querySelectorAll("[data-checkout-link]").forEach((checkoutLink) => {
-    const checkoutLabel = checkoutLink.querySelector("[data-checkout-label]");
-    if (entries.length) {
-      checkoutLink.href = whatsappUrl(buildOrderMessage());
-      checkoutLink.target = "_blank";
-      checkoutLink.rel = "noopener noreferrer";
-      checkoutLink.removeAttribute("aria-disabled");
-      if (checkoutLabel) checkoutLabel.textContent = t("cart.checkout");
-    } else {
-      checkoutLink.href = "#/menu";
-      checkoutLink.removeAttribute("target");
-      checkoutLink.removeAttribute("rel");
-      checkoutLink.setAttribute("aria-disabled", "true");
-      if (checkoutLabel) checkoutLabel.textContent = t("cart.addFirst");
-    }
-  });
   refreshIcons();
 };
 
@@ -1197,6 +1460,9 @@ const handleClick = (event) => {
   const remove = event.target.closest("[data-remove]");
   const quick = event.target.closest("[data-whatsapp-quick]");
   const mobileOrder = event.target.closest("[data-mobile-order]");
+  const toggleCart = event.target.closest("[data-toggle-cart]");
+  const openCheckout = event.target.closest("[data-open-checkout]");
+  const closeCheckout = event.target.closest("[data-close-checkout]");
 
   if (lang) {
     state.lang = lang.dataset.lang;
@@ -1211,6 +1477,30 @@ const handleClick = (event) => {
   if (minus) setQuantity(minus.dataset.minus, cartQuantity(minus.dataset.minus) - 1);
   if (remove) setQuantity(remove.dataset.remove, 0);
 
+  if (toggleCart) {
+    event.preventDefault();
+    state.cartExpanded = !state.cartExpanded;
+    state.checkoutOpen = false;
+    state.checkoutError = false;
+    renderCart();
+  }
+
+  if (openCheckout) {
+    event.preventDefault();
+    if (!cartEntries().length) return;
+    state.checkoutOpen = true;
+    state.cartExpanded = false;
+    state.checkoutError = false;
+    renderCart();
+  }
+
+  if (closeCheckout) {
+    event.preventDefault();
+    state.checkoutOpen = false;
+    state.checkoutError = false;
+    renderCart();
+  }
+
   if (quick) {
     event.preventDefault();
     window.open(whatsappUrl(buildOrderMessage()), "_blank", "noopener,noreferrer");
@@ -1220,6 +1510,45 @@ const handleClick = (event) => {
     event.preventDefault();
     document.querySelector("[data-route-order-card]")?.scrollIntoView({ behavior: "smooth", block: "start" });
   }
+};
+
+const handleFormInput = (event) => {
+  const field = event.target.closest("[data-checkout-field]");
+  if (!field) return;
+  state.checkoutForm[field.name] = field.value;
+};
+
+const handleFormChange = (event) => {
+  const field = event.target.closest("[data-checkout-field]");
+  if (!field) return;
+  state.checkoutForm[field.name] = field.value;
+  if (field.name === "fulfillmentType") {
+    state.checkoutError = false;
+    renderCart();
+  }
+};
+
+const handleSubmit = (event) => {
+  const form = event.target.closest("[data-checkout-form]");
+  if (!form) return;
+  event.preventDefault();
+  syncCheckoutFormFromElement(form);
+  const orderData = buildOrderData();
+
+  if (!isOrderDataValid(orderData)) {
+    state.checkoutError = true;
+    renderCart();
+    return;
+  }
+
+  state.submittedOrder = orderData;
+  state.cart.clear();
+  state.cartExpanded = false;
+  state.checkoutOpen = false;
+  state.checkoutError = false;
+  state.checkoutForm = createDefaultCheckoutForm();
+  renderCart();
+  renderDishQuantities();
 };
 
 const setupHeader = () => {
@@ -1276,6 +1605,9 @@ document.addEventListener("DOMContentLoaded", () => {
   renderRoute();
   renderCart();
   document.addEventListener("click", handleClick);
+  document.addEventListener("input", handleFormInput);
+  document.addEventListener("change", handleFormChange);
+  document.addEventListener("submit", handleSubmit);
   window.addEventListener("hashchange", renderRoute);
   window.addEventListener("load", scrollToAnchorHash);
   refreshIcons();
