@@ -846,27 +846,6 @@ const categories = [
     title: tr("Салаты", "Salads", "Салати"),
     description: tr("Классические домашние и свежие средиземноморские салаты.", "Classic homemade and fresh Mediterranean salads.", "Класичні домашні та свіжі середземноморські салати."),
   },
-  {
-    id: "crepes-blini",
-    image: "assets/images/blini-crepes.jpg",
-    icon: "layers",
-    title: tr("Блины / Налистники", "Crepes / Blini", "Млинці / Налисники"),
-    description: tr("Тонкие блины и налистники со сладкими и солеными начинками.", "Thin crepes and blini with sweet and savory fillings.", "Тонкі млинці та налисники із солодкими й солоними начинками."),
-  },
-  {
-    id: "family-sets",
-    image: "assets/images/hero-table.jpg",
-    icon: "users",
-    title: tr("Семейные наборы", "Family Sets", "Сімейні набори"),
-    description: tr("Готовые наборы для 4–6 гостей и семейных ужинов.", "Ready sets for 4–6 guests and family dinners.", "Готові набори для 4–6 гостей і сімейних вечерь."),
-  },
-  {
-    id: "holiday-orders",
-    image: "assets/images/caucasus-mediterranean.jpg",
-    icon: "gift",
-    title: tr("Праздничные заказы", "Holiday Orders", "Святкові замовлення"),
-    description: tr("Праздничные блюда и индивидуальные меню для встреч, гостей и событий.", "Holiday dishes and custom menus for gatherings, guests and events.", "Святкові страви та індивідуальні меню для зустрічей, гостей і подій."),
-  },
 ];
 
 const popularDishes = menuItems.filter((dish) => dish.popular);
