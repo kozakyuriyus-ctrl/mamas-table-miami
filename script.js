@@ -1066,8 +1066,8 @@ const createDishBadge = (badge) => {
   return `<span class="dish-badge dish-badge-${escapeHtml(badge)}">${escapeHtml(text(label))}</span>`;
 };
 
-const createDishCard = (dish) => `
-  <article class="dish-card reveal">
+const createDishCard = (dish, options = {}) => `
+  <article class="dish-card${options.reveal === false ? "" : " reveal"}">
     <div class="dish-media">
       ${createDishBadge(dish.badge)}
       <img src="${escapeHtml(dish.image)}" alt="${escapeHtml(text(dish.name))}" loading="lazy" />
@@ -1092,7 +1092,7 @@ const createDishCard = (dish) => `
 `;
 
 const createCategoryCard = (category) => `
-  <a class="category-card reveal" href="#/${escapeHtml(category.id)}">
+  <a class="category-card reveal" href="#/${escapeHtml(category.id)}" data-category-route="${escapeHtml(category.id)}">
     <img src="${escapeHtml(category.image)}" alt="${escapeHtml(text(category.title))}" loading="lazy" />
     <span>
       <i data-lucide="${escapeHtml(category.icon)}"></i>
@@ -1193,7 +1193,7 @@ const createCategoryPage = (category) => `
 
     <div class="menu-page-layout">
       <section class="menu-panel menu-content category-dishes-panel reveal" id="${escapeHtml(category.id)}-dishes" data-category-dishes>
-        <div class="dish-grid menu-dish-grid">${menuItemsByCategory(category.id).map(createDishCard).join("")}</div>
+        <div class="dish-grid menu-dish-grid">${menuItemsByCategory(category.id).map((dish) => createDishCard(dish, { reveal: false })).join("")}</div>
       </section>
       ${createRouteOrderCard()}
     </div>
@@ -1511,6 +1511,7 @@ const refreshIcons = () => {
 
 const handleClick = (event) => {
   const lang = event.target.closest("[data-lang]");
+  const categoryRoute = event.target.closest("[data-category-route]");
   const add = event.target.closest("[data-add]");
   const plus = event.target.closest("[data-plus]");
   const minus = event.target.closest("[data-minus]");
@@ -1527,6 +1528,14 @@ const handleClick = (event) => {
     applyTranslations();
     renderStaticData();
     renderRoute();
+  }
+
+  if (categoryRoute) {
+    event.preventDefault();
+    const nextHash = `#/${categoryRoute.dataset.categoryRoute}`;
+    if (window.location.hash !== nextHash) window.location.hash = nextHash;
+    renderRoute();
+    return;
   }
 
   if (add) setQuantity(add.dataset.add, cartQuantity(add.dataset.add) + 1);
