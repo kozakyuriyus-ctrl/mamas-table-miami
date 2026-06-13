@@ -2093,6 +2093,11 @@ fieldset.form-field {
     min-height: 208px;
   }
 
+  .category-dishes-panel .reveal {
+    transform: none;
+    opacity: 1;
+  }
+
   .category-card {
     height: 190px;
     min-height: 170px;

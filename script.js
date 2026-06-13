@@ -1028,13 +1028,20 @@ const revealCategoryDishes = () => {
 
 const scheduleCategoryDishesScroll = () => {
   window.scrollTo({ top: 0, behavior: "auto" });
+  const syncScroll = () => {
+    scrollToCategoryDishes("auto");
+    revealCategoryDishes();
+  };
+  const heroImage = document.querySelector(".route-hero-image > img");
+
+  if (heroImage && !heroImage.complete) {
+    heroImage.addEventListener("load", syncScroll, { once: true });
+  }
+
   requestAnimationFrame(() => {
     requestAnimationFrame(() => {
-      scrollToCategoryDishes();
-      window.setTimeout(() => {
-        scrollToCategoryDishes("auto");
-        revealCategoryDishes();
-      }, 420);
+      syncScroll();
+      [140, 420, 900, 1600].forEach((delay) => window.setTimeout(syncScroll, delay));
     });
   });
 };
