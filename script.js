@@ -66,7 +66,7 @@ const copy = {
     },
     delivery: {
       eyebrow: "Зона доставки",
-      title: "Доставка по Miami и Broward",
+      title: "Доставка по Miami-Dade и Broward",
       note: "Стоимость доставки рассчитывается индивидуально в зависимости от района и объема заказа.",
     },
     testimonials: { eyebrow: "Отзывы", title: "Что говорят клиенты", note: "Отзывы первых клиентов скоро появятся здесь." },
@@ -198,7 +198,7 @@ const copy = {
     },
     delivery: {
       eyebrow: "Delivery Areas",
-      title: "Delivery across Miami and Broward",
+      title: "Delivery across Miami-Dade and Broward",
       note: "Delivery fee is calculated individually based on your location and order size.",
     },
     testimonials: { eyebrow: "Testimonials", title: "What Customers Say", note: "First customer reviews will appear here soon." },
@@ -330,7 +330,7 @@ const copy = {
     },
     delivery: {
       eyebrow: "Зона доставки",
-      title: "Доставка по Miami та Broward",
+      title: "Доставка по Miami-Dade та Broward",
       note: "Вартість доставки розраховується індивідуально залежно від району і розміру замовлення.",
     },
     testimonials: { eyebrow: "Відгуки", title: "Що кажуть клієнти", note: "Відгуки перших клієнтів скоро з'являться тут." },
