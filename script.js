@@ -959,6 +959,16 @@ const routeFromHash = () => {
   return hash.slice(2) || "menu";
 };
 
+const scrollToAnchorHash = () => {
+  const hash = window.location.hash.trim();
+  if (!hash || hash.startsWith("#/")) return;
+  try {
+    document.querySelector(hash)?.scrollIntoView({ block: "start" });
+  } catch {
+    return;
+  }
+};
+
 const createRouteOrderCard = () => `
   <aside class="order-card route-order-card reveal" id="route-order-card" data-route-order-card>
     <div class="order-head">
@@ -1052,11 +1062,7 @@ const renderRoute = () => {
     refreshIcons();
     observeReveals();
 
-    if (window.location.hash && !window.location.hash.startsWith("#/")) {
-      requestAnimationFrame(() => {
-        document.querySelector(window.location.hash)?.scrollIntoView({ block: "start" });
-      });
-    }
+    requestAnimationFrame(scrollToAnchorHash);
     return;
   }
 
@@ -1271,5 +1277,6 @@ document.addEventListener("DOMContentLoaded", () => {
   renderCart();
   document.addEventListener("click", handleClick);
   window.addEventListener("hashchange", renderRoute);
+  window.addEventListener("load", scrollToAnchorHash);
   refreshIcons();
 });
