@@ -94,6 +94,9 @@ const copy = {
     cart: {
       title: "Ваш заказ",
       empty: "Добавьте блюда из меню.",
+      emptyTitle: "Корзина пуста",
+      emptyText: "Добавьте блюда из меню, чтобы оформить заказ.",
+      emptyAction: "Смотреть меню",
       total: "Примерная сумма",
       add: "Добавить",
       checkout: "Отправить заказ в WhatsApp",
@@ -198,6 +201,9 @@ const copy = {
     cart: {
       title: "Your Order",
       empty: "Add dishes from the menu.",
+      emptyTitle: "Your cart is empty",
+      emptyText: "Add dishes from the menu to place an order.",
+      emptyAction: "View menu",
       total: "Estimated Total",
       add: "Add to Order",
       checkout: "Send Order on WhatsApp",
@@ -302,6 +308,9 @@ const copy = {
     cart: {
       title: "Ваше замовлення",
       empty: "Додайте страви з меню.",
+      emptyTitle: "Кошик порожній",
+      emptyText: "Додайте страви з меню, щоб оформити замовлення.",
+      emptyAction: "Дивитися меню",
       total: "Орієнтовна сума",
       add: "Додати",
       checkout: "Надіслати замовлення у WhatsApp",
@@ -324,6 +333,7 @@ const menuItems = [
     id: "borscht",
     category: "soups",
     popular: true,
+    badge: "bestseller",
     price: 9.5,
     image: "assets/images/mamas-table-hero-family.jpg",
     name: tr("Борщ", "Borscht", "Борщ"),
@@ -380,6 +390,7 @@ const menuItems = [
   {
     id: "mercimek-soup",
     category: "soups",
+    badge: "vegetarian",
     price: 9,
     image: "assets/images/caucasus-mediterranean.jpg",
     name: tr("Турецкий суп чечевичный мерджмек", "Turkish Mercimek Lentil Soup", "Турецький сочевичний суп мерджмек"),
@@ -412,6 +423,7 @@ const menuItems = [
   {
     id: "green-borscht",
     category: "soups",
+    badge: "new",
     price: 10,
     image: "assets/images/hero-table.jpg",
     name: tr("Зеленый борщ", "Green Borscht", "Зелений борщ"),
@@ -421,6 +433,7 @@ const menuItems = [
     id: "varenyky",
     category: "main-dishes",
     popular: true,
+    badge: "bestseller",
     price: 12.5,
     image: "assets/images/mamas-table-hero-family.jpg",
     name: tr("Вареники", "Vareniki", "Вареники"),
@@ -430,6 +443,7 @@ const menuItems = [
     id: "cabbage-rolls",
     category: "main-dishes",
     popular: true,
+    badge: "bestseller",
     price: 14.5,
     image: "assets/images/mamas-table-hero-family.jpg",
     name: tr("Голубцы", "Cabbage Rolls", "Голубці"),
@@ -487,6 +501,7 @@ const menuItems = [
   {
     id: "eggplant-pepper-saute",
     category: "main-dishes",
+    badge: "vegetarian",
     price: 12.5,
     image: "assets/images/caucasus-mediterranean.jpg",
     name: tr("Сате из баклажана с болгарским перцем", "Eggplant and Bell Pepper Saute", "Сате з баклажана з болгарським перцем"),
@@ -656,6 +671,7 @@ const menuItems = [
   {
     id: "mimosa-salad",
     category: "salads",
+    badge: "new",
     price: 9.5,
     image: "assets/images/ukrainian-table.jpg",
     name: tr("Салат Мимоза", "Mimosa Salad", "Салат Мімоза"),
@@ -672,6 +688,7 @@ const menuItems = [
   {
     id: "fresh-cabbage-salad",
     category: "salads",
+    badge: "vegetarian",
     price: 7.5,
     image: "assets/images/caucasus-mediterranean.jpg",
     name: tr("Салат со свежей капустой", "Fresh Cabbage Salad", "Салат зі свіжою капустою"),
@@ -855,6 +872,12 @@ const state = {
   cart: new Map(),
 };
 
+const badgeLabels = {
+  bestseller: tr("🔥 Бестселлер", "🔥 Bestseller", "🔥 Бестселер"),
+  vegetarian: tr("🌿 Вегетарианское", "🌿 Vegetarian", "🌿 Вегетаріанське"),
+  new: tr("✨ Новинка", "✨ New", "✨ Новинка"),
+};
+
 const money = (value) => `$${value.toFixed(2).replace(/\\.00$/, "")}`;
 
 const text = (value) => value[state.lang] || value.ru || value.en || "";
@@ -881,9 +904,18 @@ const cartQuantity = (id) => state.cart.get(id) || 0;
 const escapeHtml = (value) =>
   String(value).replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" })[char]);
 
+const createDishBadge = (badge) => {
+  const label = badgeLabels[badge];
+  if (!label) return "";
+  return `<span class="dish-badge dish-badge-${escapeHtml(badge)}">${escapeHtml(text(label))}</span>`;
+};
+
 const createDishCard = (dish) => `
   <article class="dish-card reveal">
-    <img src="${escapeHtml(dish.image)}" alt="${escapeHtml(text(dish.name))}" loading="lazy" />
+    <div class="dish-media">
+      ${createDishBadge(dish.badge)}
+      <img src="${escapeHtml(dish.image)}" alt="${escapeHtml(text(dish.name))}" loading="lazy" />
+    </div>
     <div class="dish-card-body">
       <h3>${escapeHtml(text(dish.name))}</h3>
       <p>${escapeHtml(text(dish.description))}</p>
@@ -1065,6 +1097,15 @@ const buildOrderMessage = () => {
 
 const whatsappUrl = (message) => `https://wa.me/${BUSINESS.whatsappNumber}?text=${encodeURIComponent(message)}`;
 
+const createCartEmptyState = () => `
+  <div class="cart-empty-state">
+    <i data-lucide="shopping-basket"></i>
+    <h4>${escapeHtml(t("cart.emptyTitle"))}</h4>
+    <p>${escapeHtml(t("cart.emptyText"))}</p>
+    <a href="#menu">${escapeHtml(t("cart.emptyAction"))}</a>
+  </div>
+`;
+
 const renderCart = () => {
   const entries = cartEntries();
   const total = cartTotal();
@@ -1093,7 +1134,11 @@ const renderCart = () => {
     list.innerHTML = cartHtml;
   });
   document.querySelectorAll("[data-cart-empty]").forEach((empty) => {
+    empty.innerHTML = createCartEmptyState();
     empty.hidden = entries.length > 0;
+  });
+  document.querySelectorAll(".order-card").forEach((card) => {
+    card.classList.toggle("is-empty", entries.length === 0);
   });
   document.querySelectorAll("[data-cart-count]").forEach((element) => {
     element.textContent = count;
@@ -1120,6 +1165,7 @@ const renderCart = () => {
       if (checkoutLabel) checkoutLabel.textContent = t("cart.addFirst");
     }
   });
+  refreshIcons();
 };
 
 const applyTranslations = () => {
@@ -1180,6 +1226,18 @@ const setupHeader = () => {
   window.addEventListener("scroll", update, { passive: true });
 };
 
+const setupFaqAccordion = () => {
+  const items = document.querySelectorAll(".faq-list details");
+  items.forEach((item) => {
+    item.addEventListener("toggle", () => {
+      if (!item.open) return;
+      items.forEach((other) => {
+        if (other !== item) other.open = false;
+      });
+    });
+  });
+};
+
 let revealObserver;
 
 const observeReveals = () => {
@@ -1206,6 +1264,7 @@ const observeReveals = () => {
 
 document.addEventListener("DOMContentLoaded", () => {
   setupHeader();
+  setupFaqAccordion();
   applyTranslations();
   renderStaticData();
   renderRoute();
