@@ -491,7 +491,7 @@ const menuItems = [
     id: "mushroom-cream-soup",
     category: "soups",
     price: 10.5,
-    image: "assets/images/caucasus-mediterranean.jpg",
+    image: "assets/images/soups/mushroom-soup.png",
     name: tr("Грибной суп-пюре", "Mushroom Cream Soup", "Грибний суп-пюре"),
     description: tr("Нежный кремовый суп-пюре с грибами и мягкими травами.", "Creamy mushroom soup with gentle herbs.", "Ніжний кремовий суп-пюре з грибами та м'якими травами."),
   },
