@@ -423,12 +423,16 @@ const menuItems = [
     description: tr("Легкий куриный бульон с овощами, зеленью и домашней лапшой.", "Light chicken broth with vegetables, herbs and homemade noodles.", "Легкий курячий бульйон з овочами, зеленню та домашньою локшиною."),
   },
   {
-    id: "mushroom-soup",
+    id: "topcheta-meatball-soup",
     category: "soups",
     price: 9,
-    image: "assets/images/soups/mushroom-soup.png",
-    name: tr("Грибной суп", "Mushroom Soup", "Грибний суп"),
-    description: tr("Насыщенный суп с грибами, картофелем и мягкими травами.", "Rich mushroom soup with potatoes and gentle herbs.", "Насичений суп з грибами, картоплею та м'якими травами."),
+    image: "assets/images/soups/topcheta-meatball-soup.png",
+    name: tr("Суп с фрикадельками Топчета", "Topcheta Meatball Soup", "Суп з фрикадельками Топчета"),
+    description: tr(
+      "Нежный суп с фрикадельками, йогуртовой заправкой, лёгкой кислинкой и нотками мяты.",
+      "Tender meatball soup with yogurt dressing, a light tangy flavor, and subtle mint notes.",
+      "Ніжний суп з фрикадельками, йогуртовою заправкою, легкою кислинкою та нотками м’яти."
+    ),
   },
   {
     id: "solyanka",
