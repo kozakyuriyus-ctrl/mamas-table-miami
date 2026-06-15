@@ -1,5 +1,5 @@
 const BUSINESS = {
-  whatsappNumber: "13050000000",
+  whatsappNumber: "19788358120",
 };
 
 const tr = (ru, en, uk) => ({ ru, en, uk });
@@ -977,9 +977,24 @@ const createDefaultCheckoutForm = () => ({
   comment: "",
 });
 
+const loadCart = () => {
+  try {
+    const saved = localStorage.getItem("mamasTableCart");
+    return saved ? new Map(JSON.parse(saved)) : new Map();
+  } catch {
+    return new Map();
+  }
+};
+
+const saveCart = (cart) => {
+  try {
+    localStorage.setItem("mamasTableCart", JSON.stringify(Array.from(cart.entries())));
+  } catch {}
+};
+
 const state = {
   lang: localStorage.getItem("mamasTableLang") || "ru",
-  cart: new Map(),
+  cart: loadCart(),
   cartExpanded: false,
   checkoutOpen: false,
   checkoutError: false,
@@ -1274,6 +1289,7 @@ const setQuantity = (id, quantity) => {
     state.checkoutOpen = false;
     state.checkoutError = false;
   }
+  saveCart(state.cart);
   renderCart();
   renderDishQuantities();
 };
@@ -1633,6 +1649,7 @@ const handleSubmit = (event) => {
 
   state.submittedOrder = orderData;
   state.cart.clear();
+  saveCart(state.cart);
   state.cartExpanded = false;
   state.checkoutOpen = false;
   state.checkoutError = false;

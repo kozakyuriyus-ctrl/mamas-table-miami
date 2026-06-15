@@ -1069,6 +1069,36 @@ p {
   font-weight: 800;
 }
 
+.testimonials-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.testimonial-item {
+  margin: 0;
+  padding: 20px 18px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--cream);
+}
+
+.testimonial-item p {
+  margin: 0 0 10px;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 16px;
+  font-style: italic;
+  line-height: 1.6;
+}
+
+.testimonial-item cite {
+  color: var(--muted);
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 700;
+}
+
 .testimonial-note {
   margin: 22px 0 0;
   padding: 28px;
