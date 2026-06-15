@@ -409,7 +409,7 @@ const menuItems = [
     category: "soups",
     popular: true,
     badge: "bestseller",
-    price: 9.5,
+    price: 30,
     image: "assets/images/soups/borscht.png",
     name: tr("Борщ", "Borscht", "Борщ"),
     description: tr("Традиционный украинский борщ со сметаной и зеленью.", "Traditional Ukrainian beet soup with sour cream and herbs.", "Традиційний український борщ зі сметаною та зеленню."),
@@ -417,15 +417,15 @@ const menuItems = [
   {
     id: "chicken-soup",
     category: "soups",
-    price: 8.5,
+    price: 25,
     image: "assets/images/soups/chicken-soup.png",
-    name: tr("Домашний куриный суп", "Homemade Chicken Soup", "Домашній курячий суп"),
+    name: tr("Суп куриный с вермишелью", "Chicken Noodle Soup", "Суп курячий з вермішеллю"),
     description: tr("Легкий куриный бульон с овощами, зеленью и домашней лапшой.", "Light chicken broth with vegetables, herbs and homemade noodles.", "Легкий курячий бульйон з овочами, зеленню та домашньою локшиною."),
   },
   {
     id: "topcheta-meatball-soup",
     category: "soups",
-    price: 9,
+    price: 30,
     image: "assets/images/soups/topcheta-meatball-soup.png",
     name: tr("Суп с фрикадельками Топчета", "Topcheta Meatball Soup", "Суп з фрикадельками Топчета"),
     description: tr(
@@ -437,7 +437,7 @@ const menuItems = [
   {
     id: "solyanka",
     category: "soups",
-    price: 11.5,
+    price: 35,
     image: "assets/images/soups/solyanka.png",
     name: tr("Солянка", "Solyanka", "Солянка"),
     description: tr("Пикантный восточноевропейский суп с мясом, лимоном и оливками.", "Savory Eastern European soup with meats, lemon and olives.", "Пікантний східноєвропейський суп з м'ясом, лимоном та оливками."),
@@ -445,7 +445,7 @@ const menuItems = [
   {
     id: "pea-soup",
     category: "soups",
-    price: 8.5,
+    price: 25,
     image: "assets/images/soups/pea-soup.png",
     name: tr("Суп гороховый", "Pea Soup", "Гороховий суп"),
     description: tr("Домашний гороховый суп с овощами и мягким насыщенным вкусом.", "Homemade pea soup with vegetables and a rich, comforting flavor.", "Домашній гороховий суп з овочами та м'яким насиченим смаком."),
@@ -453,7 +453,7 @@ const menuItems = [
   {
     id: "rassolnik",
     category: "soups",
-    price: 9.5,
+    price: 30,
     image: "assets/images/soups/rassolnik.png",
     name: tr("Рассольник", "Rassolnik", "Розсольник"),
     description: tr("Классический суп с перловкой, солеными огурцами и домашним бульоном.", "Classic soup with barley, pickles and homemade broth.", "Класичний суп з перловкою, солоними огірками та домашнім бульйоном."),
@@ -461,7 +461,7 @@ const menuItems = [
   {
     id: "meatball-soup",
     category: "soups",
-    price: 9.5,
+    price: 30,
     image: "assets/images/soups/meatball-soup.png",
     name: tr("Суп с фрикадельками", "Meatball Soup", "Суп з фрикадельками"),
     description: tr("Легкий суп с мясными фрикадельками, овощами и зеленью.", "Light soup with meatballs, vegetables and herbs.", "Легкий суп з м'ясними фрикадельками, овочами та зеленню."),
@@ -470,7 +470,7 @@ const menuItems = [
     id: "mercimek-soup",
     category: "soups",
     badge: "vegetarian",
-    price: 9,
+    price: 20,
     image: "assets/images/soups/mercimek-soup.png",
     name: tr("Турецкий суп чечевичный мерджмек", "Turkish Mercimek Lentil Soup", "Турецький сочевичний суп мерджмек"),
     description: tr("Бархатный чечевичный суп с турецкими специями и лимоном.", "Velvety lentil soup with Turkish spices and lemon.", "Оксамитовий сочевичний суп з турецькими спеціями та лимоном."),
@@ -486,7 +486,7 @@ const menuItems = [
   {
     id: "ayran-okroshka",
     category: "soups",
-    price: 9.5,
+    price: 30,
     image: "assets/images/soups/okroshka-ayran.png",
     name: tr("Окрошка на айране", "Ayran Okroshka", "Окрошка на айрані"),
     description: tr("Освежающий холодный суп на айране с овощами, зеленью и яйцом.", "Refreshing cold ayran soup with vegetables, herbs and egg.", "Освіжаючий холодний суп на айрані з овочами, зеленню та яйцем."),
@@ -513,7 +513,7 @@ const menuItems = [
     category: "main-dishes",
     popular: true,
     badge: "bestseller",
-    price: 12.5,
+    price: 25,
     image: "assets/images/mamas-table-hero-family.jpg",
     name: tr("Вареники", "Vareniki", "Вареники"),
     description: tr("Домашние вареники с картофелем и жареным луком.", "Dumplings with potatoes and fried onions.", "Домашні вареники з картоплею та смаженою цибулею."),
@@ -523,7 +523,7 @@ const menuItems = [
     category: "main-dishes",
     popular: true,
     badge: "bestseller",
-    price: 14.5,
+    price: 30,
     image: "assets/images/mamas-table-hero-family.jpg",
     name: tr("Голубцы", "Cabbage Rolls", "Голубці"),
     description: tr("Голубцы с мясом и рисом в томатном соусе.", "Stuffed cabbage with meat and rice in tomato sauce.", "Голубці з м'ясом і рисом у томатному соусі."),
@@ -531,7 +531,7 @@ const menuItems = [
   {
     id: "beef-stroganoff",
     category: "main-dishes",
-    price: 16.5,
+    price: 40,
     image: "assets/images/chicken-comfort.jpg",
     name: tr("Бефстроганов", "Beef Stroganoff", "Бефстроганов"),
     description: tr("Нежная говядина в сливочном соусе с луком и грибными нотами.", "Tender beef in a creamy sauce with onion and mushroom notes.", "Ніжна яловичина у вершковому соусі з цибулею та грибними нотами."),
@@ -539,7 +539,7 @@ const menuItems = [
   {
     id: "chicken-mince-cutlets",
     category: "main-dishes",
-    price: 13.5,
+    price: 30,
     image: "assets/images/chicken-comfort.jpg",
     name: tr("Котлеты с куриным фаршем", "Chicken Mince Cutlets", "Котлети з курячим фаршем"),
     description: tr(
@@ -551,7 +551,7 @@ const menuItems = [
   {
     id: "pork-mince-cutlets",
     category: "main-dishes",
-    price: 13.5,
+    price: 30,
     image: "assets/images/chicken-comfort.jpg",
     name: tr("Котлеты со свиным фаршем", "Pork Mince Cutlets", "Котлети зі свинячим фаршем"),
     description: tr(
@@ -563,7 +563,7 @@ const menuItems = [
   {
     id: "beef-goulash",
     category: "main-dishes",
-    price: 16,
+    price: 40,
     image: "assets/images/caucasus-mediterranean.jpg",
     name: tr("Гуляш из говядины", "Beef Goulash", "Гуляш з яловичини"),
     description: tr("Говядина в насыщенном соусе с овощами и специями.", "Beef in a rich sauce with vegetables and spices.", "Яловичина у насиченому соусі з овочами та спеціями."),
@@ -571,7 +571,7 @@ const menuItems = [
   {
     id: "pork-podzharka",
     category: "main-dishes",
-    price: 14.5,
+    price: 30,
     image: "assets/images/chicken-comfort.jpg",
     name: tr("Поджарка из свинины", "Pork Podzharka", "Піджарка зі свинини"),
     description: tr("Обжаренная свинина с луком в домашнем соусе.", "Pan-seared pork with onion in a homemade sauce.", "Обсмажена свинина з цибулею в домашньому соусі."),
@@ -580,7 +580,7 @@ const menuItems = [
     id: "eggplant-pepper-saute",
     category: "main-dishes",
     badge: "vegetarian",
-    price: 12.5,
+    price: 25,
     image: "assets/images/caucasus-mediterranean.jpg",
     name: tr("Соте из баклажана с болгарским перцем", "Eggplant and Bell Pepper Saute", "Соте з баклажана з болгарським перцем"),
     description: tr("Теплое овощное блюдо из баклажана, перца и ароматных трав.", "Warm vegetable dish with eggplant, bell pepper and aromatic herbs.", "Тепла овочева страва з баклажана, перцю та ароматних трав."),
@@ -588,7 +588,7 @@ const menuItems = [
   {
     id: "meat-filled-blini",
     category: "main-dishes",
-    price: 12.5,
+    price: 30,
     image: "assets/images/blini-crepes.jpg",
     name: tr("Блины с мясной начинкой", "Meat-Filled Blini", "Млинці з м'ясною начинкою"),
     description: tr("Тонкие блины с сочной мясной начинкой.", "Thin blini filled with savory meat.", "Тонкі млинці з соковитою м'ясною начинкою."),
@@ -596,7 +596,7 @@ const menuItems = [
   {
     id: "cottage-cheese-blini",
     category: "main-dishes",
-    price: 11.5,
+    price: 30,
     image: "assets/images/blini-crepes.jpg",
     name: tr("Блины с творогом", "Cottage Cheese Blini", "Млинці з сиром"),
     description: tr("Домашние блины с нежной творожной начинкой.", "Homemade blini with a tender cottage cheese filling.", "Домашні млинці з ніжною сирною начинкою."),
@@ -604,7 +604,7 @@ const menuItems = [
   {
     id: "pork-pelmeni",
     category: "main-dishes",
-    price: 13.5,
+    price: 30,
     image: "assets/images/mamas-table-hero-family.jpg",
     name: tr("Пельмени со свиным фаршем", "Pork Pelmeni", "Пельмені зі свинячим фаршем"),
     description: tr("Домашние пельмени со свиным фаршем и классической подачей.", "Homemade pelmeni with pork filling and classic serving.", "Домашні пельмені зі свинячим фаршем і класичною подачею."),
@@ -612,7 +612,7 @@ const menuItems = [
   {
     id: "chicken-pelmeni",
     category: "main-dishes",
-    price: 13,
+    price: 30,
     image: "assets/images/mamas-table-hero-family.jpg",
     name: tr("Пельмени с куриным фаршем", "Chicken Pelmeni", "Пельмені з курячим фаршем"),
     description: tr("Нежные домашние пельмени с куриным фаршем.", "Tender homemade pelmeni with chicken filling.", "Ніжні домашні пельмені з курячим фаршем."),
@@ -620,7 +620,7 @@ const menuItems = [
   {
     id: "potato-zrazy-meat",
     category: "main-dishes",
-    price: 13.5,
+    price: 25,
     image: "assets/images/ukrainian-table.jpg",
     name: tr("Зразы картофельные с мясом", "Potato Zrazy with Meat", "Картопляні зрази з м'ясом"),
     description: tr("Картофельные зразы с мясной начинкой и золотистой корочкой.", "Potato zrazy with meat filling and a golden crust.", "Картопляні зрази з м'ясною начинкою та золотистою скоринкою."),
@@ -628,7 +628,7 @@ const menuItems = [
   {
     id: "liver-cake",
     category: "main-dishes",
-    price: 14,
+    price: 30,
     image: "assets/images/ukrainian-table.jpg",
     name: tr("Печеночный торт", "Liver Cake", "Печінковий торт"),
     description: tr("Слоеный печеночный торт с нежной домашней прослойкой.", "Layered liver cake with a tender homemade filling.", "Шаровий печінковий торт з ніжною домашньою начинкою."),
@@ -636,7 +636,7 @@ const menuItems = [
   {
     id: "meat-rice-meatballs",
     category: "main-dishes",
-    price: 14,
+    price: 25,
     image: "assets/images/chicken-comfort.jpg",
     name: tr("Тефтели мясные с рисом", "Meatballs with Rice", "М'ясні тефтелі з рисом"),
     description: tr("Мясные тефтели с рисом в мягком домашнем соусе.", "Meatballs with rice in a soft homemade sauce.", "М'ясні тефтелі з рисом у м'якому домашньому соусі."),
@@ -644,7 +644,7 @@ const menuItems = [
   {
     id: "chicken-tabaka",
     category: "main-dishes",
-    price: 18.5,
+    price: 35,
     image: "assets/images/caucasus-mediterranean.jpg",
     name: tr("Цыпленок тапака", "Chicken Tapaka", "Курча тапака"),
     description: tr("Кавказский цыпленок с хрустящей корочкой и специями.", "Caucasian-style pressed chicken with crisp skin and spices.", "Кавказьке курча з хрусткою скоринкою та спеціями."),
@@ -652,7 +652,7 @@ const menuItems = [
   {
     id: "chicken-chops",
     category: "main-dishes",
-    price: 13.5,
+    price: 35,
     image: "assets/images/chicken-comfort.jpg",
     name: tr("Отбивные куриные", "Chicken Chops", "Курячі відбивні"),
     description: tr("Нежные куриные отбивные в домашней панировке.", "Tender chicken chops in homemade breading.", "Ніжні курячі відбивні в домашній паніровці."),
@@ -660,7 +660,7 @@ const menuItems = [
   {
     id: "hawaiian-chicken-pineapple-cutlets",
     category: "main-dishes",
-    price: 15,
+    price: 35,
     image: "assets/images/chicken-comfort.jpg",
     name: tr("Куриные отбивные по-гавайски с ананасом", "Hawaiian Chicken Cutlets with Pineapple", "Курячі відбивні по-гавайськи з ананасом"),
     description: tr(
@@ -672,7 +672,7 @@ const menuItems = [
   {
     id: "pork-chops",
     category: "main-dishes",
-    price: 15,
+    price: 35,
     image: "assets/images/chicken-comfort.jpg",
     name: tr("Отбивные свиные", "Pork Chops", "Свинячі відбивні"),
     description: tr("Сочные свиные отбивные в классическом домашнем стиле.", "Juicy pork chops in a classic homemade style.", "Соковиті свинячі відбивні у класичному домашньому стилі."),
@@ -680,7 +680,7 @@ const menuItems = [
   {
     id: "plain-blini",
     category: "main-dishes",
-    price: 8.5,
+    price: 15,
     image: "assets/images/blini-crepes.jpg",
     name: tr("Блины без начинки", "Plain Blini", "Млинці без начинки"),
     description: tr("Тонкие домашние блины без начинки, мягкие и универсальные.", "Thin homemade plain blini, soft and versatile.", "Тонкі домашні млинці без начинки, м'які та універсальні."),
@@ -688,7 +688,7 @@ const menuItems = [
   {
     id: "chicken-liver-pate",
     category: "main-dishes",
-    price: 10.5,
+    price: 35,
     image: "assets/images/ukrainian-table.jpg",
     name: tr("Паштет из куриной печени", "Chicken Liver Pate", "Паштет з курячої печінки"),
     description: tr("Нежный паштет из куриной печени с домашними специями.", "Tender chicken liver pate with homemade seasoning.", "Ніжний паштет з курячої печінки з домашніми спеціями."),
@@ -696,7 +696,7 @@ const menuItems = [
   {
     id: "bbq-ribs",
     category: "main-dishes",
-    price: 22,
+    price: 45,
     image: "assets/images/caucasus-mediterranean.jpg",
     name: tr("Ребра барбекю", "BBQ Ribs", "Ребра барбекю"),
     description: tr("Сочные ребра в насыщенном BBQ-соусе.", "Juicy ribs in a rich BBQ sauce.", "Соковиті ребра у насиченому BBQ-соусі."),
@@ -704,7 +704,7 @@ const menuItems = [
   {
     id: "fish-cutlets",
     category: "main-dishes",
-    price: 14.5,
+    price: 35,
     image: "assets/images/chicken-comfort.jpg",
     name: tr("Котлеты рыбные", "Fish Cutlets", "Рибні котлети"),
     description: tr("Домашние рыбные котлеты с нежной текстурой и мягким вкусом.", "Homemade fish cutlets with a tender texture and mild flavor.", "Домашні рибні котлети з ніжною текстурою та м'яким смаком."),
@@ -720,7 +720,7 @@ const menuItems = [
   {
     id: "pork-beef-kholodets",
     category: "main-dishes",
-    price: 15,
+    price: 35,
     image: "assets/images/ukrainian-table.jpg",
     name: tr("Холодец свино-говяжий", "Pork & Beef Aspic", "Холодець свинячо-яловичий"),
     description: tr(
@@ -732,7 +732,7 @@ const menuItems = [
   {
     id: "chicken-kholodets",
     category: "main-dishes",
-    price: 13,
+    price: 35,
     image: "assets/images/chicken-comfort.jpg",
     name: tr("Холодец куриный", "Chicken Aspic", "Холодець курячий"),
     description: tr(
@@ -744,7 +744,7 @@ const menuItems = [
   {
     id: "grilled-salmon-broccoli",
     category: "main-dishes",
-    price: 19,
+    price: 45,
     image: "assets/images/caucasus-mediterranean.jpg",
     name: tr("Лосось гриль с брокколи", "Grilled Salmon with Broccoli", "Лосось гриль з брокколі"),
     description: tr(
@@ -757,7 +757,7 @@ const menuItems = [
     id: "olivier",
     category: "salads",
     popular: true,
-    price: 8.5,
+    price: 30,
     image: "assets/images/ukrainian-table.jpg",
     name: tr("Оливье", "Olivier Salad", "Олів'є"),
     description: tr("Классический домашний салат с овощами, яйцом, курицей и майонезом.", "Classic homemade salad with vegetables, eggs, chicken and mayonnaise.", "Класичний домашній салат з овочами, яйцем, куркою та майонезом."),
@@ -765,7 +765,7 @@ const menuItems = [
   {
     id: "vinaigrette",
     category: "salads",
-    price: 8,
+    price: 30,
     image: "assets/images/ukrainian-table.jpg",
     name: tr("Винегрет", "Vinaigrette Salad", "Вінегрет"),
     description: tr("Свекла, картофель, морковь, соленые огурцы и легкая заправка.", "Beets, potatoes, carrots, pickles and a light dressing.", "Буряк, картопля, морква, солоні огірки та легка заправка."),
@@ -783,7 +783,7 @@ const menuItems = [
     id: "mimosa-salad",
     category: "salads",
     badge: "new",
-    price: 9.5,
+    price: 30,
     image: "assets/images/ukrainian-table.jpg",
     name: tr("Салат Мимоза", "Mimosa Salad", "Салат Мімоза"),
     description: tr("Слоеный салат с рыбой, яйцом, овощами и нежной заправкой.", "Layered salad with fish, egg, vegetables and a tender dressing.", "Шаровий салат з рибою, яйцем, овочами та ніжною заправкою."),
@@ -791,7 +791,7 @@ const menuItems = [
   {
     id: "herring-under-fur-coat",
     category: "salads",
-    price: 10,
+    price: 30,
     image: "assets/images/ukrainian-table.jpg",
     name: tr("Салат Сельдь под шубой", "Herring Under a Fur Coat", "Оселедець під шубою"),
     description: tr("Классический слоеный салат с сельдью, свеклой, картофелем и морковью.", "Classic layered salad with herring, beets, potatoes and carrots.", "Класичний шаровий салат з оселедцем, буряком, картоплею та морквою."),
@@ -800,7 +800,7 @@ const menuItems = [
     id: "fresh-cabbage-salad",
     category: "salads",
     badge: "vegetarian",
-    price: 7.5,
+    price: 15,
     image: "assets/images/caucasus-mediterranean.jpg",
     name: tr("Салат со свежей капустой", "Fresh Cabbage Salad", "Салат зі свіжою капустою"),
     description: tr("Хрустящий салат из свежей капусты, моркови и зелени.", "Crunchy salad with fresh cabbage, carrots and herbs.", "Хрусткий салат зі свіжої капусти, моркви та зелені."),
@@ -808,7 +808,7 @@ const menuItems = [
   {
     id: "korean-carrots",
     category: "salads",
-    price: 8,
+    price: 15,
     image: "assets/images/caucasus-mediterranean.jpg",
     name: tr("Морковка по-корейски", "Korean-Style Carrots", "Морква по-корейськи"),
     description: tr("Пикантная морковь с чесноком, специями и ароматным маслом.", "Spicy carrots with garlic, spices and aromatic oil.", "Пікантна морква з часником, спеціями та ароматною олією."),
@@ -816,7 +816,7 @@ const menuItems = [
   {
     id: "raw-eggplant-caviar",
     category: "salads",
-    price: 9,
+    price: 20,
     image: "assets/images/caucasus-mediterranean.jpg",
     name: tr("Икра баклажанная сырая", "Fresh Eggplant Caviar", "Ікра баклажанна свіжа"),
     description: tr("Свежая баклажанная закуска с овощами, зеленью и легкой заправкой.", "Fresh eggplant appetizer with vegetables, herbs and a light dressing.", "Свіжа баклажанна закуска з овочами, зеленню та легкою заправкою."),
@@ -824,7 +824,7 @@ const menuItems = [
   {
     id: "fried-eggplant-caviar",
     category: "salads",
-    price: 9.5,
+    price: 20,
     image: "assets/images/caucasus-mediterranean.jpg",
     name: tr("Икра баклажанная жареная", "Roasted Eggplant Caviar", "Ікра баклажанна смажена"),
     description: tr("Жареная баклажанная икра с овощами и насыщенным домашним вкусом.", "Roasted eggplant spread with vegetables and a rich homemade taste.", "Смажена баклажанна ікра з овочами та насиченим домашнім смаком."),
@@ -832,7 +832,7 @@ const menuItems = [
   {
     id: "liver-mushroom-salad",
     category: "salads",
-    price: 10.5,
+    price: 25,
     image: "assets/images/ukrainian-table.jpg",
     name: tr("Печеночный салат с грибами", "Liver Salad with Mushrooms", "Печінковий салат з грибами"),
     description: tr("Сытный салат с печенью, грибами и домашней заправкой.", "Hearty salad with liver, mushrooms and homemade dressing.", "Ситний салат з печінкою, грибами та домашньою заправкою."),
@@ -840,7 +840,7 @@ const menuItems = [
   {
     id: "stolichny-chicken-salad",
     category: "salads",
-    price: 9.5,
+    price: 30,
     image: "assets/images/ukrainian-table.jpg",
     name: tr("Салат Столичный с курицей", "Stolichny Chicken Salad", "Салат Столичний з куркою"),
     description: tr("Классический салат с курицей, овощами, яйцом и майонезом.", "Classic salad with chicken, vegetables, egg and mayonnaise.", "Класичний салат з куркою, овочами, яйцем та майонезом."),
@@ -848,7 +848,7 @@ const menuItems = [
   {
     id: "crab-salad",
     category: "salads",
-    price: 9,
+    price: 30,
     image: "assets/images/ukrainian-table.jpg",
     name: tr("Салат Крабовый", "Crab Salad", "Крабовий салат"),
     description: tr("Домашний крабовый салат с кукурузой, яйцом и нежной заправкой.", "Homemade crab salad with corn, egg and a gentle dressing.", "Домашній крабовий салат з кукурудзою, яйцем та ніжною заправкою."),
