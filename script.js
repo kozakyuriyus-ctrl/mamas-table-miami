@@ -1108,6 +1108,12 @@ const cartTotal = () => cartEntries().reduce((sum, entry) => sum + entry.dish.pr
 
 const cartQuantity = (id) => state.cart.get(id) || 0;
 
+const categoryUnits = {
+  soups: tr("за 1 литр", "per liter", "за 1 літр"),
+  "main-dishes": tr("за 1 кг", "per kg", "за 1 кг"),
+  salads: tr("за 1 кг", "per kg", "за 1 кг"),
+};
+
 const escapeHtml = (value) =>
   String(value).replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" })[char]);
 
@@ -1126,7 +1132,7 @@ const createDishCard = (dish, options = {}) => `
     <div class="dish-card-body">
       <h3>${escapeHtml(text(dish.name))}</h3>
       <p>${escapeHtml(text(dish.description))}</p>
-      <strong>${money(dish.price)}</strong>
+      <strong>${money(dish.price)}${categoryUnits[dish.category] ? `<span class="dish-unit">${escapeHtml(text(categoryUnits[dish.category]))}</span>` : ""}</strong>
       <div class="dish-actions">
         <button class="add-btn" type="button" data-add="${escapeHtml(dish.id)}">
           <span>${escapeHtml(t("cart.add"))}</span>
@@ -1284,6 +1290,7 @@ const renderRoute = () => {
   observeReveals();
 
   if (category && isMobileViewport()) {
+    document.querySelectorAll("[data-route-view] .reveal").forEach((el) => el.classList.add("is-visible"));
     revealCategoryDishes();
     scheduleCategoryDishesScroll();
   } else {

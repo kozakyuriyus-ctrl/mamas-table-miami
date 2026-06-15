@@ -613,6 +613,14 @@ p {
   font-size: 14px;
 }
 
+.dish-unit {
+  display: block;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
 .dish-actions {
   display: grid;
   gap: 8px;
