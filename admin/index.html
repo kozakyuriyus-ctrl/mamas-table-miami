@@ -207,6 +207,12 @@ function toB64(str) {
   return btoa(bin);
 }
 
+function fromB64(b64) {
+  const bin = atob(b64.replace(/\s/g, ''));
+  const bytes = Uint8Array.from(bin, ch => ch.charCodeAt(0));
+  return new TextDecoder('utf-8').decode(bytes);
+}
+
 /* ── Load ────────────────────────────────────────────────── */
 async function loadDishes() {
   const status = document.getElementById('token-status');
@@ -214,7 +220,7 @@ async function loadDishes() {
   status.className = '';
   try {
     const data = await ghGet('dishes.json');
-    dishes = JSON.parse(atob(data.content.replace(/\n/g, '')));
+    dishes = JSON.parse(fromB64(data.content));
     dishesFileSha = data.sha;
     status.textContent = `✓ ${dishes.length} блюд загружено`;
     status.className = 'ok';
