@@ -1,0 +1,1024 @@
+[
+  {
+    "id": "borscht",
+    "category": "soups",
+    "badge": "bestseller",
+    "image": "assets/images/soups/borscht.png",
+    "popular": true,
+    "price": 30.0,
+    "name": {
+      "ru": "Борщ",
+      "en": "Borscht",
+      "uk": "Борщ"
+    },
+    "description": {
+      "ru": "Традиционный украинский борщ со сметаной и зеленью.",
+      "en": "Traditional Ukrainian beet soup with sour cream and herbs.",
+      "uk": "Традиційний український борщ зі сметаною та зеленню."
+    }
+  },
+  {
+    "id": "chicken-soup",
+    "category": "soups",
+    "image": "assets/images/soups/chicken-soup.png",
+    "price": 25.0,
+    "name": {
+      "ru": "Суп куриный с вермишелью",
+      "en": "Chicken Noodle Soup",
+      "uk": "Суп курячий з вермішеллю"
+    },
+    "description": {
+      "ru": "Легкий куриный бульон с овощами, зеленью и домашней лапшой.",
+      "en": "Light chicken broth with vegetables, herbs and homemade noodles.",
+      "uk": "Легкий курячий бульйон з овочами, зеленню та домашньою локшиною."
+    }
+  },
+  {
+    "id": "topcheta-meatball-soup",
+    "category": "soups",
+    "image": "assets/images/soups/topcheta-meatball-soup.png",
+    "price": 30.0,
+    "name": {
+      "ru": "Суп с фрикадельками Топчета",
+      "en": "Topcheta Meatball Soup",
+      "uk": "Суп з фрикадельками Топчета"
+    },
+    "description": {
+      "ru": "Нежный суп с фрикадельками, йогуртовой заправкой, лёгкой кислинкой и нотками мяты.",
+      "en": "Tender meatball soup with yogurt dressing, a light tangy flavor, and subtle mint notes.",
+      "uk": "Ніжний суп з фрикадельками, йогуртовою заправкою, легкою кислинкою та нотками м’яти."
+    }
+  },
+  {
+    "id": "solyanka",
+    "category": "soups",
+    "image": "assets/images/soups/solyanka.png",
+    "price": 35.0,
+    "name": {
+      "ru": "Солянка",
+      "en": "Solyanka",
+      "uk": "Солянка"
+    },
+    "description": {
+      "ru": "Пикантный восточноевропейский суп с мясом, лимоном и оливками.",
+      "en": "Savory Eastern European soup with meats, lemon and olives.",
+      "uk": "Пікантний східноєвропейський суп з м'ясом, лимоном та оливками."
+    }
+  },
+  {
+    "id": "pea-soup",
+    "category": "soups",
+    "image": "assets/images/soups/pea-soup.png",
+    "price": 25.0,
+    "name": {
+      "ru": "Суп гороховый",
+      "en": "Pea Soup",
+      "uk": "Гороховий суп"
+    },
+    "description": {
+      "ru": "Домашний гороховый суп с овощами и мягким насыщенным вкусом.",
+      "en": "Homemade pea soup with vegetables and a rich, comforting flavor.",
+      "uk": "Домашній гороховий суп з овочами та м'яким насиченим смаком."
+    }
+  },
+  {
+    "id": "rassolnik",
+    "category": "soups",
+    "image": "assets/images/soups/rassolnik.png",
+    "price": 30.0,
+    "name": {
+      "ru": "Рассольник",
+      "en": "Rassolnik",
+      "uk": "Розсольник"
+    },
+    "description": {
+      "ru": "Классический суп с перловкой, солеными огурцами и домашним бульоном.",
+      "en": "Classic soup with barley, pickles and homemade broth.",
+      "uk": "Класичний суп з перловкою, солоними огірками та домашнім бульйоном."
+    }
+  },
+  {
+    "id": "meatball-soup",
+    "category": "soups",
+    "image": "assets/images/soups/meatball-soup.png",
+    "price": 30.0,
+    "name": {
+      "ru": "Суп с фрикадельками",
+      "en": "Meatball Soup",
+      "uk": "Суп з фрикадельками"
+    },
+    "description": {
+      "ru": "Легкий суп с мясными фрикадельками, овощами и зеленью.",
+      "en": "Light soup with meatballs, vegetables and herbs.",
+      "uk": "Легкий суп з м'ясними фрикадельками, овочами та зеленню."
+    }
+  },
+  {
+    "id": "mercimek-soup",
+    "category": "soups",
+    "badge": "vegetarian",
+    "image": "assets/images/soups/mercimek-soup.png",
+    "price": 20.0,
+    "name": {
+      "ru": "Турецкий суп чечевичный мерджмек",
+      "en": "Turkish Mercimek Lentil Soup",
+      "uk": "Турецький сочевичний суп мерджмек"
+    },
+    "description": {
+      "ru": "Бархатный чечевичный суп с турецкими специями и лимоном.",
+      "en": "Velvety lentil soup with Turkish spices and lemon.",
+      "uk": "Оксамитовий сочевичний суп з турецькими спеціями та лимоном."
+    }
+  },
+  {
+    "id": "ukrainian-kapustnyak",
+    "category": "soups",
+    "image": "assets/images/soups/kapustnyak.png",
+    "price": 10.5,
+    "name": {
+      "ru": "Капустняк украинский",
+      "en": "Ukrainian Kapustnyak",
+      "uk": "Капусняк український"
+    },
+    "description": {
+      "ru": "Украинский капустняк с капустой, картофелем и домашним бульоном.",
+      "en": "Ukrainian cabbage soup with potatoes and homemade broth.",
+      "uk": "Український капусняк з капустою, картоплею та домашнім бульйоном."
+    }
+  },
+  {
+    "id": "ayran-okroshka",
+    "category": "soups",
+    "image": "assets/images/soups/okroshka-ayran.png",
+    "price": 30.0,
+    "name": {
+      "ru": "Окрошка на айране",
+      "en": "Ayran Okroshka",
+      "uk": "Окрошка на айрані"
+    },
+    "description": {
+      "ru": "Освежающий холодный суп на айране с овощами, зеленью и яйцом.",
+      "en": "Refreshing cold ayran soup with vegetables, herbs and egg.",
+      "uk": "Освіжаючий холодний суп на айрані з овочами, зеленню та яйцем."
+    }
+  },
+  {
+    "id": "mushroom-cream-soup",
+    "category": "soups",
+    "image": "assets/images/soups/mushroom-soup.png",
+    "price": 10.5,
+    "name": {
+      "ru": "Грибной суп-пюре",
+      "en": "Mushroom Cream Soup",
+      "uk": "Грибний суп-пюре"
+    },
+    "description": {
+      "ru": "Нежный кремовый суп-пюре с грибами и мягкими травами.",
+      "en": "Creamy mushroom soup with gentle herbs.",
+      "uk": "Ніжний кремовий суп-пюре з грибами та м'якими травами."
+    }
+  },
+  {
+    "id": "green-borscht",
+    "category": "soups",
+    "badge": "new",
+    "image": "assets/images/soups/green-borscht.png",
+    "price": 10.0,
+    "name": {
+      "ru": "Зеленый борщ",
+      "en": "Green Borscht",
+      "uk": "Зелений борщ"
+    },
+    "description": {
+      "ru": "Зеленый борщ со щавелем, яйцом, картофелем и зеленью.",
+      "en": "Green borscht with sorrel, egg, potatoes and herbs.",
+      "uk": "Зелений борщ зі щавлем, яйцем, картоплею та зеленню."
+    }
+  },
+  {
+    "id": "varenyky",
+    "category": "main-dishes",
+    "badge": "bestseller",
+    "image": "assets/images/mamas-table-hero-family.jpg",
+    "popular": true,
+    "price": 25.0,
+    "name": {
+      "ru": "Вареники",
+      "en": "Vareniki",
+      "uk": "Вареники"
+    },
+    "description": {
+      "ru": "Домашние вареники с картофелем и жареным луком.",
+      "en": "Dumplings with potatoes and fried onions.",
+      "uk": "Домашні вареники з картоплею та смаженою цибулею."
+    }
+  },
+  {
+    "id": "cabbage-rolls",
+    "category": "main-dishes",
+    "badge": "bestseller",
+    "image": "assets/images/mamas-table-hero-family.jpg",
+    "popular": true,
+    "price": 30.0,
+    "name": {
+      "ru": "Голубцы",
+      "en": "Cabbage Rolls",
+      "uk": "Голубці"
+    },
+    "description": {
+      "ru": "Голубцы с мясом и рисом в томатном соусе.",
+      "en": "Stuffed cabbage with meat and rice in tomato sauce.",
+      "uk": "Голубці з м'ясом і рисом у томатному соусі."
+    }
+  },
+  {
+    "id": "beef-stroganoff",
+    "category": "main-dishes",
+    "image": "assets/images/chicken-comfort.jpg",
+    "price": 40.0,
+    "name": {
+      "ru": "Бефстроганов",
+      "en": "Beef Stroganoff",
+      "uk": "Бефстроганов"
+    },
+    "description": {
+      "ru": "Нежная говядина в сливочном соусе с луком и грибными нотами.",
+      "en": "Tender beef in a creamy sauce with onion and mushroom notes.",
+      "uk": "Ніжна яловичина у вершковому соусі з цибулею та грибними нотами."
+    }
+  },
+  {
+    "id": "chicken-mince-cutlets",
+    "category": "main-dishes",
+    "image": "assets/images/chicken-comfort.jpg",
+    "price": 30.0,
+    "name": {
+      "ru": "Котлеты с куриным фаршем",
+      "en": "Chicken Mince Cutlets",
+      "uk": "Котлети з курячим фаршем"
+    },
+    "description": {
+      "ru": "Сочные домашние котлеты из куриного фарша, приготовленные по классическому рецепту.",
+      "en": "Juicy homemade cutlets made with chicken mince, prepared in a classic style.",
+      "uk": "Соковиті домашні котлети з курячого фаршу, приготовані за класичним рецептом."
+    }
+  },
+  {
+    "id": "pork-mince-cutlets",
+    "category": "main-dishes",
+    "image": "assets/images/chicken-comfort.jpg",
+    "price": 30.0,
+    "name": {
+      "ru": "Котлеты со свиным фаршем",
+      "en": "Pork Mince Cutlets",
+      "uk": "Котлети зі свинячим фаршем"
+    },
+    "description": {
+      "ru": "Домашние котлеты из свиного фарша с нежной текстурой и насыщенным вкусом.",
+      "en": "Homemade pork mince cutlets with a tender texture and rich flavor.",
+      "uk": "Домашні котлети зі свинячого фаршу з ніжною текстурою та насиченим смаком."
+    }
+  },
+  {
+    "id": "beef-goulash",
+    "category": "main-dishes",
+    "image": "assets/images/caucasus-mediterranean.jpg",
+    "price": 40.0,
+    "name": {
+      "ru": "Гуляш из говядины",
+      "en": "Beef Goulash",
+      "uk": "Гуляш з яловичини"
+    },
+    "description": {
+      "ru": "Говядина в насыщенном соусе с овощами и специями.",
+      "en": "Beef in a rich sauce with vegetables and spices.",
+      "uk": "Яловичина у насиченому соусі з овочами та спеціями."
+    }
+  },
+  {
+    "id": "pork-podzharka",
+    "category": "main-dishes",
+    "image": "assets/images/chicken-comfort.jpg",
+    "price": 30.0,
+    "name": {
+      "ru": "Поджарка из свинины",
+      "en": "Pork Podzharka",
+      "uk": "Піджарка зі свинини"
+    },
+    "description": {
+      "ru": "Обжаренная свинина с луком в домашнем соусе.",
+      "en": "Pan-seared pork with onion in a homemade sauce.",
+      "uk": "Обсмажена свинина з цибулею в домашньому соусі."
+    }
+  },
+  {
+    "id": "eggplant-pepper-saute",
+    "category": "main-dishes",
+    "badge": "vegetarian",
+    "image": "assets/images/caucasus-mediterranean.jpg",
+    "price": 25.0,
+    "name": {
+      "ru": "Соте из баклажана с болгарским перцем",
+      "en": "Eggplant and Bell Pepper Saute",
+      "uk": "Соте з баклажана з болгарським перцем"
+    },
+    "description": {
+      "ru": "Теплое овощное блюдо из баклажана, перца и ароматных трав.",
+      "en": "Warm vegetable dish with eggplant, bell pepper and aromatic herbs.",
+      "uk": "Тепла овочева страва з баклажана, перцю та ароматних трав."
+    }
+  },
+  {
+    "id": "meat-filled-blini",
+    "category": "main-dishes",
+    "image": "assets/images/blini-crepes.jpg",
+    "price": 30.0,
+    "name": {
+      "ru": "Блины с мясной начинкой",
+      "en": "Meat-Filled Blini",
+      "uk": "Млинці з м'ясною начинкою"
+    },
+    "description": {
+      "ru": "Тонкие блины с сочной мясной начинкой.",
+      "en": "Thin blini filled with savory meat.",
+      "uk": "Тонкі млинці з соковитою м'ясною начинкою."
+    }
+  },
+  {
+    "id": "cottage-cheese-blini",
+    "category": "main-dishes",
+    "image": "assets/images/blini-crepes.jpg",
+    "price": 30.0,
+    "name": {
+      "ru": "Блины с творогом",
+      "en": "Cottage Cheese Blini",
+      "uk": "Млинці з сиром"
+    },
+    "description": {
+      "ru": "Домашние блины с нежной творожной начинкой.",
+      "en": "Homemade blini with a tender cottage cheese filling.",
+      "uk": "Домашні млинці з ніжною сирною начинкою."
+    }
+  },
+  {
+    "id": "pork-pelmeni",
+    "category": "main-dishes",
+    "image": "assets/images/mamas-table-hero-family.jpg",
+    "price": 30.0,
+    "name": {
+      "ru": "Пельмени со свиным фаршем",
+      "en": "Pork Pelmeni",
+      "uk": "Пельмені зі свинячим фаршем"
+    },
+    "description": {
+      "ru": "Домашние пельмени со свиным фаршем и классической подачей.",
+      "en": "Homemade pelmeni with pork filling and classic serving.",
+      "uk": "Домашні пельмені зі свинячим фаршем і класичною подачею."
+    }
+  },
+  {
+    "id": "chicken-pelmeni",
+    "category": "main-dishes",
+    "image": "assets/images/mamas-table-hero-family.jpg",
+    "price": 30.0,
+    "name": {
+      "ru": "Пельмени с куриным фаршем",
+      "en": "Chicken Pelmeni",
+      "uk": "Пельмені з курячим фаршем"
+    },
+    "description": {
+      "ru": "Нежные домашние пельмени с куриным фаршем.",
+      "en": "Tender homemade pelmeni with chicken filling.",
+      "uk": "Ніжні домашні пельмені з курячим фаршем."
+    }
+  },
+  {
+    "id": "potato-zrazy-meat",
+    "category": "main-dishes",
+    "image": "assets/images/ukrainian-table.jpg",
+    "price": 25.0,
+    "name": {
+      "ru": "Зразы картофельные с мясом",
+      "en": "Potato Zrazy with Meat",
+      "uk": "Картопляні зрази з м'ясом"
+    },
+    "description": {
+      "ru": "Картофельные зразы с мясной начинкой и золотистой корочкой.",
+      "en": "Potato zrazy with meat filling and a golden crust.",
+      "uk": "Картопляні зрази з м'ясною начинкою та золотистою скоринкою."
+    }
+  },
+  {
+    "id": "liver-cake",
+    "category": "main-dishes",
+    "image": "assets/images/ukrainian-table.jpg",
+    "price": 30.0,
+    "name": {
+      "ru": "Печеночный торт",
+      "en": "Liver Cake",
+      "uk": "Печінковий торт"
+    },
+    "description": {
+      "ru": "Слоеный печеночный торт с нежной домашней прослойкой.",
+      "en": "Layered liver cake with a tender homemade filling.",
+      "uk": "Шаровий печінковий торт з ніжною домашньою начинкою."
+    }
+  },
+  {
+    "id": "meat-rice-meatballs",
+    "category": "main-dishes",
+    "image": "assets/images/chicken-comfort.jpg",
+    "price": 25.0,
+    "name": {
+      "ru": "Тефтели мясные с рисом",
+      "en": "Meatballs with Rice",
+      "uk": "М'ясні тефтелі з рисом"
+    },
+    "description": {
+      "ru": "Мясные тефтели с рисом в мягком домашнем соусе.",
+      "en": "Meatballs with rice in a soft homemade sauce.",
+      "uk": "М'ясні тефтелі з рисом у м'якому домашньому соусі."
+    }
+  },
+  {
+    "id": "chicken-tabaka",
+    "category": "main-dishes",
+    "image": "assets/images/caucasus-mediterranean.jpg",
+    "price": 35.0,
+    "name": {
+      "ru": "Цыпленок тапака",
+      "en": "Chicken Tapaka",
+      "uk": "Курча тапака"
+    },
+    "description": {
+      "ru": "Кавказский цыпленок с хрустящей корочкой и специями.",
+      "en": "Caucasian-style pressed chicken with crisp skin and spices.",
+      "uk": "Кавказьке курча з хрусткою скоринкою та спеціями."
+    }
+  },
+  {
+    "id": "chicken-chops",
+    "category": "main-dishes",
+    "image": "assets/images/chicken-comfort.jpg",
+    "price": 35.0,
+    "name": {
+      "ru": "Отбивные куриные",
+      "en": "Chicken Chops",
+      "uk": "Курячі відбивні"
+    },
+    "description": {
+      "ru": "Нежные куриные отбивные в домашней панировке.",
+      "en": "Tender chicken chops in homemade breading.",
+      "uk": "Ніжні курячі відбивні в домашній паніровці."
+    }
+  },
+  {
+    "id": "hawaiian-chicken-pineapple-cutlets",
+    "category": "main-dishes",
+    "image": "assets/images/chicken-comfort.jpg",
+    "price": 35.0,
+    "name": {
+      "ru": "Куриные отбивные по-гавайски с ананасом",
+      "en": "Hawaiian Chicken Cutlets with Pineapple",
+      "uk": "Курячі відбивні по-гавайськи з ананасом"
+    },
+    "description": {
+      "ru": "Нежные куриные отбивные с ананасом, запечённые в лёгком гавайском стиле.",
+      "en": "Tender chicken cutlets with pineapple, baked in a light Hawaiian style.",
+      "uk": "Ніжні курячі відбивні з ананасом, запечені в легкому гавайському стилі."
+    }
+  },
+  {
+    "id": "pork-chops",
+    "category": "main-dishes",
+    "image": "assets/images/chicken-comfort.jpg",
+    "price": 35.0,
+    "name": {
+      "ru": "Отбивные свиные",
+      "en": "Pork Chops",
+      "uk": "Свинячі відбивні"
+    },
+    "description": {
+      "ru": "Сочные свиные отбивные в классическом домашнем стиле.",
+      "en": "Juicy pork chops in a classic homemade style.",
+      "uk": "Соковиті свинячі відбивні у класичному домашньому стилі."
+    }
+  },
+  {
+    "id": "plain-blini",
+    "category": "main-dishes",
+    "image": "assets/images/blini-crepes.jpg",
+    "price": 15.0,
+    "name": {
+      "ru": "Блины без начинки",
+      "en": "Plain Blini",
+      "uk": "Млинці без начинки"
+    },
+    "description": {
+      "ru": "Тонкие домашние блины без начинки, мягкие и универсальные.",
+      "en": "Thin homemade plain blini, soft and versatile.",
+      "uk": "Тонкі домашні млинці без начинки, м'які та універсальні."
+    }
+  },
+  {
+    "id": "chicken-liver-pate",
+    "category": "main-dishes",
+    "image": "assets/images/ukrainian-table.jpg",
+    "price": 35.0,
+    "name": {
+      "ru": "Паштет из куриной печени",
+      "en": "Chicken Liver Pate",
+      "uk": "Паштет з курячої печінки"
+    },
+    "description": {
+      "ru": "Нежный паштет из куриной печени с домашними специями.",
+      "en": "Tender chicken liver pate with homemade seasoning.",
+      "uk": "Ніжний паштет з курячої печінки з домашніми спеціями."
+    }
+  },
+  {
+    "id": "bbq-ribs",
+    "category": "main-dishes",
+    "image": "assets/images/caucasus-mediterranean.jpg",
+    "price": 45.0,
+    "name": {
+      "ru": "Ребра барбекю",
+      "en": "BBQ Ribs",
+      "uk": "Ребра барбекю"
+    },
+    "description": {
+      "ru": "Сочные ребра в насыщенном BBQ-соусе.",
+      "en": "Juicy ribs in a rich BBQ sauce.",
+      "uk": "Соковиті ребра у насиченому BBQ-соусі."
+    }
+  },
+  {
+    "id": "fish-cutlets",
+    "category": "main-dishes",
+    "image": "assets/images/chicken-comfort.jpg",
+    "price": 35.0,
+    "name": {
+      "ru": "Котлеты рыбные",
+      "en": "Fish Cutlets",
+      "uk": "Рибні котлети"
+    },
+    "description": {
+      "ru": "Домашние рыбные котлеты с нежной текстурой и мягким вкусом.",
+      "en": "Homemade fish cutlets with a tender texture and mild flavor.",
+      "uk": "Домашні рибні котлети з ніжною текстурою та м'яким смаком."
+    }
+  },
+  {
+    "id": "mashed-potatoes",
+    "category": "main-dishes",
+    "image": "assets/images/chicken-comfort.jpg",
+    "price": 6.5,
+    "name": {
+      "ru": "Картофельное пюре",
+      "en": "Mashed Potatoes",
+      "uk": "Картопляне пюре"
+    },
+    "description": {
+      "ru": "Нежное картофельное пюре как гарнир к домашним блюдам.",
+      "en": "Creamy mashed potatoes as a side for homemade meals.",
+      "uk": "Ніжне картопляне пюре як гарнір до домашніх страв."
+    }
+  },
+  {
+    "id": "pork-beef-kholodets",
+    "category": "main-dishes",
+    "image": "assets/images/ukrainian-table.jpg",
+    "price": 35.0,
+    "name": {
+      "ru": "Холодец свино-говяжий",
+      "en": "Pork & Beef Aspic",
+      "uk": "Холодець свинячо-яловичий"
+    },
+    "description": {
+      "ru": "Домашний холодец из свинины и говядины, приготовленный по традиционному рецепту. Насыщенный бульон, нежное мясо, чеснок и лавровый лист — всё как у бабушки.",
+      "en": "Traditional homemade aspic made with pork and beef. Rich broth, tender meat, garlic and bay leaf — just like grandma used to make.",
+      "uk": "Домашній холодець зі свинини та яловичини за традиційним рецептом. Насичений бульйон, ніжне м'ясо, часник та лавровий лист."
+    }
+  },
+  {
+    "id": "chicken-kholodets",
+    "category": "main-dishes",
+    "image": "assets/images/chicken-comfort.jpg",
+    "price": 35.0,
+    "name": {
+      "ru": "Холодец куриный",
+      "en": "Chicken Aspic",
+      "uk": "Холодець курячий"
+    },
+    "description": {
+      "ru": "Лёгкий домашний холодец из курицы с прозрачным бульоном, морковью и зеленью. Нежный вкус и красивая подача.",
+      "en": "Light homemade chicken aspic with a clear broth, carrots and herbs. Delicate flavor and beautiful presentation.",
+      "uk": "Легкий домашній холодець з курки з прозорим бульйоном, морквою та зеленню."
+    }
+  },
+  {
+    "id": "grilled-salmon-broccoli",
+    "category": "main-dishes",
+    "image": "assets/images/caucasus-mediterranean.jpg",
+    "price": 45.0,
+    "name": {
+      "ru": "Лосось гриль с брокколи",
+      "en": "Grilled Salmon with Broccoli",
+      "uk": "Лосось гриль з брокколі"
+    },
+    "description": {
+      "ru": "Сочное филе лосося на гриле с нежным брокколи. Лёгкое, полезное и сытное блюдо с ароматными травами и лимонным акцентом.",
+      "en": "Juicy grilled salmon fillet with tender broccoli. A light, wholesome dish with aromatic herbs and a hint of lemon.",
+      "uk": "Соковите філе лосося на грилі з ніжним броколі. Легка, корисна та ситна страва з ароматними травами та лимонним акцентом."
+    }
+  },
+  {
+    "id": "olivier",
+    "category": "salads",
+    "image": "assets/images/ukrainian-table.jpg",
+    "popular": true,
+    "price": 30.0,
+    "name": {
+      "ru": "Оливье",
+      "en": "Olivier Salad",
+      "uk": "Олів'є"
+    },
+    "description": {
+      "ru": "Классический домашний салат с овощами, яйцом, курицей и майонезом.",
+      "en": "Classic homemade salad with vegetables, eggs, chicken and mayonnaise.",
+      "uk": "Класичний домашній салат з овочами, яйцем, куркою та майонезом."
+    }
+  },
+  {
+    "id": "vinaigrette",
+    "category": "salads",
+    "image": "assets/images/ukrainian-table.jpg",
+    "price": 30.0,
+    "name": {
+      "ru": "Винегрет",
+      "en": "Vinaigrette Salad",
+      "uk": "Вінегрет"
+    },
+    "description": {
+      "ru": "Свекла, картофель, морковь, соленые огурцы и легкая заправка.",
+      "en": "Beets, potatoes, carrots, pickles and a light dressing.",
+      "uk": "Буряк, картопля, морква, солоні огірки та легка заправка."
+    }
+  },
+  {
+    "id": "spring-salad",
+    "category": "salads",
+    "badge": "new",
+    "image": "assets/images/caucasus-mediterranean.jpg",
+    "price": 8.5,
+    "name": {
+      "ru": "Салат весенний",
+      "en": "Spring Salad",
+      "uk": "Весняний салат"
+    },
+    "description": {
+      "ru": "Свежий салат с огурцом, болгарским перцем и редисом.",
+      "en": "Fresh salad with cucumber, bell pepper, and radish.",
+      "uk": "Свіжий салат з огірком, болгарським перцем та редисом."
+    }
+  },
+  {
+    "id": "mimosa-salad",
+    "category": "salads",
+    "badge": "new",
+    "image": "assets/images/ukrainian-table.jpg",
+    "price": 30.0,
+    "name": {
+      "ru": "Салат Мимоза",
+      "en": "Mimosa Salad",
+      "uk": "Салат Мімоза"
+    },
+    "description": {
+      "ru": "Слоеный салат с рыбой, яйцом, овощами и нежной заправкой.",
+      "en": "Layered salad with fish, egg, vegetables and a tender dressing.",
+      "uk": "Шаровий салат з рибою, яйцем, овочами та ніжною заправкою."
+    }
+  },
+  {
+    "id": "herring-under-fur-coat",
+    "category": "salads",
+    "image": "assets/images/ukrainian-table.jpg",
+    "price": 30.0,
+    "name": {
+      "ru": "Салат Сельдь под шубой",
+      "en": "Herring Under a Fur Coat",
+      "uk": "Оселедець під шубою"
+    },
+    "description": {
+      "ru": "Классический слоеный салат с сельдью, свеклой, картофелем и морковью.",
+      "en": "Classic layered salad with herring, beets, potatoes and carrots.",
+      "uk": "Класичний шаровий салат з оселедцем, буряком, картоплею та морквою."
+    }
+  },
+  {
+    "id": "fresh-cabbage-salad",
+    "category": "salads",
+    "badge": "vegetarian",
+    "image": "assets/images/caucasus-mediterranean.jpg",
+    "price": 15.0,
+    "name": {
+      "ru": "Салат со свежей капустой",
+      "en": "Fresh Cabbage Salad",
+      "uk": "Салат зі свіжою капустою"
+    },
+    "description": {
+      "ru": "Хрустящий салат из свежей капусты, моркови и зелени.",
+      "en": "Crunchy salad with fresh cabbage, carrots and herbs.",
+      "uk": "Хрусткий салат зі свіжої капусти, моркви та зелені."
+    }
+  },
+  {
+    "id": "korean-carrots",
+    "category": "salads",
+    "image": "assets/images/caucasus-mediterranean.jpg",
+    "price": 15.0,
+    "name": {
+      "ru": "Морковка по-корейски",
+      "en": "Korean-Style Carrots",
+      "uk": "Морква по-корейськи"
+    },
+    "description": {
+      "ru": "Пикантная морковь с чесноком, специями и ароматным маслом.",
+      "en": "Spicy carrots with garlic, spices and aromatic oil.",
+      "uk": "Пікантна морква з часником, спеціями та ароматною олією."
+    }
+  },
+  {
+    "id": "raw-eggplant-caviar",
+    "category": "salads",
+    "image": "assets/images/caucasus-mediterranean.jpg",
+    "price": 20.0,
+    "name": {
+      "ru": "Икра баклажанная сырая",
+      "en": "Fresh Eggplant Caviar",
+      "uk": "Ікра баклажанна свіжа"
+    },
+    "description": {
+      "ru": "Свежая баклажанная закуска с овощами, зеленью и легкой заправкой.",
+      "en": "Fresh eggplant appetizer with vegetables, herbs and a light dressing.",
+      "uk": "Свіжа баклажанна закуска з овочами, зеленню та легкою заправкою."
+    }
+  },
+  {
+    "id": "fried-eggplant-caviar",
+    "category": "salads",
+    "image": "assets/images/caucasus-mediterranean.jpg",
+    "price": 20.0,
+    "name": {
+      "ru": "Икра баклажанная жареная",
+      "en": "Roasted Eggplant Caviar",
+      "uk": "Ікра баклажанна смажена"
+    },
+    "description": {
+      "ru": "Жареная баклажанная икра с овощами и насыщенным домашним вкусом.",
+      "en": "Roasted eggplant spread with vegetables and a rich homemade taste.",
+      "uk": "Смажена баклажанна ікра з овочами та насиченим домашнім смаком."
+    }
+  },
+  {
+    "id": "liver-mushroom-salad",
+    "category": "salads",
+    "image": "assets/images/ukrainian-table.jpg",
+    "price": 25.0,
+    "name": {
+      "ru": "Печеночный салат с грибами",
+      "en": "Liver Salad with Mushrooms",
+      "uk": "Печінковий салат з грибами"
+    },
+    "description": {
+      "ru": "Сытный салат с печенью, грибами и домашней заправкой.",
+      "en": "Hearty salad with liver, mushrooms and homemade dressing.",
+      "uk": "Ситний салат з печінкою, грибами та домашньою заправкою."
+    }
+  },
+  {
+    "id": "stolichny-chicken-salad",
+    "category": "salads",
+    "image": "assets/images/ukrainian-table.jpg",
+    "price": 30.0,
+    "name": {
+      "ru": "Салат Столичный с курицей",
+      "en": "Stolichny Chicken Salad",
+      "uk": "Салат Столичний з куркою"
+    },
+    "description": {
+      "ru": "Классический салат с курицей, овощами, яйцом и майонезом.",
+      "en": "Classic salad with chicken, vegetables, egg and mayonnaise.",
+      "uk": "Класичний салат з куркою, овочами, яйцем та майонезом."
+    }
+  },
+  {
+    "id": "crab-salad",
+    "category": "salads",
+    "image": "assets/images/ukrainian-table.jpg",
+    "price": 30.0,
+    "name": {
+      "ru": "Салат Крабовый",
+      "en": "Crab Salad",
+      "uk": "Крабовий салат"
+    },
+    "description": {
+      "ru": "Домашний крабовый салат с кукурузой, яйцом и нежной заправкой.",
+      "en": "Homemade crab salad with corn, egg and a gentle dressing.",
+      "uk": "Домашній крабовий салат з кукурудзою, яйцем та ніжною заправкою."
+    }
+  },
+  {
+    "id": "blini",
+    "category": "crepes-blini",
+    "image": "assets/images/blini-crepes.jpg",
+    "popular": true,
+    "price": 10.5,
+    "name": {
+      "ru": "Блины / Налистники",
+      "en": "Crepes / Blini",
+      "uk": "Млинці / Налисники"
+    },
+    "description": {
+      "ru": "Тонкие блины с разными начинками.",
+      "en": "Thin crepes with various fillings.",
+      "uk": "Тонкі млинці з різними начинками."
+    }
+  },
+  {
+    "id": "cheese-nalistniki",
+    "category": "crepes-blini",
+    "image": "assets/images/blini-crepes.jpg",
+    "price": 11.5,
+    "name": {
+      "ru": "Налистники с творогом",
+      "en": "Cheese Nalistniki",
+      "uk": "Налисники з сиром"
+    },
+    "description": {
+      "ru": "Нежные налистники с творожной начинкой и сметаной.",
+      "en": "Tender crepes filled with sweet farmer cheese and sour cream.",
+      "uk": "Ніжні налисники з сирною начинкою та сметаною."
+    }
+  },
+  {
+    "id": "chicken-crepes",
+    "category": "crepes-blini",
+    "image": "assets/images/chicken-comfort.jpg",
+    "price": 12.5,
+    "name": {
+      "ru": "Блины с курицей и грибами",
+      "en": "Chicken Mushroom Crepes",
+      "uk": "Млинці з куркою та грибами"
+    },
+    "description": {
+      "ru": "Сытные блины с курицей, грибами и сливочным соусом.",
+      "en": "Savory crepes with chicken, mushrooms and cream sauce.",
+      "uk": "Ситні млинці з куркою, грибами та вершковим соусом."
+    }
+  },
+  {
+    "id": "berry-crepes",
+    "category": "crepes-blini",
+    "image": "assets/images/blini-crepes.jpg",
+    "price": 10.5,
+    "name": {
+      "ru": "Блины с ягодами",
+      "en": "Berry Crepes",
+      "uk": "Млинці з ягодами"
+    },
+    "description": {
+      "ru": "Тонкие блины с ягодами и легкой сладкой начинкой.",
+      "en": "Thin crepes with berries and a light sweet filling.",
+      "uk": "Тонкі млинці з ягодами та легкою солодкою начинкою."
+    }
+  },
+  {
+    "id": "family-dinner",
+    "category": "family-sets",
+    "image": "assets/images/mamas-table-hero-family.jpg",
+    "price": 95.0,
+    "name": {
+      "ru": "Семейный ужин",
+      "en": "Family Dinner",
+      "uk": "Сімейна вечеря"
+    },
+    "description": {
+      "ru": "Сбалансированный набор на 4–6 гостей с супом, основными блюдами и салатом.",
+      "en": "A balanced set for 4–6 guests with soup, mains and salad.",
+      "uk": "Збалансований набір на 4–6 гостей із супом, основними стравами та салатом."
+    }
+  },
+  {
+    "id": "ukrainian-family-tray",
+    "category": "family-sets",
+    "image": "assets/images/ukrainian-table.jpg",
+    "price": 120.0,
+    "name": {
+      "ru": "Украинский семейный набор",
+      "en": "Ukrainian Family Tray",
+      "uk": "Український сімейний набір"
+    },
+    "description": {
+      "ru": "Борщ, вареники, голубцы, салаты и домашняя выпечка для стола.",
+      "en": "Borscht, vareniki, cabbage rolls, salads and homemade pastries.",
+      "uk": "Борщ, вареники, голубці, салати та домашня випічка для столу."
+    }
+  },
+  {
+    "id": "mediterranean-family-tray",
+    "category": "family-sets",
+    "image": "assets/images/caucasus-mediterranean.jpg",
+    "price": 110.0,
+    "name": {
+      "ru": "Средиземноморский набор",
+      "en": "Mediterranean Family Tray",
+      "uk": "Середземноморський набір"
+    },
+    "description": {
+      "ru": "Мясные блюда, салаты, овощи и соусы для легкого семейного ужина.",
+      "en": "Meat dishes, salads, vegetables and sauces for an easy family dinner.",
+      "uk": "М'ясні страви, салати, овочі та соуси для легкої сімейної вечері."
+    }
+  },
+  {
+    "id": "comfort-dinner-set",
+    "category": "family-sets",
+    "image": "assets/images/chicken-comfort.jpg",
+    "price": 88.0,
+    "name": {
+      "ru": "Уютный семейный набор",
+      "en": "Comfort Dinner Set",
+      "uk": "Затишний сімейний набір"
+    },
+    "description": {
+      "ru": "Котлеты, гарнир, салат и блины для уютного домашнего вечера.",
+      "en": "Cutlets, sides, salad and crepes for a cozy homemade evening.",
+      "uk": "Котлети, гарнір, салат і млинці для затишного домашнього вечора."
+    }
+  },
+  {
+    "id": "holiday-table",
+    "category": "holiday-orders",
+    "image": "assets/images/hero-table.jpg",
+    "price": 150.0,
+    "name": {
+      "ru": "Праздничный стол",
+      "en": "Holiday Table",
+      "uk": "Святковий стіл"
+    },
+    "description": {
+      "ru": "Индивидуальный набор блюд для семейных праздников и встреч.",
+      "en": "A custom dish set for family holidays and gatherings.",
+      "uk": "Індивідуальний набір страв для сімейних свят і зустрічей."
+    }
+  },
+  {
+    "id": "party-varenyky-tray",
+    "category": "holiday-orders",
+    "image": "assets/images/mamas-table-hero-family.jpg",
+    "price": 65.0,
+    "name": {
+      "ru": "Большой поднос вареников",
+      "en": "Vareniki Party Tray",
+      "uk": "Великий піднос вареників"
+    },
+    "description": {
+      "ru": "Большой поднос вареников для гостей, офиса или семейного события.",
+      "en": "A large vareniki tray for guests, office orders or family events.",
+      "uk": "Великий піднос вареників для гостей, офісу або сімейної події."
+    }
+  },
+  {
+    "id": "blini-platter",
+    "category": "holiday-orders",
+    "image": "assets/images/blini-crepes.jpg",
+    "price": 55.0,
+    "name": {
+      "ru": "Платтер блинов",
+      "en": "Blini Platter",
+      "uk": "Платер млинців"
+    },
+    "description": {
+      "ru": "Ассорти блинов и налистников с солеными и сладкими начинками.",
+      "en": "Assorted blini and crepes with savory and sweet fillings.",
+      "uk": "Асорті млинців і налисників із солоними та солодкими начинками."
+    }
+  },
+  {
+    "id": "custom-event-menu",
+    "category": "holiday-orders",
+    "image": "assets/images/caucasus-mediterranean.jpg",
+    "price": 180.0,
+    "name": {
+      "ru": "Индивидуальное праздничное меню",
+      "en": "Custom Event Menu",
+      "uk": "Індивідуальне святкове меню"
+    },
+    "description": {
+      "ru": "Меню под количество гостей, кухни, пожелания и формат мероприятия.",
+      "en": "A menu planned around guest count, cuisines, preferences and event style.",
+      "uk": "Меню під кількість гостей, кухні, побажання та формат події."
+    }
+  }
+]

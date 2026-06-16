@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Панель управления — Mama's Table Miami</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --cream: #faf8f4;
+      --white: #fff;
+      --border: #e5ddd0;
+      --brown: #8b5e3c;
+      --brown-d: #7a5033;
+      --green: #4a7c59;
+      --gold: #c8962a;
+      --text: #2a1f0e;
+      --muted: #9a8070;
+      --r: 8px;
+    }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; background: var(--cream); color: var(--text); line-height: 1.5; min-height: 100vh; }
+
+    /* HEADER */
+    .header { background: var(--text); color: #fff; padding: 0 20px; height: 52px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,.3); }
+    .header h1 { font-size: 16px; font-weight: 700; }
+    .header a { color: #aaa; text-decoration: none; font-size: 13px; }
+    .header a:hover { color: #fff; }
+
+    /* TOKEN BAR */
+    .token-bar { background: #fff8f0; border-bottom: 1px solid var(--border); padding: 10px 20px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .token-bar label { font-size: 13px; font-weight: 600; color: var(--muted); white-space: nowrap; }
+    .token-bar input { flex: 1; min-width: 180px; max-width: 320px; padding: 7px 11px; border: 1px solid var(--border); border-radius: 6px; font-size: 13px; font-family: monospace; background: var(--white); }
+    .token-bar input:focus { outline: none; border-color: var(--brown); }
+    .token-help { font-size: 11px; color: var(--muted); }
+    .token-help a { color: var(--brown); }
+    #token-status { font-size: 13px; font-weight: 600; }
+    #token-status.ok { color: var(--green); }
+    #token-status.err { color: #c62828; }
+
+    /* BUTTONS */
+    .btn { padding: 7px 16px; border: none; border-radius: 6px; cursor: pointer; font-size: 13px; font-weight: 600; transition: opacity .15s; white-space: nowrap; }
+    .btn:disabled { opacity: .5; cursor: not-allowed; }
+    .btn-primary { background: var(--brown); color: #fff; }
+    .btn-primary:hover:not(:disabled) { background: var(--brown-d); }
+    .btn-secondary { background: var(--white); color: var(--text); border: 1px solid var(--border); }
+    .btn-secondary:hover:not(:disabled) { background: var(--cream); }
+    .btn-save { background: var(--green); color: #fff; padding: 8px 20px; }
+    .btn-save:hover:not(:disabled) { background: #3d6b4a; }
+
+    /* TOOLBAR */
+    .toolbar { padding: 14px 20px; display: flex; gap: 10px; align-items: center; border-bottom: 1px solid var(--border); background: var(--white); }
+    .toolbar input { flex: 1; padding: 8px 12px; border: 1px solid var(--border); border-radius: 6px; font-size: 14px; background: var(--cream); }
+    .toolbar input:focus { outline: none; border-color: var(--brown); background: var(--white); }
+    .dishes-count { font-size: 13px; color: var(--muted); white-space: nowrap; }
+
+    /* MAIN */
+    .main { max-width: 840px; margin: 0 auto; padding: 20px; }
+
+    /* CATEGORY */
+    .cat-header { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); margin: 24px 0 6px; }
+    .cat-header:first-of-type { margin-top: 0; }
+
+    /* DISH CARD */
+    .dish-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--r); margin-bottom: 4px; overflow: hidden; }
+    .dish-summary { display: flex; align-items: center; gap: 10px; padding: 10px 14px; cursor: pointer; user-select: none; }
+    .dish-summary:hover { background: #fdf9f5; }
+    .dish-thumb { width: 46px; height: 46px; border-radius: 6px; object-fit: cover; flex-shrink: 0; background: var(--border); }
+    .dish-name { flex: 1; font-weight: 600; font-size: 14px; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .dish-price { font-size: 14px; font-weight: 700; color: var(--brown); flex-shrink: 0; }
+    .badge { display: inline-block; font-size: 10px; font-weight: 800; padding: 2px 7px; border-radius: 99px; margin-left: 6px; vertical-align: middle; }
+    .badge-bestseller { background: var(--green); color: #fff; }
+    .badge-vegetarian { background: #5f8b45; color: #fff; }
+    .badge-new { background: var(--gold); color: #fff; }
+    .chevron { color: var(--muted); font-size: 12px; flex-shrink: 0; transition: transform .2s; }
+    .dish-card.open .chevron { transform: rotate(180deg); }
+
+    /* EDIT FORM */
+    .edit-form { display: none; border-top: 1px solid var(--border); padding: 18px 16px; background: #fdfcfa; }
+    .dish-card.open .edit-form { display: block; }
+
+    /* PHOTO */
+    .form-photo { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+    .form-photo img { width: 88px; height: 88px; object-fit: cover; border-radius: 8px; border: 1px solid var(--border); flex-shrink: 0; background: var(--border); }
+    .photo-right { flex: 1; }
+    .photo-upload-label { display: inline-block; padding: 8px 14px; border: 1.5px dashed var(--border); border-radius: 6px; cursor: pointer; font-size: 13px; color: var(--muted); transition: border-color .15s, color .15s; }
+    .photo-upload-label:hover { border-color: var(--brown); color: var(--brown); }
+    .photo-upload-label input { display: none; }
+    .photo-new-name { font-size: 12px; color: var(--green); margin-top: 6px; }
+    .photo-hint { font-size: 11px; color: var(--muted); margin-top: 6px; }
+
+    /* FIELDS */
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+    .form-row.single { grid-template-columns: 1fr; }
+    @media (max-width: 560px) { .form-row { grid-template-columns: 1fr; } }
+    .field { display: flex; flex-direction: column; gap: 4px; }
+    .field label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+    .field input, .field textarea, .field select {
+      padding: 8px 10px; border: 1px solid var(--border); border-radius: 6px;
+      font-size: 14px; font-family: inherit; background: var(--white); color: var(--text);
+    }
+    .field input:focus, .field textarea:focus, .field select:focus { outline: none; border-color: var(--brown); }
+    .field textarea { resize: vertical; min-height: 72px; }
+
+    .translations-toggle { display: inline-block; font-size: 12px; color: var(--brown); cursor: pointer; text-decoration: underline; margin: 4px 0 12px; }
+    .translations-section { display: none; padding: 12px; background: #f7f4ef; border-radius: 6px; margin-bottom: 12px; }
+    .translations-section.open { display: block; }
+
+    /* ACTIONS */
+    .form-actions { display: flex; gap: 8px; align-items: center; margin-top: 16px; flex-wrap: wrap; padding-top: 14px; border-top: 1px solid var(--border); }
+    .form-msg { font-size: 13px; }
+    .form-msg.ok { color: var(--green); }
+    .form-msg.err { color: #c62828; }
+
+    /* STATES */
+    .empty-state { text-align: center; padding: 60px 20px; color: var(--muted); font-size: 15px; line-height: 1.8; }
+    .empty-state strong { display: block; font-size: 22px; margin-bottom: 8px; }
+
+    .spinner { display: inline-block; width: 13px; height: 13px; border: 2px solid rgba(255,255,255,.3); border-top-color: #fff; border-radius: 50%; animation: spin .7s linear infinite; vertical-align: middle; margin-right: 5px; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+
+<header class="header">
+  <h1>🍽 Mama's Table — Панель управления</h1>
+  <a href="../">← Вернуться на сайт</a>
+</header>
+
+<div class="token-bar">
+  <label for="token-input">GitHub Token:</label>
+  <input type="password" id="token-input" placeholder="ghp_xxxxxxxxxxxxxxxx" autocomplete="off">
+  <button class="btn btn-primary" onclick="saveToken()">Подключить</button>
+  <span id="token-status"></span>
+  <span class="token-help">Нет токена? <a href="https://github.com/settings/tokens/new?scopes=repo&description=MamasTableAdmin" target="_blank">Создать на GitHub</a> (поставь галочку "repo")</span>
+</div>
+
+<div class="toolbar">
+  <input type="text" id="search" placeholder="🔍 Поиск по названию..." oninput="renderList()">
+  <span class="dishes-count" id="dishes-count"></span>
+</div>
+
+<div class="main">
+  <div id="dishes-list">
+    <div class="empty-state">
+      <strong>👋</strong>
+      Введите GitHub Token выше и нажмите «Подключить»,<br>чтобы загрузить меню для редактирования.
+    </div>
+  </div>
+</div>
+
+<script>
+const REPO = 'kozakyuriyus-ctrl/mamas-table-miami';
+const API  = `https://api.github.com/repos/${REPO}/contents/`;
+const CATS = {
+  soups:           'Первые блюда',
+  'main-dishes':   'Вторые блюда',
+  salads:          'Салаты',
+  'crepes-blini':  'Блины / Налистники',
+  'family-sets':   'Семейные наборы',
+  'holiday-orders':'Праздничные заказы',
+};
+const BADGE_LABELS = { bestseller: 'Хит', vegetarian: 'Вегетарианское', new: 'Новинка' };
+
+let token = localStorage.getItem('mamas_admin_token') || '';
+let dishes = [];
+let dishesFileSha = '';
+let pendingPhotos = {};
+let openId = null;
+
+/* ── Token ───────────────────────────────────────────────── */
+function saveToken() {
+  const val = document.getElementById('token-input').value.trim();
+  if (!val || val.startsWith('●')) return;
+  token = val;
+  localStorage.setItem('mamas_admin_token', val);
+  loadDishes();
+}
+
+/* ── GitHub API ──────────────────────────────────────────── */
+async function ghGet(path) {
+  const r = await fetch(API + path, { headers: { Authorization: `Bearer ${token}` } });
+  if (!r.ok) {
+    const e = await r.json().catch(() => ({}));
+    throw new Error(e.message || `${r.status} ${r.statusText}`);
+  }
+  return r.json();
+}
+
+async function ghPut(path, b64, sha, msg) {
+  const body = { message: msg, content: b64 };
+  if (sha) body.sha = sha;
+  const r = await fetch(API + path, {
+    method: 'PUT',
+    headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify(body),
+  });
+  const data = await r.json();
+  if (!r.ok) throw new Error(data.message || `${r.status}`);
+  return data;
+}
+
+function toB64(str) {
+  const bytes = new TextEncoder().encode(str);
+  let bin = '';
+  bytes.forEach(b => bin += String.fromCharCode(b));
+  return btoa(bin);
+}
+
+/* ── Load ────────────────────────────────────────────────── */
+async function loadDishes() {
+  const status = document.getElementById('token-status');
+  status.textContent = 'Подключение...';
+  status.className = '';
+  try {
+    const data = await ghGet('dishes.json');
+    dishes = JSON.parse(atob(data.content.replace(/\n/g, '')));
+    dishesFileSha = data.sha;
+    status.textContent = `✓ ${dishes.length} блюд загружено`;
+    status.className = 'ok';
+    document.getElementById('token-input').value = '●'.repeat(20);
+    renderList();
+  } catch (e) {
+    status.textContent = `✗ ${e.message}`;
+    status.className = 'err';
+  }
+}
+
+/* ── Render list ─────────────────────────────────────────── */
+function renderList() {
+  const q = (document.getElementById('search').value || '').toLowerCase().trim();
+  const filtered = q
+    ? dishes.filter(d => (d.name?.ru || d.id).toLowerCase().includes(q))
+    : dishes;
+
+  document.getElementById('dishes-count').textContent = filtered.length ? `${filtered.length} блюд` : '';
+
+  const grouped = {};
+  filtered.forEach(d => {
+    const c = d.category || 'other';
+    (grouped[c] = grouped[c] || []).push(d);
+  });
+
+  let html = '';
+  Object.keys(CATS).forEach(cat => {
+    if (!grouped[cat]) return;
+    html += `<div class="cat-header">${CATS[cat]}</div>`;
+    grouped[cat].forEach(d => { html += cardHTML(d); });
+  });
+  if (!html) html = '<div class="empty-state"><strong>🔍</strong>Ничего не найдено</div>';
+
+  document.getElementById('dishes-list').innerHTML = html;
+
+  if (openId) {
+    const card = document.querySelector(`[data-id="${openId}"]`);
+    if (card) card.classList.add('open');
+  }
+}
+
+function cardHTML(d) {
+  const badge = d.badge ? `<span class="badge badge-${d.badge}">${BADGE_LABELS[d.badge] || d.badge}</span>` : '';
+  const thumb = pendingPhotos[d.id]?.dataUrl || (d.image ? `../${d.image}` : '');
+  const thumbEl = thumb ? `<img class="dish-thumb" src="${thumb}" alt="" loading="lazy">` : `<div class="dish-thumb"></div>`;
+  return `
+<div class="dish-card" data-id="${d.id}">
+  <div class="dish-summary" onclick="toggleCard('${d.id}')">
+    ${thumbEl}
+    <span class="dish-name">${esc(d.name?.ru || d.id)}${badge}</span>
+    <span class="dish-price">$${d.price}</span>
+    <span class="chevron">▼</span>
+  </div>
+  <div class="edit-form">${formHTML(d)}</div>
+</div>`;
+}
+
+function formHTML(d) {
+  const thumb = pendingPhotos[d.id]?.dataUrl || (d.image ? `../${d.image}` : '');
+  const imgEl = `<img id="preview-${d.id}" src="${thumb}" alt="" onerror="this.style.visibility='hidden'">`;
+  return `
+    <div class="form-photo">
+      ${imgEl}
+      <div class="photo-right">
+        <label class="photo-upload-label">
+          📷 Загрузить новое фото
+          <input type="file" accept="image/png,image/jpeg,image/webp" onchange="onPhoto('${d.id}', this)">
+        </label>
+        <div class="photo-new-name" id="photo-name-${d.id}">${pendingPhotos[d.id] ? '✓ ' + pendingPhotos[d.id].fileName : ''}</div>
+        <div class="photo-hint">PNG, JPG или WebP · будет сохранено в репозиторий</div>
+      </div>
+    </div>
+
+    <div class="form-row single">
+      <div class="field">
+        <label>Название (рус) *</label>
+        <input type="text" id="name-ru-${d.id}" value="${esc(d.name?.ru || '')}">
+      </div>
+    </div>
+    <div class="form-row single">
+      <div class="field">
+        <label>Описание (рус)</label>
+        <textarea id="desc-ru-${d.id}">${esc(d.description?.ru || '')}</textarea>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="field">
+        <label>Цена ($)</label>
+        <input type="number" step="0.5" min="0" id="price-${d.id}" value="${d.price}">
+      </div>
+      <div class="field">
+        <label>Значок</label>
+        <select id="badge-${d.id}">
+          <option value="" ${!d.badge ? 'selected' : ''}>— нет —</option>
+          <option value="bestseller" ${d.badge === 'bestseller' ? 'selected' : ''}>Хит продаж</option>
+          <option value="vegetarian" ${d.badge === 'vegetarian' ? 'selected' : ''}>Вегетарианское</option>
+          <option value="new" ${d.badge === 'new' ? 'selected' : ''}>Новинка</option>
+        </select>
+      </div>
+    </div>
+
+    <span class="translations-toggle" onclick="toggleTrans('${d.id}')">+ Переводы EN / UK</span>
+    <div class="translations-section" id="trans-${d.id}">
+      <div class="form-row">
+        <div class="field">
+          <label>Название (English)</label>
+          <input type="text" id="name-en-${d.id}" value="${esc(d.name?.en || '')}">
+        </div>
+        <div class="field">
+          <label>Название (Українська)</label>
+          <input type="text" id="name-uk-${d.id}" value="${esc(d.name?.uk || '')}">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="field">
+          <label>Описание (English)</label>
+          <textarea id="desc-en-${d.id}">${esc(d.description?.en || '')}</textarea>
+        </div>
+        <div class="field">
+          <label>Описание (Українська)</label>
+          <textarea id="desc-uk-${d.id}">${esc(d.description?.uk || '')}</textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button class="btn btn-save" id="save-btn-${d.id}" onclick="saveDish('${d.id}')">Сохранить</button>
+      <button class="btn btn-secondary" onclick="toggleCard('${d.id}')">Отмена</button>
+      <span class="form-msg" id="msg-${d.id}"></span>
+    </div>`;
+}
+
+function esc(s) {
+  return String(s)
+    .replace(/&/g, '&amp;')
+    .replace(/"/g, '&quot;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
+/* ── Toggle card ─────────────────────────────────────────── */
+function toggleCard(id) {
+  const card = document.querySelector(`[data-id="${id}"]`);
+  const isOpen = card.classList.contains('open');
+  document.querySelectorAll('.dish-card.open').forEach(c => c.classList.remove('open'));
+  openId = null;
+  if (!isOpen) { card.classList.add('open'); openId = id; }
+}
+
+function toggleTrans(id) {
+  const sec = document.getElementById(`trans-${id}`);
+  const btn = sec.previousElementSibling;
+  const open = sec.classList.toggle('open');
+  btn.textContent = open ? '− Переводы EN / UK' : '+ Переводы EN / UK';
+}
+
+/* ── Photo select ────────────────────────────────────────── */
+function onPhoto(id, input) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    pendingPhotos[id] = { dataUrl: e.target.result, file, fileName: file.name };
+    const prev = document.getElementById(`preview-${id}`);
+    if (prev) { prev.src = e.target.result; prev.style.visibility = ''; }
+    const nameEl = document.getElementById(`photo-name-${id}`);
+    if (nameEl) nameEl.textContent = `✓ ${file.name}`;
+  };
+  reader.readAsDataURL(file);
+}
+
+/* ── Save dish ───────────────────────────────────────────── */
+async function saveDish(id) {
+  const btn  = document.getElementById(`save-btn-${id}`);
+  const msg  = document.getElementById(`msg-${id}`);
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span>Сохраняем...';
+  msg.textContent = '';
+  msg.className = 'form-msg';
+
+  try {
+    const dish = dishes.find(d => d.id === id);
+    if (!dish) throw new Error('Блюдо не найдено');
+
+    /* 1. Upload photo */
+    if (pendingPhotos[id]) {
+      const { dataUrl, file } = pendingPhotos[id];
+      const ext  = file.name.split('.').pop().toLowerCase() || 'jpg';
+      const path = `assets/images/${dish.category}/${id}.${ext}`;
+      const b64  = dataUrl.split(',')[1];
+      let sha;
+      try { sha = (await ghGet(path)).sha; } catch {}
+      await ghPut(path, b64, sha, `Admin: update photo ${id}`);
+      dish.image = path;
+      delete pendingPhotos[id];
+    }
+
+    /* 2. Update fields */
+    const g = x => document.getElementById(x)?.value?.trim() ?? '';
+    dish.name = {
+      ru: g(`name-ru-${id}`) || dish.name?.ru || '',
+      en: g(`name-en-${id}`) || dish.name?.en || '',
+      uk: g(`name-uk-${id}`) || dish.name?.uk || '',
+    };
+    dish.description = {
+      ru: g(`desc-ru-${id}`) || dish.description?.ru || '',
+      en: g(`desc-en-${id}`) || dish.description?.en || '',
+      uk: g(`desc-uk-${id}`) || dish.description?.uk || '',
+    };
+    const p = parseFloat(g(`price-${id}`));
+    if (!isNaN(p) && p >= 0) dish.price = p;
+    const b = g(`badge-${id}`);
+    if (b) dish.badge = b; else delete dish.badge;
+
+    /* 3. Save dishes.json */
+    const result = await ghPut(
+      'dishes.json',
+      toB64(JSON.stringify(dishes, null, 2)),
+      dishesFileSha,
+      `Admin: обновлено "${dish.name.ru}"`
+    );
+    dishesFileSha = result.content.sha;
+
+    /* 4. Refresh */
+    renderList();
+    const newMsg = document.getElementById(`msg-${id}`);
+    if (newMsg) {
+      newMsg.textContent = '✓ Сохранено! Сайт обновится через 1–2 мин.';
+      newMsg.className = 'form-msg ok';
+    }
+
+  } catch (e) {
+    btn.disabled = false;
+    btn.textContent = 'Сохранить';
+    if (msg) { msg.textContent = `✗ Ошибка: ${e.message}`; msg.className = 'form-msg err'; }
+  } finally {
+    const b = document.getElementById(`save-btn-${id}`);
+    if (b && b.disabled) { b.disabled = false; b.textContent = 'Сохранить'; }
+  }
+}
+
+/* ── Init ────────────────────────────────────────────────── */
+if (token) {
+  document.getElementById('token-input').value = '●'.repeat(20);
+  loadDishes();
+}
+</script>
+</body>
+</html>
