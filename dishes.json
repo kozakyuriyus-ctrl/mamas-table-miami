@@ -23,12 +23,12 @@
     "image": "assets/images/soups/chicken-soup.png",
     "price": 25,
     "name": {
-      "ru": "Суп куриный с вермишелью",
+      "ru": "Суп куриный с лапшой",
       "en": "Chicken Noodle Soup",
       "uk": "Суп курячий з вермішеллю"
     },
     "description": {
-      "ru": "Легкий куриный бульон с овощами, зеленью и домашней лапшой.",
+      "ru": "Легкий куриный бульон с овощами, зеленью и лапшой.",
       "en": "Light chicken broth with vegetables, herbs and homemade noodles.",
       "uk": "Легкий курячий бульйон з овочами, зеленню та домашньою локшиною."
     }
