@@ -754,12 +754,12 @@
     "image": "assets/images/caucasus-mediterranean.jpg",
     "price": 20,
     "name": {
-      "ru": "Икра баклажанная сырая",
+      "ru": "Икра баклажанная",
       "en": "Fresh Eggplant Caviar",
       "uk": "Ікра баклажанна свіжа"
     },
     "description": {
-      "ru": "Свежая баклажанная закуска с овощами, зеленью и легкой заправкой.",
+      "ru": "Свежая баклажанная закуска из печенных овощей.",
       "en": "Fresh eggplant appetizer with vegetables, herbs and a light dressing.",
       "uk": "Свіжа баклажанна закуска з овочами, зеленню та легкою заправкою."
     }
