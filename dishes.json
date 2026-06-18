@@ -379,7 +379,7 @@
   {
     "id": "chicken-pelmeni",
     "category": "main-dishes",
-    "image": "assets/images/mamas-table-hero-family.jpg",
+    "image": "assets/images/main-dishes/chicken-pelmeni.png",
     "price": 30,
     "name": {
       "ru": "Пельмени с куриным фаршем",
