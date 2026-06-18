@@ -571,7 +571,7 @@
   {
     "id": "mashed-potatoes",
     "category": "main-dishes",
-    "image": "assets/images/chicken-comfort.jpg",
+    "image": "assets/images/main-dishes/mashed-potatoes.png",
     "price": 6.5,
     "name": {
       "ru": "Картофельное пюре",
