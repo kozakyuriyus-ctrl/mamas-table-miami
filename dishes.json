@@ -603,7 +603,7 @@
   {
     "id": "chicken-kholodets",
     "category": "main-dishes",
-    "image": "assets/images/chicken-comfort.jpg",
+    "image": "assets/images/main-dishes/chicken-kholodets.png",
     "price": 35,
     "name": {
       "ru": "Холодец куриный",
