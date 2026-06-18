@@ -635,7 +635,7 @@
   {
     "id": "olivier",
     "category": "salads",
-    "image": "assets/images/ukrainian-table.jpg",
+    "image": "assets/images/salads/olivier.png",
     "popular": true,
     "price": 30,
     "name": {
