@@ -815,7 +815,7 @@
   {
     "id": "crab-salad",
     "category": "salads",
-    "image": "assets/images/ukrainian-table.jpg",
+    "image": "assets/images/salads/crab-salad.png",
     "price": 30,
     "name": {
       "ru": "Салат Крабовый",
