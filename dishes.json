@@ -799,7 +799,7 @@
   {
     "id": "stolichny-chicken-salad",
     "category": "salads",
-    "image": "assets/images/ukrainian-table.jpg",
+    "image": "assets/images/salads/stolichny-chicken-salad.png",
     "price": 30,
     "name": {
       "ru": "Салат Столичный с курицей",
