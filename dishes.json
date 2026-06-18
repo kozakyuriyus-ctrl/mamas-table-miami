@@ -523,7 +523,7 @@
   {
     "id": "chicken-liver-pate",
     "category": "main-dishes",
-    "image": "assets/images/ukrainian-table.jpg",
+    "image": "assets/images/main-dishes/chicken-liver-pate.png",
     "price": 35,
     "name": {
       "ru": "Паштет из куриной печени",
