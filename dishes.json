@@ -395,7 +395,7 @@
   {
     "id": "potato-zrazy-meat",
     "category": "main-dishes",
-    "image": "assets/images/ukrainian-table.jpg",
+    "image": "assets/images/main-dishes/potato-zrazy-meat.png",
     "price": 25,
     "name": {
       "ru": "Зразы картофельные с мясом",
