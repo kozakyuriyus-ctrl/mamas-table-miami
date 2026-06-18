@@ -459,7 +459,7 @@
   {
     "id": "chicken-chops",
     "category": "main-dishes",
-    "image": "assets/images/chicken-comfort.jpg",
+    "image": "assets/images/main-dishes/chicken-chops.png",
     "price": 35,
     "name": {
       "ru": "Отбивные куриные",
