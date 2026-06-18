@@ -443,7 +443,7 @@
   {
     "id": "chicken-tabaka",
     "category": "main-dishes",
-    "image": "assets/images/caucasus-mediterranean.jpg",
+    "image": "assets/images/main-dishes/chicken-tabaka.png",
     "price": 35,
     "name": {
       "ru": "Цыпленок тапака",
