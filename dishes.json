@@ -539,7 +539,7 @@
   {
     "id": "bbq-ribs",
     "category": "main-dishes",
-    "image": "assets/images/caucasus-mediterranean.jpg",
+    "image": "assets/images/main-dishes/bbq-ribs.png",
     "price": 45,
     "name": {
       "ru": "Ребра барбекю",
