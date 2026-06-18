@@ -282,7 +282,7 @@
   {
     "id": "beef-goulash",
     "category": "main-dishes",
-    "image": "assets/images/caucasus-mediterranean.jpg",
+    "image": "assets/images/main-dishes/beef-goulash.png",
     "price": 40,
     "name": {
       "ru": "Гуляш из говядины",
