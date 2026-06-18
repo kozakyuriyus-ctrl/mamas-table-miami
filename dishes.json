@@ -199,7 +199,7 @@
     "id": "varenyky",
     "category": "main-dishes",
     "badge": "bestseller",
-    "image": "assets/images/mamas-table-hero-family.jpg",
+    "image": "assets/images/main-dishes/varenyky.png",
     "popular": true,
     "price": 25,
     "name": {
