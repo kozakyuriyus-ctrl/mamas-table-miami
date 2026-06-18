@@ -652,7 +652,7 @@
   {
     "id": "vinaigrette",
     "category": "salads",
-    "image": "assets/images/ukrainian-table.jpg",
+    "image": "assets/images/salads/vinaigrette.png",
     "price": 30,
     "name": {
       "ru": "Винегрет",
