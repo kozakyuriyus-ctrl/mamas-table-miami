@@ -250,7 +250,7 @@
   {
     "id": "chicken-mince-cutlets",
     "category": "main-dishes",
-    "image": "assets/images/chicken-comfort.jpg",
+    "image": "assets/images/main-dishes/chicken-mince-cutlets.png",
     "price": 30,
     "name": {
       "ru": "Котлеты с куриным фаршем",
