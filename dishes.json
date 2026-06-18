@@ -427,7 +427,7 @@
   {
     "id": "meat-rice-meatballs",
     "category": "main-dishes",
-    "image": "assets/images/chicken-comfort.jpg",
+    "image": "assets/images/main-dishes/meat-rice-meatballs.png",
     "price": 25,
     "name": {
       "ru": "Тефтели мясные с рисом",
