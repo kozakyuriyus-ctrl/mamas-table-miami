@@ -735,7 +735,7 @@
   {
     "id": "korean-carrots",
     "category": "salads",
-    "image": "assets/images/caucasus-mediterranean.jpg",
+    "image": "assets/images/salads/korean-carrots.png",
     "price": 15,
     "name": {
       "ru": "Морковка по-корейски",
