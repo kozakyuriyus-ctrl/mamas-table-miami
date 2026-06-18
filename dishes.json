@@ -234,7 +234,7 @@
   {
     "id": "beef-stroganoff",
     "category": "main-dishes",
-    "image": "assets/images/chicken-comfort.jpg",
+    "image": "assets/images/main-dishes/beef-stroganoff.png",
     "price": 40,
     "name": {
       "ru": "Бефстроганов",
