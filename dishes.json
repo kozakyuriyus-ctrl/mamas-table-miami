@@ -783,7 +783,7 @@
   {
     "id": "liver-mushroom-salad",
     "category": "salads",
-    "image": "assets/images/ukrainian-table.jpg",
+    "image": "assets/images/salads/liver-mushroom-salad.png",
     "price": 25,
     "name": {
       "ru": "Печеночный салат с грибами",
