@@ -555,7 +555,7 @@
   {
     "id": "fish-cutlets",
     "category": "main-dishes",
-    "image": "assets/images/chicken-comfort.jpg",
+    "image": "assets/images/main-dishes/fish-cutlets.png",
     "price": 35,
     "name": {
       "ru": "Котлеты рыбные",
