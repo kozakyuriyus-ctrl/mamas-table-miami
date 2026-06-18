@@ -507,7 +507,7 @@
   {
     "id": "plain-blini",
     "category": "main-dishes",
-    "image": "assets/images/blini-crepes.jpg",
+    "image": "assets/images/main-dishes/plain-blini.png",
     "price": 15,
     "name": {
       "ru": "Блины без начинки",
