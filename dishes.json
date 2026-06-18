@@ -331,7 +331,7 @@
   {
     "id": "meat-filled-blini",
     "category": "main-dishes",
-    "image": "assets/images/blini-crepes.jpg",
+    "image": "assets/images/main-dishes/meat-filled-blini.png",
     "price": 30,
     "name": {
       "ru": "Блины с мясной начинкой",
