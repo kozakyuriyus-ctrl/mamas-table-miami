@@ -587,7 +587,7 @@
   {
     "id": "pork-beef-kholodets",
     "category": "main-dishes",
-    "image": "assets/images/ukrainian-table.jpg",
+    "image": "assets/images/main-dishes/pork-beef-kholodets.png",
     "price": 35,
     "name": {
       "ru": "Холодец свино-говяжий",
