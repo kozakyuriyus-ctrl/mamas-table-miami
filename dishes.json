@@ -411,7 +411,7 @@
   {
     "id": "liver-cake",
     "category": "main-dishes",
-    "image": "assets/images/ukrainian-table.jpg",
+    "image": "assets/images/main-dishes/liver-cake.png",
     "price": 30,
     "name": {
       "ru": "Печеночный торт",
