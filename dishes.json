@@ -491,7 +491,7 @@
   {
     "id": "pork-chops",
     "category": "main-dishes",
-    "image": "assets/images/chicken-comfort.jpg",
+    "image": "assets/images/main-dishes/pork-chops.png",
     "price": 35,
     "name": {
       "ru": "Отбивные свиные",
