@@ -860,7 +860,7 @@ p {
 
 .menu-content {
   display: grid;
-  gap: 24px;
+  gap: 48px;
 }
 
 .menu-panel {
@@ -1947,6 +1947,10 @@ fieldset.form-field {
   .route-hero,
   .menu-panel {
     padding: 18px;
+  }
+
+  .menu-content {
+    gap: 32px;
   }
 
   .route-hero-image {

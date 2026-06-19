@@ -43,7 +43,7 @@ const copy = {
     popular: { title: "Популярные блюда", viewAll: "Все меню" },
     categories: { title: "Категории меню", subtitle: "Выберите категорию, чтобы посмотреть полный список блюд.", open: "Открыть меню" },
     menuPage: {
-      title: "Меню Mama's Table",
+      title: "Меню Маминой кухни",
       subtitle: "Выберите категорию или добавьте популярные блюда в заказ.",
       categoriesTitle: "Выберите категорию",
       featuredTitle: "Популярные блюда",
@@ -309,7 +309,7 @@ const copy = {
     popular: { title: "Популярні страви", viewAll: "Все меню" },
     categories: { title: "Категорії меню", subtitle: "Оберіть категорію, щоб переглянути повний список страв.", open: "Відкрити меню" },
     menuPage: {
-      title: "Меню Mama's Table",
+      title: "Меню Маминої кухні",
       subtitle: "Оберіть категорію або додайте популярні страви до замовлення.",
       categoriesTitle: "Оберіть категорію",
       featuredTitle: "Популярні страви",
