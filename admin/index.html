@@ -207,21 +207,22 @@ function toB64(str) {
   return btoa(bin);
 }
 
-function fromB64(b64) {
-  const bin = atob(b64.replace(/\s/g, ''));
-  const bytes = Uint8Array.from(bin, ch => ch.charCodeAt(0));
-  return new TextDecoder('utf-8').decode(bytes);
-}
-
 /* ── Load ────────────────────────────────────────────────── */
 async function loadDishes() {
   const status = document.getElementById('token-status');
   status.textContent = 'Подключение...';
   status.className = '';
   try {
-    const data = await ghGet('dishes.json');
-    dishes = JSON.parse(fromB64(data.content));
-    dishesFileSha = data.sha;
+    // Read raw JSON directly (no base64, no encoding issues)
+    const rawUrl = `https://raw.githubusercontent.com/${REPO}/main/dishes.json?t=${Date.now()}`;
+    const rawR = await fetch(rawUrl);
+    if (!rawR.ok) throw new Error(`dishes.json: ${rawR.status}`);
+    dishes = await rawR.json();
+
+    // Get SHA separately (needed to save via API)
+    const meta = await ghGet('dishes.json');
+    dishesFileSha = meta.sha;
+
     status.textContent = `✓ ${dishes.length} блюд загружено`;
     status.className = 'ok';
     document.getElementById('token-input').value = '●'.repeat(20);
