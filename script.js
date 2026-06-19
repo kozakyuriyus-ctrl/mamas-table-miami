@@ -44,9 +44,8 @@ const copy = {
     categories: { title: "Категории меню", subtitle: "Выберите категорию, чтобы посмотреть полный список блюд.", open: "Открыть меню" },
     menuPage: {
       title: "Меню Маминой кухни",
-      subtitle: "Выберите категорию или добавьте популярные блюда в заказ.",
+      subtitle: "Выберите категорию, чтобы посмотреть блюда и оформить заказ.",
       categoriesTitle: "Выберите категорию",
-      featuredTitle: "Популярные блюда",
       backHome: "На главную",
       backMenu: "Назад к меню",
     },
@@ -177,9 +176,8 @@ const copy = {
     categories: { title: "Menu Categories", subtitle: "Choose a category to view the full dish list.", open: "Open menu" },
     menuPage: {
       title: "Mama's Table Menu",
-      subtitle: "Choose a category or add popular dishes to your order.",
+      subtitle: "Choose a category to browse dishes and place your order.",
       categoriesTitle: "Choose a category",
-      featuredTitle: "Popular dishes",
       backHome: "Back home",
       backMenu: "Back to menu",
     },
@@ -310,9 +308,8 @@ const copy = {
     categories: { title: "Категорії меню", subtitle: "Оберіть категорію, щоб переглянути повний список страв.", open: "Відкрити меню" },
     menuPage: {
       title: "Меню Маминої кухні",
-      subtitle: "Оберіть категорію або додайте популярні страви до замовлення.",
+      subtitle: "Оберіть категорію, щоб переглянути страви та оформити замовлення.",
       categoriesTitle: "Оберіть категорію",
-      featuredTitle: "Популярні страви",
       backHome: "На головну",
       backMenu: "Назад до меню",
     },
@@ -675,13 +672,6 @@ const createMenuOverviewPage = () => `
             <h2>${escapeHtml(t("menuPage.categoriesTitle"))}</h2>
           </div>
           <div class="category-grid route-category-grid">${categories.map(createCategoryCard).join("")}</div>
-        </section>
-
-        <section class="menu-panel reveal">
-          <div class="section-title">
-            <h2>${escapeHtml(t("menuPage.featuredTitle"))}</h2>
-          </div>
-          <div class="dish-grid menu-dish-grid">${popularDishes.map(createDishCard).join("")}</div>
         </section>
       </div>
       ${createRouteOrderCard()}
