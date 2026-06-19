@@ -19,8 +19,8 @@ const copy = {
       cardMeta: "На 4–6 гостей • от $95",
     },
     badges: {
-      fresh: "Готовим свежую еду",
-      freshSub: "К каждому заказу",
+      fresh: "Свежая еда",
+      freshSub: "Готовим к заказу",
       preorder: "Предзаказ 24–48ч",
       preorderSub: "Чтобы было свежо",
       delivery: "Локальная доставка",
@@ -151,8 +151,8 @@ const copy = {
       cardMeta: "Serves 4–6 guests • from $95",
     },
     badges: {
-      fresh: "Freshly Made",
-      freshSub: "To order",
+      fresh: "Fresh Food",
+      freshSub: "Made to order",
       preorder: "24–48h Preorder",
       preorderSub: "Always fresh",
       delivery: "Local Delivery",
@@ -283,8 +283,8 @@ const copy = {
       cardMeta: "На 4–6 гостей • від $95",
     },
     badges: {
-      fresh: "Готуємо свіжу їжу",
-      freshSub: "До кожного замовлення",
+      fresh: "Свіжа їжа",
+      freshSub: "Готуємо до замовлення",
       preorder: "Передзамовлення 24–48г",
       preorderSub: "Щоб було свіжо",
       delivery: "Локальна доставка",

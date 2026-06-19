@@ -347,6 +347,12 @@ p {
   font-weight: 700;
 }
 
+@media (max-width: 767px) {
+  .trust-item--hide-mobile {
+    display: none;
+  }
+}
+
 .hero-media {
   position: relative;
   min-height: min(600px, calc(100svh - var(--header-height) - 18px));
