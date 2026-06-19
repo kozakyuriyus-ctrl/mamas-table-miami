@@ -14,7 +14,7 @@ const copy = {
       title: "Домашняя еда с доставкой в Miami",
       lede:
         "Украинские, восточноевропейские, средиземноморские, кавказские и азиатские блюда готовятся под заказ и доставляются по Miami, Hallandale, Hollywood, Aventura и ближайшим районам.",
-      cardLabel: "Популярный выбор",
+      cardLabel: "Популярный заказ",
       cardTitle: "Семейный ужин",
       cardMeta: "На 4–6 гостей • от $95",
     },
@@ -146,7 +146,7 @@ const copy = {
       title: "Homemade Meals, Delivered Fresh in Miami",
       lede:
         "Ukrainian, Eastern European, Mediterranean, Caucasian and Asian dishes made to order and delivered across Miami, Hallandale, Hollywood, Aventura and nearby areas.",
-      cardLabel: "Popular Choice",
+      cardLabel: "Popular Order",
       cardTitle: "Family Dinner",
       cardMeta: "Serves 4–6 guests • from $95",
     },
@@ -278,7 +278,7 @@ const copy = {
       title: "Домашня їжа з доставкою в Miami",
       lede:
         "Українські, східноєвропейські, середземноморські, кавказькі та азійські страви готуються на замовлення і доставляються по Miami, Hallandale, Hollywood, Aventura та поруч.",
-      cardLabel: "Популярний вибір",
+      cardLabel: "Популярне замовлення",
       cardTitle: "Сімейна вечеря",
       cardMeta: "На 4–6 гостей • від $95",
     },
