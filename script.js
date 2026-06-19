@@ -6,12 +6,13 @@ const tr = (ru, en, uk) => ({ ru, en, uk });
 
 const copy = {
   ru: {
-    meta: { title: "Mama's Table | Домашняя еда с доставкой в Miami" },
+    meta: { title: "Mama's Table | Домашняя еда с доставкой в Майами" },
+    brand: { name: "Мамина кухня", tagline: "Домашняя еда • Miami" },
     nav: { how: "Как заказать", menu: "Меню", delivery: "Доставка", about: "О нас", faq: "FAQ", contact: "Контакты" },
     actions: { orderNow: "Заказать", viewMenu: "Смотреть меню" },
     hero: {
       eyebrow: "Премиальная домашняя кухня",
-      title: "Домашняя еда с доставкой в Miami",
+      title: "Домашняя еда с доставкой в Майами",
       lede:
         "Украинские, восточноевропейские, средиземноморские, кавказские и азиатские блюда готовятся под заказ и доставляются по Miami, Hallandale, Hollywood, Aventura и ближайшим районам.",
       cardLabel: "Популярный заказ",
@@ -139,6 +140,7 @@ const copy = {
   },
   en: {
     meta: { title: "Mama's Table | Homemade Meals Delivered Fresh in Miami" },
+    brand: { name: "Mama's Table", tagline: "Homemade Kitchen • Miami" },
     nav: { how: "How It Works", menu: "Menu", delivery: "Delivery", about: "About Us", faq: "FAQ", contact: "Contact" },
     actions: { orderNow: "Order Now", viewMenu: "View Menu" },
     hero: {
@@ -270,12 +272,13 @@ const copy = {
     },
   },
   uk: {
-    meta: { title: "Mama's Table | Домашня їжа з доставкою в Miami" },
+    meta: { title: "Mama's Table | Домашня їжа з доставкою в Маямі" },
+    brand: { name: "Мамина кухня", tagline: "Домашня їжа • Miami" },
     nav: { how: "Як замовити", menu: "Меню", delivery: "Доставка", about: "Про нас", faq: "FAQ", contact: "Контакти" },
     actions: { orderNow: "Замовити", viewMenu: "Дивитися меню" },
     hero: {
       eyebrow: "Преміальна домашня кухня",
-      title: "Домашня їжа з доставкою в Miami",
+      title: "Домашня їжа з доставкою в Маямі",
       lede:
         "Українські, східноєвропейські, середземноморські, кавказькі та азійські страви готуються на замовлення і доставляються по Miami, Hallandale, Hollywood, Aventura та поруч.",
       cardLabel: "Популярне замовлення",
