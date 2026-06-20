@@ -24,7 +24,10 @@ html {
 
 #how,
 #menu,
+#catering,
+#categories,
 #delivery,
+#testimonials,
 #about,
 #faq,
 #contact {
@@ -2125,5 +2128,416 @@ fieldset.form-field {
   .reveal {
     transform: none;
     opacity: 1;
+  }
+}
+
+/* ── Categories footer ──────────────────────────────────────────────────────── */
+
+.categories-footer {
+  display: flex;
+  justify-content: center;
+  margin-top: 32px;
+}
+
+/* ── Catering section ───────────────────────────────────────────────────────── */
+
+.catering-section {
+  background: var(--soft);
+  border-radius: 16px;
+  padding: 56px 48px;
+}
+
+.catering-benefits {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin: 36px 0 32px;
+}
+
+.catering-benefit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+  padding: 24px 16px;
+  background: var(--cream);
+  border-radius: 12px;
+  border: 1px solid var(--line);
+}
+
+.catering-benefit i {
+  width: 28px;
+  height: 28px;
+  color: var(--green);
+}
+
+.catering-benefit span {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--ink);
+}
+
+.catering-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.catering-note {
+  text-align: center;
+  font-size: 13px;
+  color: var(--muted);
+  max-width: 560px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+@media (max-width: 1024px) {
+  .catering-benefits {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 760px) {
+  .catering-section {
+    padding: 36px 20px;
+    border-radius: 12px;
+  }
+
+  .catering-benefits {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 24px 0 24px;
+  }
+
+  .catering-benefit {
+    padding: 16px 12px;
+  }
+
+  .catering-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .catering-actions .btn {
+    justify-content: center;
+  }
+}
+
+/* ── Delivery zones ─────────────────────────────────────────────────────────── */
+
+.delivery-zones {
+  list-style: none;
+  padding: 0;
+  margin: 18px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.delivery-zones li {
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.delivery-zones strong {
+  font-weight: 700;
+  color: var(--ink);
+  margin-right: 4px;
+}
+
+.delivery-pickup {
+  margin-top: 12px;
+  font-size: 13px;
+  color: var(--muted);
+  font-style: italic;
+}
+
+/* ── Testimonials placeholder ───────────────────────────────────────────────── */
+
+.testimonials-placeholder {
+  text-align: center;
+  font-size: 15px;
+  color: var(--muted);
+  font-style: italic;
+  grid-column: 1 / -1;
+  padding: 32px 0;
+}
+
+/* ── Final actions (two-button row) ─────────────────────────────────────────── */
+
+.final-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 28px;
+}
+
+@media (max-width: 760px) {
+  .final-actions {
+    flex-direction: column;
+  }
+
+  .final-actions .btn {
+    justify-content: center;
+  }
+}
+
+/* ── Modal overlay ──────────────────────────────────────────────────────────── */
+
+body.modal-open {
+  overflow: hidden;
+}
+
+#preorder-modal,
+#catering-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 900;
+}
+
+.modal-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(31, 25, 16, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-y: auto;
+  padding: 24px 16px;
+}
+
+.modal-panel {
+  background: var(--cream);
+  border-radius: 16px;
+  width: 100%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 24px 64px rgba(31, 25, 16, 0.18);
+  position: relative;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px 0;
+  position: sticky;
+  top: 0;
+  background: var(--cream);
+  z-index: 1;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 16px;
+}
+
+.modal-header h2 {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0;
+}
+
+.modal-close-btn {
+  background: none;
+  border: none;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--muted);
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: background 150ms;
+}
+
+.modal-close-btn:hover {
+  background: var(--line);
+  color: var(--ink);
+}
+
+.modal-body {
+  padding: 24px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+/* Modal form tweaks */
+.modal-form {
+  margin-top: 0;
+}
+
+.modal-form .form-grid {
+  gap: 14px;
+}
+
+/* Cart summary inside modal */
+.modal-cart-summary {
+  background: var(--soft);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 20px;
+}
+
+.modal-cart-summary h3 {
+  font-size: 14px;
+  font-weight: 700;
+  margin: 0 0 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+.modal-cart-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 14px;
+  padding: 4px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.modal-cart-item:last-of-type {
+  border-bottom: none;
+}
+
+.modal-cart-total {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  padding-top: 10px;
+  font-size: 15px;
+  font-weight: 700;
+  margin-top: 6px;
+  border-top: 2px solid var(--line);
+}
+
+.modal-delivery-note {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 8px;
+  font-style: italic;
+}
+
+/* Fallback block */
+.modal-fallback-block {
+  background: var(--soft);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 16px;
+  margin: 16px 0;
+}
+
+.modal-fallback-block h4 {
+  font-size: 14px;
+  font-weight: 700;
+  margin: 0 0 6px;
+  color: var(--ink);
+}
+
+.modal-fallback-note {
+  font-size: 13px;
+  color: var(--muted);
+  margin: 0 0 12px;
+  line-height: 1.5;
+}
+
+.modal-fallback-phone {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  margin-bottom: 12px;
+}
+
+.modal-fallback-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.btn-sm {
+  font-size: 13px;
+  padding: 8px 14px;
+}
+
+/* Stage views */
+.modal-stage {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.stage-intro {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--ink);
+}
+
+.stage-ref {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.stage-ref strong {
+  color: var(--ink);
+  font-family: monospace;
+  font-size: 14px;
+}
+
+.modal-stage-final {
+  align-items: center;
+  text-align: center;
+  padding: 16px 0;
+  gap: 20px;
+}
+
+.stage-icon-lg {
+  width: 52px;
+  height: 52px;
+  color: #2a7a2a;
+  flex-shrink: 0;
+}
+
+.checkout-disclaimer {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.5;
+  margin-top: 12px;
+}
+
+/* Mobile modal: bottom sheet */
+@media (max-width: 760px) {
+  .modal-overlay {
+    align-items: flex-end;
+    padding: 0;
+  }
+
+  .modal-panel {
+    max-width: 100%;
+    border-radius: 16px 16px 0 0;
+    max-height: 92vh;
+  }
+
+  .modal-header {
+    padding: 16px 18px 14px;
+  }
+
+  .modal-body {
+    padding: 16px 18px 32px;
+  }
+
+  .modal-fallback-actions {
+    flex-direction: column;
+  }
+
+  .modal-fallback-actions .btn {
+    justify-content: center;
   }
 }

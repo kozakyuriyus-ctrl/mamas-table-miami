@@ -15,7 +15,7 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=20260613-category-fix" />
+    <link rel="stylesheet" href="styles.css?v=20260620-preorder-flow" />
   </head>
   <body>
     <header class="site-header" data-header>
@@ -37,6 +37,7 @@
 
       <nav class="main-nav" aria-label="Primary navigation">
         <a href="#/menu" data-i18n="nav.menu">Меню</a>
+        <a href="#catering" data-i18n="nav.catering">Кейтеринг</a>
         <a href="#how" data-i18n="nav.how">Как заказать</a>
         <a href="#delivery" data-i18n="nav.delivery">Доставка</a>
         <a href="#about" data-i18n="nav.about">О нас</a>
@@ -50,29 +51,33 @@
           <button class="lang-btn" type="button" data-lang="en">EN</button>
           <button class="lang-btn" type="button" data-lang="uk">UA</button>
         </div>
-        <a class="header-cta" href="#" data-whatsapp-quick>
-          <span data-i18n="actions.orderNow">Заказать</span>
-          <i data-lucide="message-circle"></i>
+        <a class="header-cta" href="#/menu">
+          <span data-i18n="actions.chooseDishes">Выбрать блюда</span>
+          <i data-lucide="utensils"></i>
         </a>
       </div>
     </header>
 
     <main id="top">
       <div data-home-view>
+
+      <!-- ── Hero ─────────────────────────────────────────────────────────── -->
       <section class="hero">
         <div class="hero-content reveal">
           <div class="hero-copy">
             <p class="eyebrow" data-i18n="hero.eyebrow">Премиальная домашняя кухня</p>
-            <h1 data-i18n="hero.title">Домашняя еда с доставкой в Miami</h1>
+            <h1 data-i18n="hero.title">Домашняя еда с доставкой в Майами</h1>
             <p class="hero-lede" data-i18n="hero.lede">
               Украинские, восточноевропейские, средиземноморские, кавказские и азиатские блюда готовятся под заказ и доставляются по Miami, Hallandale, Hollywood, Aventura и ближайшим районам.
             </p>
             <div class="hero-actions">
-              <a class="btn btn-primary" href="#" data-whatsapp-quick>
-                <span data-i18n="actions.orderNow">Заказать</span>
-                <i data-lucide="message-circle"></i>
+              <a class="btn btn-primary" href="#/menu">
+                <span data-i18n="actions.chooseDishes">Выбрать блюда</span>
+                <i data-lucide="utensils"></i>
               </a>
-              <a class="btn btn-secondary" href="#/menu" data-i18n="actions.viewMenu">Смотреть меню</a>
+              <a class="btn btn-secondary" href="#how">
+                <span data-i18n="actions.howItWorks">Как заказать</span>
+              </a>
             </div>
           </div>
 
@@ -113,6 +118,57 @@
         </div>
       </section>
 
+      <!-- ── Menu categories ───────────────────────────────────────────────── -->
+      <section class="section section-tight" id="categories">
+        <div class="section-title section-title-center">
+          <h2 data-i18n="categories.title">Категории меню</h2>
+          <p data-i18n="categories.subtitle">Выберите категорию, чтобы посмотреть полный список блюд.</p>
+        </div>
+        <div class="category-grid" data-category-grid></div>
+        <div class="categories-footer">
+          <a class="btn btn-secondary" href="#/menu" data-i18n="categories.viewAll">Все меню</a>
+        </div>
+      </section>
+
+      <!-- ── Catering ──────────────────────────────────────────────────────── -->
+      <section class="section catering-section" id="catering">
+        <div class="section-title section-title-center">
+          <p class="eyebrow" data-i18n="catering.eyebrow">Кейтеринг</p>
+          <h2 data-i18n="catering.title">Кейтеринг и праздничные заказы</h2>
+          <p data-i18n="catering.subtitle">Соберём домашний стол для дня рождения, семейного праздника, встречи с друзьями или небольшого офисного события.</p>
+        </div>
+        <div class="catering-benefits">
+          <div class="catering-benefit reveal">
+            <i data-lucide="users"></i>
+            <span data-i18n="catering.benefit1">Меню под количество гостей</span>
+          </div>
+          <div class="catering-benefit reveal">
+            <i data-lucide="utensils"></i>
+            <span data-i18n="catering.benefit2">Любимые домашние блюда и закуски</span>
+          </div>
+          <div class="catering-benefit reveal">
+            <i data-lucide="heart"></i>
+            <span data-i18n="catering.benefit3">Индивидуальные пожелания и аллергии</span>
+          </div>
+          <div class="catering-benefit reveal">
+            <i data-lucide="truck"></i>
+            <span data-i18n="catering.benefit4">Доставка или самовывоз по предварительному согласованию</span>
+          </div>
+        </div>
+        <div class="catering-actions">
+          <button class="btn btn-primary" type="button" data-open-catering>
+            <span data-i18n="catering.cta">Получить предложение</span>
+            <i data-lucide="calendar-days"></i>
+          </button>
+          <a class="btn btn-secondary" href="#" data-whatsapp-quick>
+            <span data-i18n="catering.ctaWA">Вопросы в WhatsApp</span>
+            <i data-lucide="message-circle"></i>
+          </a>
+        </div>
+        <p class="catering-note" data-i18n="catering.note">Меню, количество порций, время приготовления и стоимость согласовываются индивидуально перед подтверждением заказа.</p>
+      </section>
+
+      <!-- ── How it works ──────────────────────────────────────────────────── -->
       <section class="how-strip" id="how">
         <h2 data-i18n="how.title">Как это работает</h2>
         <div class="how-grid">
@@ -143,14 +199,45 @@
         </div>
       </section>
 
-      <section class="section section-tight" id="categories">
-        <div class="section-title section-title-center">
-          <h2 data-i18n="categories.title">Категории меню</h2>
-          <p data-i18n="categories.subtitle">Выберите категорию, чтобы посмотреть полный список блюд.</p>
-        </div>
-        <div class="category-grid" data-category-grid></div>
+      <!-- ── Delivery ──────────────────────────────────────────────────────── -->
+      <section class="section" id="delivery">
+        <article class="delivery-panel reveal">
+          <div>
+            <p class="eyebrow" data-i18n="delivery.eyebrow">Зона доставки</p>
+            <h2 data-i18n="delivery.title">Доставка по Miami-Dade и Broward</h2>
+          </div>
+          <img class="delivery-map-img" src="assets/images/delivery-zone-map.jpg" alt="Delivery zone map: Miami, Hallandale Beach, Hollywood, Aventura, Sunny Isles, North Miami, Dania Beach, Fort Lauderdale" loading="lazy" />
+          <ul class="delivery-zones">
+            <li>
+              <strong data-i18n="delivery.zone1Label">Зона 1:</strong>
+              <span data-i18n="delivery.zone1Cities">Hallandale, Aventura, Hollywood, Sunny Isles</span>
+            </li>
+            <li>
+              <strong data-i18n="delivery.zone2Label">Зона 2:</strong>
+              <span data-i18n="delivery.zone2Cities">North Miami, Dania Beach</span>
+            </li>
+            <li>
+              <strong data-i18n="delivery.zone3Label">Зона 3:</strong>
+              <span data-i18n="delivery.zone3Cities">Miami, Fort Lauderdale и дальние районы — по согласованию</span>
+            </li>
+          </ul>
+          <p class="delivery-note" data-i18n="delivery.footer">Стоимость доставки подтверждается до оплаты и никогда не добавляется без согласования.</p>
+          <p class="delivery-pickup" data-i18n="delivery.pickup">Самовывоз доступен по предварительному согласованию. Точная точка выдачи отправляется после подтверждения заказа.</p>
+        </article>
       </section>
 
+      <!-- ── Testimonials ──────────────────────────────────────────────────── -->
+      <section class="section" id="testimonials">
+        <div class="section-title section-title-center">
+          <p class="eyebrow" data-i18n="testimonials.eyebrow">Отзывы</p>
+          <h2 data-i18n="testimonials.title">Что говорят клиенты</h2>
+        </div>
+        <div class="testimonial-grid">
+          <p class="testimonials-placeholder reveal" data-i18n="testimonials.placeholder">Первые отзывы клиентов скоро появятся здесь.</p>
+        </div>
+      </section>
+
+      <!-- ── Why us ────────────────────────────────────────────────────────── -->
       <section class="section why-section" id="about">
         <div class="section-title section-title-center">
           <h2 data-i18n="why.title">Почему клиенты любят нас</h2>
@@ -189,51 +276,10 @@
         </div>
       </section>
 
-      <section class="section" id="testimonials">
-        <div class="section-title section-title-center">
-          <p class="eyebrow" data-i18n="testimonials.eyebrow">Отзывы</p>
-          <h2 data-i18n="testimonials.title">Что говорят клиенты</h2>
-        </div>
-        <div class="testimonial-grid">
-          <blockquote class="reveal">
-            <p>«Заказывали борщ и вареники на семейный ужин — все были в восторге. Вкус как у бабушки, только ещё лучше. Спасибо огромное!»</p>
-            <cite>— Анна, Aventura</cite>
-          </blockquote>
-          <blockquote class="reveal">
-            <p>«Брали семейный набор на день рождения. Всё свежее, порции большие, доставили вовремя. Однозначно буду заказывать ещё!»</p>
-            <cite>— Михаил, Hollywood</cite>
-          </blockquote>
-          <blockquote class="reveal">
-            <p>«Наконец нашла нормальную домашнюю еду в Miami. Голубцы и солянка — просто бомба. Всем советую!»</p>
-            <cite>— Оксана, Sunny Isles</cite>
-          </blockquote>
-        </div>
-      </section>
-
-      <section class="section" id="delivery">
-        <article class="delivery-panel reveal">
-          <div>
-            <p class="eyebrow" data-i18n="delivery.eyebrow">Зона доставки</p>
-            <h2 data-i18n="delivery.title">Доставка по Miami-Dade и Broward</h2>
-          </div>
-          <img class="delivery-map-img" src="assets/images/delivery-zone-map.jpg" alt="Delivery zone map: Miami, Hallandale Beach, Hollywood, Aventura, Sunny Isles, North Miami, Dania Beach, Fort Lauderdale" loading="lazy" />
-          <ul class="area-list">
-            <li>Miami</li>
-            <li>Hallandale</li>
-            <li>Hollywood</li>
-            <li>Aventura</li>
-            <li>Sunny Isles</li>
-            <li>North Miami</li>
-            <li>Dania Beach</li>
-            <li>Fort Lauderdale</li>
-          </ul>
-          <p class="delivery-note" data-i18n="delivery.note">Стоимость доставки рассчитывается индивидуально в зависимости от района и объема заказа.</p>
-        </article>
-      </section>
-
+      <!-- ── FAQ ──────────────────────────────────────────────────────────── -->
       <section class="section faq-section" id="faq">
         <div class="section-title">
-          <h2 data-i18n="faq.title">FAQ</h2>
+          <h2 data-i18n="faq.title">Частые вопросы</h2>
         </div>
         <div class="faq-list">
           <details class="reveal">
@@ -246,7 +292,7 @@
           </details>
           <details class="reveal">
             <summary data-i18n="faq.threeQ">Есть ли самовывоз?</summary>
-            <p data-i18n="faq.threeA">Да, самовывоз можно согласовать в WhatsApp при подтверждении заказа.</p>
+            <p data-i18n="faq.threeA">Самовывоз доступен по предварительному согласованию. Точная точка выдачи отправляется после подтверждения заказа.</p>
           </details>
           <details class="reveal">
             <summary data-i18n="faq.fourQ">Можно ли заказать на праздник?</summary>
@@ -258,11 +304,24 @@
           </details>
           <details class="reveal">
             <summary data-i18n="faq.sixQ">Как происходит оплата?</summary>
-            <p data-i18n="faq.sixA">Онлайн-оплаты на сайте пока нет. Детали оплаты подтверждаются после согласования заказа.</p>
+            <p data-i18n="faq.sixA">Сначала мы подтверждаем состав заказа, дату, время и стоимость доставки. Способ оплаты согласовывается индивидуально на этом этапе. Заказ считается подтверждённым после оплаты.</p>
+          </details>
+          <details class="reveal">
+            <summary data-i18n="faq.sevenQ">Можно ли отменить заказ?</summary>
+            <p data-i18n="faq.sevenA">Отмена и изменения возможны до начала закупки и приготовления. Для праздничных и крупных заказов действуют отдельные условия предоплаты.</p>
+          </details>
+          <details class="reveal">
+            <summary data-i18n="faq.eightQ">Есть ли аллергены?</summary>
+            <p data-i18n="faq.eightA">Пожалуйста, сообщите об аллергиях при оформлении. Мы учитываем пожелания, но не можем гарантировать полное отсутствие следов аллергенов.</p>
+          </details>
+          <details class="reveal">
+            <summary data-i18n="faq.nineQ">Можно ли заказать день в день?</summary>
+            <p data-i18n="faq.nineA">Основной формат — предзаказ за 24–48 часов. Заказы день в день возможны только при наличии свободного времени и ингредиентов.</p>
           </details>
         </div>
       </section>
 
+      <!-- ── Final CTA + Cart ──────────────────────────────────────────────── -->
       <section class="section final-order" id="contact">
         <div class="final-photo reveal">
           <img src="assets/images/ukrainian-table.jpg" alt="Homemade varenyky and fresh family-style food" />
@@ -270,11 +329,17 @@
         <div class="final-copy reveal">
           <p class="eyebrow" data-i18n="final.eyebrow">Финальный шаг</p>
           <h2 data-i18n="final.title">Готовы заказать домашний ужин?</h2>
-          <p data-i18n="final.text">Напишите нам в WhatsApp — подберем блюда, рассчитаем стоимость и подтвердим время приготовления.</p>
-          <a class="btn btn-primary" href="#" data-whatsapp-quick>
-            <span data-i18n="final.button">Заказать в WhatsApp</span>
-            <i data-lucide="message-circle"></i>
-          </a>
+          <p data-i18n="final.text">Выберите блюда из меню — мы готовим под заказ и подтверждаем детали перед оплатой.</p>
+          <div class="final-actions">
+            <a class="btn btn-primary" href="#/menu">
+              <span data-i18n="final.buttonPrimary">Выбрать блюда</span>
+              <i data-lucide="utensils"></i>
+            </a>
+            <a class="btn btn-secondary" href="#" data-whatsapp-quick>
+              <span data-i18n="final.buttonSecondary">Вопросы или индивидуальный заказ</span>
+              <i data-lucide="message-circle"></i>
+            </a>
+          </div>
         </div>
         <aside class="order-card reveal" id="order-card">
           <div class="order-head">
@@ -287,10 +352,11 @@
             <div class="cart-list" data-cart-list></div>
           </div>
           <div class="cart-empty" data-cart-empty data-i18n="cart.empty">Добавьте блюда из меню.</div>
-          <div class="checkout-panel" data-checkout-panel></div>
-          <div class="cart-thankyou" data-cart-thankyou></div>
+          <div class="checkout-panel" data-checkout-panel hidden></div>
+          <div class="cart-thankyou" data-cart-thankyou hidden></div>
         </aside>
       </section>
+
       </div>
 
       <section class="route-view" data-route-view hidden></section>
@@ -299,20 +365,28 @@
     <a class="mobile-order-bar" href="#order-card" data-mobile-order>
       <span data-mobile-count>0</span>
       <strong data-mobile-total>$0</strong>
-      <em data-i18n="cart.checkout">Оформить заказ</em>
+      <em data-i18n="cart.mobileCTA">Ваш заказ</em>
     </a>
 
     <footer class="site-footer">
       <div class="footer-brand">
-        <strong>Mama's Table</strong>
-        <span>Homemade Kitchen • Miami</span>
+        <strong data-i18n="brand.name">Mama's Table</strong>
+        <span data-i18n="brand.tagline">Homemade Kitchen • Miami</span>
       </div>
-      <div class="social-links" aria-label="WhatsApp">
-        <a class="social-link" href="#" data-whatsapp-quick aria-label="WhatsApp">WA</a>
+      <div class="social-links">
+        <a
+          class="social-link"
+          href="#"
+          data-whatsapp-quick
+          data-whatsapp-float
+          aria-label="Вопросы или индивидуальный заказ в WhatsApp"
+        >
+          <i data-lucide="message-circle"></i>
+        </a>
       </div>
     </footer>
 
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-    <script src="script.js?v=20260614-topcheta-soup"></script>
+    <script src="script.js?v=20260620-preorder-flow"></script>
   </body>
 </html>
