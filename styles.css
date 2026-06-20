@@ -977,6 +977,16 @@ p {
   font-weight: 700;
 }
 
+.delivery-map-img {
+  display: block;
+  width: 100%;
+  margin-top: 18px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  box-shadow: 0 8px 24px rgba(31, 25, 16, 0.08);
+  object-fit: contain;
+}
+
 .testimonial-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
