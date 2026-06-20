@@ -40,7 +40,6 @@ const copy = {
       fourTitle: "Доставка или самовывоз",
       fourText: "Получите еду свежей и вовремя.",
     },
-    popular: { title: "Популярные блюда", viewAll: "Все меню" },
     categories: { title: "Категории меню", subtitle: "Выберите категорию, чтобы посмотреть полный список блюд.", open: "Открыть меню" },
     menuPage: {
       title: "Меню Маминой кухни",
@@ -172,7 +171,6 @@ const copy = {
       fourTitle: "Delivery or pickup",
       fourText: "Get your meals fresh and on time.",
     },
-    popular: { title: "Popular Dishes", viewAll: "View Full Menu" },
     categories: { title: "Menu Categories", subtitle: "Choose a category to view the full dish list.", open: "Open menu" },
     menuPage: {
       title: "Mama's Table Menu",
@@ -304,7 +302,6 @@ const copy = {
       fourTitle: "Доставка або самовивіз",
       fourText: "Отримайте їжу свіжою і вчасно.",
     },
-    popular: { title: "Популярні страви", viewAll: "Все меню" },
     categories: { title: "Категорії меню", subtitle: "Оберіть категорію, щоб переглянути повний список страв.", open: "Відкрити меню" },
     menuPage: {
       title: "Меню Маминої кухні",
@@ -613,7 +610,6 @@ const createCategoryCard = (category) => `
 `;
 
 const renderStaticData = () => {
-  document.querySelector("[data-dish-grid]").innerHTML = popularDishes.map(createDishCard).join("");
   document.querySelector("[data-category-grid]").innerHTML = categories.map(createCategoryCard).join("");
   refreshIcons();
   observeReveals();
