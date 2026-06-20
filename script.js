@@ -408,21 +408,21 @@ let menuItems = [];
 const categories = [
   {
     id: "soups",
-    image: "assets/images/mamas-table-hero-family.jpg",
+    image: "assets/images/categories/category-pervye-blyuda-new.jpg",
     icon: "utensils",
     title: tr("Первые блюда", "Soups", "Перші страви"),
     description: tr("Домашние супы, которые готовятся свежими под предзаказ.", "Homemade soups prepared fresh for preorder.", "Домашні супи, які готуються свіжими під передзамовлення."),
   },
   {
     id: "main-dishes",
-    image: "assets/images/chicken-comfort.jpg",
+    image: "assets/images/categories/category-vtorye-blyuda-new.jpg",
     icon: "chef-hat",
     title: tr("Вторые блюда", "Main Dishes", "Другі страви"),
     description: tr("Сытные украинские, восточноевропейские и кавказские блюда для обеда или ужина.", "Comforting Ukrainian, Eastern European and Caucasian mains for lunch or dinner.", "Ситні українські, східноєвропейські та кавказькі страви для обіду або вечері."),
   },
   {
     id: "salads",
-    image: "assets/images/ukrainian-table.jpg",
+    image: "assets/images/categories/category-salaty-new.jpg",
     icon: "leaf",
     title: tr("Салаты", "Salads", "Салати"),
     description: tr("Классические домашние и свежие средиземноморские салаты.", "Classic homemade and fresh Mediterranean salads.", "Класичні домашні та свіжі середземноморські салати."),
