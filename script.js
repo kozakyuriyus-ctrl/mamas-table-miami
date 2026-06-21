@@ -1,4 +1,5 @@
 const WHATSAPP_NUMBER = "79788358121";
+const TELEGRAM_USERNAME = "YurK0";
 const formatPhone = (n) => `+${n[0]} ${n.slice(1, 4)} ${n.slice(4, 7)}-${n.slice(7)}`;
 const DISPLAY_PHONE = formatPhone(WHATSAPP_NUMBER);
 
@@ -169,20 +170,35 @@ const copy = {
       time: "Желаемое время",
       comment: "Комментарий к заказу",
       allergies: "Аллергии / особые пожелания",
-      submit: "Продолжить в WhatsApp",
-      disclaimer: "После того как вы отправите сообщение в WhatsApp, мы подтвердим наличие блюд, время приготовления, стоимость доставки и итоговую сумму. Оплата производится только после подтверждения заказа.",
+      submit: "Оформить заявку",
+      disclaimer: "После отправки мы подтвердим наличие блюд, время и стоимость. Оплата — только после подтверждения.",
       required: "Заполните все обязательные поля.",
+      phoneInvalid: "Укажите корректный номер телефона.",
       dateInPast: "Дата не может быть в прошлом.",
       close: "Закрыть",
-      stage1Text: "Мы подготовили текст заявки для WhatsApp. Проверьте данные и нажмите «Отправить», чтобы мы получили ваш заказ.",
-      stage1Button: "Я отправил заявку",
+      messengerTitle: "Выберите мессенджер",
+      messengerSubtitle: "Напишите нам — мы получим заявку и свяжемся для подтверждения.",
+      viaWhatsApp: "Написать в WhatsApp",
+      viaTelegram: "Написать в Telegram",
       stage1Ref: "№ заявки:",
-      fallbackTitle: "Если WhatsApp не открылся",
-      fallbackNote: "Скопируйте текст заявки и отправьте его вручную на этот номер.",
-      copyPhone: "Скопировать номер",
+      stage2Title: "Завершите отправку",
+      stage2Text: "Убедитесь, что ваше сообщение доставлено. Если мессенджер не открылся — воспользуйтесь способами ниже.",
+      stage2Button: "Я отправил сообщение",
+      stage3Title: "Подтвердите отправку",
+      stage3Text: "После подтверждения мы примем вашу заявку и корзина будет очищена.",
+      stage3Confirm: "Да, сообщение отправлено — завершить заказ",
+      stage3Back: "Назад",
+      fallbackTitle: "Если мессенджер не открылся",
+      fallbackNote: "Воспользуйтесь одним из способов ниже.",
+      copyPhone: "Скопировать номер WA",
       copyMessage: "Скопировать текст заявки",
+      openWA: "Открыть WhatsApp",
+      openTG: "Открыть Telegram",
       copied: "Скопировано",
-      stage2Text: "Спасибо. Если вы отправили сообщение в WhatsApp, мы получим вашу заявку и свяжемся с вами для подтверждения наличия блюд, времени, доставки и финальной стоимости. Заказ подтверждается только после согласования и оплаты.",
+      stage4Title: "Спасибо!",
+      stage4Text: "Мы получим вашу заявку и свяжемся для подтверждения деталей. Заказ подтверждается только после согласования и оплаты.",
+      stage4WA: "Открыть WhatsApp",
+      stage4TG: "Открыть Telegram",
     },
     cateringForm: {
       modalTitle: "Заявка на кейтеринг",
@@ -204,38 +220,56 @@ const copy = {
       dishes: "Пожелания по блюдам",
       allergies: "Аллергии / особенности питания",
       comment: "Комментарий",
-      submit: "Продолжить в WhatsApp",
-      disclaimer: "Меню, количество порций, время приготовления и стоимость согласовываются индивидуально перед подтверждением заказа.",
+      submit: "Оформить заявку",
+      disclaimer: "Меню, количество порций, время и стоимость согласовываются индивидуально перед подтверждением.",
       required: "Заполните все обязательные поля.",
+      phoneInvalid: "Укажите корректный номер телефона.",
       dateInPast: "Дата не может быть в прошлом.",
       guestsInvalid: "Укажите количество гостей (минимум 1).",
       close: "Закрыть",
-      stage1Text: "Мы подготовили текст заявки для WhatsApp. Проверьте данные и нажмите «Отправить», чтобы мы получили ваш запрос на кейтеринг.",
-      stage1Button: "Я отправил заявку",
+      messengerTitle: "Выберите мессенджер",
+      messengerSubtitle: "Напишите нам — мы получим заявку и свяжемся для подтверждения.",
+      viaWhatsApp: "Написать в WhatsApp",
+      viaTelegram: "Написать в Telegram",
       stage1Ref: "№ заявки:",
-      fallbackTitle: "Если WhatsApp не открылся",
-      fallbackNote: "Скопируйте текст заявки и отправьте его вручную на этот номер.",
-      copyPhone: "Скопировать номер",
+      stage2Title: "Завершите отправку",
+      stage2Text: "Убедитесь, что ваше сообщение доставлено. Если мессенджер не открылся — воспользуйтесь способами ниже.",
+      stage2Button: "Я отправил сообщение",
+      stage3Title: "Подтвердите отправку",
+      stage3Text: "После подтверждения мы примем вашу заявку на кейтеринг.",
+      stage3Confirm: "Да, сообщение отправлено — завершить",
+      stage3Back: "Назад",
+      fallbackTitle: "Если мессенджер не открылся",
+      fallbackNote: "Воспользуйтесь одним из способов ниже.",
+      copyPhone: "Скопировать номер WA",
       copyMessage: "Скопировать текст заявки",
+      openWA: "Открыть WhatsApp",
+      openTG: "Открыть Telegram",
       copied: "Скопировано",
-      stage2Text: "Спасибо. Если вы отправили сообщение в WhatsApp, мы получим вашу заявку на кейтеринг и свяжемся с вами, чтобы уточнить меню, количество порций, время, доставку и итоговую стоимость. Заказ подтверждается только после согласования и оплаты.",
+      stage4Title: "Спасибо!",
+      stage4Text: "Мы получим вашу заявку на кейтеринг и свяжемся для подтверждения деталей.",
+      stage4WA: "Открыть WhatsApp",
+      stage4TG: "Открыть Telegram",
     },
     order: {
-      title: "Заявка на предзаказ",
-      ref: "№ заявки",
-      name: "Имя",
-      phone: "Телефон",
-      fulfillment: "Способ получения",
+      titlePreorder: "Новая заявка на предзаказ",
+      titleCatering: "Новая заявка на кейтеринг",
+      ref: "Номер заявки",
+      createdAt: "Создано",
+      miamiTime: "Miami time",
+      name: "Клиент",
+      phone: "Телефон / WhatsApp",
+      fulfillment: "Получение",
       deliveryLabel: "Доставка",
       pickupLabel: "Самовывоз",
       address: "Адрес",
-      date: "Дата",
-      time: "Время",
+      date: "Желаемая дата",
+      time: "Желаемое время",
       items: "Состав заказа",
-      subtotal: "Примерная сумма",
+      subtotal: "Предварительная сумма",
       comment: "Комментарий",
       allergies: "Аллергии / пожелания",
-      deliveryNote: "Стоимость доставки и финальная сумма будут подтверждены отдельно.",
+      deliveryNote: "Стоимость доставки и итоговая сумма подтверждаются отдельно.",
       help: "Здравствуйте! Хочу задать вопрос или оформить индивидуальный заказ.",
     },
   },
@@ -403,20 +437,35 @@ const copy = {
       time: "Preferred time",
       comment: "Order comment",
       allergies: "Allergies / special requests",
-      submit: "Continue in WhatsApp",
-      disclaimer: "After you send your WhatsApp message, we will confirm availability, preparation time, delivery cost, and the final total. Payment is requested only after order confirmation.",
+      submit: "Submit request",
+      disclaimer: "After submission we confirm availability, timing, and delivery cost. Payment is requested only after order confirmation.",
       required: "Please fill in all required fields.",
+      phoneInvalid: "Please enter a valid phone number.",
       dateInPast: "Date cannot be in the past.",
       close: "Close",
-      stage1Text: "We prepared your pre-order details for WhatsApp. Please review them and tap \"Send\" so we can receive your request.",
-      stage1Button: "I sent my request",
+      messengerTitle: "Choose a messenger",
+      messengerSubtitle: "Write to us — we'll receive your request and follow up to confirm.",
+      viaWhatsApp: "Message via WhatsApp",
+      viaTelegram: "Message via Telegram",
       stage1Ref: "Request #:",
-      fallbackTitle: "If WhatsApp did not open",
-      fallbackNote: "Copy the request text and send it manually to this number.",
-      copyPhone: "Copy number",
+      stage2Title: "Complete your submission",
+      stage2Text: "Make sure your message was delivered. If the messenger didn't open, use the options below.",
+      stage2Button: "I sent the message",
+      stage3Title: "Confirm submission",
+      stage3Text: "Once confirmed, we will receive your request and your cart will be cleared.",
+      stage3Confirm: "Yes, message sent — complete order",
+      stage3Back: "Back",
+      fallbackTitle: "If the messenger didn't open",
+      fallbackNote: "Use one of the options below to send your request manually.",
+      copyPhone: "Copy WA number",
       copyMessage: "Copy request text",
+      openWA: "Open WhatsApp",
+      openTG: "Open Telegram",
       copied: "Copied",
-      stage2Text: "Thank you. If you sent the WhatsApp message, we will receive your request and contact you to confirm availability, timing, delivery, and the final total. Your order is confirmed only after agreement and payment.",
+      stage4Title: "Thank you!",
+      stage4Text: "We'll receive your request and contact you to confirm all details. Your order is confirmed only after agreement and payment.",
+      stage4WA: "Open WhatsApp",
+      stage4TG: "Open Telegram",
     },
     cateringForm: {
       modalTitle: "Catering request",
@@ -438,33 +487,51 @@ const copy = {
       dishes: "Dish preferences",
       allergies: "Allergies / dietary notes",
       comment: "Comment",
-      submit: "Continue in WhatsApp",
+      submit: "Submit request",
       disclaimer: "Menu, portions, preparation time, and final pricing are confirmed individually before the order is approved.",
       required: "Please fill in all required fields.",
+      phoneInvalid: "Please enter a valid phone number.",
       dateInPast: "Date cannot be in the past.",
       guestsInvalid: "Please enter number of guests (minimum 1).",
       close: "Close",
-      stage1Text: "We prepared your catering request for WhatsApp. Please review them and tap \"Send\" so we can receive your request.",
-      stage1Button: "I sent my request",
+      messengerTitle: "Choose a messenger",
+      messengerSubtitle: "Write to us — we'll receive your request and follow up to confirm.",
+      viaWhatsApp: "Message via WhatsApp",
+      viaTelegram: "Message via Telegram",
       stage1Ref: "Request #:",
-      fallbackTitle: "If WhatsApp did not open",
-      fallbackNote: "Copy the request text and send it manually to this number.",
-      copyPhone: "Copy number",
+      stage2Title: "Complete your submission",
+      stage2Text: "Make sure your message was delivered. If the messenger didn't open, use the options below.",
+      stage2Button: "I sent the message",
+      stage3Title: "Confirm submission",
+      stage3Text: "Once confirmed, we will receive your catering request.",
+      stage3Confirm: "Yes, message sent — complete",
+      stage3Back: "Back",
+      fallbackTitle: "If the messenger didn't open",
+      fallbackNote: "Use one of the options below to send your request manually.",
+      copyPhone: "Copy WA number",
       copyMessage: "Copy request text",
+      openWA: "Open WhatsApp",
+      openTG: "Open Telegram",
       copied: "Copied",
-      stage2Text: "Thank you. If you sent the WhatsApp message, we will receive your catering request and contact you to confirm the menu, portions, timing, delivery, and final price. Your order is confirmed only after agreement and payment.",
+      stage4Title: "Thank you!",
+      stage4Text: "We'll receive your catering request and contact you to confirm the details.",
+      stage4WA: "Open WhatsApp",
+      stage4TG: "Open Telegram",
     },
     order: {
-      title: "Pre-order request",
-      ref: "Request #",
-      name: "Name",
-      phone: "Phone",
-      fulfillment: "Delivery method",
+      titlePreorder: "New pre-order request",
+      titleCatering: "New catering request",
+      ref: "Request ID",
+      createdAt: "Created",
+      miamiTime: "Miami time",
+      name: "Customer",
+      phone: "Phone / WhatsApp",
+      fulfillment: "Receiving method",
       deliveryLabel: "Delivery",
       pickupLabel: "Pickup",
       address: "Address",
-      date: "Date",
-      time: "Time",
+      date: "Preferred date",
+      time: "Preferred time",
       items: "Order contents",
       subtotal: "Estimated total",
       comment: "Comment",
@@ -637,20 +704,35 @@ const copy = {
       time: "Бажаний час",
       comment: "Коментар до замовлення",
       allergies: "Алергії / особливі побажання",
-      submit: "Продовжити у WhatsApp",
-      disclaimer: "Після того як ви надішлете повідомлення у WhatsApp, ми підтвердимо наявність страв, час приготування, вартість доставки та підсумкову суму. Оплата здійснюється лише після підтвердження замовлення.",
+      submit: "Оформити заявку",
+      disclaimer: "Після відправки ми підтвердимо наявність страв, час і вартість. Оплата — лише після підтвердження.",
       required: "Заповніть усі обов'язкові поля.",
+      phoneInvalid: "Вкажіть коректний номер телефону.",
       dateInPast: "Дата не може бути в минулому.",
       close: "Закрити",
-      stage1Text: "Ми підготували текст заявки для WhatsApp. Перевірте дані та натисніть «Надіслати», щоб ми отримали ваше замовлення.",
-      stage1Button: "Я надіслав заявку",
+      messengerTitle: "Оберіть месенджер",
+      messengerSubtitle: "Напишіть нам — ми отримаємо заявку і зв'яжемося для підтвердження.",
+      viaWhatsApp: "Написати у WhatsApp",
+      viaTelegram: "Написати у Telegram",
       stage1Ref: "№ заявки:",
-      fallbackTitle: "Якщо WhatsApp не відкрився",
-      fallbackNote: "Скопіюйте текст заявки та надішліть його вручну на цей номер.",
-      copyPhone: "Скопіювати номер",
+      stage2Title: "Завершіть відправку",
+      stage2Text: "Переконайтесь, що ваше повідомлення доставлено. Якщо месенджер не відкрився — скористайтесь способами нижче.",
+      stage2Button: "Я надіслав повідомлення",
+      stage3Title: "Підтвердіть відправку",
+      stage3Text: "Після підтвердження ми прийдемо вашу заявку і кошик буде очищено.",
+      stage3Confirm: "Так, повідомлення надіслано — завершити замовлення",
+      stage3Back: "Назад",
+      fallbackTitle: "Якщо месенджер не відкрився",
+      fallbackNote: "Скористайтесь одним зі способів нижче.",
+      copyPhone: "Скопіювати номер WA",
       copyMessage: "Скопіювати текст заявки",
+      openWA: "Відкрити WhatsApp",
+      openTG: "Відкрити Telegram",
       copied: "Скопійовано",
-      stage2Text: "Дякуємо. Якщо ви надіслали повідомлення у WhatsApp, ми отримаємо вашу заявку та зв'яжемося з вами, щоб підтвердити наявність страв, час, доставку й остаточну вартість. Замовлення підтверджується лише після узгодження та оплати.",
+      stage4Title: "Дякуємо!",
+      stage4Text: "Ми отримаємо вашу заявку і зв'яжемося для підтвердження деталей. Замовлення підтверджується лише після узгодження та оплати.",
+      stage4WA: "Відкрити WhatsApp",
+      stage4TG: "Відкрити Telegram",
     },
     cateringForm: {
       modalTitle: "Заявка на кейтеринг",
@@ -672,33 +754,51 @@ const copy = {
       dishes: "Побажання щодо страв",
       allergies: "Алергії / особливості харчування",
       comment: "Коментар",
-      submit: "Продовжити у WhatsApp",
-      disclaimer: "Меню, кількість порцій, час приготування і вартість узгоджуються індивідуально перед підтвердженням замовлення.",
+      submit: "Оформити заявку",
+      disclaimer: "Меню, кількість порцій, час і вартість узгоджуються індивідуально перед підтвердженням.",
       required: "Заповніть усі обов'язкові поля.",
+      phoneInvalid: "Вкажіть коректний номер телефону.",
       dateInPast: "Дата не може бути в минулому.",
       guestsInvalid: "Вкажіть кількість гостей (мінімум 1).",
       close: "Закрити",
-      stage1Text: "Ми підготували текст заявки для WhatsApp. Перевірте дані та натисніть «Надіслати», щоб ми отримали ваш запит на кейтеринг.",
-      stage1Button: "Я надіслав заявку",
+      messengerTitle: "Оберіть месенджер",
+      messengerSubtitle: "Напишіть нам — ми отримаємо заявку і зв'яжемося для підтвердження.",
+      viaWhatsApp: "Написати у WhatsApp",
+      viaTelegram: "Написати у Telegram",
       stage1Ref: "№ заявки:",
-      fallbackTitle: "Якщо WhatsApp не відкрився",
-      fallbackNote: "Скопіюйте текст заявки та надішліть його вручну на цей номер.",
-      copyPhone: "Скопіювати номер",
+      stage2Title: "Завершіть відправку",
+      stage2Text: "Переконайтесь, що ваше повідомлення доставлено. Якщо месенджер не відкрився — скористайтесь способами нижче.",
+      stage2Button: "Я надіслав повідомлення",
+      stage3Title: "Підтвердіть відправку",
+      stage3Text: "Після підтвердження ми прийдемо вашу заявку на кейтеринг.",
+      stage3Confirm: "Так, повідомлення надіслано — завершити",
+      stage3Back: "Назад",
+      fallbackTitle: "Якщо месенджер не відкрився",
+      fallbackNote: "Скористайтесь одним зі способів нижче.",
+      copyPhone: "Скопіювати номер WA",
       copyMessage: "Скопіювати текст заявки",
+      openWA: "Відкрити WhatsApp",
+      openTG: "Відкрити Telegram",
       copied: "Скопійовано",
-      stage2Text: "Дякуємо. Якщо ви надіслали повідомлення у WhatsApp, ми отримаємо вашу заявку на кейтеринг та зв'яжемося з вами, щоб уточнити меню, кількість порцій, час, доставку та підсумкову вартість. Замовлення підтверджується лише після узгодження та оплати.",
+      stage4Title: "Дякуємо!",
+      stage4Text: "Ми отримаємо вашу заявку на кейтеринг і зв'яжемося для підтвердження деталей.",
+      stage4WA: "Відкрити WhatsApp",
+      stage4TG: "Відкрити Telegram",
     },
     order: {
-      title: "Заявка на передзамовлення",
-      ref: "№ заявки",
-      name: "Ім'я",
-      phone: "Телефон",
-      fulfillment: "Спосіб отримання",
+      titlePreorder: "Нова заявка на передзамовлення",
+      titleCatering: "Нова заявка на кейтеринг",
+      ref: "Номер заявки",
+      createdAt: "Створено",
+      miamiTime: "Miami time",
+      name: "Клієнт",
+      phone: "Телефон / WhatsApp",
+      fulfillment: "Отримання",
       deliveryLabel: "Доставка",
       pickupLabel: "Самовивіз",
       address: "Адреса",
-      date: "Дата",
-      time: "Час",
+      date: "Бажана дата",
+      time: "Бажаний час",
       items: "Склад замовлення",
       subtotal: "Орієнтовна сума",
       comment: "Коментар",
@@ -796,11 +896,13 @@ const state = {
   preorderDraft: null,
   preorderError: false,
   preorderErrorKey: "preorder.required",
+  preorderSelectedMessenger: null,
   cateringForm: createDefaultCateringForm(),
   cateringStage: 0,
   cateringDraft: null,
   cateringError: false,
   cateringErrorKey: "cateringForm.required",
+  cateringSelectedMessenger: null,
 };
 
 const badgeLabels = {
@@ -1087,14 +1189,117 @@ const renderDishQuantities = () => {
   });
 };
 
-// ── Reference ID ──────────────────────────────────────────────────────────────
+// ── Telegram URL ──────────────────────────────────────────────────────────────
 
-const generateRefId = () => {
+const tgUrl = () => `https://t.me/${TELEGRAM_USERNAME}`;
+
+// ── Phone validation ──────────────────────────────────────────────────────────
+
+const normalizePhoneDigits = (raw) => raw.replace(/[\s()\-.]/g, "").replace(/^\+/, "");
+const allSameDigit = (s) => /^(\d)\1+$/.test(s);
+
+const validatePhone = (raw) => {
+  const trimmed = raw.trim();
+  if (!trimmed) return "required";
+  if (/[a-zA-Z]/.test(trimmed)) return "invalid";
+  const hasPlus = trimmed.startsWith("+");
+  const digits = normalizePhoneDigits(trimmed);
+  if (!digits || !/^\d+$/.test(digits)) return "invalid";
+  if (!hasPlus && digits.length === 10) return allSameDigit(digits) ? "invalid" : null;
+  if (!hasPlus && digits.length === 11 && digits.startsWith("1")) return allSameDigit(digits) ? "invalid" : null;
+  if (hasPlus && digits.length >= 7 && digits.length <= 15) return allSameDigit(digits) ? "invalid" : null;
+  return "invalid";
+};
+
+const formatPhoneForMessage = (raw) => {
+  const trimmed = raw.trim();
+  const hasPlus = trimmed.startsWith("+");
+  const digits = normalizePhoneDigits(trimmed);
+  if (!hasPlus && digits.length === 10)
+    return `+1 (${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
+  if (!hasPlus && digits.length === 11 && digits.startsWith("1"))
+    return `+1 (${digits.slice(1, 4)}) ${digits.slice(4, 7)}-${digits.slice(7)}`;
+  return hasPlus ? `+${digits}` : trimmed;
+};
+
+// ── Date helpers ──────────────────────────────────────────────────────────────
+
+const parseDateLocal = (dateStr) => {
+  const [year, month, day] = dateStr.split("-").map(Number);
+  return new Date(year, month - 1, day, 12, 0, 0);
+};
+
+const formatDateLocalized = (dateStr, lang) => {
+  if (!dateStr) return dateStr;
+  try {
+    const d = parseDateLocal(dateStr);
+    const localeMap = { ru: "ru-RU", en: "en-US", uk: "uk-UA" };
+    return new Intl.DateTimeFormat(localeMap[lang] || "ru-RU", {
+      weekday: "long", year: "numeric", month: "long", day: "numeric",
+    }).format(d);
+  } catch {
+    return dateStr;
+  }
+};
+
+const formatTimeLocalized = (timeStr, lang) => {
+  if (!timeStr || lang !== "en") return timeStr;
+  try {
+    const [h, m] = timeStr.split(":").map(Number);
+    const suffix = h >= 12 ? "PM" : "AM";
+    const h12 = h % 12 || 12;
+    return `${h12}:${String(m).padStart(2, "0")} ${suffix}`;
+  } catch {
+    return timeStr;
+  }
+};
+
+// ── Miami date / timestamp ────────────────────────────────────────────────────
+
+const getMiamiDateCode = () => {
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone: "America/New_York",
+    year: "2-digit", month: "2-digit", day: "2-digit",
+  }).formatToParts(new Date());
+  const p = Object.fromEntries(parts.map(({ type, value }) => [type, value]));
+  return `${p.year}${p.month}${p.day}`;
+};
+
+const getMiamiTimestamp = () => {
+  const localeMap = { ru: "ru-RU", en: "en-US", uk: "uk-UA" };
+  return new Intl.DateTimeFormat(localeMap[state.lang] || "ru-RU", {
+    timeZone: "America/New_York",
+    year: "numeric", month: "long", day: "numeric",
+    hour: "numeric", minute: "2-digit",
+  }).format(new Date());
+};
+
+// ── Order ID ──────────────────────────────────────────────────────────────────
+
+const generateToken = () => {
   try {
     return crypto.randomUUID().slice(0, 8).toUpperCase();
   } catch {
     return (Date.now().toString(36) + Math.random().toString(36).slice(2, 6)).toUpperCase().slice(0, 8);
   }
+};
+
+const generateOrderId = (type) =>
+  `${type === "catering" ? "MT-C" : "MT-P"}-${getMiamiDateCode()}-${generateToken()}`;
+
+// ── Clipboard ─────────────────────────────────────────────────────────────────
+
+const copyOrderText = async (message) => {
+  if (navigator.clipboard?.writeText) {
+    await navigator.clipboard.writeText(message);
+    return;
+  }
+  const ta = document.createElement("textarea");
+  ta.value = message;
+  ta.style.cssText = "position:fixed;top:-9999px;left:-9999px;opacity:0";
+  document.body.appendChild(ta);
+  ta.select();
+  try { document.execCommand("copy"); } finally { ta.remove(); }
 };
 
 // ── sessionStorage helpers ────────────────────────────────────────────────────
@@ -1131,44 +1336,46 @@ const waUrl = (message) => `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURICom
 
 // ── Message builders ──────────────────────────────────────────────────────────
 
-const buildPreorderMessage = (refId) => {
+const buildPreorderMessage = (orderId) => {
   const form = state.preorderForm;
   const entries = cartEntries();
   const lines = [
-    t("order.title"),
-    `${t("order.ref")}: ${refId}`,
+    t("order.titlePreorder"),
+    `${t("order.ref")}: ${orderId}`,
+    `${t("order.createdAt")}: ${getMiamiTimestamp()} — ${t("order.miamiTime")}`,
     "",
     `${t("order.name")}: ${form.name}`,
-    `${t("order.phone")}: ${form.phone}`,
+    `${t("order.phone")}: ${formatPhoneForMessage(form.phone)}`,
     `${t("order.fulfillment")}: ${form.fulfillmentType === "delivery" ? t("order.deliveryLabel") : t("order.pickupLabel")}`,
   ];
   if (form.fulfillmentType === "delivery" && form.address) {
     lines.push(`${t("order.address")}: ${form.address}${form.apt ? `, ${form.apt}` : ""}`);
   }
-  lines.push(`${t("order.date")}: ${form.date}`);
-  lines.push(`${t("order.time")}: ${form.time}`);
+  lines.push(`${t("order.date")}: ${formatDateLocalized(form.date, state.lang)}`);
+  lines.push(`${t("order.time")}: ${formatTimeLocalized(form.time, state.lang)}`);
   lines.push("");
   lines.push(`${t("order.items")}:`);
   entries.forEach(({ dish, quantity }) => {
-    lines.push(`- ${text(dish.name)} ×${quantity}: ${money(dish.price * quantity)}`);
+    lines.push(`• ${text(dish.name)} × ${quantity} — ${money(dish.price * quantity)}`);
   });
-  lines.push(`${t("order.subtotal")}: ${money(cartTotal())}`);
   lines.push("");
+  lines.push(`${t("order.subtotal")}: ${money(cartTotal())}`);
   lines.push(t("order.deliveryNote"));
-  if (form.allergies) lines.push(`${t("order.allergies")}: ${form.allergies}`);
+  if (form.allergies) lines.push(`\n${t("order.allergies")}: ${form.allergies}`);
   if (form.comment) lines.push(`${t("order.comment")}: ${form.comment}`);
   return lines.join("\n");
 };
 
-const buildCateringMessage = (refId) => {
+const buildCateringMessage = (orderId) => {
   const form = state.cateringForm;
   const lines = [
-    `🎉 ${t("cateringForm.modalTitle")}`,
-    `${t("order.ref")}: ${refId}`,
+    t("order.titleCatering"),
+    `${t("order.ref")}: ${orderId}`,
+    `${t("order.createdAt")}: ${getMiamiTimestamp()} — ${t("order.miamiTime")}`,
     "",
     `${t("cateringForm.name")}: ${form.name}`,
-    `${t("cateringForm.phone")}: ${form.phone}`,
-    `${t("cateringForm.date")}: ${form.date}`,
+    `${t("order.phone")}: ${formatPhoneForMessage(form.phone)}`,
+    `${t("cateringForm.date")}: ${formatDateLocalized(form.date, state.lang)}`,
     `${t("cateringForm.occasion")}: ${form.occasion}`,
     `${t("cateringForm.guests")}: ${form.guests}`,
     `${t("cateringForm.area")}: ${form.area}`,
@@ -1186,13 +1393,20 @@ const createFallbackBlock = (ns) => `
   <div class="modal-fallback-block">
     <h4>${escapeHtml(t(`${ns}.fallbackTitle`))}</h4>
     <p class="modal-fallback-note">${escapeHtml(t(`${ns}.fallbackNote`))}</p>
-    <div class="modal-fallback-phone">${escapeHtml(DISPLAY_PHONE)}</div>
     <div class="modal-fallback-actions">
+      <button class="btn btn-secondary btn-sm" type="button" data-copy-message="${escapeHtml(ns)}">
+        ${escapeHtml(t(`${ns}.copyMessage`))}
+      </button>
       <button class="btn btn-secondary btn-sm" type="button" data-copy-phone="${escapeHtml(ns)}">
         ${escapeHtml(t(`${ns}.copyPhone`))}
       </button>
-      <button class="btn btn-secondary btn-sm" type="button" data-copy-message="${escapeHtml(ns)}">
-        ${escapeHtml(t(`${ns}.copyMessage`))}
+      <button class="btn btn-secondary btn-sm" type="button" data-open-generic-tg>
+        <i data-lucide="send"></i>
+        ${escapeHtml(t(`${ns}.openTG`))}
+      </button>
+      <button class="btn btn-secondary btn-sm" type="button" data-open-wa-message="${escapeHtml(ns)}">
+        <i data-lucide="message-circle"></i>
+        ${escapeHtml(t(`${ns}.openWA`))}
       </button>
     </div>
   </div>
@@ -1282,21 +1496,66 @@ const createPreorderStage1 = () => {
   const draft = state.preorderDraft;
   return `
     <div class="modal-stage">
-      <p class="stage-intro">${escapeHtml(t("preorder.stage1Text"))}</p>
-      <p class="stage-ref">${escapeHtml(t("preorder.stage1Ref"))} <strong>${escapeHtml(draft?.refId || "")}</strong></p>
-      ${createFallbackBlock("preorder")}
-      <button class="btn btn-primary" type="button" data-confirm-sent="preorder">
-        <span>${escapeHtml(t("preorder.stage1Button"))}</span>
-        <i data-lucide="check-circle-2"></i>
-      </button>
+      <h3 class="stage-title">${escapeHtml(t("preorder.messengerTitle"))}</h3>
+      <p class="stage-intro">${escapeHtml(t("preorder.messengerSubtitle"))}</p>
+      <p class="stage-ref">${escapeHtml(t("preorder.stage1Ref"))} <strong>${escapeHtml(draft?.orderId || "")}</strong></p>
+      <div class="messenger-choice">
+        <button class="btn btn-primary messenger-btn" type="button" data-send-messenger="preorder" data-messenger="whatsapp">
+          <i data-lucide="message-circle"></i>
+          <span>${escapeHtml(t("preorder.viaWhatsApp"))}</span>
+        </button>
+        <button class="btn btn-secondary messenger-btn" type="button" data-send-messenger="preorder" data-messenger="telegram">
+          <i data-lucide="send"></i>
+          <span>${escapeHtml(t("preorder.viaTelegram"))}</span>
+        </button>
+      </div>
     </div>
   `;
 };
 
 const createPreorderStage2 = () => `
+  <div class="modal-stage">
+    <h3 class="stage-title">${escapeHtml(t("preorder.stage2Title"))}</h3>
+    <p class="stage-intro">${escapeHtml(t("preorder.stage2Text"))}</p>
+    ${createFallbackBlock("preorder")}
+    <button class="btn btn-primary" type="button" data-advance-stage="preorder">
+      <span>${escapeHtml(t("preorder.stage2Button"))}</span>
+      <i data-lucide="check"></i>
+    </button>
+  </div>
+`;
+
+const createPreorderStage3 = () => `
+  <div class="modal-stage">
+    <h3 class="stage-title">${escapeHtml(t("preorder.stage3Title"))}</h3>
+    <p class="stage-intro">${escapeHtml(t("preorder.stage3Text"))}</p>
+    <div class="stage-confirm-actions">
+      <button class="btn btn-primary" type="button" data-confirm-sent="preorder">
+        <span>${escapeHtml(t("preorder.stage3Confirm"))}</span>
+        <i data-lucide="check-circle-2"></i>
+      </button>
+      <button class="btn btn-secondary" type="button" data-go-stage="preorder" data-stage="2">
+        ${escapeHtml(t("preorder.stage3Back"))}
+      </button>
+    </div>
+  </div>
+`;
+
+const createPreorderStage4 = () => `
   <div class="modal-stage modal-stage-final">
     <i data-lucide="check-circle-2" class="stage-icon-lg"></i>
-    <p class="stage-intro">${escapeHtml(t("preorder.stage2Text"))}</p>
+    <h3 class="stage-title">${escapeHtml(t("preorder.stage4Title"))}</h3>
+    <p class="stage-intro">${escapeHtml(t("preorder.stage4Text"))}</p>
+    <div class="stage-final-actions">
+      <button class="btn btn-secondary btn-sm" type="button" data-open-generic-wa>
+        <i data-lucide="message-circle"></i>
+        <span>${escapeHtml(t("preorder.stage4WA"))}</span>
+      </button>
+      <button class="btn btn-secondary btn-sm" type="button" data-open-generic-tg>
+        <i data-lucide="send"></i>
+        <span>${escapeHtml(t("preorder.stage4TG"))}</span>
+      </button>
+    </div>
     <button class="btn btn-primary" type="button" data-close-modal="preorder">
       ${escapeHtml(t("preorder.close"))}
     </button>
@@ -1307,7 +1566,9 @@ const createPreorderModal = () => {
   let body = "";
   if (state.preorderStage === 0) body = createPreorderStage0();
   else if (state.preorderStage === 1) body = createPreorderStage1();
-  else body = createPreorderStage2();
+  else if (state.preorderStage === 2) body = createPreorderStage2();
+  else if (state.preorderStage === 3) body = createPreorderStage3();
+  else body = createPreorderStage4();
 
   return `
     <div class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="preorder-modal-title" data-modal-overlay="preorder">
@@ -1405,21 +1666,66 @@ const createCateringStage1 = () => {
   const draft = state.cateringDraft;
   return `
     <div class="modal-stage">
-      <p class="stage-intro">${escapeHtml(t("cateringForm.stage1Text"))}</p>
-      <p class="stage-ref">${escapeHtml(t("cateringForm.stage1Ref"))} <strong>${escapeHtml(draft?.refId || "")}</strong></p>
-      ${createFallbackBlock("cateringForm")}
-      <button class="btn btn-primary" type="button" data-confirm-sent="catering">
-        <span>${escapeHtml(t("cateringForm.stage1Button"))}</span>
-        <i data-lucide="check-circle-2"></i>
-      </button>
+      <h3 class="stage-title">${escapeHtml(t("cateringForm.messengerTitle"))}</h3>
+      <p class="stage-intro">${escapeHtml(t("cateringForm.messengerSubtitle"))}</p>
+      <p class="stage-ref">${escapeHtml(t("cateringForm.stage1Ref"))} <strong>${escapeHtml(draft?.orderId || "")}</strong></p>
+      <div class="messenger-choice">
+        <button class="btn btn-primary messenger-btn" type="button" data-send-messenger="catering" data-messenger="whatsapp">
+          <i data-lucide="message-circle"></i>
+          <span>${escapeHtml(t("cateringForm.viaWhatsApp"))}</span>
+        </button>
+        <button class="btn btn-secondary messenger-btn" type="button" data-send-messenger="catering" data-messenger="telegram">
+          <i data-lucide="send"></i>
+          <span>${escapeHtml(t("cateringForm.viaTelegram"))}</span>
+        </button>
+      </div>
     </div>
   `;
 };
 
 const createCateringStage2 = () => `
+  <div class="modal-stage">
+    <h3 class="stage-title">${escapeHtml(t("cateringForm.stage2Title"))}</h3>
+    <p class="stage-intro">${escapeHtml(t("cateringForm.stage2Text"))}</p>
+    ${createFallbackBlock("cateringForm")}
+    <button class="btn btn-primary" type="button" data-advance-stage="catering">
+      <span>${escapeHtml(t("cateringForm.stage2Button"))}</span>
+      <i data-lucide="check"></i>
+    </button>
+  </div>
+`;
+
+const createCateringStage3 = () => `
+  <div class="modal-stage">
+    <h3 class="stage-title">${escapeHtml(t("cateringForm.stage3Title"))}</h3>
+    <p class="stage-intro">${escapeHtml(t("cateringForm.stage3Text"))}</p>
+    <div class="stage-confirm-actions">
+      <button class="btn btn-primary" type="button" data-confirm-sent="catering">
+        <span>${escapeHtml(t("cateringForm.stage3Confirm"))}</span>
+        <i data-lucide="check-circle-2"></i>
+      </button>
+      <button class="btn btn-secondary" type="button" data-go-stage="catering" data-stage="2">
+        ${escapeHtml(t("cateringForm.stage3Back"))}
+      </button>
+    </div>
+  </div>
+`;
+
+const createCateringStage4 = () => `
   <div class="modal-stage modal-stage-final">
     <i data-lucide="check-circle-2" class="stage-icon-lg"></i>
-    <p class="stage-intro">${escapeHtml(t("cateringForm.stage2Text"))}</p>
+    <h3 class="stage-title">${escapeHtml(t("cateringForm.stage4Title"))}</h3>
+    <p class="stage-intro">${escapeHtml(t("cateringForm.stage4Text"))}</p>
+    <div class="stage-final-actions">
+      <button class="btn btn-secondary btn-sm" type="button" data-open-generic-wa>
+        <i data-lucide="message-circle"></i>
+        <span>${escapeHtml(t("cateringForm.stage4WA"))}</span>
+      </button>
+      <button class="btn btn-secondary btn-sm" type="button" data-open-generic-tg>
+        <i data-lucide="send"></i>
+        <span>${escapeHtml(t("cateringForm.stage4TG"))}</span>
+      </button>
+    </div>
     <button class="btn btn-primary" type="button" data-close-modal="catering">
       ${escapeHtml(t("cateringForm.close"))}
     </button>
@@ -1430,7 +1736,9 @@ const createCateringModal = () => {
   let body = "";
   if (state.cateringStage === 0) body = createCateringStage0();
   else if (state.cateringStage === 1) body = createCateringStage1();
-  else body = createCateringStage2();
+  else if (state.cateringStage === 2) body = createCateringStage2();
+  else if (state.cateringStage === 3) body = createCateringStage3();
+  else body = createCateringStage4();
 
   return `
     <div class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="catering-modal-title" data-modal-overlay="catering">
@@ -1469,15 +1777,13 @@ const openPreorderModal = (trigger = null) => {
 const closePreorderModal = () => {
   document.getElementById("preorder-modal")?.remove();
   document.body.classList.remove("modal-open");
-  if (state.preorderStage !== 2) {
-    // Keep form data; only reset stage if closing before completion
-    state.preorderStage = 0;
-    state.preorderError = false;
-  } else {
-    state.preorderStage = 0;
+  if (state.preorderStage === 4) {
     state.preorderForm = createDefaultPreorderForm();
     state.preorderDraft = null;
   }
+  state.preorderStage = 0;
+  state.preorderError = false;
+  state.preorderSelectedMessenger = null;
   preorderTriggerEl?.focus();
   preorderTriggerEl = null;
 };
@@ -1509,14 +1815,13 @@ const openCateringModal = (trigger = null) => {
 const closeCateringModal = () => {
   document.getElementById("catering-modal")?.remove();
   document.body.classList.remove("modal-open");
-  if (state.cateringStage !== 2) {
-    state.cateringStage = 0;
-    state.cateringError = false;
-  } else {
-    state.cateringStage = 0;
+  if (state.cateringStage === 4) {
     state.cateringForm = createDefaultCateringForm();
     state.cateringDraft = null;
   }
+  state.cateringStage = 0;
+  state.cateringError = false;
+  state.cateringSelectedMessenger = null;
   cateringTriggerEl?.focus();
   cateringTriggerEl = null;
 };
@@ -1683,6 +1988,7 @@ const todayStr = () => new Date().toISOString().slice(0, 10);
 const validatePreorderForm = () => {
   const f = state.preorderForm;
   if (!f.name || !f.phone || !f.fulfillmentType || !f.date || !f.time) return "preorder.required";
+  if (validatePhone(f.phone) !== null) return "preorder.phoneInvalid";
   if (f.date < todayStr()) return "preorder.dateInPast";
   if (f.fulfillmentType === "delivery" && !f.address) return "preorder.required";
   return null;
@@ -1691,6 +1997,7 @@ const validatePreorderForm = () => {
 const validateCateringForm = () => {
   const f = state.cateringForm;
   if (!f.name || !f.phone || !f.date || !f.occasion || !f.area || !f.fulfillmentType) return "cateringForm.required";
+  if (validatePhone(f.phone) !== null) return "cateringForm.phoneInvalid";
   if (f.date < todayStr()) return "cateringForm.dateInPast";
   const guests = Number(f.guests);
   if (!f.guests || !Number.isInteger(guests) || guests < 1) return "cateringForm.guestsInvalid";
@@ -1710,11 +2017,11 @@ const handlePreorderSubmit = (formEl) => {
   }
 
   const existingDraft = loadDraft("preorder");
-  const refId = existingDraft?.refId || generateRefId();
-  const message = buildPreorderMessage(refId);
+  const orderId = existingDraft?.orderId || generateOrderId("preorder");
+  const message = buildPreorderMessage(orderId);
 
   const draft = {
-    refId,
+    orderId,
     form: { ...state.preorderForm },
     cartSnapshot: cartEntries().map(({ dish, quantity }) => ({
       id: dish.id,
@@ -1734,8 +2041,6 @@ const handlePreorderSubmit = (formEl) => {
   state.preorderStage = 1;
   state.preorderError = false;
   renderPreorderModal();
-
-  window.location.assign(waUrl(message));
 };
 
 const handleCateringSubmit = (formEl) => {
@@ -1749,11 +2054,11 @@ const handleCateringSubmit = (formEl) => {
   }
 
   const existingDraft = loadDraft("catering");
-  const refId = existingDraft?.refId || generateRefId();
-  const message = buildCateringMessage(refId);
+  const orderId = existingDraft?.orderId || generateOrderId("catering");
+  const message = buildCateringMessage(orderId);
 
   const draft = {
-    refId,
+    orderId,
     form: { ...state.cateringForm },
     message,
     stage: 1,
@@ -1765,8 +2070,6 @@ const handleCateringSubmit = (formEl) => {
   state.cateringStage = 1;
   state.cateringError = false;
   renderCateringModal();
-
-  window.location.assign(waUrl(message));
 };
 
 // ── Event handlers ────────────────────────────────────────────────────────────
@@ -1833,7 +2136,53 @@ const handleClick = (event) => {
     return;
   }
 
-  // Confirm sent (stage 1 → stage 2)
+  // Messenger choice (stage 1 → stage 2)
+  const sendMessenger = target.closest("[data-send-messenger]");
+  if (sendMessenger) {
+    event.preventDefault();
+    const type = sendMessenger.dataset.sendMessenger;
+    const messenger = sendMessenger.dataset.messenger;
+    const draft = type === "preorder" ? state.preorderDraft : state.cateringDraft;
+    if (messenger === "whatsapp") {
+      window.open(waUrl(draft?.message || ""), "_blank", "noopener,noreferrer");
+    } else if (messenger === "telegram") {
+      window.open(tgUrl(), "_blank", "noopener,noreferrer");
+      if (draft?.message) copyOrderText(draft.message).catch(() => {});
+    }
+    if (type === "preorder") {
+      state.preorderSelectedMessenger = messenger;
+      state.preorderStage = 2;
+      renderPreorderModal();
+    } else {
+      state.cateringSelectedMessenger = messenger;
+      state.cateringStage = 2;
+      renderCateringModal();
+    }
+    return;
+  }
+
+  // Stage 2 → Stage 3
+  const advanceStage = target.closest("[data-advance-stage]");
+  if (advanceStage) {
+    event.preventDefault();
+    const type = advanceStage.dataset.advanceStage;
+    if (type === "preorder") { state.preorderStage = 3; renderPreorderModal(); }
+    else { state.cateringStage = 3; renderCateringModal(); }
+    return;
+  }
+
+  // Go back to specific stage
+  const goStage = target.closest("[data-go-stage]");
+  if (goStage) {
+    event.preventDefault();
+    const type = goStage.dataset.goStage;
+    const stage = Number(goStage.dataset.stage);
+    if (type === "preorder") { state.preorderStage = stage; renderPreorderModal(); }
+    else { state.cateringStage = stage; renderCateringModal(); }
+    return;
+  }
+
+  // Confirm sent (stage 3 → stage 4): clear cart here
   const confirmSent = target.closest("[data-confirm-sent]");
   if (confirmSent) {
     event.preventDefault();
@@ -1844,15 +2193,41 @@ const handleClick = (event) => {
       renderCart();
       renderDishQuantities();
       clearDraft("preorder");
-      state.preorderStage = 2;
+      state.preorderStage = 4;
       state.preorderDraft = null;
       renderPreorderModal();
     } else if (type === "catering") {
       clearDraft("catering");
-      state.cateringStage = 2;
+      state.cateringStage = 4;
       state.cateringDraft = null;
       renderCateringModal();
     }
+    return;
+  }
+
+  // Open generic WA chat (no draft message)
+  const openGenericWA = target.closest("[data-open-generic-wa]");
+  if (openGenericWA) {
+    event.preventDefault();
+    window.open(waUrl(t("order.help")), "_blank", "noopener,noreferrer");
+    return;
+  }
+
+  // Open generic TG chat
+  const openGenericTG = target.closest("[data-open-generic-tg]");
+  if (openGenericTG) {
+    event.preventDefault();
+    window.open(tgUrl(), "_blank", "noopener,noreferrer");
+    return;
+  }
+
+  // Reopen WA with draft message (fallback block button)
+  const openWAMessage = target.closest("[data-open-wa-message]");
+  if (openWAMessage) {
+    event.preventDefault();
+    const type = openWAMessage.dataset.openWaMessage;
+    const draft = type === "preorder" ? state.preorderDraft : state.cateringDraft;
+    if (draft?.message) window.open(waUrl(draft.message), "_blank", "noopener,noreferrer");
     return;
   }
 
@@ -1861,10 +2236,11 @@ const handleClick = (event) => {
   if (copyPhone) {
     event.preventDefault();
     const ns = copyPhone.dataset.copyPhone;
-    navigator.clipboard?.writeText(DISPLAY_PHONE).catch(() => {});
-    const orig = copyPhone.textContent;
-    copyPhone.textContent = t(`${ns}.copied`);
-    setTimeout(() => { copyPhone.textContent = orig; }, 2000);
+    const btn = copyPhone;
+    const orig = btn.textContent.trim();
+    copyOrderText(DISPLAY_PHONE).catch(() => {});
+    btn.textContent = t(`${ns}.copied`);
+    setTimeout(() => { btn.textContent = orig; }, 2000);
     return;
   }
 
@@ -1874,10 +2250,11 @@ const handleClick = (event) => {
     event.preventDefault();
     const ns = copyMessage.dataset.copyMessage;
     const draft = ns === "preorder" ? state.preorderDraft : state.cateringDraft;
-    navigator.clipboard?.writeText(draft?.message || "").catch(() => {});
-    const orig = copyMessage.textContent;
-    copyMessage.textContent = t(`${ns}.copied`);
-    setTimeout(() => { copyMessage.textContent = orig; }, 2000);
+    const btn = copyMessage;
+    const orig = btn.textContent.trim();
+    copyOrderText(draft?.message || "").catch(() => {});
+    btn.textContent = t(`${ns}.copied`);
+    setTimeout(() => { btn.textContent = orig; }, 2000);
     return;
   }
 
@@ -1914,8 +2291,8 @@ const handleClick = (event) => {
   const overlay = target.closest("[data-modal-overlay]");
   if (overlay && !target.closest(".modal-panel")) {
     const type = overlay.dataset.modalOverlay;
-    if (type === "preorder" && state.preorderStage === 0) closePreorderModal();
-    else if (type === "catering" && state.cateringStage === 0) closeCateringModal();
+    if (type === "preorder" && (state.preorderStage === 0 || state.preorderStage === 4)) closePreorderModal();
+    else if (type === "catering" && (state.cateringStage === 0 || state.cateringStage === 4)) closeCateringModal();
   }
 };
 
@@ -1971,8 +2348,10 @@ const handleSubmit = (event) => {
 
 const handleKeydown = (event) => {
   if (event.key === "Escape") {
-    if (document.getElementById("preorder-modal") && state.preorderStage === 0) closePreorderModal();
-    else if (document.getElementById("catering-modal") && state.cateringStage === 0) closeCateringModal();
+    const preorderOpen = !!document.getElementById("preorder-modal");
+    const cateringOpen = !!document.getElementById("catering-modal");
+    if (preorderOpen && (state.preorderStage === 0 || state.preorderStage === 4)) closePreorderModal();
+    else if (cateringOpen && (state.cateringStage === 0 || state.cateringStage === 4)) closeCateringModal();
     return;
   }
   if (event.key === "Tab") {
@@ -2048,8 +2427,7 @@ const observeReveals = () => {
 
 const restoreSessionDrafts = () => {
   const preorderDraft = loadDraft("preorder");
-  if (preorderDraft?.stage === 1) {
-    // Restore cart from snapshot
+  if (preorderDraft?.stage >= 1) {
     if (preorderDraft.cartSnapshot) {
       preorderDraft.cartSnapshot.forEach(({ id, quantity }) => {
         state.cart.set(id, quantity);
@@ -2064,7 +2442,7 @@ const restoreSessionDrafts = () => {
   }
 
   const cateringDraft = loadDraft("catering");
-  if (cateringDraft?.stage === 1) {
+  if (cateringDraft?.stage >= 1) {
     state.cateringForm = cateringDraft.form || createDefaultCateringForm();
     state.cateringDraft = cateringDraft;
     state.cateringStage = 1;
@@ -2100,13 +2478,13 @@ document.addEventListener("DOMContentLoaded", async () => {
   window.addEventListener("pageshow", (e) => {
     if (!e.persisted) return;
     const preorderDraft = loadDraft("preorder");
-    if (preorderDraft?.stage === 1 && !document.getElementById("preorder-modal")) {
+    if (preorderDraft?.stage >= 1 && !document.getElementById("preorder-modal")) {
       state.preorderDraft = preorderDraft;
       state.preorderStage = 1;
       openPreorderModal();
     }
     const cateringDraft = loadDraft("catering");
-    if (cateringDraft?.stage === 1 && !document.getElementById("catering-modal")) {
+    if (cateringDraft?.stage >= 1 && !document.getElementById("catering-modal")) {
       state.cateringDraft = cateringDraft;
       state.cateringStage = 1;
       openCateringModal();
