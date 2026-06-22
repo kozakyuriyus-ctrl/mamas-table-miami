@@ -24,6 +24,14 @@ const copy = {
       questionsWA: "Вопросы или индивидуальный заказ",
       viewFullMenu: "Все меню",
     },
+    size: {
+      weightLabel: "Вес",
+      volumeLabel: "Объём",
+      g: "г",
+      ml: "мл",
+      servesPrefix: "",
+      servesSuffix: " порции",
+    },
     hero: {
       eyebrow: "Премиальная домашняя кухня",
       title: "Украинская и восточноевропейская домашняя еда в Майами",
@@ -301,6 +309,14 @@ const copy = {
       questionsWA: "Questions or custom order",
       viewFullMenu: "View full menu",
     },
+    size: {
+      weightLabel: "Size",
+      volumeLabel: "Size",
+      g: "g",
+      ml: "ml",
+      servesPrefix: "Serves ",
+      servesSuffix: "",
+    },
     hero: {
       eyebrow: "Premium homemade kitchen",
       title: "Ukrainian & Eastern European Home Cooking in Miami",
@@ -577,6 +593,14 @@ const copy = {
       howItWorks: "Як замовити",
       questionsWA: "Запитання або індивідуальне замовлення",
       viewFullMenu: "Все меню",
+    },
+    size: {
+      weightLabel: "Вага",
+      volumeLabel: "Об'єм",
+      g: "г",
+      ml: "мл",
+      servesPrefix: "",
+      servesSuffix: " порції",
     },
     hero: {
       eyebrow: "Преміальна домашня кухня",
@@ -1028,6 +1052,25 @@ const unitLabels = {
   lb: tr("/ lb", "/ lb", "/ lb"),
 };
 
+const sizeMeta = {
+  soups: { type: "volume", defaultServings: "3–4" },
+  salads: { type: "weight", defaultServings: "3–4" },
+  "main-dishes": { type: "weight", defaultServings: "2–3" },
+};
+
+const buildDishSizeStr = (dish) => {
+  const meta = sizeMeta[dish.category];
+  if (!meta) return "";
+  const servings = dish.servings || meta.defaultServings;
+  const label = meta.type === "volume" ? t("size.volumeLabel") : t("size.weightLabel");
+  const metric = meta.type === "volume"
+    ? `32 fl oz / 946 ${t("size.ml")}`
+    : `454 ${t("size.g")}`;
+  const sizeStr = meta.type === "volume" ? `1 qt (${metric})` : `1 lb (${metric})`;
+  const servesStr = `${t("size.servesPrefix")}${servings}${t("size.servesSuffix")}`;
+  return `${label}: ${sizeStr} · ${servesStr}`;
+};
+
 const escapeHtml = (value) =>
   String(value).replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" })[char]);
 
@@ -1040,6 +1083,8 @@ const createDishBadge = (badge) => {
 const createDishCard = (dish, options = {}) => {
   const rawUnit = dish.unit ? unitLabels[dish.unit] : categoryUnits[dish.category];
   const unitHtml = rawUnit ? `<span class="dish-unit">${escapeHtml(text(rawUnit))}</span>` : "";
+  const sizeStr = buildDishSizeStr(dish);
+  const sizeHtml = sizeStr ? `<small class="dish-size">${escapeHtml(sizeStr)}</small>` : "";
   return `
   <article class="dish-card${options.reveal === false ? "" : " reveal"}">
     <div class="dish-media">
@@ -1050,6 +1095,7 @@ const createDishCard = (dish, options = {}) => {
       <h3>${escapeHtml(text(dish.name))}</h3>
       <p>${escapeHtml(text(dish.description))}</p>
       <strong>${money(dish.price)}${unitHtml}</strong>
+      ${sizeHtml}
       <div class="dish-actions">
         <button class="add-btn" type="button" data-add="${escapeHtml(dish.id)}">
           <span>${escapeHtml(t("cart.add"))}</span>

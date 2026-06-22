@@ -212,7 +212,8 @@
       "en": "Dumplings with potatoes and fried onions.",
       "uk": "Домашні вареники з картоплею та смаженою цибулею."
     },
-    "unit": "lb"
+    "unit": "lb",
+    "servings": "2"
   },
   {
     "id": "cabbage-rolls",
@@ -351,7 +352,8 @@
       "en": "Thin blini filled with savory meat.",
       "uk": "Тонкі млинці з соковитою м'ясною начинкою."
     },
-    "unit": "lb"
+    "unit": "lb",
+    "servings": "2"
   },
   {
     "id": "cottage-cheese-blini",
@@ -368,7 +370,8 @@
       "en": "Homemade blini with a tender cottage cheese filling.",
       "uk": "Домашні млинці з ніжною сирною начинкою."
     },
-    "unit": "lb"
+    "unit": "lb",
+    "servings": "2"
   },
   {
     "id": "pork-pelmeni",
@@ -385,7 +388,8 @@
       "en": "Homemade pelmeni with pork filling and classic serving.",
       "uk": "Домашні пельмені зі свинячим фаршем і класичною подачею."
     },
-    "unit": "lb"
+    "unit": "lb",
+    "servings": "2"
   },
   {
     "id": "chicken-pelmeni",
@@ -402,7 +406,8 @@
       "en": "Tender homemade pelmeni with chicken filling.",
       "uk": "Ніжні домашні пельмені з курячим фаршем."
     },
-    "unit": "lb"
+    "unit": "lb",
+    "servings": "2"
   },
   {
     "id": "potato-zrazy-meat",
@@ -538,7 +543,8 @@
       "en": "Thin homemade plain blini, soft and versatile.",
       "uk": "Тонкі домашні млинці без начинки, м'які та універсальні."
     },
-    "unit": "lb"
+    "unit": "lb",
+    "servings": "2"
   },
   {
     "id": "chicken-liver-pate",
@@ -606,7 +612,8 @@
       "en": "Creamy mashed potatoes as a side for homemade meals.",
       "uk": "Ніжне картопляне пюре як гарнір до домашніх страв."
     },
-    "unit": "lb"
+    "unit": "lb",
+    "servings": "3"
   },
   {
     "id": "pork-beef-kholodets",

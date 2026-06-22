@@ -630,6 +630,14 @@ p {
   margin-top: 2px;
 }
 
+.dish-size {
+  display: block;
+  font-size: 12px;
+  color: var(--muted);
+  margin: 3px 0 4px;
+  line-height: 1.4;
+}
+
 .dish-actions {
   display: grid;
   gap: 8px;
