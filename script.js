@@ -163,6 +163,7 @@ const copy = {
       remove: "Убрать",
       itemWord: "позиций",
       unitPrice: "за ед.",
+      unitLb: "за фунт",
     },
     preorder: {
       modalTitle: "Детали предзаказа",
@@ -439,6 +440,7 @@ const copy = {
       remove: "Remove",
       itemWord: "items",
       unitPrice: "each",
+      unitLb: "per lb",
     },
     preorder: {
       modalTitle: "Pre-order details",
@@ -715,6 +717,7 @@ const copy = {
       remove: "Прибрати",
       itemWord: "позицій",
       unitPrice: "за од.",
+      unitLb: "за фунт",
     },
     preorder: {
       modalTitle: "Деталі передзамовлення",
@@ -1020,8 +1023,9 @@ const cartQuantity = (id) => state.cart.get(id) || 0;
 
 const categoryUnits = {
   soups: tr("за 1 литр", "per liter", "за 1 літр"),
-  "main-dishes": tr("за 1 кг", "per kg", "за 1 кг"),
-  salads: tr("за 1 кг", "per kg", "за 1 кг"),
+};
+const unitLabels = {
+  lb: tr("/ lb", "/ lb", "/ lb"),
 };
 
 const escapeHtml = (value) =>
@@ -1033,7 +1037,10 @@ const createDishBadge = (badge) => {
   return `<span class="dish-badge dish-badge-${escapeHtml(badge)}">${escapeHtml(text(label))}</span>`;
 };
 
-const createDishCard = (dish, options = {}) => `
+const createDishCard = (dish, options = {}) => {
+  const rawUnit = dish.unit ? unitLabels[dish.unit] : categoryUnits[dish.category];
+  const unitHtml = rawUnit ? `<span class="dish-unit">${escapeHtml(text(rawUnit))}</span>` : "";
+  return `
   <article class="dish-card${options.reveal === false ? "" : " reveal"}">
     <div class="dish-media">
       ${createDishBadge(dish.badge)}
@@ -1042,7 +1049,7 @@ const createDishCard = (dish, options = {}) => `
     <div class="dish-card-body">
       <h3>${escapeHtml(text(dish.name))}</h3>
       <p>${escapeHtml(text(dish.description))}</p>
-      <strong>${money(dish.price)}${categoryUnits[dish.category] ? `<span class="dish-unit">${escapeHtml(text(categoryUnits[dish.category]))}</span>` : ""}</strong>
+      <strong>${money(dish.price)}${unitHtml}</strong>
       <div class="dish-actions">
         <button class="add-btn" type="button" data-add="${escapeHtml(dish.id)}">
           <span>${escapeHtml(t("cart.add"))}</span>
@@ -1057,6 +1064,7 @@ const createDishCard = (dish, options = {}) => `
     </div>
   </article>
 `;
+};
 
 const createCategoryCard = (category) => `
   <a class="category-card reveal" href="#/${escapeHtml(category.id)}" data-category-route="${escapeHtml(category.id)}">
@@ -1383,7 +1391,8 @@ const buildPreorderMessage = (orderId) => {
   lines.push("");
   lines.push(`${t("order.items")}:`);
   entries.forEach(({ dish, quantity }) => {
-    lines.push(`• ${text(dish.name)} × ${quantity} — ${money(dish.price * quantity)}`);
+    const qtyStr = dish.unit === "lb" ? `${quantity} lb` : String(quantity);
+    lines.push(`• ${text(dish.name)} × ${qtyStr} — ${money(dish.price * quantity)}`);
   });
   lines.push("");
   lines.push(`${t("order.subtotal")}: ${money(cartTotal())}`);
@@ -1448,10 +1457,10 @@ const createPreorderStage0 = () => {
   const checkedPickup = form.fulfillmentType === "pickup" ? " checked" : "";
   const entries = cartEntries();
   const cartRows = entries
-    .map(
-      ({ dish, quantity }) =>
-        `<div class="modal-cart-item"><span>${escapeHtml(text(dish.name))} × ${quantity}</span><em>${money(dish.price * quantity)}</em></div>`,
-    )
+    .map(({ dish, quantity }) => {
+      const qtyStr = dish.unit === "lb" ? `${quantity} lb` : `${quantity}`;
+      return `<div class="modal-cart-item"><span>${escapeHtml(text(dish.name))} × ${escapeHtml(qtyStr)}</span><em>${money(dish.price * quantity)}</em></div>`;
+    })
     .join("");
   const errorHtml = state.preorderError
     ? `<p class="form-error" role="alert">${escapeHtml(t(state.preorderErrorKey))}</p>`
@@ -1888,13 +1897,15 @@ const createCartActions = () => `
 
 const createCartDetails = (entries) =>
   entries
-    .map(
-      ({ dish, quantity }) => `
+    .map(({ dish, quantity }) => {
+      const unitLabel = dish.unit === "lb" ? t("cart.unitLb") : t("cart.unitPrice");
+      const qtyStr = dish.unit === "lb" ? `×${quantity} lb` : `×${quantity}`;
+      return `
       <div class="cart-item">
         <div class="cart-item-main">
           <div>
             <strong>${escapeHtml(text(dish.name))}</strong>
-            <span>${money(dish.price)} ${escapeHtml(t("cart.unitPrice"))} · ×${quantity}</span>
+            <span>${money(dish.price)} ${escapeHtml(unitLabel)} · ${qtyStr}</span>
           </div>
           <em>${money(dish.price * quantity)}</em>
         </div>
@@ -1905,8 +1916,8 @@ const createCartDetails = (entries) =>
           <button type="button" data-remove="${escapeHtml(dish.id)}">${escapeHtml(t("cart.remove"))}</button>
         </div>
       </div>
-    `,
-    )
+    `;
+    })
     .join("");
 
 const renderCart = () => {

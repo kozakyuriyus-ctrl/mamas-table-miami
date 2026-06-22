@@ -201,7 +201,7 @@
     "badge": "bestseller",
     "image": "assets/images/main-dishes/varenyky.png",
     "popular": true,
-    "price": 25,
+    "price": 11.5,
     "name": {
       "ru": "Вареники",
       "en": "Vareniki",
@@ -211,7 +211,8 @@
       "ru": "Домашние вареники с картофелем и жареным луком.",
       "en": "Dumplings with potatoes and fried onions.",
       "uk": "Домашні вареники з картоплею та смаженою цибулею."
-    }
+    },
+    "unit": "lb"
   },
   {
     "id": "cabbage-rolls",
@@ -219,7 +220,7 @@
     "badge": "bestseller",
     "image": "assets/images/main-dishes/cabbage-rolls.png",
     "popular": true,
-    "price": 30,
+    "price": 13.5,
     "name": {
       "ru": "Голубцы",
       "en": "Cabbage Rolls",
@@ -229,13 +230,14 @@
       "ru": "Голубцы с мясом и рисом в томатном соусе.",
       "en": "Stuffed cabbage with meat and rice in tomato sauce.",
       "uk": "Голубці з м'ясом і рисом у томатному соусі."
-    }
+    },
+    "unit": "lb"
   },
   {
     "id": "beef-stroganoff",
     "category": "main-dishes",
     "image": "assets/images/main-dishes/beef-stroganoff.png",
-    "price": 40,
+    "price": 18.0,
     "name": {
       "ru": "Бефстроганов",
       "en": "Beef Stroganoff",
@@ -245,13 +247,14 @@
       "ru": "Нежная говядина в сливочном соусе .",
       "en": "Tender beef in a creamy sauce with onion and mushroom notes.",
       "uk": "Ніжна яловичина у вершковому соусі з цибулею та грибними нотами."
-    }
+    },
+    "unit": "lb"
   },
   {
     "id": "chicken-mince-cutlets",
     "category": "main-dishes",
     "image": "assets/images/main-dishes/chicken-mince-cutlets.png",
-    "price": 30,
+    "price": 13.5,
     "name": {
       "ru": "Котлеты с куриным фаршем",
       "en": "Chicken Mince Cutlets",
@@ -261,13 +264,14 @@
       "ru": "Сочные домашние котлеты из куриного фарша, приготовленные по классическому рецепту.",
       "en": "Juicy homemade cutlets made with chicken mince, prepared in a classic style.",
       "uk": "Соковиті домашні котлети з курячого фаршу, приготовані за класичним рецептом."
-    }
+    },
+    "unit": "lb"
   },
   {
     "id": "pork-mince-cutlets",
     "category": "main-dishes",
     "image": "assets/images/main-dishes/pork-mince-cutlets.png",
-    "price": 30,
+    "price": 13.5,
     "name": {
       "ru": "Котлеты со свиным фаршем",
       "en": "Pork Mince Cutlets",
@@ -277,13 +281,14 @@
       "ru": "Домашние котлеты из свиного фарша с нежной текстурой и насыщенным вкусом.",
       "en": "Homemade pork mince cutlets with a tender texture and rich flavor.",
       "uk": "Домашні котлети зі свинячого фаршу з ніжною текстурою та насиченим смаком."
-    }
+    },
+    "unit": "lb"
   },
   {
     "id": "beef-goulash",
     "category": "main-dishes",
     "image": "assets/images/main-dishes/beef-goulash.png",
-    "price": 40,
+    "price": 18.0,
     "name": {
       "ru": "Гуляш из говядины",
       "en": "Beef Goulash",
@@ -293,13 +298,14 @@
       "ru": "Говядина в насыщенном соусе с овощами и специями.",
       "en": "Beef in a rich sauce with vegetables and spices.",
       "uk": "Яловичина у насиченому соусі з овочами та спеціями."
-    }
+    },
+    "unit": "lb"
   },
   {
     "id": "pork-podzharka",
     "category": "main-dishes",
     "image": "assets/images/main-dishes/pork-podzharka.png",
-    "price": 30,
+    "price": 13.5,
     "name": {
       "ru": "Поджарка из свинины",
       "en": "Pork Podzharka",
@@ -309,14 +315,15 @@
       "ru": "Обжаренная свинина с луком в пикантном томатном соусе.",
       "en": "Pan-seared pork with onion in a homemade sauce.",
       "uk": "Обсмажена свинина з цибулею в домашньому соусі."
-    }
+    },
+    "unit": "lb"
   },
   {
     "id": "eggplant-pepper-saute",
     "category": "main-dishes",
     "badge": "vegetarian",
     "image": "assets/images/main-dishes/eggplant-pepper-saute.png",
-    "price": 25,
+    "price": 11.5,
     "name": {
       "ru": "Соте из баклажанов с болгарским перцем",
       "en": "Eggplant and Bell Pepper Saute",
@@ -326,13 +333,14 @@
       "ru": "Теплое овощное блюдо из баклажана, перца и ароматных трав.",
       "en": "Warm vegetable dish with eggplant, bell pepper and aromatic herbs.",
       "uk": "Тепла овочева страва з баклажана, перцю та ароматних трав."
-    }
+    },
+    "unit": "lb"
   },
   {
     "id": "meat-filled-blini",
     "category": "main-dishes",
     "image": "assets/images/main-dishes/meat-filled-blini.png",
-    "price": 30,
+    "price": 13.5,
     "name": {
       "ru": "Блины с мясной начинкой",
       "en": "Meat-Filled Blini",
@@ -342,13 +350,14 @@
       "ru": "Тонкие блины с сочной мясной начинкой.",
       "en": "Thin blini filled with savory meat.",
       "uk": "Тонкі млинці з соковитою м'ясною начинкою."
-    }
+    },
+    "unit": "lb"
   },
   {
     "id": "cottage-cheese-blini",
     "category": "main-dishes",
     "image": "assets/images/main-dishes/cottage-cheese-blini.png",
-    "price": 30,
+    "price": 13.5,
     "name": {
       "ru": "Блины с творогом",
       "en": "Cottage Cheese Blini",
@@ -358,13 +367,14 @@
       "ru": "Домашние блины с нежной творожной начинкой.",
       "en": "Homemade blini with a tender cottage cheese filling.",
       "uk": "Домашні млинці з ніжною сирною начинкою."
-    }
+    },
+    "unit": "lb"
   },
   {
     "id": "pork-pelmeni",
     "category": "main-dishes",
     "image": "assets/images/main-dishes/pork-pelmeni.png",
-    "price": 30,
+    "price": 13.5,
     "name": {
       "ru": "Пельмени со свиным фаршем",
       "en": "Pork Pelmeni",
@@ -374,13 +384,14 @@
       "ru": "Домашние пельмени со свиным фаршем и классической подачей.",
       "en": "Homemade pelmeni with pork filling and classic serving.",
       "uk": "Домашні пельмені зі свинячим фаршем і класичною подачею."
-    }
+    },
+    "unit": "lb"
   },
   {
     "id": "chicken-pelmeni",
     "category": "main-dishes",
     "image": "assets/images/main-dishes/chicken-pelmeni.png",
-    "price": 30,
+    "price": 13.5,
     "name": {
       "ru": "Пельмени с куриным фаршем",
       "en": "Chicken Pelmeni",
@@ -390,13 +401,14 @@
       "ru": "Нежные домашние пельмени с куриным фаршем.",
       "en": "Tender homemade pelmeni with chicken filling.",
       "uk": "Ніжні домашні пельмені з курячим фаршем."
-    }
+    },
+    "unit": "lb"
   },
   {
     "id": "potato-zrazy-meat",
     "category": "main-dishes",
     "image": "assets/images/main-dishes/potato-zrazy-meat.png",
-    "price": 25,
+    "price": 11.5,
     "name": {
       "ru": "Зразы картофельные с мясом",
       "en": "Potato Zrazy with Meat",
@@ -406,13 +418,14 @@
       "ru": "Картофельные зразы с мясной начинкой и золотистой корочкой.",
       "en": "Potato zrazy with meat filling and a golden crust.",
       "uk": "Картопляні зрази з м'ясною начинкою та золотистою скоринкою."
-    }
+    },
+    "unit": "lb"
   },
   {
     "id": "liver-cake",
     "category": "main-dishes",
     "image": "assets/images/main-dishes/liver-cake.png",
-    "price": 30,
+    "price": 13.5,
     "name": {
       "ru": "Печеночный торт",
       "en": "Liver Cake",
@@ -422,13 +435,14 @@
       "ru": "Слоеный печеночный торт с нежной домашней прослойкой.",
       "en": "Layered liver cake with a tender homemade filling.",
       "uk": "Шаровий печінковий торт з ніжною домашньою начинкою."
-    }
+    },
+    "unit": "lb"
   },
   {
     "id": "meat-rice-meatballs",
     "category": "main-dishes",
     "image": "assets/images/main-dishes/meat-rice-meatballs.png",
-    "price": 25,
+    "price": 11.5,
     "name": {
       "ru": "Тефтели мясные с рисом",
       "en": "Meatballs with Rice",
@@ -438,13 +452,14 @@
       "ru": "Мясные тефтели с рисом в мягком домашнем соусе.",
       "en": "Meatballs with rice in a soft homemade sauce.",
       "uk": "М'ясні тефтелі з рисом у м'якому домашньому соусі."
-    }
+    },
+    "unit": "lb"
   },
   {
     "id": "chicken-tabaka",
     "category": "main-dishes",
     "image": "assets/images/main-dishes/chicken-tabaka.png",
-    "price": 35,
+    "price": 16.0,
     "name": {
       "ru": "Цыпленок тапака",
       "en": "Chicken Tapaka",
@@ -454,13 +469,14 @@
       "ru": "Цыпленок с ароматной хрустящей чесночной корочкой и специями.",
       "en": "Caucasian-style pressed chicken with crisp skin and spices.",
       "uk": "Кавказьке курча з хрусткою скоринкою та спеціями."
-    }
+    },
+    "unit": "lb"
   },
   {
     "id": "chicken-chops",
     "category": "main-dishes",
     "image": "assets/images/main-dishes/chicken-chops.png",
-    "price": 35,
+    "price": 16.0,
     "name": {
       "ru": "Отбивные куриные",
       "en": "Chicken Chops",
@@ -470,13 +486,14 @@
       "ru": "Нежные куриные отбивные в домашней панировке.",
       "en": "Tender chicken chops in homemade breading.",
       "uk": "Ніжні курячі відбивні в домашній паніровці."
-    }
+    },
+    "unit": "lb"
   },
   {
     "id": "hawaiian-chicken-pineapple-cutlets",
     "category": "main-dishes",
     "image": "assets/images/main-dishes/hawaiian-chicken-pineapple-cutlets.png",
-    "price": 35,
+    "price": 16.0,
     "name": {
       "ru": "Куриные отбивные по-гавайски с ананасом",
       "en": "Hawaiian Chicken Cutlets with Pineapple",
@@ -486,13 +503,14 @@
       "ru": "Нежные куриные отбивные с ананасом, запечённые в лёгком гавайском стиле.",
       "en": "Tender chicken cutlets with pineapple, baked in a light Hawaiian style.",
       "uk": "Ніжні курячі відбивні з ананасом, запечені в легкому гавайському стилі."
-    }
+    },
+    "unit": "lb"
   },
   {
     "id": "pork-chops",
     "category": "main-dishes",
     "image": "assets/images/main-dishes/pork-chops.png",
-    "price": 35,
+    "price": 16.0,
     "name": {
       "ru": "Отбивные свиные",
       "en": "Pork Chops",
@@ -502,13 +520,14 @@
       "ru": "Сочные свиные отбивные в классическом домашнем стиле.",
       "en": "Juicy pork chops in a classic homemade style.",
       "uk": "Соковиті свинячі відбивні у класичному домашньому стилі."
-    }
+    },
+    "unit": "lb"
   },
   {
     "id": "plain-blini",
     "category": "main-dishes",
     "image": "assets/images/main-dishes/plain-blini.png",
-    "price": 15,
+    "price": 7.0,
     "name": {
       "ru": "Блины без начинки",
       "en": "Plain Blini",
@@ -518,13 +537,14 @@
       "ru": "Тонкие домашние блины без начинки, мягкие и универсальные.",
       "en": "Thin homemade plain blini, soft and versatile.",
       "uk": "Тонкі домашні млинці без начинки, м'які та універсальні."
-    }
+    },
+    "unit": "lb"
   },
   {
     "id": "chicken-liver-pate",
     "category": "main-dishes",
     "image": "assets/images/main-dishes/chicken-liver-pate.png",
-    "price": 35,
+    "price": 16.0,
     "name": {
       "ru": "Паштет из куриной печени",
       "en": "Chicken Liver Pate",
@@ -534,13 +554,14 @@
       "ru": "Нежный паштет из куриной печени с домашними специями.",
       "en": "Tender chicken liver pate with homemade seasoning.",
       "uk": "Ніжний паштет з курячої печінки з домашніми спеціями."
-    }
+    },
+    "unit": "lb"
   },
   {
     "id": "bbq-ribs",
     "category": "main-dishes",
     "image": "assets/images/main-dishes/bbq-ribs.png",
-    "price": 45,
+    "price": 20.5,
     "name": {
       "ru": "Ребра барбекю",
       "en": "BBQ Ribs",
@@ -550,13 +571,14 @@
       "ru": "Сочные ребра в насыщенном BBQ-соусе.",
       "en": "Juicy ribs in a rich BBQ sauce.",
       "uk": "Соковиті ребра у насиченому BBQ-соусі."
-    }
+    },
+    "unit": "lb"
   },
   {
     "id": "fish-cutlets",
     "category": "main-dishes",
     "image": "assets/images/main-dishes/fish-cutlets.png",
-    "price": 35,
+    "price": 16.0,
     "name": {
       "ru": "Котлеты рыбные",
       "en": "Fish Cutlets",
@@ -566,13 +588,14 @@
       "ru": "Домашние рыбные котлеты с нежной текстурой и мягким вкусом.",
       "en": "Homemade fish cutlets with a tender texture and mild flavor.",
       "uk": "Домашні рибні котлети з ніжною текстурою та м'яким смаком."
-    }
+    },
+    "unit": "lb"
   },
   {
     "id": "mashed-potatoes",
     "category": "main-dishes",
     "image": "assets/images/main-dishes/mashed-potatoes.png",
-    "price": 6.5,
+    "price": 3.0,
     "name": {
       "ru": "Картофельное пюре",
       "en": "Mashed Potatoes",
@@ -582,13 +605,14 @@
       "ru": "Нежное картофельное пюре как гарнир к домашним блюдам.",
       "en": "Creamy mashed potatoes as a side for homemade meals.",
       "uk": "Ніжне картопляне пюре як гарнір до домашніх страв."
-    }
+    },
+    "unit": "lb"
   },
   {
     "id": "pork-beef-kholodets",
     "category": "main-dishes",
     "image": "assets/images/main-dishes/pork-beef-kholodets.png",
-    "price": 35,
+    "price": 16.0,
     "name": {
       "ru": "Холодец свино-говяжий",
       "en": "Pork & Beef Aspic",
@@ -598,13 +622,14 @@
       "ru": "Домашний холодец из свинины и говядины, приготовленный по традиционному рецепту. Насыщенный бульон, нежное мясо, чеснок и лавровый лист — всё как у бабушки.",
       "en": "Traditional homemade aspic made with pork and beef. Rich broth, tender meat, garlic and bay leaf — just like grandma used to make.",
       "uk": "Домашній холодець зі свинини та яловичини за традиційним рецептом. Насичений бульйон, ніжне м'ясо, часник та лавровий лист."
-    }
+    },
+    "unit": "lb"
   },
   {
     "id": "chicken-kholodets",
     "category": "main-dishes",
     "image": "assets/images/main-dishes/chicken-kholodets.png",
-    "price": 35,
+    "price": 16.0,
     "name": {
       "ru": "Холодец куриный",
       "en": "Chicken Aspic",
@@ -614,13 +639,14 @@
       "ru": "Лёгкий домашний холодец из курицы с прозрачным бульоном, морковью и зеленью. Нежный вкус и красивая подача.",
       "en": "Light homemade chicken aspic with a clear broth, carrots and herbs. Delicate flavor and beautiful presentation.",
       "uk": "Легкий домашній холодець з курки з прозорим бульйоном, морквою та зеленню."
-    }
+    },
+    "unit": "lb"
   },
   {
     "id": "grilled-salmon-broccoli",
     "category": "main-dishes",
     "image": "assets/images/main-dishes/grilled-salmon-broccoli.png",
-    "price": 45,
+    "price": 20.5,
     "name": {
       "ru": "Лосось гриль с брокколи",
       "en": "Grilled Salmon with Broccoli",
@@ -631,14 +657,15 @@
       "en": "Juicy grilled salmon fillet with tender broccoli. A light, wholesome dish with aromatic herbs and a hint of lemon.",
       "uk": "Соковите філе лосося на грилі з ніжним броколі. Легка, корисна та ситна страва з ароматними травами та лимонним акцентом."
     },
-    "badge": "bestseller"
+    "badge": "bestseller",
+    "unit": "lb"
   },
   {
     "id": "olivier",
     "category": "salads",
     "image": "assets/images/salads/olivier.png",
     "popular": true,
-    "price": 30,
+    "price": 13.5,
     "name": {
       "ru": "Оливье",
       "en": "Olivier Salad",
@@ -648,13 +675,14 @@
       "ru": "Классический домашний салат с овощами, яйцом, вареной колбаской и майонезом.",
       "en": "Classic homemade salad with vegetables, eggs, chicken and mayonnaise.",
       "uk": "Класичний домашній салат з овочами, яйцем, куркою та майонезом."
-    }
+    },
+    "unit": "lb"
   },
   {
     "id": "vinaigrette",
     "category": "salads",
     "image": "assets/images/salads/vinaigrette.png",
-    "price": 30,
+    "price": 13.5,
     "name": {
       "ru": "Винегрет",
       "en": "Vinaigrette Salad",
@@ -664,14 +692,15 @@
       "ru": "Свекла, картофель, морковь, соленые огурцы и легкая заправка.",
       "en": "Beets, potatoes, carrots, pickles and a light dressing.",
       "uk": "Буряк, картопля, морква, солоні огірки та легка заправка."
-    }
+    },
+    "unit": "lb"
   },
   {
     "id": "spring-salad",
     "category": "salads",
     "badge": "new",
     "image": "assets/images/salads/spring-salad.png",
-    "price": 8.5,
+    "price": 4.0,
     "name": {
       "ru": "Салат весенний",
       "en": "Spring Salad",
@@ -681,14 +710,15 @@
       "ru": "Свежий салат с огурцом, болгарским перцем и редисом.",
       "en": "Fresh salad with cucumber, bell pepper, and radish.",
       "uk": "Свіжий салат з огірком, болгарським перцем та редисом."
-    }
+    },
+    "unit": "lb"
   },
   {
     "id": "mimosa-salad",
     "category": "salads",
     "badge": "new",
     "image": "assets/images/salads/mimosa-salad.png",
-    "price": 30,
+    "price": 13.5,
     "name": {
       "ru": "Салат Мимоза",
       "en": "Mimosa Salad",
@@ -698,13 +728,14 @@
       "ru": "Слоеный салат с рыбой, яйцом, овощами и нежной заправкой.",
       "en": "Layered salad with fish, egg, vegetables and a tender dressing.",
       "uk": "Шаровий салат з рибою, яйцем, овочами та ніжною заправкою."
-    }
+    },
+    "unit": "lb"
   },
   {
     "id": "herring-under-fur-coat",
     "category": "salads",
     "image": "assets/images/salads/herring-under-fur-coat.png",
-    "price": 30,
+    "price": 13.5,
     "name": {
       "ru": "Салат Сельдь под шубой",
       "en": "Herring Under a Fur Coat",
@@ -714,14 +745,15 @@
       "ru": "Классический слоеный салат с сельдью, свеклой, картофелем и морковью.",
       "en": "Classic layered salad with herring, beets, potatoes and carrots.",
       "uk": "Класичний шаровий салат з оселедцем, буряком, картоплею та морквою."
-    }
+    },
+    "unit": "lb"
   },
   {
     "id": "fresh-cabbage-salad",
     "category": "salads",
     "badge": "vegetarian",
     "image": "assets/images/salads/fresh-cabbage-salad.png",
-    "price": 15,
+    "price": 7.0,
     "name": {
       "ru": "Салат со свежей капустой",
       "en": "Fresh Cabbage Salad",
@@ -731,13 +763,14 @@
       "ru": "Хрустящий салат из свежей капусты с пикантной заправкой.",
       "en": "Crunchy salad with fresh cabbage, carrots and herbs.",
       "uk": "Хрусткий салат зі свіжої капусти, моркви та зелені."
-    }
+    },
+    "unit": "lb"
   },
   {
     "id": "korean-carrots",
     "category": "salads",
     "image": "assets/images/salads/korean-carrots.png",
-    "price": 15,
+    "price": 7.0,
     "name": {
       "ru": "Морковка по-корейски",
       "en": "Korean-Style Carrots",
@@ -747,13 +780,14 @@
       "ru": "Пикантная морковь с чесноком, специями и ароматным маслом.",
       "en": "Spicy carrots with garlic, spices and aromatic oil.",
       "uk": "Пікантна морква з часником, спеціями та ароматною олією."
-    }
+    },
+    "unit": "lb"
   },
   {
     "id": "raw-eggplant-caviar",
     "category": "salads",
     "image": "assets/images/salads/raw-eggplant-caviar.png",
-    "price": 20,
+    "price": 9.0,
     "name": {
       "ru": "Икра баклажанная",
       "en": "Fresh Eggplant Caviar",
@@ -763,13 +797,14 @@
       "ru": "Свежая баклажанная закуска из печенных овощей.",
       "en": "Fresh eggplant appetizer with vegetables, herbs and a light dressing.",
       "uk": "Свіжа баклажанна закуска з овочами, зеленню та легкою заправкою."
-    }
+    },
+    "unit": "lb"
   },
   {
     "id": "fried-eggplant-caviar",
     "category": "salads",
     "image": "assets/images/salads/fried-eggplant-caviar.png",
-    "price": 20,
+    "price": 9.0,
     "name": {
       "ru": "Икра баклажанная жареная",
       "en": "Roasted Eggplant Caviar",
@@ -779,13 +814,14 @@
       "ru": "Жареная баклажанная икра с овощами и насыщенным домашним вкусом.",
       "en": "Roasted eggplant spread with vegetables and a rich homemade taste.",
       "uk": "Смажена баклажанна ікра з овочами та насиченим домашнім смаком."
-    }
+    },
+    "unit": "lb"
   },
   {
     "id": "liver-mushroom-salad",
     "category": "salads",
     "image": "assets/images/salads/liver-mushroom-salad.png",
-    "price": 25,
+    "price": 11.5,
     "name": {
       "ru": "Печеночный салат с грибами",
       "en": "Liver Salad with Mushrooms",
@@ -795,13 +831,14 @@
       "ru": "Сытный салат с печенью, грибами и домашней заправкой.",
       "en": "Hearty salad with liver, mushrooms and homemade dressing.",
       "uk": "Ситний салат з печінкою, грибами та домашньою заправкою."
-    }
+    },
+    "unit": "lb"
   },
   {
     "id": "stolichny-chicken-salad",
     "category": "salads",
     "image": "assets/images/salads/stolichny-chicken-salad.png",
-    "price": 30,
+    "price": 13.5,
     "name": {
       "ru": "Салат Столичный с курицей",
       "en": "Stolichny Chicken Salad",
@@ -811,13 +848,14 @@
       "ru": "Классический салат с курицей, овощами, яйцом и майонезом.",
       "en": "Classic salad with chicken, vegetables, egg and mayonnaise.",
       "uk": "Класичний салат з куркою, овочами, яйцем та майонезом."
-    }
+    },
+    "unit": "lb"
   },
   {
     "id": "crab-salad",
     "category": "salads",
     "image": "assets/images/salads/crab-salad.png",
-    "price": 30,
+    "price": 13.5,
     "name": {
       "ru": "Салат Крабовый",
       "en": "Crab Salad",
@@ -827,7 +865,8 @@
       "ru": "Домашний крабовый салат с кукурузой, яйцом и нежной заправкой.",
       "en": "Homemade crab salad with corn, egg and a gentle dressing.",
       "uk": "Домашній крабовий салат з кукурудзою, яйцем та ніжною заправкою."
-    }
+    },
+    "unit": "lb"
   },
   {
     "id": "blini",
