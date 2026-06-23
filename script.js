@@ -7,8 +7,8 @@ const tr = (ru, en, uk) => ({ ru, en, uk });
 
 const copy = {
   ru: {
-    meta: { title: "Mama's Table | Домашняя еда с доставкой в Майами" },
-    brand: { name: "Мамина кухня", tagline: "Домашняя еда • Miami" },
+    meta: { title: "Lana's Kitchen Miami | Свежая домашняя еда" },
+    brand: { name: "Lana's Kitchen", tagline: "MIAMI" },
     nav: {
       menu: "Меню",
       catering: "Кейтеринг",
@@ -33,9 +33,9 @@ const copy = {
     },
     hero: {
       eyebrow: "Премиальная домашняя кухня",
-      title: "Украинская и восточноевропейская домашняя еда в Майами",
+      title: "Свежая домашняя еда в Майами",
       lede: "Борщ, вареники, пельмени, домашние салаты, горячие блюда, семейные ужины и кейтеринг.",
-      ledeSub: "Готовим свежую еду к каждому заказу.",
+      ledeSub: "Готовим свежим к вашему столу",
       cardLabel: "Популярный заказ",
       cardTitle: "Семейный ужин от $95",
       cardDesc: "Соберём домашний стол для семьи или гостей — с учётом количества человек и ваших любимых блюд.",
@@ -81,7 +81,7 @@ const copy = {
       note: "Меню, количество порций, время приготовления и стоимость согласовываются индивидуально перед подтверждением заказа.",
     },
     menuPage: {
-      title: "Меню Маминой кухни",
+      title: "Меню Lana's Kitchen",
       subtitle: "Выберите категорию, чтобы посмотреть блюда и оформить заказ.",
       categoriesTitle: "Выберите категорию",
       backHome: "На главную",
@@ -174,7 +174,7 @@ const copy = {
     },
     preorder: {
       modalTitle: "Детали предзаказа",
-      cartSummaryTitle: "Ваш заказ",
+      cartSummaryTitle: "Ваш заказ в Lana's Kitchen",
       deliveryCostNote: "Стоимость доставки и финальная сумма подтверждаются перед оплатой.",
       name: "Имя",
       phone: "Телефон / WhatsApp",
@@ -213,7 +213,7 @@ const copy = {
       openTG: "Открыть Telegram",
       copied: "Скопировано",
       stage4Title: "Спасибо!",
-      stage4Text: "Мы получим вашу заявку и свяжемся для подтверждения деталей. Заказ подтверждается только после согласования и оплаты.",
+      stage4Text: "Ваш заказ отправлен в Lana's Kitchen. Мы скоро свяжемся с вами, чтобы подтвердить наличие, доставку и итоговую сумму.",
       stage4WA: "Открыть WhatsApp",
       stage4TG: "Открыть Telegram",
     },
@@ -291,8 +291,8 @@ const copy = {
     },
   },
   en: {
-    meta: { title: "Mama's Table | Homemade Meals Delivered Fresh in Miami" },
-    brand: { name: "Mama's Table", tagline: "Homemade Kitchen • Miami" },
+    meta: { title: "Lana's Kitchen Miami | Fresh Homemade Meals" },
+    brand: { name: "Lana's Kitchen", tagline: "MIAMI" },
     nav: {
       menu: "Menu",
       catering: "Catering",
@@ -317,9 +317,9 @@ const copy = {
     },
     hero: {
       eyebrow: "Premium homemade kitchen",
-      title: "Ukrainian & Eastern European Home Cooking in Miami",
+      title: "Fresh Homemade Meals in Miami",
       lede: "Borscht, varenyky, pelmeni, homestyle salads, hot dishes, family dinners and catering.",
-      ledeSub: "Every dish is made fresh to order.",
+      ledeSub: "Made fresh for your table.",
       cardLabel: "Popular Order",
       cardTitle: "Family Dinner from $95",
       cardDesc: "We'll put together a home-cooked spread for your family or guests — tailored to your group size and favourite dishes.",
@@ -365,7 +365,7 @@ const copy = {
       note: "Menu, portions, preparation time, and final pricing are confirmed individually before the order is approved.",
     },
     menuPage: {
-      title: "Mama's Table Menu",
+      title: "Lana's Kitchen Menu",
       subtitle: "Choose a category to browse dishes and place your order.",
       categoriesTitle: "Choose a category",
       backHome: "Back home",
@@ -458,7 +458,7 @@ const copy = {
     },
     preorder: {
       modalTitle: "Pre-order details",
-      cartSummaryTitle: "Your order",
+      cartSummaryTitle: "Your Order at Lana's Kitchen",
       deliveryCostNote: "Delivery cost and the final total are confirmed before payment.",
       name: "Name",
       phone: "Phone / WhatsApp",
@@ -497,7 +497,7 @@ const copy = {
       openTG: "Open Telegram",
       copied: "Copied",
       stage4Title: "Thank you!",
-      stage4Text: "We'll receive your request and contact you to confirm all details. Your order is confirmed only after agreement and payment.",
+      stage4Text: "Your order has been sent to Lana's Kitchen. We will contact you shortly to confirm availability, delivery details and total.",
       stage4WA: "Open WhatsApp",
       stage4TG: "Open Telegram",
     },
@@ -575,8 +575,8 @@ const copy = {
     },
   },
   uk: {
-    meta: { title: "Mama's Table | Домашня їжа з доставкою в Маямі" },
-    brand: { name: "Мамина кухня", tagline: "Домашня їжа • Miami" },
+    meta: { title: "Lana's Kitchen Miami | Свіжа домашня їжа" },
+    brand: { name: "Lana's Kitchen", tagline: "MIAMI" },
     nav: {
       menu: "Меню",
       catering: "Кейтеринг",
@@ -601,9 +601,9 @@ const copy = {
     },
     hero: {
       eyebrow: "Преміальна домашня кухня",
-      title: "Українська та східноєвропейська домашня їжа в Маямі",
+      title: "Свіжа домашня їжа в Маямі",
       lede: "Борщ, вареники, пельмені, домашні салати, гарячі страви, сімейні вечері та кейтеринг.",
-      ledeSub: "Готуємо свіжу їжу до кожного замовлення.",
+      ledeSub: "Готуємо свіжим до вашого столу",
       cardLabel: "Популярне замовлення",
       cardTitle: "Сімейна вечеря від $95",
       cardDesc: "Зберемо домашній стіл для сім'ї або гостей — з урахуванням кількості людей та ваших улюблених страв.",
@@ -649,7 +649,7 @@ const copy = {
       note: "Меню, кількість порцій, час приготування і вартість узгоджуються індивідуально перед підтвердженням замовлення.",
     },
     menuPage: {
-      title: "Меню Маминої кухні",
+      title: "Меню Lana's Kitchen",
       subtitle: "Оберіть категорію, щоб переглянути страви та оформити замовлення.",
       categoriesTitle: "Оберіть категорію",
       backHome: "На головну",
@@ -742,7 +742,7 @@ const copy = {
     },
     preorder: {
       modalTitle: "Деталі передзамовлення",
-      cartSummaryTitle: "Ваше замовлення",
+      cartSummaryTitle: "Ваше замовлення в Lana's Kitchen",
       deliveryCostNote: "Вартість доставки та фінальна сума підтверджуються перед оплатою.",
       name: "Ім'я",
       phone: "Телефон / WhatsApp",
@@ -781,7 +781,7 @@ const copy = {
       openTG: "Відкрити Telegram",
       copied: "Скопійовано",
       stage4Title: "Дякуємо!",
-      stage4Text: "Ми отримаємо вашу заявку і зв'яжемося для підтвердження деталей. Замовлення підтверджується лише після узгодження та оплати.",
+      stage4Text: "Ваше замовлення надіслано до Lana's Kitchen. Ми скоро зв'яжемося з вами, щоб підтвердити наявність, доставку та остаточну суму.",
       stage4WA: "Відкрити WhatsApp",
       stage4TG: "Відкрити Telegram",
     },
@@ -1229,7 +1229,7 @@ const renderRoute = () => {
   routeView.innerHTML = route === "menu" ? createMenuOverviewPage() : createCategoryPage(category);
   document.body.classList.add("is-route-view");
   document.title =
-    route === "menu" ? `${t("menuPage.title")} | Mama's Table` : `${text(category.title)} | Mama's Table`;
+    route === "menu" ? `${t("menuPage.title")} | Lana's Kitchen` : `${text(category.title)} | Lana's Kitchen`;
   renderCart();
   renderDishQuantities();
   refreshIcons();
