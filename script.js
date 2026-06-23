@@ -25,12 +25,11 @@ const copy = {
       viewFullMenu: "Все меню",
     },
     size: {
-      weightLabel: "Вес",
-      volumeLabel: "Объём",
-      g: "г",
-      ml: "мл",
-      servesPrefix: "",
-      servesSuffix: " порции",
+      soups: "Объём: 1 qt (32 fl oz / 946 мл) · 3–4 порции",
+      salads: "Вес: 1 lb (454 г) · 3–4 порции",
+      mainDishes: "Вес: 1 lb (454 г) · 2–3 порции",
+      dumplingsAndCrepes: "Вес: 1 lb (454 г) · 2 порции",
+      mashedPotatoes: "Вес: 1 lb (454 г) · 3 порции",
     },
     hero: {
       eyebrow: "Премиальная домашняя кухня",
@@ -310,12 +309,11 @@ const copy = {
       viewFullMenu: "View full menu",
     },
     size: {
-      weightLabel: "Size",
-      volumeLabel: "Size",
-      g: "g",
-      ml: "ml",
-      servesPrefix: "Serves ",
-      servesSuffix: "",
+      soups: "Size: 1 qt (32 fl oz / 946 ml) · Serves 3–4",
+      salads: "Size: 1 lb (454 g) · Serves 3–4",
+      mainDishes: "Size: 1 lb (454 g) · Serves 2–3",
+      dumplingsAndCrepes: "Size: 1 lb (454 g) · Serves 2",
+      mashedPotatoes: "Size: 1 lb (454 g) · Serves 3",
     },
     hero: {
       eyebrow: "Premium homemade kitchen",
@@ -595,12 +593,11 @@ const copy = {
       viewFullMenu: "Все меню",
     },
     size: {
-      weightLabel: "Вага",
-      volumeLabel: "Об'єм",
-      g: "г",
-      ml: "мл",
-      servesPrefix: "",
-      servesSuffix: " порції",
+      soups: "Об'єм: 1 qt (32 fl oz / 946 мл) · 3–4 порції",
+      salads: "Вага: 1 lb (454 г) · 3–4 порції",
+      mainDishes: "Вага: 1 lb (454 г) · 2–3 порції",
+      dumplingsAndCrepes: "Вага: 1 lb (454 г) · 2 порції",
+      mashedPotatoes: "Вага: 1 lb (454 г) · 3 порції",
     },
     hero: {
       eyebrow: "Преміальна домашня кухня",
@@ -1045,30 +1042,23 @@ const cartCount = () => cartEntries().reduce((sum, entry) => sum + entry.quantit
 const cartTotal = () => cartEntries().reduce((sum, entry) => sum + entry.dish.price * entry.quantity, 0);
 const cartQuantity = (id) => state.cart.get(id) || 0;
 
-const categoryUnits = {
-  soups: tr("за 1 литр", "per liter", "за 1 літр"),
-};
-const unitLabels = {
-  lb: tr("/ lb", "/ lb", "/ lb"),
-};
+const categoryUnits = {};
+const unitLabels = {};
 
-const sizeMeta = {
-  soups: { type: "volume", defaultServings: "3–4" },
-  salads: { type: "weight", defaultServings: "3–4" },
-  "main-dishes": { type: "weight", defaultServings: "2–3" },
-};
+const DUMPLINGS_AND_CREPES = new Set([
+  "varenyky", "pork-pelmeni", "chicken-pelmeni",
+  "meat-filled-blini", "cottage-cheese-blini", "plain-blini",
+]);
 
 const buildDishSizeStr = (dish) => {
-  const meta = sizeMeta[dish.category];
-  if (!meta) return "";
-  const servings = dish.servings || meta.defaultServings;
-  const label = meta.type === "volume" ? t("size.volumeLabel") : t("size.weightLabel");
-  const metric = meta.type === "volume"
-    ? `32 fl oz / 946 ${t("size.ml")}`
-    : `454 ${t("size.g")}`;
-  const sizeStr = meta.type === "volume" ? `1 qt (${metric})` : `1 lb (${metric})`;
-  const servesStr = `${t("size.servesPrefix")}${servings}${t("size.servesSuffix")}`;
-  return `${label}: ${sizeStr} · ${servesStr}`;
+  if (dish.category === "soups") return t("size.soups");
+  if (dish.category === "salads") return t("size.salads");
+  if (dish.category === "main-dishes") {
+    if (dish.id === "mashed-potatoes") return t("size.mashedPotatoes");
+    if (DUMPLINGS_AND_CREPES.has(dish.id)) return t("size.dumplingsAndCrepes");
+    return t("size.mainDishes");
+  }
+  return "";
 };
 
 const escapeHtml = (value) =>
