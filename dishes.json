@@ -238,7 +238,7 @@
     "id": "beef-stroganoff",
     "category": "main-dishes",
     "image": "assets/images/main-dishes/beef-stroganoff.png",
-    "price": 18.0,
+    "price": 18,
     "name": {
       "ru": "Бефстроганов",
       "en": "Beef Stroganoff",
@@ -289,7 +289,7 @@
     "id": "beef-goulash",
     "category": "main-dishes",
     "image": "assets/images/main-dishes/beef-goulash.png",
-    "price": 18.0,
+    "price": 18,
     "name": {
       "ru": "Гуляш из говядины",
       "en": "Beef Goulash",
@@ -464,7 +464,7 @@
     "id": "chicken-tabaka",
     "category": "main-dishes",
     "image": "assets/images/main-dishes/chicken-tabaka.png",
-    "price": 16.0,
+    "price": 16,
     "name": {
       "ru": "Цыпленок тапака",
       "en": "Chicken Tapaka",
@@ -481,7 +481,7 @@
     "id": "chicken-chops",
     "category": "main-dishes",
     "image": "assets/images/main-dishes/chicken-chops.png",
-    "price": 16.0,
+    "price": 16,
     "name": {
       "ru": "Отбивные куриные",
       "en": "Chicken Chops",
@@ -498,7 +498,7 @@
     "id": "hawaiian-chicken-pineapple-cutlets",
     "category": "main-dishes",
     "image": "assets/images/main-dishes/hawaiian-chicken-pineapple-cutlets.png",
-    "price": 16.0,
+    "price": 16,
     "name": {
       "ru": "Куриные отбивные по-гавайски с ананасом",
       "en": "Hawaiian Chicken Cutlets with Pineapple",
@@ -515,7 +515,7 @@
     "id": "pork-chops",
     "category": "main-dishes",
     "image": "assets/images/main-dishes/pork-chops.png",
-    "price": 16.0,
+    "price": 16,
     "name": {
       "ru": "Отбивные свиные",
       "en": "Pork Chops",
@@ -532,7 +532,7 @@
     "id": "plain-blini",
     "category": "main-dishes",
     "image": "assets/images/main-dishes/plain-blini.png",
-    "price": 7.0,
+    "price": 7,
     "name": {
       "ru": "Блины без начинки",
       "en": "Plain Blini",
@@ -550,7 +550,7 @@
     "id": "chicken-liver-pate",
     "category": "main-dishes",
     "image": "assets/images/main-dishes/chicken-liver-pate.png",
-    "price": 16.0,
+    "price": 16,
     "name": {
       "ru": "Паштет из куриной печени",
       "en": "Chicken Liver Pate",
@@ -584,7 +584,7 @@
     "id": "fish-cutlets",
     "category": "main-dishes",
     "image": "assets/images/main-dishes/fish-cutlets.png",
-    "price": 16.0,
+    "price": 16,
     "name": {
       "ru": "Котлеты рыбные",
       "en": "Fish Cutlets",
@@ -601,7 +601,7 @@
     "id": "mashed-potatoes",
     "category": "main-dishes",
     "image": "assets/images/main-dishes/mashed-potatoes.png",
-    "price": 3.0,
+    "price": 3,
     "name": {
       "ru": "Картофельное пюре",
       "en": "Mashed Potatoes",
@@ -619,7 +619,7 @@
     "id": "pork-beef-kholodets",
     "category": "main-dishes",
     "image": "assets/images/main-dishes/pork-beef-kholodets.png",
-    "price": 16.0,
+    "price": 16,
     "name": {
       "ru": "Холодец свино-говяжий",
       "en": "Pork & Beef Aspic",
@@ -636,7 +636,7 @@
     "id": "chicken-kholodets",
     "category": "main-dishes",
     "image": "assets/images/main-dishes/chicken-kholodets.png",
-    "price": 16.0,
+    "price": 16,
     "name": {
       "ru": "Холодец куриный",
       "en": "Chicken Aspic",
@@ -707,7 +707,7 @@
     "category": "salads",
     "badge": "new",
     "image": "assets/images/salads/spring-salad.png",
-    "price": 4.0,
+    "price": 9,
     "name": {
       "ru": "Салат весенний",
       "en": "Spring Salad",
@@ -760,7 +760,7 @@
     "category": "salads",
     "badge": "vegetarian",
     "image": "assets/images/salads/fresh-cabbage-salad.png",
-    "price": 7.0,
+    "price": 7,
     "name": {
       "ru": "Салат со свежей капустой",
       "en": "Fresh Cabbage Salad",
@@ -777,7 +777,7 @@
     "id": "korean-carrots",
     "category": "salads",
     "image": "assets/images/salads/korean-carrots.png",
-    "price": 7.0,
+    "price": 7,
     "name": {
       "ru": "Морковка по-корейски",
       "en": "Korean-Style Carrots",
@@ -794,7 +794,7 @@
     "id": "raw-eggplant-caviar",
     "category": "salads",
     "image": "assets/images/salads/raw-eggplant-caviar.png",
-    "price": 9.0,
+    "price": 9,
     "name": {
       "ru": "Икра баклажанная",
       "en": "Fresh Eggplant Caviar",
@@ -811,7 +811,7 @@
     "id": "fried-eggplant-caviar",
     "category": "salads",
     "image": "assets/images/salads/fried-eggplant-caviar.png",
-    "price": 9.0,
+    "price": 9,
     "name": {
       "ru": "Икра баклажанная жареная",
       "en": "Roasted Eggplant Caviar",
