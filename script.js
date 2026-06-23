@@ -1,5 +1,5 @@
-const WHATSAPP_NUMBER = "79788358121";
-const TELEGRAM_USERNAME = "YurK0";
+const WHATSAPP_NUMBER = "79788358120";
+const TELEGRAM_USERNAME = "Lanaskitchenmiami";
 const formatPhone = (n) => `+${n[0]} ${n.slice(1, 4)} ${n.slice(4, 7)}-${n.slice(7)}`;
 const DISPLAY_PHONE = formatPhone(WHATSAPP_NUMBER);
 
