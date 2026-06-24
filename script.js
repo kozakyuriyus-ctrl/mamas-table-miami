@@ -219,14 +219,24 @@ const copy = {
       scheduleTitle: "Дата и время",
       timeWindow: "Временное окно",
       timeWindowPlaceholder: "Выберите время",
-      timeA: "10:00 AM – 1:00 PM",
-      timeB: "1:00 PM – 4:00 PM",
-      timeC: "4:00 PM – 7:00 PM",
+      timeA: "10:00 AM – 11:00 AM",
+      timeB: "11:00 AM – 12:00 PM",
+      timeC: "12:00 PM – 1:00 PM",
+      timeD: "1:00 PM – 2:00 PM",
+      timeE: "2:00 PM – 3:00 PM",
+      timeF: "3:00 PM – 4:00 PM",
+      timeG: "4:00 PM – 5:00 PM",
+      timeH: "5:00 PM – 6:00 PM",
+      timeI: "6:00 PM – 7:00 PM",
       orderNotes: "Комментарий к заказу (необязательно)",
       preorderAdvanceNote: "Готовим свежую еду по предзаказу. Пожалуйста, оформляйте заказ минимум за 24–48 часов.",
       successTitle: "Ваша заявка получена.",
       successText: "Мы проверим адрес, детали доставки и возможность приготовления, затем свяжемся с вами выбранным способом. Заказ будет поставлен в приготовление только после подтверждения и оплаты.",
       successRef: "№ заявки:",
+      fulfillment: "Способ получения",
+      delivery: "Доставка",
+      pickup: "Самовывоз",
+      fieldRequired: "Заполните это поле",
     },
     cateringForm: {
       modalTitle: "Заявка на кейтеринг",
@@ -507,14 +517,24 @@ const copy = {
       scheduleTitle: "Date & time",
       timeWindow: "Delivery time window",
       timeWindowPlaceholder: "Select a time window",
-      timeA: "10:00 AM – 1:00 PM",
-      timeB: "1:00 PM – 4:00 PM",
-      timeC: "4:00 PM – 7:00 PM",
+      timeA: "10:00 AM – 11:00 AM",
+      timeB: "11:00 AM – 12:00 PM",
+      timeC: "12:00 PM – 1:00 PM",
+      timeD: "1:00 PM – 2:00 PM",
+      timeE: "2:00 PM – 3:00 PM",
+      timeF: "3:00 PM – 4:00 PM",
+      timeG: "4:00 PM – 5:00 PM",
+      timeH: "5:00 PM – 6:00 PM",
+      timeI: "6:00 PM – 7:00 PM",
       orderNotes: "Order notes (optional)",
       preorderAdvanceNote: "Orders are prepared fresh by preorder. Please order at least 24–48 hours in advance.",
       successTitle: "Your preorder request has been received.",
       successText: "We will review the address, delivery details, and availability, then contact you using your preferred method. Your order will be placed in preparation only after confirmation and payment.",
       successRef: "Request #:",
+      fulfillment: "Fulfillment method",
+      delivery: "Delivery",
+      pickup: "Pickup",
+      fieldRequired: "Please fill out this field",
     },
     cateringForm: {
       modalTitle: "Catering request",
@@ -795,14 +815,24 @@ const copy = {
       scheduleTitle: "Дата та час",
       timeWindow: "Часове вікно",
       timeWindowPlaceholder: "Оберіть час",
-      timeA: "10:00 AM – 1:00 PM",
-      timeB: "1:00 PM – 4:00 PM",
-      timeC: "4:00 PM – 7:00 PM",
+      timeA: "10:00 AM – 11:00 AM",
+      timeB: "11:00 AM – 12:00 PM",
+      timeC: "12:00 PM – 1:00 PM",
+      timeD: "1:00 PM – 2:00 PM",
+      timeE: "2:00 PM – 3:00 PM",
+      timeF: "3:00 PM – 4:00 PM",
+      timeG: "4:00 PM – 5:00 PM",
+      timeH: "5:00 PM – 6:00 PM",
+      timeI: "6:00 PM – 7:00 PM",
       orderNotes: "Коментар до замовлення (необов'язково)",
       preorderAdvanceNote: "Ми готуємо свіжу їжу за попереднім замовленням. Будь ласка, оформлюйте замовлення щонайменше за 24–48 годин.",
       successTitle: "Вашу заявку отримано.",
       successText: "Ми перевіримо адресу, деталі доставки та можливість приготування, після чого зв'яжемося з вами обраним способом. Замовлення буде передано в приготування лише після підтвердження та оплаті.",
       successRef: "№ заявки:",
+      fulfillment: "Спосіб отримання",
+      delivery: "Доставка",
+      pickup: "Самовивіз",
+      fieldRequired: "Заповніть це поле",
     },
     cateringForm: {
       modalTitle: "Заявка на кейтеринг",
@@ -920,6 +950,7 @@ const categories = [
 const createDefaultPreorderForm = () => ({
   name: "",
   phone: "",
+  fulfillmentType: "delivery",
   zone: "",
   contactMethod: "",
   telegramUsername: "",
@@ -972,6 +1003,7 @@ const state = {
   preorderError: false,
   preorderErrorKey: "preorder.required",
   preorderErrorMsg: null,
+  preorderSubmitAttempted: false,
   cateringForm: createDefaultCateringForm(),
   cateringStage: 0,
   cateringDraft: null,
@@ -1539,8 +1571,32 @@ const createPreorderStage0 = () => {
   const form = state.preorderForm;
   const entries = cartEntries();
   const foodSubtotal = cartTotal();
+  const isDelivery = form.fulfillmentType !== "pickup";
   const zone = form.zone;
-  const zoneConfig = zone ? DELIVERY_ZONES[zone] : null;
+  const zoneConfig = isDelivery && zone ? DELIVERY_ZONES[zone] : null;
+
+  const ddTomorrow = new Date();
+  ddTomorrow.setDate(ddTomorrow.getDate() + 1);
+  const tomorrowStr = ddTomorrow.toISOString().slice(0, 10);
+
+  const fieldErr = (fieldName) => {
+    if (!state.preorderSubmitAttempted) return false;
+    const f = form;
+    switch (fieldName) {
+      case "name": return !f.name;
+      case "phone": return !f.phone || validatePhone(f.phone) !== null;
+      case "contactMethod": return !f.contactMethod;
+      case "fulfillmentType": return !f.fulfillmentType;
+      case "zone": return isDelivery && !f.zone;
+      case "address": return isDelivery && !f.address;
+      case "date": return !f.date || f.date < tomorrowStr;
+      case "timeWindow": return !f.timeWindow;
+      default: return false;
+    }
+  };
+  const errSpan = (fn) => fieldErr(fn)
+    ? `<span class="field-error">${escapeHtml(t("preorder.fieldRequired"))}</span>` : "";
+  const invCls = (fn) => fieldErr(fn) ? " is-invalid" : "";
 
   const cartRows = entries.map(({ dish, quantity }) => {
     const qtyStr = dish.unit === "lb" ? `${quantity} lb` : `${quantity}`;
@@ -1557,17 +1613,13 @@ const createPreorderStage0 = () => {
     const freeRemaining = zoneConfig.freeAt - foodSubtotal;
     const feeLabel = isC && !isFree ? escapeHtml(t("preorder.zoneCFeeLabel")) : money(deliveryFee);
     const discountRow = isFree
-      ? `<div class="pricing-row pricing-row-discount"><span>${escapeHtml(t("preorder.freeDeliveryDiscount"))}</span><em>−${money(zoneConfig.fee)}</em></div>`
-      : "";
+      ? `<div class="pricing-row pricing-row-discount"><span>${escapeHtml(t("preorder.freeDeliveryDiscount"))}</span><em>−${money(zoneConfig.fee)}</em></div>` : "";
     const minMsg = minRemaining > 0
-      ? `<p class="zone-min-warning">${escapeHtml(buildMinOrderMsg(zone, zoneConfig.minOrder, minRemaining))}</p>`
-      : "";
+      ? `<p class="zone-min-warning">${escapeHtml(buildMinOrderMsg(zone, zoneConfig.minOrder, minRemaining))}</p>` : "";
     const freeHint = !isFree && freeRemaining > 0
-      ? `<p class="zone-free-hint">${escapeHtml(buildFreeDeliveryHint(freeRemaining))}</p>`
-      : "";
+      ? `<p class="zone-free-hint">${escapeHtml(buildFreeDeliveryHint(freeRemaining))}</p>` : "";
     const zoneCNote = isC
-      ? `<p class="zone-c-note">${escapeHtml(t(isFree ? "preorder.zoneCFreeNote" : "preorder.zoneCNote"))}</p>`
-      : "";
+      ? `<p class="zone-c-note">${escapeHtml(t(isFree ? "preorder.zoneCFreeNote" : "preorder.zoneCNote"))}</p>` : "";
     pricingHtml = `
       <div class="checkout-pricing">
         <div class="pricing-row"><span>${escapeHtml(t("preorder.foodSubtotal"))}</span><em>${money(foodSubtotal)}</em></div>
@@ -1578,17 +1630,24 @@ const createPreorderStage0 = () => {
       </div>`;
   }
 
-  const zoneOptions = ["A", "B", "C"].map((z) => {
-    const checked = form.zone === z ? " checked" : "";
-    const sel = form.zone === z ? " is-selected" : "";
-    return `<label class="zone-option${sel}"><input type="radio" name="zone" value="${z}"${checked} /><span>${escapeHtml(t(`preorder.zone${z}`))}</span></label>`;
-  }).join("");
+  const zoneHtml = isDelivery ? `
+    <h4 class="checkout-section-label">${escapeHtml(t("preorder.zoneTitle"))}</h4>
+    <div class="form-option-group${invCls("zone")}" role="radiogroup" aria-label="${escapeHtml(t("preorder.zoneTitle"))}">
+      ${["A", "B", "C"].map((z) => {
+        const checked = form.zone === z ? " checked" : "";
+        const sel = form.zone === z ? " is-selected" : "";
+        return `<label class="choice-card${sel}"><input type="radio" name="zone" value="${z}"${checked} /><span>${escapeHtml(t(`preorder.zone${z}`))}</span></label>`;
+      }).join("")}
+      ${errSpan("zone")}
+    </div>
+    ${pricingHtml}` : "";
 
-  const contactMethods = [["sms", "contactSms"], ["whatsapp", "contactWhatsapp"], ["telegram", "contactTelegram"], ["callMe", "contactCallMe"]];
-  const contactOptions = contactMethods.map(([val, key]) => {
-    const checked = form.contactMethod === val ? " checked" : "";
-    return `<label class="contact-option"><input type="radio" name="contactMethod" value="${val}"${checked} /><span>${escapeHtml(t(`preorder.${key}`))}</span></label>`;
-  }).join("");
+  const contactOptions = [["sms", "contactSms"], ["whatsapp", "contactWhatsapp"], ["telegram", "contactTelegram"], ["callMe", "contactCallMe"]]
+    .map(([val, key]) => {
+      const checked = form.contactMethod === val ? " checked" : "";
+      const sel = form.contactMethod === val ? " is-selected" : "";
+      return `<label class="choice-btn${sel}"><input type="radio" name="contactMethod" value="${val}"${checked} /><span>${escapeHtml(t(`preorder.${key}`))}</span></label>`;
+    }).join("");
 
   const tgField = form.contactMethod === "telegram"
     ? `<label class="form-field form-field-wide"><span>${escapeHtml(t("preorder.telegramUsername"))}</span><input name="telegramUsername" type="text" value="${escapeHtml(form.telegramUsername)}" placeholder="@username" autocomplete="off" /></label>`
@@ -1597,19 +1656,42 @@ const createPreorderStage0 = () => {
     ? `<label class="form-field form-field-wide form-checkbox-label"><input type="checkbox" name="whatsappSamePhone" value="1"${form.whatsappSamePhone ? " checked" : ""} /><span>${escapeHtml(t("preorder.whatsappSamePhone"))}</span></label>`
     : "";
 
-  const timeOptions = ["A", "B", "C"].map((s) => {
+  const fulfillmentOptions = [["delivery", "delivery"], ["pickup", "pickup"]]
+    .map(([val, key]) => {
+      const checked = form.fulfillmentType === val ? " checked" : "";
+      const sel = form.fulfillmentType === val ? " is-selected" : "";
+      return `<label class="choice-btn${sel}"><input type="radio" name="fulfillmentType" value="${val}"${checked} /><span>${escapeHtml(t(`preorder.${key}`))}</span></label>`;
+    }).join("");
+
+  const addressHtml = isDelivery ? `
+    <h4 class="checkout-section-label">${escapeHtml(t("preorder.deliveryTitle"))}</h4>
+    <div class="form-grid">
+      <label class="form-field form-field-wide${invCls("address")}">
+        <span>${escapeHtml(t("preorder.address"))} *</span>
+        <input name="address" type="text" value="${escapeHtml(form.address)}" autocomplete="street-address" required />
+        ${errSpan("address")}
+      </label>
+      <label class="form-field">
+        <span>${escapeHtml(t("preorder.apt"))}</span>
+        <input name="apt" type="text" value="${escapeHtml(form.apt)}" autocomplete="address-line2" />
+      </label>
+      <label class="form-field">
+        <span>${escapeHtml(t("preorder.gateCode"))}</span>
+        <input name="gateCode" type="text" value="${escapeHtml(form.gateCode)}" />
+      </label>
+      <label class="form-field form-field-wide">
+        <span>${escapeHtml(t("preorder.deliveryInstructions"))}</span>
+        <textarea name="deliveryInstructions" rows="2">${escapeHtml(form.deliveryInstructions)}</textarea>
+      </label>
+    </div>` : "";
+
+  const TIME_SLOTS = ["A", "B", "C", "D", "E", "F", "G", "H", "I"];
+  const timeOptions = TIME_SLOTS.map((s) => {
     const selected = form.timeWindow === s ? " selected" : "";
     return `<option value="${s}"${selected}>${escapeHtml(t(`preorder.time${s}`))}</option>`;
   }).join("");
 
-  const dd = new Date();
-  dd.setDate(dd.getDate() + 1);
-  const tomorrow = dd.toISOString().slice(0, 10);
-
-  const canSubmit = !zoneConfig || foodSubtotal >= zoneConfig.minOrder;
-  const errorHtml = state.preorderError
-    ? `<p class="form-error" role="alert">${escapeHtml(state.preorderErrorMsg || t(state.preorderErrorKey))}</p>`
-    : "";
+  const canSubmit = !isDelivery || !zoneConfig || foodSubtotal >= zoneConfig.minOrder;
 
   return `
     <div class="modal-cart-summary">
@@ -1617,60 +1699,50 @@ const createPreorderStage0 = () => {
       ${cartRows}
     </div>
     <form class="modal-form checkout-form" data-preorder-form novalidate>
-      <h4 class="checkout-section-label">${escapeHtml(t("preorder.zoneTitle"))}</h4>
-      <div class="zone-options" role="radiogroup" aria-label="${escapeHtml(t("preorder.zoneTitle"))}">
-        ${zoneOptions}
-      </div>
-      ${pricingHtml}
       <h4 class="checkout-section-label">${escapeHtml(t("preorder.contactTitle"))}</h4>
       <div class="form-grid">
-        <label class="form-field">
+        <label class="form-field${invCls("name")}">
           <span>${escapeHtml(t("preorder.name"))} *</span>
           <input name="name" type="text" value="${escapeHtml(form.name)}" autocomplete="name" required />
+          ${errSpan("name")}
         </label>
-        <label class="form-field">
+        <label class="form-field${invCls("phone")}">
           <span>${escapeHtml(t("preorder.phone"))} *</span>
           <input name="phone" type="tel" value="${escapeHtml(form.phone)}" autocomplete="tel" required />
+          ${errSpan("phone")}
         </label>
-        <fieldset class="form-field form-field-wide">
-          <legend>${escapeHtml(t("preorder.contactMethod"))} *</legend>
-          <div class="radio-group contact-method-group">
+        <div class="form-option-group form-field-wide${invCls("contactMethod")}">
+          <span class="form-option-label">${escapeHtml(t("preorder.contactMethod"))} *</span>
+          <div class="choice-btn-group">
             ${contactOptions}
           </div>
-        </fieldset>
+          ${errSpan("contactMethod")}
+        </div>
         ${tgField}${waCheckbox}
       </div>
-      <h4 class="checkout-section-label">${escapeHtml(t("preorder.deliveryTitle"))}</h4>
-      <div class="form-grid">
-        <label class="form-field form-field-wide">
-          <span>${escapeHtml(t("preorder.address"))} *</span>
-          <input name="address" type="text" value="${escapeHtml(form.address)}" autocomplete="street-address" required />
-        </label>
-        <label class="form-field">
-          <span>${escapeHtml(t("preorder.apt"))}</span>
-          <input name="apt" type="text" value="${escapeHtml(form.apt)}" autocomplete="address-line2" />
-        </label>
-        <label class="form-field">
-          <span>${escapeHtml(t("preorder.gateCode"))}</span>
-          <input name="gateCode" type="text" value="${escapeHtml(form.gateCode)}" />
-        </label>
-        <label class="form-field form-field-wide">
-          <span>${escapeHtml(t("preorder.deliveryInstructions"))}</span>
-          <textarea name="deliveryInstructions" rows="2">${escapeHtml(form.deliveryInstructions)}</textarea>
-        </label>
+      <h4 class="checkout-section-label">${escapeHtml(t("preorder.fulfillment"))}</h4>
+      <div class="form-option-group${invCls("fulfillmentType")}">
+        <div class="choice-btn-group">
+          ${fulfillmentOptions}
+        </div>
+        ${errSpan("fulfillmentType")}
       </div>
+      ${zoneHtml}
+      ${addressHtml}
       <h4 class="checkout-section-label">${escapeHtml(t("preorder.scheduleTitle"))}</h4>
       <div class="form-grid">
-        <label class="form-field">
+        <label class="form-field${invCls("date")}">
           <span>${escapeHtml(t("preorder.date"))} *</span>
-          <input name="date" type="date" value="${escapeHtml(form.date)}" min="${tomorrow}" required />
+          <input name="date" type="date" value="${escapeHtml(form.date)}" min="${tomorrowStr}" required />
+          ${errSpan("date")}
         </label>
-        <label class="form-field">
+        <label class="form-field${invCls("timeWindow")}">
           <span>${escapeHtml(t("preorder.timeWindow"))} *</span>
           <select name="timeWindow" required>
             <option value="">${escapeHtml(t("preorder.timeWindowPlaceholder"))}</option>
             ${timeOptions}
           </select>
+          ${errSpan("timeWindow")}
         </label>
         <p class="checkout-advance-note form-field-wide">${escapeHtml(t("preorder.preorderAdvanceNote"))}</p>
         <label class="form-field form-field-wide">
@@ -1682,7 +1754,6 @@ const createPreorderStage0 = () => {
           <textarea name="orderNotes" rows="2">${escapeHtml(form.orderNotes)}</textarea>
         </label>
       </div>
-      ${errorHtml}
       <button class="btn btn-primary checkout-submit" type="submit"${canSubmit ? "" : " disabled"}>
         <span>${escapeHtml(t("preorder.submit"))}</span>
         <i data-lucide="send"></i>
@@ -1922,6 +1993,7 @@ const closePreorderModal = () => {
   state.preorderStage = 0;
   state.preorderError = false;
   state.preorderErrorMsg = null;
+  state.preorderSubmitAttempted = false;
   preorderTriggerEl?.focus();
   preorderTriggerEl = null;
 };
@@ -2095,6 +2167,7 @@ const syncPreorderForm = (formEl) => {
   state.preorderForm = {
     name: String(data.get("name") || "").trim(),
     phone: String(data.get("phone") || "").trim(),
+    fulfillmentType: String(data.get("fulfillmentType") || "delivery"),
     zone: String(data.get("zone") || ""),
     contactMethod: String(data.get("contactMethod") || ""),
     telegramUsername: String(data.get("telegramUsername") || "").trim(),
@@ -2132,14 +2205,18 @@ const todayStr = () => new Date().toISOString().slice(0, 10);
 
 const validatePreorderForm = () => {
   const f = state.preorderForm;
-  if (!f.zone) return "preorder.zoneRequired";
-  if (!f.name || !f.phone || !f.contactMethod || !f.address || !f.date || !f.timeWindow) return "preorder.required";
+  const isDelivery = f.fulfillmentType !== "pickup";
+  if (!f.name || !f.phone || !f.contactMethod || !f.fulfillmentType || !f.date || !f.timeWindow) return "preorder.required";
+  if (isDelivery && !f.zone) return "preorder.zoneRequired";
+  if (isDelivery && !f.address) return "preorder.required";
   if (validatePhone(f.phone) !== null) return "preorder.phoneInvalid";
   const dd = new Date();
   dd.setDate(dd.getDate() + 1);
   if (f.date < dd.toISOString().slice(0, 10)) return "preorder.dateNotFuture";
-  const zoneConfig = DELIVERY_ZONES[f.zone];
-  if (zoneConfig && cartTotal() < zoneConfig.minOrder) return "preorder.zoneRequired";
+  if (isDelivery) {
+    const zoneConfig = DELIVERY_ZONES[f.zone];
+    if (zoneConfig && cartTotal() < zoneConfig.minOrder) return "preorder.zoneRequired";
+  }
   return null;
 };
 
@@ -2159,10 +2236,13 @@ const handlePreorderSubmit = (formEl) => {
   syncPreorderForm(formEl);
   const errorKey = validatePreorderForm();
   if (errorKey) {
-    state.preorderError = true;
-    state.preorderErrorKey = errorKey;
-    state.preorderErrorMsg = null;
+    state.preorderSubmitAttempted = true;
+    state.preorderError = false;
     renderPreorderModal();
+    const modal = document.getElementById("preorder-modal");
+    const firstInvalid = modal?.querySelector(".is-invalid input, .is-invalid select, .is-invalid [type='radio']");
+    firstInvalid?.focus();
+    firstInvalid?.scrollIntoView({ behavior: "smooth", block: "center" });
     return;
   }
 
@@ -2496,6 +2576,13 @@ const handleFormInput = (event) => {
   const preorderField = event.target.closest("[data-preorder-form] [name]");
   if (preorderField) {
     state.preorderForm[preorderField.name] = preorderField.value;
+    if (state.preorderSubmitAttempted) {
+      const label = preorderField.closest(".form-field");
+      if (label) {
+        label.classList.remove("is-invalid");
+        label.querySelector(".field-error")?.remove();
+      }
+    }
     return;
   }
   const cateringField = event.target.closest("[data-catering-form] [name]");
@@ -2512,7 +2599,8 @@ const handleFormChange = (event) => {
     } else {
       state.preorderForm[preorderField.name] = preorderField.value;
     }
-    if (preorderField.name === "zone" || preorderField.name === "contactMethod") {
+    const reRenderFields = ["zone", "contactMethod", "fulfillmentType"];
+    if (reRenderFields.includes(preorderField.name)) {
       const formEl = preorderField.closest("[data-preorder-form]");
       if (formEl) syncPreorderForm(formEl);
       renderPreorderModal();
