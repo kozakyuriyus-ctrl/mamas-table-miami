@@ -3,6 +3,13 @@ const TELEGRAM_USERNAME = "Lanaskitchenmiami";
 const formatPhone = (n) => `+${n[0]} ${n.slice(1, 4)} ${n.slice(4, 7)}-${n.slice(7)}`;
 const DISPLAY_PHONE = formatPhone(WHATSAPP_NUMBER);
 
+// ── Delivery zone config ─────────────────────────────────────────────────────
+const DELIVERY_ZONES = {
+  A: { fee: 8,  minOrder: 60,  freeAt: 110 },
+  B: { fee: 12, minOrder: 80,  freeAt: 145 },
+  C: { fee: 20, minOrder: 120, freeAt: 200 },
+};
+
 const tr = (ru, en, uk) => ({ ru, en, uk });
 
 const copy = {
@@ -175,47 +182,51 @@ const copy = {
     preorder: {
       modalTitle: "Детали предзаказа",
       cartSummaryTitle: "Ваш заказ в Lana's Kitchen",
-      deliveryCostNote: "Стоимость доставки и финальная сумма подтверждаются перед оплатой.",
       name: "Имя",
-      phone: "Телефон / WhatsApp",
-      fulfillment: "Способ получения",
-      delivery: "Доставка",
-      pickup: "Самовывоз",
+      phone: "Телефон",
       address: "Адрес доставки",
       apt: "Apartment / Unit",
-      date: "Желаемая дата",
-      time: "Желаемое время",
-      comment: "Комментарий к заказу",
+      date: "Дата доставки",
       allergies: "Аллергии / особые пожелания",
-      submit: "Оформить заявку",
-      disclaimer: "После отправки мы подтвердим наличие блюд, время и стоимость. Оплата — только после подтверждения.",
+      submit: "Отправить заявку",
       required: "Заполните все обязательные поля.",
       phoneInvalid: "Укажите корректный номер телефона.",
-      dateInPast: "Дата не может быть в прошлом.",
+      dateNotFuture: "Выберите дату: завтра или позже.",
+      zoneRequired: "Выберите зону доставки.",
       close: "Закрыть",
-      messengerTitle: "Выберите мессенджер",
-      messengerSubtitle: "Напишите нам — мы получим заявку и свяжемся для подтверждения.",
-      viaWhatsApp: "Написать в WhatsApp",
-      viaTelegram: "Написать в Telegram",
-      stage1Ref: "№ заявки:",
-      stage2Title: "Завершите отправку",
-      stage2Text: "Убедитесь, что ваше сообщение доставлено. Если мессенджер не открылся — воспользуйтесь способами ниже.",
-      stage2Button: "Я отправил сообщение",
-      stage3Title: "Подтвердите отправку",
-      stage3Text: "После подтверждения мы примем вашу заявку и корзина будет очищена.",
-      stage3Confirm: "Да, сообщение отправлено — завершить заказ",
-      stage3Back: "Назад",
-      fallbackTitle: "Если мессенджер не открылся",
-      fallbackNote: "Воспользуйтесь одним из способов ниже.",
-      copyPhone: "Скопировать номер WA",
-      copyMessage: "Скопировать текст заявки",
-      openWA: "Открыть WhatsApp",
-      openTG: "Открыть Telegram",
-      copied: "Скопировано",
-      stage4Title: "Спасибо!",
-      stage4Text: "Ваш заказ отправлен в Lana's Kitchen. Мы скоро свяжемся с вами, чтобы подтвердить наличие, доставку и итоговую сумму.",
-      stage4WA: "Открыть WhatsApp",
-      stage4TG: "Открыть Telegram",
+      zoneTitle: "Район доставки",
+      zoneA: "Зона A — Hallandale / Aventura / Sunny Isles / North Miami Beach — $8",
+      zoneB: "Зона B — Hollywood / Dania / North Miami — $12",
+      zoneC: "Зона C — Fort Lauderdale / Miami Beach / другие районы — от $20",
+      foodSubtotal: "Сумма за блюда",
+      deliveryFee: "Доставка",
+      freeDeliveryDiscount: "Скидка (бесплатная доставка)",
+      orderTotal: "Итого",
+      zoneCFeeLabel: "от $20",
+      zoneCNote: "Стоимость доставки для дальних районов будет подтверждена после проверки адреса.",
+      zoneCFreeNote: "Бесплатная доставка в дальние районы подтверждается кухней после проверки адреса.",
+      contactTitle: "Контактные данные",
+      contactMethod: "Способ связи",
+      contactSms: "SMS",
+      contactWhatsapp: "WhatsApp",
+      contactTelegram: "Telegram",
+      contactCallMe: "Звонок",
+      telegramUsername: "Telegram username (необязательно)",
+      whatsappSamePhone: "Этот номер доступен в WhatsApp",
+      deliveryTitle: "Детали доставки",
+      gateCode: "Код ворот (необязательно)",
+      deliveryInstructions: "Инструкции для доставки (необязательно)",
+      scheduleTitle: "Дата и время",
+      timeWindow: "Временное окно",
+      timeWindowPlaceholder: "Выберите время",
+      timeA: "10:00 AM – 1:00 PM",
+      timeB: "1:00 PM – 4:00 PM",
+      timeC: "4:00 PM – 7:00 PM",
+      orderNotes: "Комментарий к заказу (необязательно)",
+      preorderAdvanceNote: "Готовим свежую еду по предзаказу. Пожалуйста, оформляйте заказ минимум за 24–48 часов.",
+      successTitle: "Ваша заявка получена.",
+      successText: "Мы проверим адрес, детали доставки и возможность приготовления, затем свяжемся с вами выбранным способом. Заказ будет поставлен в приготовление только после подтверждения и оплаты.",
+      successRef: "№ заявки:",
     },
     cateringForm: {
       modalTitle: "Заявка на кейтеринг",
@@ -459,47 +470,51 @@ const copy = {
     preorder: {
       modalTitle: "Pre-order details",
       cartSummaryTitle: "Your Order at Lana's Kitchen",
-      deliveryCostNote: "Delivery cost and the final total are confirmed before payment.",
       name: "Name",
-      phone: "Phone / WhatsApp",
-      fulfillment: "Receiving method",
-      delivery: "Delivery",
-      pickup: "Pickup",
+      phone: "Phone",
       address: "Delivery address",
       apt: "Apartment / Unit",
-      date: "Preferred date",
-      time: "Preferred time",
-      comment: "Order comment",
+      date: "Delivery date",
       allergies: "Allergies / special requests",
-      submit: "Submit request",
-      disclaimer: "After submission we confirm availability, timing, and delivery cost. Payment is requested only after order confirmation.",
+      submit: "Send preorder request",
       required: "Please fill in all required fields.",
       phoneInvalid: "Please enter a valid phone number.",
-      dateInPast: "Date cannot be in the past.",
+      dateNotFuture: "Please select a future date (tomorrow or later).",
+      zoneRequired: "Please select a delivery zone.",
       close: "Close",
-      messengerTitle: "Choose a messenger",
-      messengerSubtitle: "Write to us — we'll receive your request and follow up to confirm.",
-      viaWhatsApp: "Message via WhatsApp",
-      viaTelegram: "Message via Telegram",
-      stage1Ref: "Request #:",
-      stage2Title: "Complete your submission",
-      stage2Text: "Make sure your message was delivered. If the messenger didn't open, use the options below.",
-      stage2Button: "I sent the message",
-      stage3Title: "Confirm submission",
-      stage3Text: "Once confirmed, we will receive your request and your cart will be cleared.",
-      stage3Confirm: "Yes, message sent — complete order",
-      stage3Back: "Back",
-      fallbackTitle: "If the messenger didn't open",
-      fallbackNote: "Use one of the options below to send your request manually.",
-      copyPhone: "Copy WA number",
-      copyMessage: "Copy request text",
-      openWA: "Open WhatsApp",
-      openTG: "Open Telegram",
-      copied: "Copied",
-      stage4Title: "Thank you!",
-      stage4Text: "Your order has been sent to Lana's Kitchen. We will contact you shortly to confirm availability, delivery details and total.",
-      stage4WA: "Open WhatsApp",
-      stage4TG: "Open Telegram",
+      zoneTitle: "Delivery area",
+      zoneA: "Zone A — Hallandale / Aventura / Sunny Isles / North Miami Beach — $8",
+      zoneB: "Zone B — Hollywood / Dania / North Miami — $12",
+      zoneC: "Zone C — Fort Lauderdale / Miami Beach / Other areas — from $20",
+      foodSubtotal: "Food subtotal",
+      deliveryFee: "Delivery",
+      freeDeliveryDiscount: "Free delivery discount",
+      orderTotal: "Total",
+      zoneCFeeLabel: "from $20",
+      zoneCNote: "Delivery cost for distant areas will be confirmed after address review.",
+      zoneCFreeNote: "Free delivery for distant areas is subject to kitchen confirmation after address review.",
+      contactTitle: "Your details",
+      contactMethod: "Preferred contact method",
+      contactSms: "SMS",
+      contactWhatsapp: "WhatsApp",
+      contactTelegram: "Telegram",
+      contactCallMe: "Phone call",
+      telegramUsername: "Telegram username (optional)",
+      whatsappSamePhone: "This phone number is available on WhatsApp",
+      deliveryTitle: "Delivery details",
+      gateCode: "Gate code (optional)",
+      deliveryInstructions: "Delivery instructions (optional)",
+      scheduleTitle: "Date & time",
+      timeWindow: "Delivery time window",
+      timeWindowPlaceholder: "Select a time window",
+      timeA: "10:00 AM – 1:00 PM",
+      timeB: "1:00 PM – 4:00 PM",
+      timeC: "4:00 PM – 7:00 PM",
+      orderNotes: "Order notes (optional)",
+      preorderAdvanceNote: "Orders are prepared fresh by preorder. Please order at least 24–48 hours in advance.",
+      successTitle: "Your preorder request has been received.",
+      successText: "We will review the address, delivery details, and availability, then contact you using your preferred method. Your order will be placed in preparation only after confirmation and payment.",
+      successRef: "Request #:",
     },
     cateringForm: {
       modalTitle: "Catering request",
@@ -743,47 +758,51 @@ const copy = {
     preorder: {
       modalTitle: "Деталі передзамовлення",
       cartSummaryTitle: "Ваше замовлення в Lana's Kitchen",
-      deliveryCostNote: "Вартість доставки та фінальна сума підтверджуються перед оплатою.",
       name: "Ім'я",
-      phone: "Телефон / WhatsApp",
-      fulfillment: "Спосіб отримання",
-      delivery: "Доставка",
-      pickup: "Самовивіз",
+      phone: "Телефон",
       address: "Адреса доставки",
       apt: "Apartment / Unit",
-      date: "Бажана дата",
-      time: "Бажаний час",
-      comment: "Коментар до замовлення",
+      date: "Дата доставки",
       allergies: "Алергії / особливі побажання",
-      submit: "Оформити заявку",
-      disclaimer: "Після відправки ми підтвердимо наявність страв, час і вартість. Оплата — лише після підтвердження.",
+      submit: "Надіслати заявку",
       required: "Заповніть усі обов'язкові поля.",
       phoneInvalid: "Вкажіть коректний номер телефону.",
-      dateInPast: "Дата не може бути в минулому.",
+      dateNotFuture: "Оберіть дату: завтра або пізніше.",
+      zoneRequired: "Оберіть зону доставки.",
       close: "Закрити",
-      messengerTitle: "Оберіть месенджер",
-      messengerSubtitle: "Напишіть нам — ми отримаємо заявку і зв'яжемося для підтвердження.",
-      viaWhatsApp: "Написати у WhatsApp",
-      viaTelegram: "Написати у Telegram",
-      stage1Ref: "№ заявки:",
-      stage2Title: "Завершіть відправку",
-      stage2Text: "Переконайтесь, що ваше повідомлення доставлено. Якщо месенджер не відкрився — скористайтесь способами нижче.",
-      stage2Button: "Я надіслав повідомлення",
-      stage3Title: "Підтвердіть відправку",
-      stage3Text: "Після підтвердження ми прийдемо вашу заявку і кошик буде очищено.",
-      stage3Confirm: "Так, повідомлення надіслано — завершити замовлення",
-      stage3Back: "Назад",
-      fallbackTitle: "Якщо месенджер не відкрився",
-      fallbackNote: "Скористайтесь одним зі способів нижче.",
-      copyPhone: "Скопіювати номер WA",
-      copyMessage: "Скопіювати текст заявки",
-      openWA: "Відкрити WhatsApp",
-      openTG: "Відкрити Telegram",
-      copied: "Скопійовано",
-      stage4Title: "Дякуємо!",
-      stage4Text: "Ваше замовлення надіслано до Lana's Kitchen. Ми скоро зв'яжемося з вами, щоб підтвердити наявність, доставку та остаточну суму.",
-      stage4WA: "Відкрити WhatsApp",
-      stage4TG: "Відкрити Telegram",
+      zoneTitle: "Район доставки",
+      zoneA: "Зона A — Hallandale / Aventura / Sunny Isles / North Miami Beach — $8",
+      zoneB: "Зона B — Hollywood / Dania / North Miami — $12",
+      zoneC: "Зона C — Fort Lauderdale / Miami Beach / інші райони — від $20",
+      foodSubtotal: "Сума за страви",
+      deliveryFee: "Доставка",
+      freeDeliveryDiscount: "Знижка (безкоштовна доставка)",
+      orderTotal: "Разом",
+      zoneCFeeLabel: "від $20",
+      zoneCNote: "Вартість доставки для віддалених районів буде підтверджена після перевірки адреси.",
+      zoneCFreeNote: "Безкоштовна доставка у віддалені райони підтверджується кухнею після перевірки адреси.",
+      contactTitle: "Ваші контакти",
+      contactMethod: "Бажаний спосіб зв'язку",
+      contactSms: "SMS",
+      contactWhatsapp: "WhatsApp",
+      contactTelegram: "Telegram",
+      contactCallMe: "Дзвінок",
+      telegramUsername: "Telegram username (необов'язково)",
+      whatsappSamePhone: "Цей номер доступний у WhatsApp",
+      deliveryTitle: "Деталі доставки",
+      gateCode: "Код воріт (необов'язково)",
+      deliveryInstructions: "Інструкції для доставки (необов'язково)",
+      scheduleTitle: "Дата та час",
+      timeWindow: "Часове вікно",
+      timeWindowPlaceholder: "Оберіть час",
+      timeA: "10:00 AM – 1:00 PM",
+      timeB: "1:00 PM – 4:00 PM",
+      timeC: "4:00 PM – 7:00 PM",
+      orderNotes: "Коментар до замовлення (необов'язково)",
+      preorderAdvanceNote: "Ми готуємо свіжу їжу за попереднім замовленням. Будь ласка, оформлюйте замовлення щонайменше за 24–48 годин.",
+      successTitle: "Вашу заявку отримано.",
+      successText: "Ми перевіримо адресу, деталі доставки та можливість приготування, після чого зв'яжемося з вами обраним способом. Замовлення буде передано в приготування лише після підтвердження та оплаті.",
+      successRef: "№ заявки:",
     },
     cateringForm: {
       modalTitle: "Заявка на кейтеринг",
@@ -901,13 +920,18 @@ const categories = [
 const createDefaultPreorderForm = () => ({
   name: "",
   phone: "",
-  fulfillmentType: "delivery",
+  zone: "",
+  contactMethod: "",
+  telegramUsername: "",
+  whatsappSamePhone: false,
   address: "",
   apt: "",
+  gateCode: "",
+  deliveryInstructions: "",
   date: "",
-  time: "",
-  comment: "",
+  timeWindow: "",
   allergies: "",
+  orderNotes: "",
 });
 
 const createDefaultCateringForm = () => ({
@@ -947,7 +971,7 @@ const state = {
   preorderDraft: null,
   preorderError: false,
   preorderErrorKey: "preorder.required",
-  preorderSelectedMessenger: null,
+  preorderErrorMsg: null,
   cateringForm: createDefaultCateringForm(),
   cateringStage: 0,
   cateringDraft: null,
@@ -1358,6 +1382,31 @@ const generateToken = () => {
 const generateOrderId = (type) =>
   `${type === "catering" ? "MT-C" : "MT-P"}-${getMiamiDateCode()}-${generateToken()}`;
 
+const generatePreorderId = () => {
+  const now = new Date();
+  const y = now.getFullYear();
+  const m = String(now.getMonth() + 1).padStart(2, "0");
+  const d = String(now.getDate()).padStart(2, "0");
+  const arr = new Uint32Array(1);
+  crypto.getRandomValues(arr);
+  const token = String(arr[0]).slice(-3).padStart(3, "0");
+  return `LK-${y}${m}${d}-${token}`;
+};
+
+const buildMinOrderMsg = (zone, minOrder, remaining) => {
+  if (state.lang === "en")
+    return `Minimum food order for Zone ${zone} is ${money(minOrder)}. Add ${money(remaining)} more in food to continue.`;
+  if (state.lang === "uk")
+    return `Мінімальне замовлення страв для зони ${zone} — ${money(minOrder)}. Додайте ще ${money(remaining)} страв, щоб продовжити.`;
+  return `Минимальный заказ по блюдам для зоны ${zone} — ${money(minOrder)}. Добавьте ещё ${money(remaining)} блюд, чтобы продолжить.`;
+};
+
+const buildFreeDeliveryHint = (remaining) => {
+  if (state.lang === "en") return `Add ${money(remaining)} more in food for free delivery.`;
+  if (state.lang === "uk") return `Додайте ще ${money(remaining)} страв для безкоштовної доставки.`;
+  return `Добавьте ещё ${money(remaining)} блюд для бесплатной доставки.`;
+};
+
 // ── Clipboard ─────────────────────────────────────────────────────────────────
 
 const copyOrderText = async (message) => {
@@ -1488,31 +1537,92 @@ const createFallbackBlock = (ns) => `
 
 const createPreorderStage0 = () => {
   const form = state.preorderForm;
-  const isDelivery = form.fulfillmentType === "delivery";
-  const checkedDelivery = form.fulfillmentType === "delivery" ? " checked" : "";
-  const checkedPickup = form.fulfillmentType === "pickup" ? " checked" : "";
   const entries = cartEntries();
-  const cartRows = entries
-    .map(({ dish, quantity }) => {
-      const qtyStr = dish.unit === "lb" ? `${quantity} lb` : `${quantity}`;
-      return `<div class="modal-cart-item"><span>${escapeHtml(text(dish.name))} × ${escapeHtml(qtyStr)}</span><em>${money(dish.price * quantity)}</em></div>`;
-    })
-    .join("");
+  const foodSubtotal = cartTotal();
+  const zone = form.zone;
+  const zoneConfig = zone ? DELIVERY_ZONES[zone] : null;
+
+  const cartRows = entries.map(({ dish, quantity }) => {
+    const qtyStr = dish.unit === "lb" ? `${quantity} lb` : `${quantity}`;
+    return `<div class="modal-cart-item"><span>${escapeHtml(text(dish.name))} × ${escapeHtml(qtyStr)}</span><em>${money(dish.price * quantity)}</em></div>`;
+  }).join("");
+
+  let pricingHtml = "";
+  if (zoneConfig) {
+    const isFree = foodSubtotal >= zoneConfig.freeAt;
+    const isC = zone === "C";
+    const deliveryFee = isFree ? 0 : zoneConfig.fee;
+    const orderTotal = foodSubtotal + deliveryFee;
+    const minRemaining = zoneConfig.minOrder - foodSubtotal;
+    const freeRemaining = zoneConfig.freeAt - foodSubtotal;
+    const feeLabel = isC && !isFree ? escapeHtml(t("preorder.zoneCFeeLabel")) : money(deliveryFee);
+    const discountRow = isFree
+      ? `<div class="pricing-row pricing-row-discount"><span>${escapeHtml(t("preorder.freeDeliveryDiscount"))}</span><em>−${money(zoneConfig.fee)}</em></div>`
+      : "";
+    const minMsg = minRemaining > 0
+      ? `<p class="zone-min-warning">${escapeHtml(buildMinOrderMsg(zone, zoneConfig.minOrder, minRemaining))}</p>`
+      : "";
+    const freeHint = !isFree && freeRemaining > 0
+      ? `<p class="zone-free-hint">${escapeHtml(buildFreeDeliveryHint(freeRemaining))}</p>`
+      : "";
+    const zoneCNote = isC
+      ? `<p class="zone-c-note">${escapeHtml(t(isFree ? "preorder.zoneCFreeNote" : "preorder.zoneCNote"))}</p>`
+      : "";
+    pricingHtml = `
+      <div class="checkout-pricing">
+        <div class="pricing-row"><span>${escapeHtml(t("preorder.foodSubtotal"))}</span><em>${money(foodSubtotal)}</em></div>
+        <div class="pricing-row"><span>${escapeHtml(t("preorder.deliveryFee"))}</span><em>${feeLabel}</em></div>
+        ${discountRow}
+        <div class="pricing-row pricing-row-total"><span>${escapeHtml(t("preorder.orderTotal"))}</span><strong>${money(orderTotal)}</strong></div>
+        ${minMsg}${freeHint}${zoneCNote}
+      </div>`;
+  }
+
+  const zoneOptions = ["A", "B", "C"].map((z) => {
+    const checked = form.zone === z ? " checked" : "";
+    const sel = form.zone === z ? " is-selected" : "";
+    return `<label class="zone-option${sel}"><input type="radio" name="zone" value="${z}"${checked} /><span>${escapeHtml(t(`preorder.zone${z}`))}</span></label>`;
+  }).join("");
+
+  const contactMethods = [["sms", "contactSms"], ["whatsapp", "contactWhatsapp"], ["telegram", "contactTelegram"], ["callMe", "contactCallMe"]];
+  const contactOptions = contactMethods.map(([val, key]) => {
+    const checked = form.contactMethod === val ? " checked" : "";
+    return `<label class="contact-option"><input type="radio" name="contactMethod" value="${val}"${checked} /><span>${escapeHtml(t(`preorder.${key}`))}</span></label>`;
+  }).join("");
+
+  const tgField = form.contactMethod === "telegram"
+    ? `<label class="form-field form-field-wide"><span>${escapeHtml(t("preorder.telegramUsername"))}</span><input name="telegramUsername" type="text" value="${escapeHtml(form.telegramUsername)}" placeholder="@username" autocomplete="off" /></label>`
+    : "";
+  const waCheckbox = form.contactMethod === "whatsapp"
+    ? `<label class="form-field form-field-wide form-checkbox-label"><input type="checkbox" name="whatsappSamePhone" value="1"${form.whatsappSamePhone ? " checked" : ""} /><span>${escapeHtml(t("preorder.whatsappSamePhone"))}</span></label>`
+    : "";
+
+  const timeOptions = ["A", "B", "C"].map((s) => {
+    const selected = form.timeWindow === s ? " selected" : "";
+    return `<option value="${s}"${selected}>${escapeHtml(t(`preorder.time${s}`))}</option>`;
+  }).join("");
+
+  const dd = new Date();
+  dd.setDate(dd.getDate() + 1);
+  const tomorrow = dd.toISOString().slice(0, 10);
+
+  const canSubmit = !zoneConfig || foodSubtotal >= zoneConfig.minOrder;
   const errorHtml = state.preorderError
-    ? `<p class="form-error" role="alert">${escapeHtml(t(state.preorderErrorKey))}</p>`
+    ? `<p class="form-error" role="alert">${escapeHtml(state.preorderErrorMsg || t(state.preorderErrorKey))}</p>`
     : "";
 
   return `
     <div class="modal-cart-summary">
       <h3>${escapeHtml(t("preorder.cartSummaryTitle"))}</h3>
       ${cartRows}
-      <div class="modal-cart-total">
-        <span>${escapeHtml(t("cart.total"))}:</span>
-        <strong>${money(cartTotal())}</strong>
-      </div>
-      <p class="modal-delivery-note">${escapeHtml(t("preorder.deliveryCostNote"))}</p>
     </div>
-    <form class="modal-form" data-preorder-form novalidate>
+    <form class="modal-form checkout-form" data-preorder-form novalidate>
+      <h4 class="checkout-section-label">${escapeHtml(t("preorder.zoneTitle"))}</h4>
+      <div class="zone-options" role="radiogroup" aria-label="${escapeHtml(t("preorder.zoneTitle"))}">
+        ${zoneOptions}
+      </div>
+      ${pricingHtml}
+      <h4 class="checkout-section-label">${escapeHtml(t("preorder.contactTitle"))}</h4>
       <div class="form-grid">
         <label class="form-field">
           <span>${escapeHtml(t("preorder.name"))} *</span>
@@ -1523,125 +1633,81 @@ const createPreorderStage0 = () => {
           <input name="phone" type="tel" value="${escapeHtml(form.phone)}" autocomplete="tel" required />
         </label>
         <fieldset class="form-field form-field-wide">
-          <legend>${escapeHtml(t("preorder.fulfillment"))} *</legend>
-          <div class="radio-group">
-            <label><input name="fulfillmentType" type="radio" value="delivery"${checkedDelivery} /><span>${escapeHtml(t("preorder.delivery"))}</span></label>
-            <label><input name="fulfillmentType" type="radio" value="pickup"${checkedPickup} /><span>${escapeHtml(t("preorder.pickup"))}</span></label>
+          <legend>${escapeHtml(t("preorder.contactMethod"))} *</legend>
+          <div class="radio-group contact-method-group">
+            ${contactOptions}
           </div>
         </fieldset>
-        <label class="form-field form-field-wide${isDelivery ? "" : " is-hidden"}" id="preorder-address-field">
-          <span>${escapeHtml(t("preorder.address"))}${isDelivery ? " *" : ""}</span>
-          <input name="address" type="text" value="${escapeHtml(form.address)}" autocomplete="street-address"${isDelivery ? " required" : ""} />
+        ${tgField}${waCheckbox}
+      </div>
+      <h4 class="checkout-section-label">${escapeHtml(t("preorder.deliveryTitle"))}</h4>
+      <div class="form-grid">
+        <label class="form-field form-field-wide">
+          <span>${escapeHtml(t("preorder.address"))} *</span>
+          <input name="address" type="text" value="${escapeHtml(form.address)}" autocomplete="street-address" required />
         </label>
-        <label class="form-field${isDelivery ? "" : " is-hidden"}" id="preorder-apt-field">
+        <label class="form-field">
           <span>${escapeHtml(t("preorder.apt"))}</span>
           <input name="apt" type="text" value="${escapeHtml(form.apt)}" autocomplete="address-line2" />
         </label>
         <label class="form-field">
-          <span>${escapeHtml(t("preorder.date"))} *</span>
-          <input name="date" type="date" value="${escapeHtml(form.date)}" required />
-        </label>
-        <label class="form-field">
-          <span>${escapeHtml(t("preorder.time"))} *</span>
-          <input name="time" type="time" value="${escapeHtml(form.time)}" required />
+          <span>${escapeHtml(t("preorder.gateCode"))}</span>
+          <input name="gateCode" type="text" value="${escapeHtml(form.gateCode)}" />
         </label>
         <label class="form-field form-field-wide">
-          <span>${escapeHtml(t("preorder.comment"))}</span>
-          <textarea name="comment" rows="2">${escapeHtml(form.comment)}</textarea>
+          <span>${escapeHtml(t("preorder.deliveryInstructions"))}</span>
+          <textarea name="deliveryInstructions" rows="2">${escapeHtml(form.deliveryInstructions)}</textarea>
         </label>
+      </div>
+      <h4 class="checkout-section-label">${escapeHtml(t("preorder.scheduleTitle"))}</h4>
+      <div class="form-grid">
+        <label class="form-field">
+          <span>${escapeHtml(t("preorder.date"))} *</span>
+          <input name="date" type="date" value="${escapeHtml(form.date)}" min="${tomorrow}" required />
+        </label>
+        <label class="form-field">
+          <span>${escapeHtml(t("preorder.timeWindow"))} *</span>
+          <select name="timeWindow" required>
+            <option value="">${escapeHtml(t("preorder.timeWindowPlaceholder"))}</option>
+            ${timeOptions}
+          </select>
+        </label>
+        <p class="checkout-advance-note form-field-wide">${escapeHtml(t("preorder.preorderAdvanceNote"))}</p>
         <label class="form-field form-field-wide">
           <span>${escapeHtml(t("preorder.allergies"))}</span>
           <textarea name="allergies" rows="2">${escapeHtml(form.allergies)}</textarea>
         </label>
+        <label class="form-field form-field-wide">
+          <span>${escapeHtml(t("preorder.orderNotes"))}</span>
+          <textarea name="orderNotes" rows="2">${escapeHtml(form.orderNotes)}</textarea>
+        </label>
       </div>
       ${errorHtml}
-      <button class="btn btn-primary checkout-submit" type="submit">
+      <button class="btn btn-primary checkout-submit" type="submit"${canSubmit ? "" : " disabled"}>
         <span>${escapeHtml(t("preorder.submit"))}</span>
-        <i data-lucide="message-circle"></i>
+        <i data-lucide="send"></i>
       </button>
-      <p class="checkout-disclaimer">${escapeHtml(t("preorder.disclaimer"))}</p>
     </form>
   `;
 };
 
-const createPreorderStage1 = () => {
+const createPreorderSuccess = () => {
   const draft = state.preorderDraft;
   return `
-    <div class="modal-stage">
-      <h3 class="stage-title">${escapeHtml(t("preorder.messengerTitle"))}</h3>
-      <p class="stage-intro">${escapeHtml(t("preorder.messengerSubtitle"))}</p>
-      <p class="stage-ref">${escapeHtml(t("preorder.stage1Ref"))} <strong>${escapeHtml(draft?.orderId || "")}</strong></p>
-      <div class="messenger-choice">
-        <button class="btn btn-primary messenger-btn" type="button" data-send-messenger="preorder" data-messenger="whatsapp">
-          <i data-lucide="message-circle"></i>
-          <span>${escapeHtml(t("preorder.viaWhatsApp"))}</span>
-        </button>
-        <button class="btn btn-secondary messenger-btn" type="button" data-send-messenger="preorder" data-messenger="telegram">
-          <i data-lucide="send"></i>
-          <span>${escapeHtml(t("preorder.viaTelegram"))}</span>
-        </button>
-      </div>
+    <div class="modal-stage modal-stage-final preorder-success">
+      <i data-lucide="check-circle-2" class="stage-icon-lg"></i>
+      <h3 class="stage-title">${escapeHtml(t("preorder.successTitle"))}</h3>
+      <p class="stage-intro">${escapeHtml(t("preorder.successText"))}</p>
+      <p class="success-ref">${escapeHtml(t("preorder.successRef"))} <strong>${escapeHtml(draft?.orderId || "")}</strong></p>
+      <button class="btn btn-primary" type="button" data-close-modal="preorder">
+        ${escapeHtml(t("preorder.close"))}
+      </button>
     </div>
   `;
 };
 
-const createPreorderStage2 = () => `
-  <div class="modal-stage">
-    <h3 class="stage-title">${escapeHtml(t("preorder.stage2Title"))}</h3>
-    <p class="stage-intro">${escapeHtml(t("preorder.stage2Text"))}</p>
-    ${createFallbackBlock("preorder")}
-    <button class="btn btn-primary" type="button" data-advance-stage="preorder">
-      <span>${escapeHtml(t("preorder.stage2Button"))}</span>
-      <i data-lucide="check"></i>
-    </button>
-  </div>
-`;
-
-const createPreorderStage3 = () => `
-  <div class="modal-stage">
-    <h3 class="stage-title">${escapeHtml(t("preorder.stage3Title"))}</h3>
-    <p class="stage-intro">${escapeHtml(t("preorder.stage3Text"))}</p>
-    <div class="stage-confirm-actions">
-      <button class="btn btn-primary" type="button" data-confirm-sent="preorder">
-        <span>${escapeHtml(t("preorder.stage3Confirm"))}</span>
-        <i data-lucide="check-circle-2"></i>
-      </button>
-      <button class="btn btn-secondary" type="button" data-go-stage="preorder" data-stage="2">
-        ${escapeHtml(t("preorder.stage3Back"))}
-      </button>
-    </div>
-  </div>
-`;
-
-const createPreorderStage4 = () => `
-  <div class="modal-stage modal-stage-final">
-    <i data-lucide="check-circle-2" class="stage-icon-lg"></i>
-    <h3 class="stage-title">${escapeHtml(t("preorder.stage4Title"))}</h3>
-    <p class="stage-intro">${escapeHtml(t("preorder.stage4Text"))}</p>
-    <div class="stage-final-actions">
-      <button class="btn btn-secondary btn-sm" type="button" data-open-generic-wa>
-        <i data-lucide="message-circle"></i>
-        <span>${escapeHtml(t("preorder.stage4WA"))}</span>
-      </button>
-      <button class="btn btn-secondary btn-sm" type="button" data-open-generic-tg>
-        <i data-lucide="send"></i>
-        <span>${escapeHtml(t("preorder.stage4TG"))}</span>
-      </button>
-    </div>
-    <button class="btn btn-primary" type="button" data-close-modal="preorder">
-      ${escapeHtml(t("preorder.close"))}
-    </button>
-  </div>
-`;
-
 const createPreorderModal = () => {
-  let body = "";
-  if (state.preorderStage === 0) body = createPreorderStage0();
-  else if (state.preorderStage === 1) body = createPreorderStage1();
-  else if (state.preorderStage === 2) body = createPreorderStage2();
-  else if (state.preorderStage === 3) body = createPreorderStage3();
-  else body = createPreorderStage4();
-
+  const body = state.preorderStage === 0 ? createPreorderStage0() : createPreorderSuccess();
   return `
     <div class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="preorder-modal-title" data-modal-overlay="preorder">
       <div class="modal-panel">
@@ -1849,13 +1915,13 @@ const openPreorderModal = (trigger = null) => {
 const closePreorderModal = () => {
   document.getElementById("preorder-modal")?.remove();
   document.body.classList.remove("modal-open");
-  if (state.preorderStage === 4) {
+  if (state.preorderStage === 1) {
     state.preorderForm = createDefaultPreorderForm();
     state.preorderDraft = null;
   }
   state.preorderStage = 0;
   state.preorderError = false;
-  state.preorderSelectedMessenger = null;
+  state.preorderErrorMsg = null;
   preorderTriggerEl?.focus();
   preorderTriggerEl = null;
 };
@@ -2029,13 +2095,18 @@ const syncPreorderForm = (formEl) => {
   state.preorderForm = {
     name: String(data.get("name") || "").trim(),
     phone: String(data.get("phone") || "").trim(),
-    fulfillmentType: String(data.get("fulfillmentType") || "delivery"),
+    zone: String(data.get("zone") || ""),
+    contactMethod: String(data.get("contactMethod") || ""),
+    telegramUsername: String(data.get("telegramUsername") || "").trim(),
+    whatsappSamePhone: data.get("whatsappSamePhone") === "1",
     address: String(data.get("address") || "").trim(),
     apt: String(data.get("apt") || "").trim(),
+    gateCode: String(data.get("gateCode") || "").trim(),
+    deliveryInstructions: String(data.get("deliveryInstructions") || "").trim(),
     date: String(data.get("date") || ""),
-    time: String(data.get("time") || ""),
-    comment: String(data.get("comment") || "").trim(),
+    timeWindow: String(data.get("timeWindow") || ""),
     allergies: String(data.get("allergies") || "").trim(),
+    orderNotes: String(data.get("orderNotes") || "").trim(),
   };
 };
 
@@ -2061,10 +2132,14 @@ const todayStr = () => new Date().toISOString().slice(0, 10);
 
 const validatePreorderForm = () => {
   const f = state.preorderForm;
-  if (!f.name || !f.phone || !f.fulfillmentType || !f.date || !f.time) return "preorder.required";
+  if (!f.zone) return "preorder.zoneRequired";
+  if (!f.name || !f.phone || !f.contactMethod || !f.address || !f.date || !f.timeWindow) return "preorder.required";
   if (validatePhone(f.phone) !== null) return "preorder.phoneInvalid";
-  if (f.date < todayStr()) return "preorder.dateInPast";
-  if (f.fulfillmentType === "delivery" && !f.address) return "preorder.required";
+  const dd = new Date();
+  dd.setDate(dd.getDate() + 1);
+  if (f.date < dd.toISOString().slice(0, 10)) return "preorder.dateNotFuture";
+  const zoneConfig = DELIVERY_ZONES[f.zone];
+  if (zoneConfig && cartTotal() < zoneConfig.minOrder) return "preorder.zoneRequired";
   return null;
 };
 
@@ -2082,39 +2157,86 @@ const validateCateringForm = () => {
 
 const handlePreorderSubmit = (formEl) => {
   syncPreorderForm(formEl);
-  const error = validatePreorderForm();
-  if (error) {
+  const errorKey = validatePreorderForm();
+  if (errorKey) {
     state.preorderError = true;
-    state.preorderErrorKey = error;
+    state.preorderErrorKey = errorKey;
+    state.preorderErrorMsg = null;
     renderPreorderModal();
     return;
   }
 
-  const existingDraft = loadDraft("preorder");
-  const orderId = existingDraft?.orderId || generateOrderId("preorder");
-  const message = buildPreorderMessage(orderId);
+  const form = state.preorderForm;
+  const zoneConfig = DELIVERY_ZONES[form.zone];
+  const foodSubtotal = cartTotal();
+  const isFree = foodSubtotal >= zoneConfig.freeAt;
+  const deliveryFee = isFree ? 0 : zoneConfig.fee;
+  const orderId = generatePreorderId();
 
-  const draft = {
+  const request = {
     orderId,
-    form: { ...state.preorderForm },
-    cartSnapshot: cartEntries().map(({ dish, quantity }) => ({
+    requestType: "preorder",
+    submittedAt: getMiamiTimestamp(),
+    customer: {
+      name: form.name,
+      phone: form.phone,
+      contactMethod: form.contactMethod,
+      telegramUsername: form.telegramUsername || null,
+      whatsappSamePhone: form.whatsappSamePhone || false,
+    },
+    delivery: {
+      zone: form.zone,
+      address: form.address,
+      apt: form.apt || null,
+      gateCode: form.gateCode || null,
+      instructions: form.deliveryInstructions || null,
+    },
+    schedule: {
+      date: form.date,
+      timeWindow: form.timeWindow,
+      timeWindowLabel: t(`preorder.time${form.timeWindow}`),
+    },
+    items: cartEntries().map(({ dish, quantity }) => ({
       id: dish.id,
       name: text(dish.name),
       quantity,
+      unit: dish.unit || null,
       unitPrice: dish.price,
       lineTotal: dish.price * quantity,
     })),
-    subtotal: cartTotal(),
-    message,
+    pricing: {
+      foodSubtotal,
+      deliveryFee,
+      deliveryFeeNote: form.zone === "C" && !isFree ? "subject to confirmation" : null,
+      orderTotal: foodSubtotal + deliveryFee,
+      freeDeliveryApplied: isFree,
+      freeDeliveryNote: form.zone === "C" && isFree ? "subject to confirmation" : null,
+    },
+    notes: {
+      allergies: form.allergies || null,
+      orderNotes: form.orderNotes || null,
+    },
+  };
+
+  // eslint-disable-next-line no-console
+  console.log("[Lana's Kitchen] Preorder request:", request);
+
+  const draft = {
+    orderId,
+    form: { ...form },
     stage: 1,
     requestType: "preorder",
   };
   state.preorderDraft = draft;
-  saveDraft("preorder", draft);
+  state.cart.clear();
+  saveCart(state.cart);
+  clearDraft("preorder");
 
   state.preorderStage = 1;
   state.preorderError = false;
+  state.preorderErrorMsg = null;
   renderPreorderModal();
+  renderCart();
 };
 
 const handleCateringSubmit = (formEl) => {
@@ -2365,7 +2487,7 @@ const handleClick = (event) => {
   const overlay = target.closest("[data-modal-overlay]");
   if (overlay && !target.closest(".modal-panel")) {
     const type = overlay.dataset.modalOverlay;
-    if (type === "preorder" && (state.preorderStage === 0 || state.preorderStage === 4)) closePreorderModal();
+    if (type === "preorder" && (state.preorderStage === 0 || state.preorderStage === 1)) closePreorderModal();
     else if (type === "catering" && (state.cateringStage === 0 || state.cateringStage === 4)) closeCateringModal();
   }
 };
@@ -2385,16 +2507,15 @@ const handleFormInput = (event) => {
 const handleFormChange = (event) => {
   const preorderField = event.target.closest("[data-preorder-form] [name]");
   if (preorderField) {
-    state.preorderForm[preorderField.name] = preorderField.value;
-    if (preorderField.name === "fulfillmentType") {
-      const isDelivery = preorderField.value === "delivery";
-      const modal = document.getElementById("preorder-modal");
-      modal?.querySelector("#preorder-address-field")?.classList.toggle("is-hidden", !isDelivery);
-      modal?.querySelector("#preorder-apt-field")?.classList.toggle("is-hidden", !isDelivery);
-      const addrInput = modal?.querySelector("[name='address']");
-      if (addrInput) addrInput.required = isDelivery;
-      const addrLabel = modal?.querySelector("#preorder-address-field span");
-      if (addrLabel) addrLabel.textContent = `${t("preorder.address")}${isDelivery ? " *" : ""}`;
+    if (preorderField.type === "checkbox") {
+      state.preorderForm[preorderField.name] = preorderField.checked;
+    } else {
+      state.preorderForm[preorderField.name] = preorderField.value;
+    }
+    if (preorderField.name === "zone" || preorderField.name === "contactMethod") {
+      const formEl = preorderField.closest("[data-preorder-form]");
+      if (formEl) syncPreorderForm(formEl);
+      renderPreorderModal();
     }
     return;
   }
@@ -2424,7 +2545,7 @@ const handleKeydown = (event) => {
   if (event.key === "Escape") {
     const preorderOpen = !!document.getElementById("preorder-modal");
     const cateringOpen = !!document.getElementById("catering-modal");
-    if (preorderOpen && (state.preorderStage === 0 || state.preorderStage === 4)) closePreorderModal();
+    if (preorderOpen && (state.preorderStage === 0 || state.preorderStage === 1)) closePreorderModal();
     else if (cateringOpen && (state.cateringStage === 0 || state.cateringStage === 4)) closeCateringModal();
     return;
   }
@@ -2500,21 +2621,6 @@ const observeReveals = () => {
 // ── Session restore ───────────────────────────────────────────────────────────
 
 const restoreSessionDrafts = () => {
-  const preorderDraft = loadDraft("preorder");
-  if (preorderDraft?.stage >= 1) {
-    if (preorderDraft.cartSnapshot) {
-      preorderDraft.cartSnapshot.forEach(({ id, quantity }) => {
-        state.cart.set(id, quantity);
-      });
-      saveCart(state.cart);
-    }
-    state.preorderForm = preorderDraft.form || createDefaultPreorderForm();
-    state.preorderDraft = preorderDraft;
-    state.preorderStage = 1;
-    openPreorderModal();
-    return;
-  }
-
   const cateringDraft = loadDraft("catering");
   if (cateringDraft?.stage >= 1) {
     state.cateringForm = cateringDraft.form || createDefaultCateringForm();

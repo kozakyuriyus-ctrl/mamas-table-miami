@@ -2722,6 +2722,186 @@ body.modal-open {
   flex-shrink: 0;
 }
 
+/* ── Checkout form ───────────────────────────────────────────────────────────── */
+
+.checkout-section-label {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--muted);
+  margin: 22px 0 10px;
+}
+
+.checkout-form .checkout-section-label:first-of-type {
+  margin-top: 4px;
+}
+
+.zone-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.zone-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 11px 14px;
+  border: 1.5px solid var(--line);
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1.4;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.zone-option:hover {
+  border-color: var(--ink);
+  background: var(--soft);
+}
+
+.zone-option.is-selected {
+  border-color: var(--ink);
+  background: var(--cream);
+}
+
+.zone-option input[type="radio"] {
+  margin-top: 2px;
+  accent-color: var(--ink);
+  flex-shrink: 0;
+}
+
+.checkout-pricing {
+  background: var(--soft);
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin: 12px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.pricing-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 14px;
+  gap: 12px;
+}
+
+.pricing-row em {
+  font-style: normal;
+  color: var(--ink);
+  white-space: nowrap;
+}
+
+.pricing-row-discount {
+  color: #2a7a2a;
+}
+
+.pricing-row-discount em {
+  color: #2a7a2a;
+  font-weight: 600;
+}
+
+.pricing-row-total {
+  border-top: 1px solid var(--line);
+  padding-top: 8px;
+  margin-top: 2px;
+  font-weight: 600;
+}
+
+.pricing-row-total strong {
+  font-size: 16px;
+}
+
+.zone-min-warning {
+  font-size: 13px;
+  color: #b45000;
+  line-height: 1.4;
+  margin-top: 4px;
+}
+
+.zone-free-hint {
+  font-size: 13px;
+  color: #2a7a2a;
+  line-height: 1.4;
+  margin-top: 2px;
+}
+
+.zone-c-note {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.4;
+  margin-top: 4px;
+  font-style: italic;
+}
+
+.contact-method-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.contact-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 12px;
+  border: 1.5px solid var(--line);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.contact-option:has(input:checked) {
+  border-color: var(--ink);
+  background: var(--cream);
+}
+
+.contact-option input[type="radio"] {
+  accent-color: var(--ink);
+  flex-shrink: 0;
+}
+
+.form-checkbox-label {
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.form-checkbox-label span {
+  font-weight: 400;
+}
+
+.checkout-advance-note {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.checkout-submit[disabled] {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.preorder-success .success-ref {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: monospace;
+  line-height: 1.5;
+}
+
+.preorder-success .success-ref strong {
+  color: var(--ink);
+  font-size: 15px;
+}
+
 /* Mobile modal: bottom sheet */
 @media (max-width: 760px) {
   .modal-overlay {
@@ -2749,5 +2929,9 @@ body.modal-open {
 
   .modal-fallback-actions .btn {
     justify-content: center;
+  }
+
+  .contact-method-group {
+    grid-template-columns: 1fr;
   }
 }
