@@ -164,10 +164,9 @@
             <span data-i18n="catering.cta">Получить предложение</span>
             <i data-lucide="calendar-days"></i>
           </button>
-          <a class="btn btn-secondary" href="#" data-whatsapp-quick>
-            <span data-i18n="catering.ctaWA">Вопросы в WhatsApp</span>
-            <i data-lucide="message-circle"></i>
-          </a>
+          <button class="btn btn-disabled" type="button" disabled aria-disabled="true" data-i18n="catering.ctaCustom">
+            Согласовать спецзаказ
+          </button>
         </div>
         <p class="catering-note" data-i18n="catering.note">Меню, количество порций, время приготовления и стоимость согласовываются индивидуально перед подтверждением заказа.</p>
       </section>
@@ -213,32 +212,24 @@
           <img class="delivery-map-img" src="assets/images/delivery-zone-map.jpg" alt="Delivery zone map: Miami, Hallandale Beach, Hollywood, Aventura, Sunny Isles, North Miami, Dania Beach, Fort Lauderdale" loading="lazy" />
           <ul class="delivery-zones">
             <li>
-              <strong data-i18n="delivery.zone1Label">Зона 1:</strong>
-              <span data-i18n="delivery.zone1Cities">Hallandale, Aventura, Hollywood, Sunny Isles</span>
+              <strong data-i18n="delivery.zone1Label">Зона 1 — $10</strong>
+              <span data-i18n="delivery.zone1Cities">Hallandale, Aventura, Sunny Isles, Hollywood</span>
             </li>
             <li>
-              <strong data-i18n="delivery.zone2Label">Зона 2:</strong>
-              <span data-i18n="delivery.zone2Cities">North Miami, Dania Beach</span>
+              <strong data-i18n="delivery.zone2Label">Зона 2 — $15</strong>
+              <span data-i18n="delivery.zone2Cities">North Miami, North Miami Beach, Dania Beach, Miami Gardens</span>
             </li>
             <li>
-              <strong data-i18n="delivery.zone3Label">Зона 3:</strong>
-              <span data-i18n="delivery.zone3Cities">Miami, Fort Lauderdale и дальние районы — по согласованию</span>
+              <strong data-i18n="delivery.zone3Label">Зона 3 — $20</strong>
+              <span data-i18n="delivery.zone3Cities">Miami Beach, Fort Lauderdale</span>
+            </li>
+            <li>
+              <strong data-i18n="delivery.zone4Label">Другие удалённые районы</strong>
+              <span data-i18n="delivery.zone4Cities">Стоимость и возможность доставки — по согласованию.</span>
             </li>
           </ul>
           <p class="delivery-note" data-i18n="delivery.footer">Стоимость доставки подтверждается до оплаты и никогда не добавляется без согласования.</p>
-          <p class="delivery-pickup" data-i18n="delivery.pickup">Самовывоз доступен по предварительному согласованию. Точная точка выдачи отправляется после подтверждения заказа.</p>
         </article>
-      </section>
-
-      <!-- ── Testimonials ──────────────────────────────────────────────────── -->
-      <section class="section" id="testimonials">
-        <div class="section-title section-title-center">
-          <p class="eyebrow" data-i18n="testimonials.eyebrow">Отзывы</p>
-          <h2 data-i18n="testimonials.title">Что говорят клиенты</h2>
-        </div>
-        <div class="testimonial-grid">
-          <p class="testimonials-placeholder reveal" data-i18n="testimonials.placeholder">Первые отзывы клиентов скоро появятся здесь.</p>
-        </div>
       </section>
 
       <!-- ── Why us ────────────────────────────────────────────────────────── -->
@@ -295,10 +286,6 @@
             <p data-i18n="faq.twoA">Да, доставка доступна по Miami и ближайшим районам. Стоимость рассчитывается индивидуально.</p>
           </details>
           <details class="reveal">
-            <summary data-i18n="faq.threeQ">Есть ли самовывоз?</summary>
-            <p data-i18n="faq.threeA">Самовывоз доступен по предварительному согласованию. Точная точка выдачи отправляется после подтверждения заказа.</p>
-          </details>
-          <details class="reveal">
             <summary data-i18n="faq.fourQ">Можно ли заказать на праздник?</summary>
             <p data-i18n="faq.fourA">Да, можно собрать праздничный стол или семейный набор под количество гостей.</p>
           </details>
@@ -330,26 +317,16 @@
         <div class="final-photo reveal">
           <img src="assets/images/ukrainian-table.jpg" alt="Homemade varenyky and fresh family-style food" />
         </div>
-        <div class="final-copy reveal">
+        <div class="final-copy reveal final-copy-centered">
           <h2 data-i18n="contact.title">Связаться с нами</h2>
-          <p data-i18n="contact.text">Для заказа выберите блюда и заполните форму на сайте. Для вопросов, индивидуального меню или кейтеринга — напишите нам в удобный мессенджер.</p>
+          <p data-i18n="contact.text">Для заказа выберите блюда и заполните форму на сайте.</p>
           <a class="btn btn-primary" href="#/menu">
             <span data-i18n="actions.chooseDishes">Выбрать блюда</span>
             <i data-lucide="utensils"></i>
           </a>
-          <div class="contact-links">
-            <a class="contact-link" href="#" data-whatsapp-quick>
-              <strong>WhatsApp</strong>
-              <span data-i18n="contact.waSub">Вопросы и индивидуальный заказ</span>
-            </a>
-            <a class="contact-link" href="https://t.me/Lanaskitchenmiami" target="_blank" rel="noopener noreferrer">
-              <strong>Telegram</strong>
-            </a>
-            <div class="contact-link">
-              <strong data-i18n="contact.pickupTitle">Самовывоз</strong>
-              <span data-i18n="contact.pickupText">Hallandale Beach / Hollywood — по согласованию</span>
-            </div>
-          </div>
+          <button class="btn btn-disabled" type="button" disabled aria-disabled="true" data-i18n="contact.customOrder">
+            Индивидуальный заказ
+          </button>
         </div>
         <aside class="order-card reveal" id="order-card">
           <div class="order-head">

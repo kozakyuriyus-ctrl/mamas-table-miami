@@ -5,9 +5,10 @@ const DISPLAY_PHONE = formatPhone(WHATSAPP_NUMBER);
 
 // ── Delivery zone config ─────────────────────────────────────────────────────
 const DELIVERY_ZONES = {
-  A: { fee: 8,  minOrder: 60,  freeAt: 110 },
-  B: { fee: 12, minOrder: 80,  freeAt: 145 },
-  C: { fee: 20, minOrder: 120, freeAt: 200 },
+  "1": { fee: 10 },
+  "2": { fee: 15 },
+  "3": { fee: 20 },
+  remote: { fee: null },
 };
 
 const tr = (ru, en, uk) => ({ ru, en, uk });
@@ -46,7 +47,7 @@ const copy = {
       cardLabel: "Популярный заказ",
       cardTitle: "Семейный ужин от $95",
       cardDesc: "Соберём домашний стол для семьи или гостей — с учётом количества человек и ваших любимых блюд.",
-      cardMeta: "На 4–6 гостей · доставка или самовывоз по согласованию",
+      cardMeta: "На 4–6 гостей · доставка по согласованию",
     },
     badges: {
       fresh: "Свежая еда",
@@ -66,7 +67,7 @@ const copy = {
       twoText: "Лучше за 24–48 часов до нужного времени.",
       threeTitle: "Мы готовим свежую еду",
       threeText: "Все готовится под заказ из свежих ингредиентов.",
-      fourTitle: "Доставка или самовывоз",
+      fourTitle: "Доставка",
       fourText: "Получите еду свежей и вовремя.",
     },
     categories: {
@@ -82,9 +83,9 @@ const copy = {
       benefit1: "Меню под количество гостей",
       benefit2: "Любимые домашние блюда и закуски",
       benefit3: "Индивидуальные пожелания и аллергии",
-      benefit4: "Доставка или самовывоз по предварительному согласованию",
+      benefit4: "Доставка по Miami-Dade и Broward",
       cta: "Получить предложение",
-      ctaWA: "Вопросы в WhatsApp",
+      ctaCustom: "Согласовать спецзаказ",
       note: "Меню, количество порций, время приготовления и стоимость согласовываются индивидуально перед подтверждением заказа.",
     },
     menuPage: {
@@ -112,14 +113,15 @@ const copy = {
     delivery: {
       eyebrow: "Зона доставки",
       title: "Доставка по Miami-Dade и Broward",
-      zone1Label: "Зона 1:",
-      zone1Cities: "Hallandale, Aventura, Hollywood, Sunny Isles",
-      zone2Label: "Зона 2:",
-      zone2Cities: "North Miami, Dania Beach",
-      zone3Label: "Зона 3:",
-      zone3Cities: "Miami, Fort Lauderdale и дальние районы — по согласованию",
+      zone1Label: "Зона 1 — $10",
+      zone1Cities: "Hallandale, Aventura, Sunny Isles, Hollywood",
+      zone2Label: "Зона 2 — $15",
+      zone2Cities: "North Miami, North Miami Beach, Dania Beach, Miami Gardens",
+      zone3Label: "Зона 3 — $20",
+      zone3Cities: "Miami Beach, Fort Lauderdale",
+      zone4Label: "Другие удалённые районы",
+      zone4Cities: "Стоимость и возможность доставки — по согласованию.",
       footer: "Стоимость доставки подтверждается до оплаты и никогда не добавляется без согласования.",
-      pickup: "Самовывоз доступен по предварительному согласованию. Точная точка выдачи отправляется после подтверждения заказа.",
     },
     testimonials: {
       eyebrow: "Отзывы",
@@ -132,8 +134,6 @@ const copy = {
       oneA: "Лучше за 24–48 часов, особенно для семейных наборов и праздничных заказов.",
       twoQ: "Доставляете ли вы?",
       twoA: "Да. Доставляем по Miami-Dade и Broward: Miami Beach, Brickell, Wynwood, Miami Lakes, Hialeah, Kendall (от $10); Hallandale Beach, Hollywood, Aventura, Sunny Isles Beach (от $15); Coral Springs, Pembroke Pines, Miramar, Dania Beach (от $20). Точная стоимость согласовывается после подтверждения адреса.",
-      threeQ: "Есть ли самовывоз?",
-      threeA: "Самовывоз доступен по предварительному согласованию. Точная точка выдачи отправляется после подтверждения заказа.",
       fourQ: "Можно ли заказать на праздник?",
       fourA: "Да, можно собрать праздничный стол или семейный набор под количество гостей.",
       fiveQ: "Можно ли собрать индивидуальное меню?",
@@ -156,10 +156,8 @@ const copy = {
     },
     contact: {
       title: "Связаться с нами",
-      text: "Для заказа выберите блюда и заполните форму на сайте. Для вопросов, индивидуального меню или кейтеринга — напишите нам в удобный мессенджер.",
-      waSub: "Вопросы и индивидуальный заказ",
-      pickupTitle: "Самовывоз",
-      pickupText: "Hallandale Beach / Hollywood — по согласованию",
+      text: "Для заказа выберите блюда и заполните форму на сайте.",
+      customOrder: "Индивидуальный заказ",
     },
     cart: {
       title: "Ваш заказ",
@@ -195,16 +193,16 @@ const copy = {
       zoneRequired: "Выберите зону доставки.",
       close: "Закрыть",
       zoneTitle: "Район доставки",
-      zoneA: "Зона A — Hallandale / Aventura / Sunny Isles / North Miami Beach — $8",
-      zoneB: "Зона B — Hollywood / Dania / North Miami — $12",
-      zoneC: "Зона C — Fort Lauderdale / Miami Beach / другие районы — от $20",
+      zone1: "Зона 1 — $10 · Hallandale, Aventura, Sunny Isles, Hollywood",
+      zone2: "Зона 2 — $15 · North Miami, North Miami Beach, Dania Beach, Miami Gardens",
+      zone3: "Зона 3 — $20 · Miami Beach, Fort Lauderdale",
+      zoneRemote: "Другие удалённые районы — по согласованию",
       foodSubtotal: "Сумма за блюда",
       deliveryFee: "Доставка",
-      freeDeliveryDiscount: "Скидка (бесплатная доставка)",
+      remoteDeliveryLabel: "по согласованию",
       orderTotal: "Итого",
-      zoneCFeeLabel: "от $20",
-      zoneCNote: "Стоимость доставки для дальних районов будет подтверждена после проверки адреса.",
-      zoneCFreeNote: "Бесплатная доставка в дальние районы подтверждается кухней после проверки адреса.",
+      remoteNote: "Стоимость доставки будет согласована после подтверждения адреса.",
+      remoteDisabledNote: "Для удалённых районов стоимость и возможность доставки подтверждаются индивидуально.",
       contactTitle: "Контактные данные",
       contactMethod: "Способ связи",
       contactSms: "SMS",
@@ -233,9 +231,6 @@ const copy = {
       successTitle: "Ваша заявка получена.",
       successText: "Мы проверим адрес, детали доставки и возможность приготовления, затем свяжемся с вами выбранным способом. Заказ будет поставлен в приготовление только после подтверждения и оплаты.",
       successRef: "№ заявки:",
-      fulfillment: "Способ получения",
-      delivery: "Доставка",
-      pickup: "Самовывоз",
       fieldRequired: "Заполните это поле",
     },
     cateringForm: {
@@ -297,12 +292,10 @@ const copy = {
       miamiTime: "Miami time",
       name: "Клиент",
       phone: "Телефон / WhatsApp",
-      fulfillment: "Получение",
-      deliveryLabel: "Доставка",
-      pickupLabel: "Самовывоз",
       address: "Адрес",
       date: "Желаемая дата",
       time: "Желаемое время",
+      zone: "Зона доставки",
       items: "Состав заказа",
       subtotal: "Предварительная сумма",
       comment: "Комментарий",
@@ -344,7 +337,7 @@ const copy = {
       cardLabel: "Popular Order",
       cardTitle: "Family Dinner from $95",
       cardDesc: "We'll put together a home-cooked spread for your family or guests — tailored to your group size and favourite dishes.",
-      cardMeta: "Serves 4–6 guests · delivery or pickup by arrangement",
+      cardMeta: "Serves 4–6 guests · delivery by arrangement",
     },
     badges: {
       fresh: "Fresh Food",
@@ -364,7 +357,7 @@ const copy = {
       twoText: "Order 24–48 hours in advance.",
       threeTitle: "We cook fresh",
       threeText: "Prepared with fresh ingredients.",
-      fourTitle: "Delivery or pickup",
+      fourTitle: "Delivery",
       fourText: "Get your meals fresh and on time.",
     },
     categories: {
@@ -380,9 +373,9 @@ const copy = {
       benefit1: "Menu tailored to your guest count",
       benefit2: "Favorite homemade dishes and appetizers",
       benefit3: "Dietary preferences and allergy notes",
-      benefit4: "Delivery or pickup by prior arrangement",
+      benefit4: "Delivery across Miami-Dade and Broward",
       cta: "Request a Quote",
-      ctaWA: "Questions on WhatsApp",
+      ctaCustom: "Request a Custom Order",
       note: "Menu, portions, preparation time, and final pricing are confirmed individually before the order is approved.",
     },
     menuPage: {
@@ -410,14 +403,15 @@ const copy = {
     delivery: {
       eyebrow: "Delivery Areas",
       title: "Delivery across Miami-Dade and Broward",
-      zone1Label: "Zone 1:",
-      zone1Cities: "Hallandale, Aventura, Hollywood, Sunny Isles",
-      zone2Label: "Zone 2:",
-      zone2Cities: "North Miami, Dania Beach",
-      zone3Label: "Zone 3:",
-      zone3Cities: "Miami, Fort Lauderdale and farther areas — by arrangement",
+      zone1Label: "Zone 1 — $10",
+      zone1Cities: "Hallandale, Aventura, Sunny Isles, Hollywood",
+      zone2Label: "Zone 2 — $15",
+      zone2Cities: "North Miami, North Miami Beach, Dania Beach, Miami Gardens",
+      zone3Label: "Zone 3 — $20",
+      zone3Cities: "Miami Beach, Fort Lauderdale",
+      zone4Label: "Other distant areas",
+      zone4Cities: "Delivery cost and availability — by arrangement.",
       footer: "Delivery cost is confirmed before payment and is never added without your agreement.",
-      pickup: "Pickup is available by prior arrangement. The exact pickup location is sent after your order is confirmed.",
     },
     testimonials: {
       eyebrow: "Testimonials",
@@ -430,8 +424,6 @@ const copy = {
       oneA: "24–48 hours is best, especially for family sets and holiday orders.",
       twoQ: "Do you deliver?",
       twoA: "Yes. We deliver across Miami-Dade and Broward: Miami Beach, Brickell, Wynwood, Miami Lakes, Hialeah, Kendall (from $10); Hallandale Beach, Hollywood, Aventura, Sunny Isles Beach (from $15); Coral Springs, Pembroke Pines, Miramar, Dania Beach (from $20). The exact fee is confirmed after the delivery address is set.",
-      threeQ: "Is pickup available?",
-      threeA: "Pickup is available by prior arrangement. The exact pickup location is sent after your order is confirmed.",
       fourQ: "Can I order for a holiday?",
       fourA: "Yes, we can prepare family trays and holiday tables for your guest count.",
       fiveQ: "Can I create a custom menu?",
@@ -454,10 +446,8 @@ const copy = {
     },
     contact: {
       title: "Contact Us",
-      text: "To place an order, choose dishes and fill in the form on the site. For questions, custom menus or catering — message us in a convenient messenger.",
-      waSub: "Questions and custom orders",
-      pickupTitle: "Pickup",
-      pickupText: "Hallandale Beach / Hollywood — by arrangement",
+      text: "To place an order, choose dishes and fill in the form on the site.",
+      customOrder: "Custom Order",
     },
     cart: {
       title: "Your Order",
@@ -493,16 +483,16 @@ const copy = {
       zoneRequired: "Please select a delivery zone.",
       close: "Close",
       zoneTitle: "Delivery area",
-      zoneA: "Zone A — Hallandale / Aventura / Sunny Isles / North Miami Beach — $8",
-      zoneB: "Zone B — Hollywood / Dania / North Miami — $12",
-      zoneC: "Zone C — Fort Lauderdale / Miami Beach / Other areas — from $20",
+      zone1: "Zone 1 — $10 · Hallandale, Aventura, Sunny Isles, Hollywood",
+      zone2: "Zone 2 — $15 · North Miami, North Miami Beach, Dania Beach, Miami Gardens",
+      zone3: "Zone 3 — $20 · Miami Beach, Fort Lauderdale",
+      zoneRemote: "Other distant areas — by arrangement",
       foodSubtotal: "Food subtotal",
       deliveryFee: "Delivery",
-      freeDeliveryDiscount: "Free delivery discount",
+      remoteDeliveryLabel: "by arrangement",
       orderTotal: "Total",
-      zoneCFeeLabel: "from $20",
-      zoneCNote: "Delivery cost for distant areas will be confirmed after address review.",
-      zoneCFreeNote: "Free delivery for distant areas is subject to kitchen confirmation after address review.",
+      remoteNote: "Delivery cost will be confirmed after address verification.",
+      remoteDisabledNote: "For distant areas, delivery cost and availability are confirmed individually.",
       contactTitle: "Your details",
       contactMethod: "Preferred contact method",
       contactSms: "SMS",
@@ -531,9 +521,6 @@ const copy = {
       successTitle: "Your preorder request has been received.",
       successText: "We will review the address, delivery details, and availability, then contact you using your preferred method. Your order will be placed in preparation only after confirmation and payment.",
       successRef: "Request #:",
-      fulfillment: "Fulfillment method",
-      delivery: "Delivery",
-      pickup: "Pickup",
       fieldRequired: "Please fill out this field",
     },
     cateringForm: {
@@ -595,12 +582,10 @@ const copy = {
       miamiTime: "Miami time",
       name: "Customer",
       phone: "Phone / WhatsApp",
-      fulfillment: "Receiving method",
-      deliveryLabel: "Delivery",
-      pickupLabel: "Pickup",
       address: "Address",
       date: "Preferred date",
       time: "Preferred time",
+      zone: "Delivery zone",
       items: "Order contents",
       subtotal: "Estimated total",
       comment: "Comment",
@@ -642,7 +627,7 @@ const copy = {
       cardLabel: "Популярне замовлення",
       cardTitle: "Сімейна вечеря від $95",
       cardDesc: "Зберемо домашній стіл для сім'ї або гостей — з урахуванням кількості людей та ваших улюблених страв.",
-      cardMeta: "На 4–6 гостей · доставка або самовивіз за узгодженням",
+      cardMeta: "На 4–6 гостей · доставка за узгодженням",
     },
     badges: {
       fresh: "Свіжа їжа",
@@ -662,7 +647,7 @@ const copy = {
       twoText: "Краще за 24–48 годин до потрібного часу.",
       threeTitle: "Ми готуємо свіжу їжу",
       threeText: "Все готується на замовлення зі свіжих інгредієнтів.",
-      fourTitle: "Доставка або самовивіз",
+      fourTitle: "Доставка",
       fourText: "Отримайте їжу свіжою і вчасно.",
     },
     categories: {
@@ -678,9 +663,9 @@ const copy = {
       benefit1: "Меню під кількість гостей",
       benefit2: "Улюблені домашні страви та закуски",
       benefit3: "Індивідуальні побажання та алергії",
-      benefit4: "Доставка або самовивіз по попередньому узгодженню",
+      benefit4: "Доставка по Miami-Dade та Broward",
       cta: "Отримати пропозицію",
-      ctaWA: "Запитання у WhatsApp",
+      ctaCustom: "Узгодити спецзамовлення",
       note: "Меню, кількість порцій, час приготування і вартість узгоджуються індивідуально перед підтвердженням замовлення.",
     },
     menuPage: {
@@ -708,14 +693,15 @@ const copy = {
     delivery: {
       eyebrow: "Зона доставки",
       title: "Доставка по Miami-Dade та Broward",
-      zone1Label: "Зона 1:",
-      zone1Cities: "Hallandale, Aventura, Hollywood, Sunny Isles",
-      zone2Label: "Зона 2:",
-      zone2Cities: "North Miami, Dania Beach",
-      zone3Label: "Зона 3:",
-      zone3Cities: "Miami, Fort Lauderdale і дальні райони — по узгодженню",
+      zone1Label: "Зона 1 — $10",
+      zone1Cities: "Hallandale, Aventura, Sunny Isles, Hollywood",
+      zone2Label: "Зона 2 — $15",
+      zone2Cities: "North Miami, North Miami Beach, Dania Beach, Miami Gardens",
+      zone3Label: "Зона 3 — $20",
+      zone3Cities: "Miami Beach, Fort Lauderdale",
+      zone4Label: "Інші віддалені райони",
+      zone4Cities: "Вартість і можливість доставки — за узгодженням.",
       footer: "Вартість доставки підтверджується до оплати і ніколи не додається без узгодження.",
-      pickup: "Самовивіз доступний по попередньому узгодженню. Точна точка видачі надсилається після підтвердження замовлення.",
     },
     testimonials: {
       eyebrow: "Відгуки",
@@ -728,8 +714,6 @@ const copy = {
       oneA: "Краще за 24–48 годин, особливо для сімейних наборів і святкових замовлень.",
       twoQ: "Чи доставляєте ви?",
       twoA: "Так. Доставляємо по Miami-Dade і Broward: Miami Beach, Brickell, Wynwood, Miami Lakes, Hialeah, Kendall (від $10); Hallandale Beach, Hollywood, Aventura, Sunny Isles Beach (від $15); Coral Springs, Pembroke Pines, Miramar, Dania Beach (від $20). Точна вартість узгоджується після підтвердження адреси.",
-      threeQ: "Чи є самовивіз?",
-      threeA: "Самовивіз доступний по попередньому узгодженню. Точна точка видачі надсилається після підтвердження замовлення.",
       fourQ: "Чи можна замовити на свято?",
       fourA: "Так, можна зібрати святковий стіл або сімейний набір під кількість гостей.",
       fiveQ: "Чи можна зібрати індивідуальне меню?",
@@ -752,10 +736,8 @@ const copy = {
     },
     contact: {
       title: "Зв'яжіться з нами",
-      text: "Для замовлення оберіть страви і заповніть форму на сайті. Для питань, індивідуального меню або кейтерингу — напишіть нам у зручний месенджер.",
-      waSub: "Запитання та індивідуальне замовлення",
-      pickupTitle: "Самовивіз",
-      pickupText: "Hallandale Beach / Hollywood — за узгодженням",
+      text: "Для замовлення оберіть страви і заповніть форму на сайті.",
+      customOrder: "Індивідуальне замовлення",
     },
     cart: {
       title: "Ваше замовлення",
@@ -791,16 +773,16 @@ const copy = {
       zoneRequired: "Оберіть зону доставки.",
       close: "Закрити",
       zoneTitle: "Район доставки",
-      zoneA: "Зона A — Hallandale / Aventura / Sunny Isles / North Miami Beach — $8",
-      zoneB: "Зона B — Hollywood / Dania / North Miami — $12",
-      zoneC: "Зона C — Fort Lauderdale / Miami Beach / інші райони — від $20",
+      zone1: "Зона 1 — $10 · Hallandale, Aventura, Sunny Isles, Hollywood",
+      zone2: "Зона 2 — $15 · North Miami, North Miami Beach, Dania Beach, Miami Gardens",
+      zone3: "Зона 3 — $20 · Miami Beach, Fort Lauderdale",
+      zoneRemote: "Інші віддалені райони — за узгодженням",
       foodSubtotal: "Сума за страви",
       deliveryFee: "Доставка",
-      freeDeliveryDiscount: "Знижка (безкоштовна доставка)",
+      remoteDeliveryLabel: "за узгодженням",
       orderTotal: "Разом",
-      zoneCFeeLabel: "від $20",
-      zoneCNote: "Вартість доставки для віддалених районів буде підтверджена після перевірки адреси.",
-      zoneCFreeNote: "Безкоштовна доставка у віддалені райони підтверджується кухнею після перевірки адреси.",
+      remoteNote: "Вартість доставки буде узгоджена після підтвердження адреси.",
+      remoteDisabledNote: "Для віддалених районів вартість і можливість доставки підтверджуються індивідуально.",
       contactTitle: "Ваші контакти",
       contactMethod: "Бажаний спосіб зв'язку",
       contactSms: "SMS",
@@ -829,9 +811,6 @@ const copy = {
       successTitle: "Вашу заявку отримано.",
       successText: "Ми перевіримо адресу, деталі доставки та можливість приготування, після чого зв'яжемося з вами обраним способом. Замовлення буде передано в приготування лише після підтвердження та оплаті.",
       successRef: "№ заявки:",
-      fulfillment: "Спосіб отримання",
-      delivery: "Доставка",
-      pickup: "Самовивіз",
       fieldRequired: "Заповніть це поле",
     },
     cateringForm: {
@@ -893,11 +872,9 @@ const copy = {
       miamiTime: "Miami time",
       name: "Клієнт",
       phone: "Телефон / WhatsApp",
-      fulfillment: "Отримання",
-      deliveryLabel: "Доставка",
-      pickupLabel: "Самовивіз",
       address: "Адреса",
       date: "Бажана дата",
+      zone: "Зона доставки",
       time: "Бажаний час",
       items: "Склад замовлення",
       subtotal: "Орієнтовна сума",
@@ -1425,19 +1402,6 @@ const generatePreorderId = () => {
   return `LK-${y}${m}${d}-${token}`;
 };
 
-const buildMinOrderMsg = (zone, minOrder, remaining) => {
-  if (state.lang === "en")
-    return `Minimum food order for Zone ${zone} is ${money(minOrder)}. Add ${money(remaining)} more in food to continue.`;
-  if (state.lang === "uk")
-    return `Мінімальне замовлення страв для зони ${zone} — ${money(minOrder)}. Додайте ще ${money(remaining)} страв, щоб продовжити.`;
-  return `Минимальный заказ по блюдам для зоны ${zone} — ${money(minOrder)}. Добавьте ещё ${money(remaining)} блюд, чтобы продолжить.`;
-};
-
-const buildFreeDeliveryHint = (remaining) => {
-  if (state.lang === "en") return `Add ${money(remaining)} more in food for free delivery.`;
-  if (state.lang === "uk") return `Додайте ще ${money(remaining)} страв для безкоштовної доставки.`;
-  return `Добавьте ещё ${money(remaining)} блюд для бесплатной доставки.`;
-};
 
 // ── Clipboard ─────────────────────────────────────────────────────────────────
 
@@ -1498,11 +1462,9 @@ const buildPreorderMessage = (orderId) => {
     "",
     `${t("order.name")}: ${form.name}`,
     `${t("order.phone")}: ${formatPhoneForMessage(form.phone)}`,
-    `${t("order.fulfillment")}: ${form.fulfillmentType === "delivery" ? t("order.deliveryLabel") : t("order.pickupLabel")}`,
   ];
-  if (form.fulfillmentType === "delivery" && form.address) {
-    lines.push(`${t("order.address")}: ${form.address}${form.apt ? `, ${form.apt}` : ""}`);
-  }
+  if (form.zone) lines.push(`${t("order.zone") || "Zone"}: ${t(`preorder.zone${form.zone}`)}`);
+  if (form.address) lines.push(`${t("order.address")}: ${form.address}${form.apt ? `, ${form.apt}` : ""}`);
   lines.push(`${t("order.date")}: ${formatDateLocalized(form.date, state.lang)}`);
   lines.push(`${t("order.time")}: ${formatTimeLocalized(form.time, state.lang)}`);
   lines.push("");
@@ -1571,9 +1533,9 @@ const createPreorderStage0 = () => {
   const form = state.preorderForm;
   const entries = cartEntries();
   const foodSubtotal = cartTotal();
-  const isDelivery = form.fulfillmentType !== "pickup";
   const zone = form.zone;
-  const zoneConfig = isDelivery && zone ? DELIVERY_ZONES[zone] : null;
+  const zoneConfig = zone ? DELIVERY_ZONES[zone] : null;
+  const isRemote = zone === "remote";
 
   const ddTomorrow = new Date();
   ddTomorrow.setDate(ddTomorrow.getDate() + 1);
@@ -1586,9 +1548,8 @@ const createPreorderStage0 = () => {
       case "name": return !f.name;
       case "phone": return !f.phone || validatePhone(f.phone) !== null;
       case "contactMethod": return !f.contactMethod;
-      case "fulfillmentType": return !f.fulfillmentType;
-      case "zone": return isDelivery && !f.zone;
-      case "address": return isDelivery && !f.address;
+      case "zone": return !f.zone;
+      case "address": return !f.address;
       case "date": return !f.date || f.date < tomorrowStr;
       case "timeWindow": return !f.timeWindow;
       default: return false;
@@ -1605,42 +1566,36 @@ const createPreorderStage0 = () => {
 
   let pricingHtml = "";
   if (zoneConfig) {
-    const isFree = foodSubtotal >= zoneConfig.freeAt;
-    const isC = zone === "C";
-    const deliveryFee = isFree ? 0 : zoneConfig.fee;
-    const orderTotal = foodSubtotal + deliveryFee;
-    const minRemaining = zoneConfig.minOrder - foodSubtotal;
-    const freeRemaining = zoneConfig.freeAt - foodSubtotal;
-    const feeLabel = isC && !isFree ? escapeHtml(t("preorder.zoneCFeeLabel")) : money(deliveryFee);
-    const discountRow = isFree
-      ? `<div class="pricing-row pricing-row-discount"><span>${escapeHtml(t("preorder.freeDeliveryDiscount"))}</span><em>−${money(zoneConfig.fee)}</em></div>` : "";
-    const minMsg = minRemaining > 0
-      ? `<p class="zone-min-warning">${escapeHtml(buildMinOrderMsg(zone, zoneConfig.minOrder, minRemaining))}</p>` : "";
-    const freeHint = !isFree && freeRemaining > 0
-      ? `<p class="zone-free-hint">${escapeHtml(buildFreeDeliveryHint(freeRemaining))}</p>` : "";
-    const zoneCNote = isC
-      ? `<p class="zone-c-note">${escapeHtml(t(isFree ? "preorder.zoneCFreeNote" : "preorder.zoneCNote"))}</p>` : "";
-    pricingHtml = `
-      <div class="checkout-pricing">
-        <div class="pricing-row"><span>${escapeHtml(t("preorder.foodSubtotal"))}</span><em>${money(foodSubtotal)}</em></div>
-        <div class="pricing-row"><span>${escapeHtml(t("preorder.deliveryFee"))}</span><em>${feeLabel}</em></div>
-        ${discountRow}
-        <div class="pricing-row pricing-row-total"><span>${escapeHtml(t("preorder.orderTotal"))}</span><strong>${money(orderTotal)}</strong></div>
-        ${minMsg}${freeHint}${zoneCNote}
-      </div>`;
+    if (isRemote) {
+      pricingHtml = `
+        <div class="checkout-pricing">
+          <div class="pricing-row"><span>${escapeHtml(t("preorder.foodSubtotal"))}</span><em>${money(foodSubtotal)}</em></div>
+          <div class="pricing-row"><span>${escapeHtml(t("preorder.deliveryFee"))}</span><em class="muted-text">${escapeHtml(t("preorder.remoteDeliveryLabel"))}</em></div>
+          <p class="zone-c-note">${escapeHtml(t("preorder.remoteNote"))}</p>
+        </div>`;
+    } else {
+      const deliveryFee = zoneConfig.fee;
+      const orderTotal = foodSubtotal + deliveryFee;
+      pricingHtml = `
+        <div class="checkout-pricing">
+          <div class="pricing-row"><span>${escapeHtml(t("preorder.foodSubtotal"))}</span><em>${money(foodSubtotal)}</em></div>
+          <div class="pricing-row"><span>${escapeHtml(t("preorder.deliveryFee"))}</span><em>${money(deliveryFee)}</em></div>
+          <div class="pricing-row pricing-row-total"><span>${escapeHtml(t("preorder.orderTotal"))}</span><strong>${money(orderTotal)}</strong></div>
+        </div>`;
+    }
   }
 
-  const zoneHtml = isDelivery ? `
+  const zoneHtml = `
     <h4 class="checkout-section-label">${escapeHtml(t("preorder.zoneTitle"))}</h4>
     <div class="form-option-group${invCls("zone")}" role="radiogroup" aria-label="${escapeHtml(t("preorder.zoneTitle"))}">
-      ${["A", "B", "C"].map((z) => {
+      ${["1", "2", "3", "remote"].map((z) => {
         const checked = form.zone === z ? " checked" : "";
         const sel = form.zone === z ? " is-selected" : "";
-        return `<label class="choice-card${sel}"><input type="radio" name="zone" value="${z}"${checked} /><span>${escapeHtml(t(`preorder.zone${z}`))}</span></label>`;
+        return `<label class="choice-card${sel}"><input type="radio" name="zone" value="${z}"${checked} /><span>${escapeHtml(t(`preorder.zone${z === "remote" ? "Remote" : z}`))}</span></label>`;
       }).join("")}
       ${errSpan("zone")}
     </div>
-    ${pricingHtml}` : "";
+    ${pricingHtml}`;
 
   const contactOptions = [["sms", "contactSms"], ["whatsapp", "contactWhatsapp"], ["telegram", "contactTelegram"], ["callMe", "contactCallMe"]]
     .map(([val, key]) => {
@@ -1656,14 +1611,7 @@ const createPreorderStage0 = () => {
     ? `<label class="form-field form-field-wide form-checkbox-label"><input type="checkbox" name="whatsappSamePhone" value="1"${form.whatsappSamePhone ? " checked" : ""} /><span>${escapeHtml(t("preorder.whatsappSamePhone"))}</span></label>`
     : "";
 
-  const fulfillmentOptions = [["delivery", "delivery"], ["pickup", "pickup"]]
-    .map(([val, key]) => {
-      const checked = form.fulfillmentType === val ? " checked" : "";
-      const sel = form.fulfillmentType === val ? " is-selected" : "";
-      return `<label class="choice-btn${sel}"><input type="radio" name="fulfillmentType" value="${val}"${checked} /><span>${escapeHtml(t(`preorder.${key}`))}</span></label>`;
-    }).join("");
-
-  const addressHtml = isDelivery ? `
+  const addressHtml = `
     <h4 class="checkout-section-label">${escapeHtml(t("preorder.deliveryTitle"))}</h4>
     <div class="form-grid">
       <label class="form-field form-field-wide${invCls("address")}">
@@ -1683,7 +1631,7 @@ const createPreorderStage0 = () => {
         <span>${escapeHtml(t("preorder.deliveryInstructions"))}</span>
         <textarea name="deliveryInstructions" rows="2">${escapeHtml(form.deliveryInstructions)}</textarea>
       </label>
-    </div>` : "";
+    </div>`;
 
   const TIME_SLOTS = ["A", "B", "C", "D", "E", "F", "G", "H", "I"];
   const timeOptions = TIME_SLOTS.map((s) => {
@@ -1691,7 +1639,9 @@ const createPreorderStage0 = () => {
     return `<option value="${s}"${selected}>${escapeHtml(t(`preorder.time${s}`))}</option>`;
   }).join("");
 
-  const canSubmit = !isDelivery || !zoneConfig || foodSubtotal >= zoneConfig.minOrder;
+  const canSubmit = zone && !isRemote;
+  const remoteWarning = isRemote
+    ? `<p class="zone-remote-note">${escapeHtml(t("preorder.remoteDisabledNote"))}</p>` : "";
 
   return `
     <div class="modal-cart-summary">
@@ -1699,6 +1649,7 @@ const createPreorderStage0 = () => {
       ${cartRows}
     </div>
     <form class="modal-form checkout-form" data-preorder-form novalidate>
+      <input type="hidden" name="fulfillmentType" value="delivery" />
       <h4 class="checkout-section-label">${escapeHtml(t("preorder.contactTitle"))}</h4>
       <div class="form-grid">
         <label class="form-field${invCls("name")}">
@@ -1719,13 +1670,6 @@ const createPreorderStage0 = () => {
           ${errSpan("contactMethod")}
         </div>
         ${tgField}${waCheckbox}
-      </div>
-      <h4 class="checkout-section-label">${escapeHtml(t("preorder.fulfillment"))}</h4>
-      <div class="form-option-group${invCls("fulfillmentType")}">
-        <div class="choice-btn-group">
-          ${fulfillmentOptions}
-        </div>
-        ${errSpan("fulfillmentType")}
       </div>
       ${zoneHtml}
       ${addressHtml}
@@ -1754,6 +1698,7 @@ const createPreorderStage0 = () => {
           <textarea name="orderNotes" rows="2">${escapeHtml(form.orderNotes)}</textarea>
         </label>
       </div>
+      ${remoteWarning}
       <button class="btn btn-primary checkout-submit" type="submit"${canSubmit ? "" : " disabled"}>
         <span>${escapeHtml(t("preorder.submit"))}</span>
         <i data-lucide="send"></i>
@@ -1798,8 +1743,6 @@ const createPreorderModal = () => {
 
 const createCateringStage0 = () => {
   const form = state.cateringForm;
-  const checkedDelivery = form.fulfillmentType === "delivery" ? " checked" : "";
-  const checkedPickup = form.fulfillmentType === "pickup" ? " checked" : "";
   const occasionOptions = ["Birthday", "Family", "Friends", "Office", "Other"]
     .map((key) => {
       const val = t(`cateringForm.occasion${key}`);
@@ -1841,13 +1784,7 @@ const createCateringStage0 = () => {
           <span>${escapeHtml(t("cateringForm.area"))} *</span>
           <input name="area" type="text" value="${escapeHtml(form.area)}" required />
         </label>
-        <fieldset class="form-field form-field-wide">
-          <legend>${escapeHtml(t("cateringForm.fulfillment"))} *</legend>
-          <div class="radio-group">
-            <label><input name="fulfillmentType" type="radio" value="delivery"${checkedDelivery} /><span>${escapeHtml(t("cateringForm.delivery"))}</span></label>
-            <label><input name="fulfillmentType" type="radio" value="pickup"${checkedPickup} /><span>${escapeHtml(t("cateringForm.pickup"))}</span></label>
-          </div>
-        </fieldset>
+        <input type="hidden" name="fulfillmentType" value="delivery" />
         <label class="form-field form-field-wide">
           <span>${escapeHtml(t("cateringForm.dishes"))}</span>
           <textarea name="dishes" rows="2">${escapeHtml(form.dishes)}</textarea>
@@ -2205,18 +2142,13 @@ const todayStr = () => new Date().toISOString().slice(0, 10);
 
 const validatePreorderForm = () => {
   const f = state.preorderForm;
-  const isDelivery = f.fulfillmentType !== "pickup";
-  if (!f.name || !f.phone || !f.contactMethod || !f.fulfillmentType || !f.date || !f.timeWindow) return "preorder.required";
-  if (isDelivery && !f.zone) return "preorder.zoneRequired";
-  if (isDelivery && !f.address) return "preorder.required";
+  if (!f.name || !f.phone || !f.contactMethod || !f.date || !f.timeWindow) return "preorder.required";
+  if (!f.zone || f.zone === "remote") return "preorder.zoneRequired";
+  if (!f.address) return "preorder.required";
   if (validatePhone(f.phone) !== null) return "preorder.phoneInvalid";
   const dd = new Date();
   dd.setDate(dd.getDate() + 1);
   if (f.date < dd.toISOString().slice(0, 10)) return "preorder.dateNotFuture";
-  if (isDelivery) {
-    const zoneConfig = DELIVERY_ZONES[f.zone];
-    if (zoneConfig && cartTotal() < zoneConfig.minOrder) return "preorder.zoneRequired";
-  }
   return null;
 };
 
@@ -2249,8 +2181,7 @@ const handlePreorderSubmit = (formEl) => {
   const form = state.preorderForm;
   const zoneConfig = DELIVERY_ZONES[form.zone];
   const foodSubtotal = cartTotal();
-  const isFree = foodSubtotal >= zoneConfig.freeAt;
-  const deliveryFee = isFree ? 0 : zoneConfig.fee;
+  const deliveryFee = zoneConfig?.fee ?? null;
   const orderId = generatePreorderId();
 
   const request = {
@@ -2287,10 +2218,7 @@ const handlePreorderSubmit = (formEl) => {
     pricing: {
       foodSubtotal,
       deliveryFee,
-      deliveryFeeNote: form.zone === "C" && !isFree ? "subject to confirmation" : null,
-      orderTotal: foodSubtotal + deliveryFee,
-      freeDeliveryApplied: isFree,
-      freeDeliveryNote: form.zone === "C" && isFree ? "subject to confirmation" : null,
+      orderTotal: deliveryFee !== null ? foodSubtotal + deliveryFee : null,
     },
     notes: {
       allergies: form.allergies || null,

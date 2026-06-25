@@ -247,6 +247,18 @@ textarea {
   box-shadow: none;
 }
 
+.btn-disabled,
+.btn[disabled],
+.btn:disabled {
+  background: #e5e3de !important;
+  color: #9e9a92 !important;
+  border-color: #e5e3de !important;
+  box-shadow: none !important;
+  cursor: not-allowed;
+  pointer-events: none;
+  transform: none !important;
+}
+
 .hero {
   position: relative;
   display: grid;
@@ -911,15 +923,19 @@ p {
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: 8px;
+  justify-items: center;
 }
 
 .why-item {
-  display: grid;
-  grid-template-columns: 34px 1fr;
-  gap: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
   min-height: 94px;
-  padding: 12px 10px;
+  padding: 14px 10px;
   border-right: 1px solid var(--line);
+  width: 100%;
 }
 
 .why-item:last-child {
@@ -928,6 +944,7 @@ p {
 
 .why-item svg {
   color: var(--gold);
+  flex-shrink: 0;
 }
 
 .why-item h3 {
@@ -936,7 +953,7 @@ p {
 }
 
 .why-item p {
-  margin-top: 3px;
+  margin-top: 2px;
   color: var(--muted);
   font-size: 12px;
   font-weight: 600;
@@ -1186,6 +1203,27 @@ p {
 .final-copy p:not(.eyebrow) {
   color: var(--muted);
   max-width: 440px;
+}
+
+.final-copy-centered {
+  justify-items: center;
+  text-align: center;
+}
+
+.final-copy-centered p {
+  max-width: 360px;
+}
+
+.zone-remote-note {
+  font-size: 13px;
+  color: #b45000;
+  line-height: 1.5;
+  margin-bottom: 6px;
+}
+
+.muted-text {
+  color: var(--muted);
+  font-style: italic;
 }
 
 .order-card {
