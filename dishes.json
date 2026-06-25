@@ -788,7 +788,8 @@
       "en": "Spicy carrots with garlic, spices and aromatic oil.",
       "uk": "Пікантна морква з часником, спеціями та ароматною олією."
     },
-    "unit": "lb"
+    "unit": "lb",
+    "badge": "vegetarian"
   },
   {
     "id": "raw-eggplant-caviar",
