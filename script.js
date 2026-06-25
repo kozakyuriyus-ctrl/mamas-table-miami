@@ -12,6 +12,9 @@ const DELIVERY_ZONES = {
   remote: { fee: null },
 };
 
+const API_ENABLED = false;
+const PREORDER_API_URL = "https://api.lanaskitchenmiami.com/preorder";
+
 const tr = (ru, en, uk) => ({ ru, en, uk });
 
 const copy = {
@@ -2298,8 +2301,23 @@ const handlePreorderSubmit = async (formEl) => {
   state.preorderErrorMsg = null;
   renderPreorderModal();
 
+  if (!API_ENABLED) {
+    const orderId = generateOrderId();
+    state.preorderDraft = { orderId, form: { ...form }, stage: 1, requestType: "preorder" };
+    state.cart.clear();
+    saveCart(state.cart);
+    clearDraft("preorder");
+    state.preorderStage = 1;
+    state.preorderSubmitting = false;
+    state.preorderError = false;
+    state.preorderErrorMsg = null;
+    renderPreorderModal();
+    renderCart();
+    return;
+  }
+
   try {
-    const resp = await fetch("https://api.lanaskitchenmiami.com/preorder", {
+    const resp = await fetch(PREORDER_API_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
