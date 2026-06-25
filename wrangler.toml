@@ -1,0 +1,11 @@
+name = "lanas-kitchen-preorder-api"
+main = "worker/index.js"
+compatibility_date = "2026-06-25"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+ALLOWED_ORIGIN = "https://lanaskitchenmiami.com"
+
+# Secrets must be set in Cloudflare only:
+# - TELEGRAM_CHAT_ID
+# - TELEGRAM_BOT_TOKEN
