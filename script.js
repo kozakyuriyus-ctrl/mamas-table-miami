@@ -12,7 +12,7 @@ const DELIVERY_ZONES = {
   remote: { fee: null },
 };
 
-const API_ENABLED = false;
+const API_ENABLED = true;
 const PREORDER_API_URL = "https://api.lanaskitchenmiami.com/preorder";
 
 const tr = (ru, en, uk) => ({ ru, en, uk });
