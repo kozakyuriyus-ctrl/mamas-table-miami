@@ -54,7 +54,7 @@ const copy = {
       mashedPotatoes: "Вес: 1 lb (454 г) · 3 порции",
     },
     hero: {
-      eyebrow: "Премиальная домашняя кухня",
+      eyebrow: "Настоящая домашняя кухня",
       title: "Свежая домашняя еда в Майами",
       lede: "Борщ, вареники, пельмени, домашние салаты, горячие блюда, семейные ужины и кейтеринг.",
       ledeSub: "Готовим свежим к вашему столу",
@@ -353,7 +353,7 @@ const copy = {
       mashedPotatoes: "Size: 1 lb (454 g) · Serves 3",
     },
     hero: {
-      eyebrow: "Premium homemade kitchen",
+      eyebrow: "Real Home Cooking",
       title: "Fresh Homemade Meals in Miami",
       lede: "Borscht, varenyky, pelmeni, homestyle salads, hot dishes, family dinners and catering.",
       ledeSub: "Made fresh for your table.",
@@ -652,7 +652,7 @@ const copy = {
       mashedPotatoes: "Вага: 1 lb (454 г) · 3 порції",
     },
     hero: {
-      eyebrow: "Преміальна домашня кухня",
+      eyebrow: "Справжня домашня кухня",
       title: "Свіжа домашня їжа в Маямі",
       lede: "Борщ, вареники, пельмені, домашні салати, гарячі страви, сімейні вечері та кейтеринг.",
       ledeSub: "Готуємо свіжим до вашого столу",
