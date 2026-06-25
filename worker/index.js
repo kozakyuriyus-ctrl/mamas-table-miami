@@ -329,7 +329,7 @@ async function handlePreorder(request, env, json) {
   }
 
   // ── Compute server-side delivery pricing ──────────────────────────────────
-  const isZoneC = zoneConfig.requiresManualConfirmation === true;
+  const isZoneC = delivery.zone === "3";
   const isRemote = delivery.zone === "remote";
   const isFree  = foodSubtotal >= zoneConfig.freeAt;
   const deliveryFee   = isZoneC || isRemote ? null : (isFree ? 0 : zoneConfig.fee);
