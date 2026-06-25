@@ -1,0 +1,14 @@
+name            = "lanas-kitchen-preorder-api"
+main            = "index.js"
+compatibility_date = "2024-09-23"
+
+[vars]
+ALLOWED_ORIGIN = "https://lanaskitchenmiami.com"
+
+# Secrets — set via Cloudflare dashboard or CLI (never committed to git):
+#   wrangler secret put TELEGRAM_BOT_TOKEN
+#   wrangler secret put TELEGRAM_CHAT_ID
+#
+# Custom domain: api.lanaskitchenmiami.com
+# Configure in Cloudflare dashboard → Workers → lanas-kitchen-preorder-api → Settings → Domains & Routes
+# Pattern: api.lanaskitchenmiami.com/*

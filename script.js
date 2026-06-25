@@ -4,9 +4,10 @@ const formatPhone = (n) => `+${n[0]} ${n.slice(1, 4)} ${n.slice(4, 7)}-${n.slice
 const DISPLAY_PHONE = formatPhone(WHATSAPP_NUMBER);
 
 // ── Delivery zone config ─────────────────────────────────────────────────────
+// Mirrors DELIVERY_ZONES in worker/index.js — keep in sync when changing prices
 const DELIVERY_ZONES = {
-  "1": { fee: 10, minOrder: 60,  freeAt: 110 },
-  "2": { fee: 15, minOrder: 80,  freeAt: 145 },
+  "1": { fee: 8,  minOrder: 60,  freeAt: 110 },
+  "2": { fee: 12, minOrder: 80,  freeAt: 145 },
   "3": { fee: 20, minOrder: 120, freeAt: 200, requiresManualConfirmation: true },
   remote: { fee: null },
 };
@@ -113,12 +114,12 @@ const copy = {
     delivery: {
       eyebrow: "Зона доставки",
       title: "Доставка по Miami-Dade и Broward",
-      zone1Label: "Зона 1 — $10",
-      zone1Cities: "Hallandale, Aventura, Sunny Isles, Hollywood",
-      zone2Label: "Зона 2 — $15",
-      zone2Cities: "North Miami, North Miami Beach, Dania Beach, Miami Gardens",
-      zone3Label: "Зона 3 — $20",
-      zone3Cities: "Miami Beach, Fort Lauderdale",
+      zone1Label: "Зона A — $8",
+      zone1Cities: "Hallandale Beach, Aventura, Sunny Isles Beach, North Miami Beach",
+      zone2Label: "Зона B — $12",
+      zone2Cities: "Hollywood, Dania Beach, North Miami",
+      zone3Label: "Зона C — $20",
+      zone3Cities: "Fort Lauderdale, Miami Beach, Miami Shores",
       zone4Label: "Другие удалённые районы",
       zone4Cities: "Стоимость и возможность доставки — по согласованию.",
       footer: "Стоимость доставки подтверждается до оплаты и никогда не добавляется без согласования.",
@@ -187,15 +188,17 @@ const copy = {
       date: "Дата доставки",
       allergies: "Аллергии / особые пожелания",
       submit: "Отправить заявку",
+      submitting: "Отправляем заявку…",
+      apiError: "Ошибка при отправке заявки. Пожалуйста, попробуйте ещё раз.",
       required: "Заполните все обязательные поля.",
       phoneInvalid: "Укажите корректный номер телефона.",
       dateNotFuture: "Выберите дату: завтра или позже.",
       zoneRequired: "Выберите зону доставки.",
       close: "Закрыть",
       zoneTitle: "Район доставки",
-      zone1: "Зона 1 — $10 · Hallandale, Aventura, Sunny Isles, Hollywood",
-      zone2: "Зона 2 — $15 · North Miami, North Miami Beach, Dania Beach, Miami Gardens",
-      zone3: "Зона 3 — $20 · Miami Beach, Fort Lauderdale",
+      zone1: "Зона A — $8 · Hallandale Beach, Aventura, Sunny Isles Beach, North Miami Beach",
+      zone2: "Зона B — $12 · Hollywood, Dania Beach, North Miami",
+      zone3: "Зона C — $20 · Fort Lauderdale, Miami Beach, Miami Shores",
       zoneRemote: "Другие удалённые районы — по согласованию",
       foodSubtotal: "Сумма блюд",
       deliveryFee: "Доставка",
@@ -410,11 +413,11 @@ const copy = {
     delivery: {
       eyebrow: "Delivery Areas",
       title: "Delivery across Miami-Dade and Broward",
-      zone1Label: "Zone 1 — $10",
-      zone1Cities: "Hallandale, Aventura, Sunny Isles, Hollywood",
-      zone2Label: "Zone 2 — $15",
-      zone2Cities: "North Miami, North Miami Beach, Dania Beach, Miami Gardens",
-      zone3Label: "Zone 3 — $20",
+      zone1Label: "Zone A — $8",
+      zone1Cities: "Hallandale Beach, Aventura, Sunny Isles Beach, North Miami Beach",
+      zone2Label: "Zone B — $12",
+      zone2Cities: "Hollywood, Dania Beach, North Miami",
+      zone3Label: "Zone C — $20",
       zone3Cities: "Miami Beach, Fort Lauderdale",
       zone4Label: "Other distant areas",
       zone4Cities: "Delivery cost and availability — by arrangement.",
@@ -484,15 +487,17 @@ const copy = {
       date: "Delivery date",
       allergies: "Allergies / special requests",
       submit: "Send preorder request",
+      submitting: "Sending request…",
+      apiError: "Failed to send request. Please try again.",
       required: "Please fill in all required fields.",
       phoneInvalid: "Please enter a valid phone number.",
       dateNotFuture: "Please select a future date (tomorrow or later).",
       zoneRequired: "Please select a delivery zone.",
       close: "Close",
       zoneTitle: "Delivery area",
-      zone1: "Zone 1 — $10 · Hallandale, Aventura, Sunny Isles, Hollywood",
-      zone2: "Zone 2 — $15 · North Miami, North Miami Beach, Dania Beach, Miami Gardens",
-      zone3: "Zone 3 — $20 · Miami Beach, Fort Lauderdale",
+      zone1: "Zone A — $8 · Hallandale Beach, Aventura, Sunny Isles Beach, North Miami Beach",
+      zone2: "Zone B — $12 · Hollywood, Dania Beach, North Miami",
+      zone3: "Zone C — $20 · Fort Lauderdale, Miami Beach, Miami Shores",
       zoneRemote: "Other distant areas — by arrangement",
       foodSubtotal: "Food subtotal",
       deliveryFee: "Delivery",
@@ -707,11 +712,11 @@ const copy = {
     delivery: {
       eyebrow: "Зона доставки",
       title: "Доставка по Miami-Dade та Broward",
-      zone1Label: "Зона 1 — $10",
-      zone1Cities: "Hallandale, Aventura, Sunny Isles, Hollywood",
-      zone2Label: "Зона 2 — $15",
-      zone2Cities: "North Miami, North Miami Beach, Dania Beach, Miami Gardens",
-      zone3Label: "Зона 3 — $20",
+      zone1Label: "Зона A — $8",
+      zone1Cities: "Hallandale Beach, Aventura, Sunny Isles Beach, North Miami Beach",
+      zone2Label: "Зона B — $12",
+      zone2Cities: "Hollywood, Dania Beach, North Miami",
+      zone3Label: "Зона C — $20",
       zone3Cities: "Miami Beach, Fort Lauderdale",
       zone4Label: "Інші віддалені райони",
       zone4Cities: "Вартість і можливість доставки — за узгодженням.",
@@ -781,15 +786,17 @@ const copy = {
       date: "Дата доставки",
       allergies: "Алергії / особливі побажання",
       submit: "Надіслати заявку",
+      submitting: "Надсилаємо заявку…",
+      apiError: "Помилка при відправці заявки. Будь ласка, спробуйте ще раз.",
       required: "Заповніть усі обов'язкові поля.",
       phoneInvalid: "Вкажіть коректний номер телефону.",
       dateNotFuture: "Оберіть дату: завтра або пізніше.",
       zoneRequired: "Оберіть зону доставки.",
       close: "Закрити",
       zoneTitle: "Район доставки",
-      zone1: "Зона 1 — $10 · Hallandale, Aventura, Sunny Isles, Hollywood",
-      zone2: "Зона 2 — $15 · North Miami, North Miami Beach, Dania Beach, Miami Gardens",
-      zone3: "Зона 3 — $20 · Miami Beach, Fort Lauderdale",
+      zone1: "Зона A — $8 · Hallandale Beach, Aventura, Sunny Isles Beach, North Miami Beach",
+      zone2: "Зона B — $12 · Hollywood, Dania Beach, North Miami",
+      zone3: "Зона C — $20 · Fort Lauderdale, Miami Beach, Miami Shores",
       zoneRemote: "Інші віддалені райони — за узгодженням",
       foodSubtotal: "Сума страв",
       deliveryFee: "Доставка",
@@ -1002,6 +1009,7 @@ const state = {
   preorderErrorKey: "preorder.required",
   preorderErrorMsg: null,
   preorderSubmitAttempted: false,
+  preorderSubmitting: false,
   cateringForm: createDefaultCateringForm(),
   cateringStage: 0,
   cateringDraft: null,
@@ -1770,9 +1778,13 @@ const createPreorderStage0 = () => {
         </label>
       </div>
       ${remoteWarning}
-      <button class="btn btn-primary checkout-submit" type="submit"${canSubmit ? "" : " disabled"}>
-        <span>${escapeHtml(t("preorder.submit"))}</span>
-        <i data-lucide="send"></i>
+      <input type="text" name="_hp" value="" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
+      ${state.preorderError && state.preorderErrorMsg
+        ? `<p class="preorder-api-error">${escapeHtml(state.preorderErrorMsg)}</p>`
+        : ""}
+      <button class="btn btn-primary checkout-submit" type="submit"${canSubmit && !state.preorderSubmitting ? "" : " disabled"}>
+        <span>${escapeHtml(state.preorderSubmitting ? t("preorder.submitting") : t("preorder.submit"))}</span>
+        ${state.preorderSubmitting ? "" : '<i data-lucide="send"></i>'}
       </button>
     </form>
   `;
@@ -2237,7 +2249,7 @@ const validateCateringForm = () => {
 
 // ── Submit handlers ───────────────────────────────────────────────────────────
 
-const handlePreorderSubmit = (formEl) => {
+const handlePreorderSubmit = async (formEl) => {
   syncPreorderForm(formEl);
   const errorKey = validatePreorderForm();
   if (errorKey) {
@@ -2252,17 +2264,11 @@ const handlePreorderSubmit = (formEl) => {
   }
 
   const form = state.preorderForm;
-  const zoneConfig = DELIVERY_ZONES[form.zone];
-  const foodSubtotal = cartTotal();
-  const isZoneCSubmit = form.zone === "3";
-  const isFreeSubmit = !isZoneCSubmit && !!zoneConfig?.freeAt && foodSubtotal >= zoneConfig.freeAt;
-  const deliveryFee = isZoneCSubmit ? null : (isFreeSubmit ? 0 : (zoneConfig?.fee ?? null));
-  const orderId = generatePreorderId();
+  const honeypot = formEl.querySelector("[name='_hp']")?.value || "";
 
-  const request = {
-    orderId,
-    requestType: "preorder",
-    submittedAt: getMiamiTimestamp(),
+  const payload = {
+    _hp: honeypot,
+    items: cartEntries().map(({ dish, quantity }) => ({ id: dish.id, quantity })),
     customer: {
       name: form.name,
       phone: form.phone,
@@ -2280,22 +2286,6 @@ const handlePreorderSubmit = (formEl) => {
     schedule: {
       date: form.date,
       timeWindow: form.timeWindow,
-      timeWindowLabel: t(`preorder.time${form.timeWindow}`),
-    },
-    items: cartEntries().map(({ dish, quantity }) => ({
-      id: dish.id,
-      name: text(dish.name),
-      quantity,
-      unit: dish.unit || null,
-      unitPrice: dish.price,
-      lineTotal: dish.price * quantity,
-    })),
-    pricing: {
-      foodSubtotal,
-      deliveryFee,
-      orderTotal: deliveryFee !== null ? foodSubtotal + deliveryFee : null,
-      freeDelivery: isFreeSubmit,
-      requiresManualConfirmation: isZoneCSubmit,
     },
     notes: {
       allergies: form.allergies || null,
@@ -2303,25 +2293,43 @@ const handlePreorderSubmit = (formEl) => {
     },
   };
 
-  // eslint-disable-next-line no-console
-  console.log("[Lana's Kitchen] Preorder request:", request);
-
-  const draft = {
-    orderId,
-    form: { ...form },
-    stage: 1,
-    requestType: "preorder",
-  };
-  state.preorderDraft = draft;
-  state.cart.clear();
-  saveCart(state.cart);
-  clearDraft("preorder");
-
-  state.preorderStage = 1;
+  state.preorderSubmitting = true;
   state.preorderError = false;
   state.preorderErrorMsg = null;
   renderPreorderModal();
-  renderCart();
+
+  try {
+    const resp = await fetch("https://api.lanaskitchenmiami.com/preorder", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+
+    let result;
+    try { result = await resp.json(); } catch { result = { ok: false }; }
+
+    if (!result.ok) {
+      throw new Error(result.message || `HTTP ${resp.status}`);
+    }
+
+    const orderId = result.orderId;
+    state.preorderDraft = { orderId, form: { ...form }, stage: 1, requestType: "preorder" };
+    state.cart.clear();
+    saveCart(state.cart);
+    clearDraft("preorder");
+    state.preorderStage = 1;
+    state.preorderSubmitting = false;
+    state.preorderError = false;
+    state.preorderErrorMsg = null;
+    renderPreorderModal();
+    renderCart();
+
+  } catch {
+    state.preorderSubmitting = false;
+    state.preorderError = true;
+    state.preorderErrorMsg = t("preorder.apiError");
+    renderPreorderModal();
+  }
 };
 
 const handleCateringSubmit = (formEl) => {
