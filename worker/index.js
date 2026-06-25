@@ -24,6 +24,7 @@ const DELIVERY_ZONES = {
     fee: 10,
     minOrder: 60,
     freeAt: 110,
+    cityList: ["Hallandale Beach", "Aventura", "Sunny Isles Beach", "North Miami Beach"],
     cities: "Hallandale Beach, Aventura, Sunny Isles Beach, North Miami Beach",
   },
   "2": {
@@ -31,6 +32,7 @@ const DELIVERY_ZONES = {
     fee: 15,
     minOrder: 80,
     freeAt: 145,
+    cityList: ["Hollywood", "Dania Beach", "North Miami"],
     cities: "Hollywood, Dania Beach, North Miami",
   },
   "3": {
@@ -39,30 +41,17 @@ const DELIVERY_ZONES = {
     minOrder: 120,
     freeAt: 200,
     requiresManualConfirmation: true,
+    cityList: ["Fort Lauderdale", "Miami Beach", "Miami Shores"],
     cities: "Fort Lauderdale, Miami Beach, Miami Shores",
   },
   remote: {
-    letter: "Other",
+    letter: "Remote",
     fee: null,
     minOrder: 120,
     requiresManualConfirmation: true,
-    noAutoFreeDelivery: true,
-    cities: "Other areas",
+    cityList: [],
+    cities: "Other areas / remote",
   },
-};
-
-// Known city → zone mapping for mismatch detection (mirrors ZONE_CITY_MAP in script.js)
-const ZONE_CITY_MAP = {
-  "hallandale beach": "1", "hallandale": "1",
-  "aventura": "1",
-  "sunny isles beach": "1", "sunny isles": "1",
-  "north miami beach": "1",
-  "hollywood": "2",
-  "dania beach": "2", "dania": "2",
-  "north miami": "2",
-  "fort lauderdale": "3",
-  "miami beach": "3",
-  "miami shores": "3",
 };
 
 const MAX_BODY_SIZE = 32_000;
@@ -94,24 +83,35 @@ function generateOrderId() {
   return `LK-${date}-${code}`;
 }
 
-/** "2026-06-27" → "Friday, June 27, 2026" */
-function formatDateReadable(dateStr) {
-  if (!dateStr || !/^\d{4}-\d{2}-\d{2}$/.test(dateStr)) return dateStr ?? "";
-  const [y, m, d] = dateStr.split("-").map(Number);
-  return new Date(y, m - 1, d).toLocaleDateString("en-US", {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
-}
-
 /** Escape HTML entities for Telegram HTML parse_mode */
 function esc(str) {
   return String(str ?? "")
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;");
+}
+
+function normalizeCity(value) {
+  return String(value ?? "").trim().toLowerCase();
+}
+
+function cityToZone(city) {
+  const normalized = normalizeCity(city);
+  for (const [zone, config] of Object.entries(DELIVERY_ZONES)) {
+    if ((config.cityList || []).some((entry) => normalizeCity(entry) === normalized)) return zone;
+  }
+  return null;
+}
+
+function getReadableDate(dateValue) {
+  const date = new Date(`${dateValue}T00:00:00-05:00`);
+  return new Intl.DateTimeFormat("en-US", {
+    timeZone: "America/New_York",
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  }).format(date);
 }
 
 function checkRateLimit(ip) {
@@ -134,115 +134,74 @@ async function fetchMenuWithCache() {
   return resp.json();
 }
 
-/** Detect zone mismatch: returns detected zone key or null */
-function detectZoneMismatch(selectedZone, city) {
-  if (!city || selectedZone === "remote") return null;
-  const detected = ZONE_CITY_MAP[city.trim().toLowerCase()];
-  if (!detected || detected === selectedZone) return null;
-  return detected;
-}
-
 // ── Telegram message builder ──────────────────────────────────────────────────
 
-function buildTelegramMessage({ orderId, customer, delivery, schedule, orderItems, pricing, notes, zoneMismatchInfo }) {
-  const zone = DELIVERY_ZONES[delivery.zone];
-  const zoneLine = `Zone ${esc(zone.letter)}${zone.cities ? ` — ${esc(zone.cities)}` : ""}`;
-
-  const contactLabel = { sms: "SMS", whatsapp: "WhatsApp", telegram: "Telegram", callMe: "Позвонить" }[customer.contactMethod]
+function buildTelegramMessage({ orderId, customer, delivery, schedule, orderItems, pricing, notes, zoneMismatch }) {
+  const zone = DELIVERY_ZONES[delivery.zone] ?? DELIVERY_ZONES.remote;
+  const contactLabel = { sms: "SMS", whatsapp: "WhatsApp", telegram: "Telegram", callMe: "Phone call" }[customer.contactMethod]
     ?? esc(customer.contactMethod);
-
-  const waLine   = customer.contactMethod === "whatsapp"
-    ? `\nWhatsApp на этом номере: ${customer.whatsappSamePhone ? "Да" : "Нет"}`
-    : "";
-  const tgLine   = customer.telegramUsername ? `\nTelegram: @${esc(customer.telegramUsername.replace(/^@/, ""))}` : "";
-  const aptLine  = delivery.apt          ? `, кв/unit ${esc(delivery.apt)}`          : "";
-  const gateLine = delivery.gateCode     ? `\nКод ворот: ${esc(delivery.gateCode)}`   : "";
-  const instrLine = delivery.instructions ? `\nИнструкции: ${esc(delivery.instructions)}` : "";
-
-  const cityZipLine = (delivery.city || delivery.zip)
-    ? `\n${esc(delivery.city || "")}, FL ${esc(delivery.zip || "")}`
-    : "";
+  const readableDate = getReadableDate(schedule.date);
+  const timeWindowLabel = schedule.timeWindowLabel || schedule.timeWindow || "";
+  const fullAddress = [
+    [delivery.address, delivery.apt].filter(Boolean).join(" "),
+    [delivery.city, "FL", delivery.zip].filter(Boolean).join(" "),
+  ].filter(Boolean);
 
   const itemsLines = orderItems.map((it) => {
     const qty = it.unit === "lb" ? `${it.quantity} lb` : `× ${it.quantity}`;
     return `• ${esc(it.name)} ${qty} — $${it.lineTotal.toFixed(2)}`;
   }).join("\n");
 
-  const dateReadable = formatDateReadable(schedule.date);
-  const timeLabel = schedule.timeWindowLabel || schedule.timeWindow;
-
-  // Server-side mismatch detection (overrides / supplements client-side flag)
-  const serverMismatch = detectZoneMismatch(delivery.zone, delivery.city);
-  const mismatchZone = serverMismatch ? DELIVERY_ZONES[serverMismatch] : null;
-  const mismatchLine = mismatchZone
-    ? `\n⚠️ <b>Zone check:</b> selected Zone ${esc(zone.letter)}, city "${esc(delivery.city)}" may belong to Zone ${esc(mismatchZone.letter)}. Manual review required.`
-    : (zoneMismatchInfo && zoneMismatchInfo.detectedZone
-        ? `\n⚠️ <b>Zone check:</b> client flagged potential mismatch (selected Zone ${esc(zone.letter)}, city "${esc(zoneMismatchInfo.city || delivery.city)}"). Manual review.`
-        : "");
-
-  // ── Pricing block by zone type ──────────────────────────────────────────────
-  let pricingBlock;
-
-  if (delivery.zone === "remote") {
-    // Other areas: no fixed fee, all by confirmation
-    pricingBlock = `Еда: $${pricing.foodSubtotal.toFixed(2)}
-Доставка: По согласованию
-<b>ИТОГО: будет подтверждён после проверки адреса</b>
-
-⚠️ Доставка и итоговая сумма требуют ручного подтверждения.`;
-
-  } else if (zone.requiresManualConfirmation) {
-    // Zone C: preliminary fee shown, free delivery possible but unconfirmed
-    const prelimTotal = pricing.foodSubtotal + zone.fee;
-    const freeNote = pricing.freeDeliveryPossible
-      ? "\n⚠️ Бесплатная доставка возможна, но требует подтверждения после проверки адреса."
-      : "\n⚠️ Итоговая стоимость доставки подтверждается после проверки адреса.";
-    pricingBlock = `Еда: $${pricing.foodSubtotal.toFixed(2)}
-Предварительная доставка: $${zone.fee.toFixed(2)}
-<b>Предварительный итог: $${prelimTotal.toFixed(2)}</b>${freeNote}`;
-
-  } else {
-    // Zone A / B: fixed fee, auto free delivery
-    if (pricing.freeDelivery) {
-      const total = pricing.foodSubtotal;
-      pricingBlock = `Еда: $${pricing.foodSubtotal.toFixed(2)}
-Доставка: $${zone.fee.toFixed(2)}
-Скидка на доставку: −$${zone.fee.toFixed(2)}
-<b>ИТОГО: $${total.toFixed(2)}</b>`;
-    } else {
-      pricingBlock = `Еда: $${pricing.foodSubtotal.toFixed(2)}
-Доставка: $${pricing.deliveryFee.toFixed(2)}
-<b>ИТОГО: $${pricing.orderTotal.toFixed(2)}</b>`;
-    }
-  }
-
-  const statusLine = zone.requiresManualConfirmation
-    ? `\n<b>Статус:</b> Ожидает ручного подтверждения (Зона ${esc(zone.letter)})`
+  const zoneMismatchLine = zoneMismatch
+    ? `\n⚠️ Zone check: customer selected Zone ${esc(zoneMismatch.selectedZoneLabel)}, address may belong to Zone ${esc(zoneMismatch.inferredZoneLabel)}. Manual review required.`
     : "";
+
+  let deliveryLine = "";
+  let totalLine = "";
+  let statusLine = "";
+  if (delivery.zone === "3") {
+    deliveryLine = `Предварительная доставка: $20`;
+    totalLine = `<b>Предварительный итог: $${pricing.foodSubtotal.toFixed(2)}</b>`;
+    statusLine = "\n⚠️ Ручное подтверждение требуется.";
+  } else if (delivery.zone === "remote") {
+    deliveryLine = `Доставка: По согласованию`;
+    totalLine = `<b>Итог: Будет подтверждён после проверки адреса</b>`;
+    statusLine = "\n⚠️ Ручное подтверждение требуется.";
+  } else {
+    deliveryLine = pricing.freeDelivery
+      ? `Доставка: $0.00 (бесплатно)`
+      : `Доставка: $${pricing.deliveryFee.toFixed(2)}`;
+    totalLine = `<b>ИТОГО: $${pricing.orderTotal.toFixed(2)}</b>`;
+  }
 
   return `🆕 <b>НОВАЯ ЗАЯВКА № ${esc(orderId)}</b>
 
 Клиент: ${esc(customer.name)}
 Телефон: ${esc(customer.phone)}
-Предпочтительная связь: ${contactLabel}${waLine}${tgLine}
+Предпочтительная связь: ${contactLabel}
+${customer.contactMethod === "whatsapp" ? `WhatsApp на этом номере: ${customer.whatsappSamePhone ? "Да" : "Нет"}\n` : ""}${customer.telegramUsername ? `Telegram: ${esc(customer.telegramUsername)}\n` : ""}
 
 <b>ДОСТАВКА</b>
-Зона: ${zoneLine}
-Адрес: ${esc(delivery.address)}${aptLine}${cityZipLine}${gateLine}${instrLine}
+Zone: Zone ${esc(zone.letter)}
+${fullAddress.map((line) => esc(line)).join("\n")}
 
-Дата: ${esc(dateReadable)}
-Окно доставки: ${esc(timeLabel)}
+Дата: ${esc(readableDate)}
+Временное окно: ${esc(timeWindowLabel)}
+City: ${esc(delivery.city)}
+ZIP: ${esc(delivery.zip)}
 
 <b>ЗАКАЗ</b>
 ${itemsLines}
 
-${pricingBlock}
+Еда: $${pricing.foodSubtotal.toFixed(2)}
+${deliveryLine}
+${totalLine}
 
 <b>Аллергии / особые пожелания:</b>
 ${esc(notes.allergies?.trim() || "Нет")}
 
 <b>Комментарий к заказу:</b>
-${esc(notes.orderNotes?.trim() || "Нет")}${mismatchLine}${statusLine}`;
+${esc(notes.orderNotes?.trim() || "Нет")}${zoneMismatchLine}${statusLine}`;
 }
 
 // ── Core preorder handler ─────────────────────────────────────────────────────
@@ -276,34 +235,36 @@ async function handlePreorder(request, env, json) {
     return json({ ok: true, orderId: generateOrderId() });
   }
 
-  const { items, customer, delivery, schedule, notes = {}, zoneMismatch: clientMismatch } = body;
+  const { items, customer, delivery, schedule, notes = {} } = body;
 
   // ── Required field validation ──────────────────────────────────────────────
   if (!Array.isArray(items) || items.length === 0)
-    return json({ ok: false, error: "empty_cart",       message: "Cart cannot be empty."             }, 400);
+    return json({ ok: false, error: "empty_cart",       message: "Cart cannot be empty."                }, 400);
   if (!customer?.name?.trim())
-    return json({ ok: false, error: "missing_name",     message: "Full name is required."            }, 400);
+    return json({ ok: false, error: "missing_name",     message: "Full name is required."               }, 400);
   if (!customer?.phone?.trim())
-    return json({ ok: false, error: "missing_phone",    message: "Phone number is required."         }, 400);
+    return json({ ok: false, error: "missing_phone",    message: "Phone number is required."            }, 400);
   if (!customer?.contactMethod)
-    return json({ ok: false, error: "missing_contact",  message: "Contact method is required."       }, 400);
+    return json({ ok: false, error: "missing_contact",  message: "Contact method is required."          }, 400);
   if (!delivery?.zone)
-    return json({ ok: false, error: "missing_zone",     message: "Delivery zone is required."        }, 400);
+    return json({ ok: false, error: "missing_zone",     message: "Delivery zone is required."           }, 400);
   if (!delivery?.address?.trim())
-    return json({ ok: false, error: "missing_address",  message: "Delivery address is required."     }, 400);
+    return json({ ok: false, error: "missing_address",  message: "Delivery address is required."        }, 400);
   if (!delivery?.city?.trim())
-    return json({ ok: false, error: "missing_city",     message: "City is required."                 }, 400);
+    return json({ ok: false, error: "missing_city",     message: "City is required."                    }, 400);
   if (!delivery?.zip?.trim())
-    return json({ ok: false, error: "missing_zip",      message: "ZIP code is required."             }, 400);
+    return json({ ok: false, error: "missing_zip",      message: "ZIP is required."                     }, 400);
   if (!schedule?.date)
-    return json({ ok: false, error: "missing_date",     message: "Delivery date is required."        }, 400);
+    return json({ ok: false, error: "missing_date",     message: "Delivery date is required."           }, 400);
+  if (!schedule?.timeWindowLabel)
+    return json({ ok: false, error: "missing_time",     message: "Delivery time window is required."    }, 400);
   if (!schedule?.timeWindow)
-    return json({ ok: false, error: "missing_time",     message: "Delivery time window is required." }, 400);
+    return json({ ok: false, error: "missing_time",     message: "Delivery time window is required."    }, 400);
 
   // ── Field length guards ────────────────────────────────────────────────────
-  if ((customer.name    || "").length > 100) return json({ ok: false, error: "field_too_long", message: "Name too long."    }, 400);
-  if ((customer.phone   || "").length >  30) return json({ ok: false, error: "field_too_long", message: "Phone too long."   }, 400);
-  if ((delivery.address || "").length > 500) return json({ ok: false, error: "field_too_long", message: "Address too long." }, 400);
+  if ((customer.name   || "").length > 100) return json({ ok: false, error: "field_too_long", message: "Name too long."    }, 400);
+  if ((customer.phone  || "").length >  30) return json({ ok: false, error: "field_too_long", message: "Phone too long."   }, 400);
+  if ((delivery.address|| "").length > 500) return json({ ok: false, error: "field_too_long", message: "Address too long." }, 400);
 
   // ── Zone validation ────────────────────────────────────────────────────────
   const zoneConfig = DELIVERY_ZONES[delivery.zone];
@@ -315,6 +276,16 @@ async function handlePreorder(request, env, json) {
   const todayISO = `${todayStr.slice(0, 4)}-${todayStr.slice(4, 6)}-${todayStr.slice(6)}`;
   if (!schedule.date || schedule.date <= todayISO)
     return json({ ok: false, error: "date_too_soon", message: "Delivery date must be tomorrow or later." }, 400);
+
+  const inferredZone = cityToZone(delivery.city);
+  const zoneMismatch = inferredZone && inferredZone !== delivery.zone
+    ? {
+        selectedZone: delivery.zone,
+        selectedZoneLabel: zoneConfig.letter,
+        inferredZone,
+        inferredZoneLabel: DELIVERY_ZONES[inferredZone]?.letter ?? inferredZone,
+      }
+    : null;
 
   // ── Load menu catalog (cached at CDN) ─────────────────────────────────────
   let dishes;
@@ -350,7 +321,7 @@ async function handlePreorder(request, env, json) {
   }
 
   // ── Minimum order check (food subtotal only, delivery excluded) ───────────
-  if (zoneConfig.minOrder && foodSubtotal < zoneConfig.minOrder) {
+  if (foodSubtotal < zoneConfig.minOrder) {
     return json({
       ok: false, error: "below_minimum",
       message: `Minimum food subtotal for this area is $${zoneConfig.minOrder}. Current: $${foodSubtotal.toFixed(2)}.`,
@@ -358,31 +329,25 @@ async function handlePreorder(request, env, json) {
   }
 
   // ── Compute server-side delivery pricing ──────────────────────────────────
-  const isOther  = delivery.zone === "remote";
-  const isZoneC  = !isOther && !!zoneConfig.requiresManualConfirmation;
-  const isFree   = !isOther && !isZoneC && !!zoneConfig.freeAt && foodSubtotal >= zoneConfig.freeAt;
-
-  const deliveryFee = (isOther || isZoneC) ? null : (isFree ? 0 : zoneConfig.fee);
-  const orderTotal  = (isOther || isZoneC) ? null : foodSubtotal + deliveryFee;
-
+  const isZoneC = zoneConfig.requiresManualConfirmation === true;
+  const isRemote = delivery.zone === "remote";
+  const isFree  = foodSubtotal >= zoneConfig.freeAt;
+  const deliveryFee   = isZoneC || isRemote ? null : (isFree ? 0 : zoneConfig.fee);
+  const orderTotal    = isZoneC || isRemote ? null : foodSubtotal + deliveryFee;
   const pricing = {
     foodSubtotal,
     deliveryFee,
     orderTotal,
-    freeDelivery:          !isOther && !isZoneC && isFree,
-    freeDeliveryPossible:  isZoneC && !!zoneConfig.freeAt && foodSubtotal >= zoneConfig.freeAt,
-    requiresManualConfirmation: isZoneC || isOther,
+    freeDelivery:         !isZoneC && !isRemote && isFree,
+    freeDeliveryPossible:  isZoneC && isFree,
+    requiresManualConfirmation: isZoneC || isRemote,
   };
 
   // ── Generate server-side order ID ─────────────────────────────────────────
   const orderId = generateOrderId();
 
   // ── Send Telegram notification ────────────────────────────────────────────
-  const tgMessage = buildTelegramMessage({
-    orderId, customer, delivery, schedule, orderItems, pricing, notes,
-    zoneMismatchInfo: clientMismatch ?? null,
-  });
-
+  const tgMessage = buildTelegramMessage({ orderId, customer, delivery, schedule, orderItems, pricing, notes, zoneMismatch });
   const tgResp = await fetch(`https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/sendMessage`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },

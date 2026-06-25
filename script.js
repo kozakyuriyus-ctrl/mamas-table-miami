@@ -6,25 +6,21 @@ const DISPLAY_PHONE = formatPhone(WHATSAPP_NUMBER);
 // ── Delivery zone config ─────────────────────────────────────────────────────
 // Mirrors DELIVERY_ZONES in worker/index.js — keep in sync when changing prices
 const DELIVERY_ZONES = {
-  "1":     { fee: 10, minOrder: 60,  freeAt: 110 },
-  "2":     { fee: 15, minOrder: 80,  freeAt: 145 },
-  "3":     { fee: 20, minOrder: 120, freeAt: 200, requiresManualConfirmation: true },
-  remote:  { fee: null, minOrder: 120, requiresManualConfirmation: true },
+  "1": { label: "A", fee: 10, minOrder: 60, freeAt: 110 },
+  "2": { label: "B", fee: 15, minOrder: 80, freeAt: 145 },
+  "3": { label: "C", fee: 20, minOrder: 120, freeAt: 200, requiresManualConfirmation: true },
+  remote: { label: "Remote", fee: null, minOrder: 120, requiresManualConfirmation: true },
 };
 
-// Known city → zone mapping for client-side mismatch hint
-const ZONE_CITY_MAP = {
-  "hallandale beach": "1", "hallandale": "1",
-  "aventura": "1",
-  "sunny isles beach": "1", "sunny isles": "1",
-  "north miami beach": "1",
-  "hollywood": "2",
-  "dania beach": "2", "dania": "2",
-  "north miami": "2",
-  "fort lauderdale": "3",
-  "miami beach": "3",
-  "miami shores": "3",
+const ZONE_CITY_RULES = {
+  "1": ["Hallandale Beach", "Aventura", "Sunny Isles Beach", "North Miami Beach"],
+  "2": ["Hollywood", "Dania Beach", "North Miami"],
+  "3": ["Fort Lauderdale", "Miami Beach", "Miami Shores"],
 };
+
+const CITY_ZONE_RULES = Object.fromEntries(
+  Object.entries(ZONE_CITY_RULES).flatMap(([zone, cities]) => cities.map((city) => [city.toLowerCase(), zone]))
+);
 
 const API_ENABLED = true;
 const PREORDER_API_URL = "https://api.lanaskitchenmiami.com/preorder";
@@ -137,8 +133,8 @@ const copy = {
       zone2Cities: "Hollywood, Dania Beach, North Miami",
       zone3Label: "Зона C — $20",
       zone3Cities: "Fort Lauderdale, Miami Beach, Miami Shores",
-      zone4Label: "Другие удалённые районы",
-      zone4Cities: "Стоимость и возможность доставки — по согласованию.",
+      zone4Label: "Другие районы / remote",
+      zone4Cities: "Доставка по согласованию. Без фиксированной суммы.",
       footer: "Стоимость доставки подтверждается до оплаты и никогда не добавляется без согласования.",
     },
     testimonials: {
@@ -213,32 +209,23 @@ const copy = {
       zoneRequired: "Выберите зону доставки.",
       close: "Закрыть",
       zoneTitle: "Район доставки",
-      zone1: "Зона A — $10 · Hallandale, Aventura, Sunny Isles, North Miami Beach",
-      zone2: "Зона B — $15 · Hollywood, Dania, North Miami",
-      zone3: "Зона C — $20 · Fort Lauderdale, Miami Beach, Miami Shores — требуется подтверждение",
-      zoneRemote: "Другие районы — доставка по согласованию",
+      zone1: "Зона A — $10 · Hallandale Beach, Aventura, Sunny Isles Beach, North Miami Beach",
+      zone2: "Зона B — $15 · Hollywood, Dania Beach, North Miami",
+      zone3: "Зона C — $20 · Fort Lauderdale, Miami Beach, Miami Shores",
+      zoneRemote: "Другие удалённые районы — по согласованию",
       foodSubtotal: "Сумма блюд",
       deliveryFee: "Доставка",
       freeDelivery: "Бесплатно",
-      freeDeliveryDiscount: "Скидка на доставку",
+      freeDeliveryDiscount: "Скидка (бесплатная доставка)",
       freeDeliveryUnlocked: "Бесплатная доставка применена",
       orderTotal: "Итого к оплате",
       orderTotalNoDelivery: "Итог без учёта доставки",
-      prelimDelivery: "Предварительная доставка",
-      prelimTotal: "Предварительный итог",
-      confirmationNote: "Итоговая стоимость доставки и бесплатная доставка подтверждаются после проверки адреса.",
-      otherDelivery: "по согласованию",
-      otherTotal: "будет подтверждён",
-      otherNote: "Стоимость доставки и итоговая сумма будут подтверждены после проверки адреса.",
       zoneCFeeLabel: "от $20",
       zoneCNote: "Доставка от $20. Точная стоимость подтверждается после проверки адреса.",
       zoneCFreeNote: "Бесплатная доставка возможна после подтверждения адреса.",
       remoteDeliveryLabel: "по согласованию",
       remoteNote: "Возможность и стоимость доставки будут подтверждены вручную.",
       remoteDisabledNote: "Для удалённых районов стоимость и возможность доставки подтверждаются индивидуально.",
-      zoneMismatch: "Выбранная зона может не совпадать с указанным адресом. Финальные условия доставки подтвердит кухня.",
-      city: "Город",
-      zip: "ZIP-код",
       contactTitle: "Контактные данные",
       contactMethod: "Способ связи",
       contactSms: "SMS",
@@ -445,8 +432,8 @@ const copy = {
       zone2Cities: "Hollywood, Dania Beach, North Miami",
       zone3Label: "Zone C — $20",
       zone3Cities: "Miami Beach, Fort Lauderdale",
-      zone4Label: "Other distant areas",
-      zone4Cities: "Delivery cost and availability — by arrangement.",
+      zone4Label: "Other areas / remote",
+      zone4Cities: "Delivery by confirmation. No fixed fee.",
       footer: "Delivery cost is confirmed before payment and is never added without your agreement.",
     },
     testimonials: {
@@ -521,10 +508,10 @@ const copy = {
       zoneRequired: "Please select a delivery zone.",
       close: "Close",
       zoneTitle: "Delivery area",
-      zone1: "Zone A — $10 · Hallandale, Aventura, Sunny Isles, North Miami Beach",
-      zone2: "Zone B — $15 · Hollywood, Dania, North Miami",
-      zone3: "Zone C — $20 · Fort Lauderdale, Miami Beach, Miami Shores — confirmation required",
-      zoneRemote: "Other areas — delivery by confirmation",
+      zone1: "Zone A — $10 · Hallandale Beach, Aventura, Sunny Isles Beach, North Miami Beach",
+      zone2: "Zone B — $15 · Hollywood, Dania Beach, North Miami",
+      zone3: "Zone C — $20 · Fort Lauderdale, Miami Beach, Miami Shores",
+      zoneRemote: "Other distant areas — by arrangement",
       foodSubtotal: "Food subtotal",
       deliveryFee: "Delivery",
       freeDelivery: "Free",
@@ -532,21 +519,12 @@ const copy = {
       freeDeliveryUnlocked: "Free delivery applied",
       orderTotal: "Total to pay",
       orderTotalNoDelivery: "Total (excl. delivery)",
-      prelimDelivery: "Preliminary delivery",
-      prelimTotal: "Preliminary total",
-      confirmationNote: "Final delivery fee and free delivery eligibility will be confirmed after address review.",
-      otherDelivery: "by confirmation",
-      otherTotal: "to be confirmed",
-      otherNote: "Delivery cost and final total will be confirmed after address review.",
       zoneCFeeLabel: "from $20",
       zoneCNote: "Delivery starts at $20. Final cost will be confirmed after the address is reviewed.",
       zoneCFreeNote: "Free delivery may be available after the address is confirmed.",
       remoteDeliveryLabel: "by arrangement",
       remoteNote: "Delivery availability and cost will be confirmed manually.",
       remoteDisabledNote: "For distant areas, delivery cost and availability are confirmed individually.",
-      zoneMismatch: "The selected delivery zone may not match the entered address. Final delivery details will be confirmed by the kitchen.",
-      city: "City",
-      zip: "ZIP code",
       contactTitle: "Your details",
       contactMethod: "Preferred contact method",
       contactSms: "SMS",
@@ -753,8 +731,8 @@ const copy = {
       zone2Cities: "Hollywood, Dania Beach, North Miami",
       zone3Label: "Зона C — $20",
       zone3Cities: "Miami Beach, Fort Lauderdale",
-      zone4Label: "Інші віддалені райони",
-      zone4Cities: "Вартість і можливість доставки — за узгодженням.",
+      zone4Label: "Інші райони / remote",
+      zone4Cities: "Доставка за погодженням. Без фіксованої суми.",
       footer: "Вартість доставки підтверджується до оплати і ніколи не додається без узгодження.",
     },
     testimonials: {
@@ -829,32 +807,23 @@ const copy = {
       zoneRequired: "Оберіть зону доставки.",
       close: "Закрити",
       zoneTitle: "Район доставки",
-      zone1: "Зона A — $10 · Hallandale, Aventura, Sunny Isles, North Miami Beach",
-      zone2: "Зона B — $15 · Hollywood, Dania, North Miami",
-      zone3: "Зона C — $20 · Fort Lauderdale, Miami Beach, Miami Shores — потрібне підтвердження",
-      zoneRemote: "Інші райони — доставка за погодженням",
+      zone1: "Зона A — $10 · Hallandale Beach, Aventura, Sunny Isles Beach, North Miami Beach",
+      zone2: "Зона B — $15 · Hollywood, Dania Beach, North Miami",
+      zone3: "Зона C — $20 · Fort Lauderdale, Miami Beach, Miami Shores",
+      zoneRemote: "Інші віддалені райони — за узгодженням",
       foodSubtotal: "Сума страв",
       deliveryFee: "Доставка",
       freeDelivery: "Безкоштовно",
-      freeDeliveryDiscount: "Знижка на доставку",
+      freeDeliveryDiscount: "Знижка (безкоштовна доставка)",
       freeDeliveryUnlocked: "Безкоштовну доставку застосовано",
       orderTotal: "Разом до оплати",
       orderTotalNoDelivery: "Разом без урахування доставки",
-      prelimDelivery: "Попередня доставка",
-      prelimTotal: "Попередній підсумок",
-      confirmationNote: "Кінцева вартість доставки та безкоштовна доставка підтверджуються після перевірки адреси.",
-      otherDelivery: "за погодженням",
-      otherTotal: "буде підтверджено",
-      otherNote: "Вартість доставки та підсумкова сума будуть підтверджені після перевірки адреси.",
       zoneCFeeLabel: "від $20",
       zoneCNote: "Доставка від $20. Точна вартість підтверджується після перевірки адреси.",
       zoneCFreeNote: "Безкоштовна доставка можлива після підтвердження адреси.",
       remoteDeliveryLabel: "за узгодженням",
       remoteNote: "Можливість і вартість доставки будуть підтверджені вручну.",
       remoteDisabledNote: "Для віддалених районів вартість і можливість доставки підтверджуються індивідуально.",
-      zoneMismatch: "Обрана зона може не відповідати вказаній адресі. Остаточні умови доставки підтвердить кухня.",
-      city: "Місто",
-      zip: "ZIP-код",
       contactTitle: "Ваші контакти",
       contactMethod: "Бажаний спосіб зв'язку",
       contactSms: "SMS",
@@ -1001,12 +970,12 @@ const createDefaultPreorderForm = () => ({
   phone: "",
   fulfillmentType: "delivery",
   zone: "",
+  city: "",
+  zip: "",
   contactMethod: "",
   telegramUsername: "",
   whatsappSamePhone: false,
   address: "",
-  city: "",
-  zip: "",
   apt: "",
   gateCode: "",
   deliveryInstructions: "",
@@ -1056,6 +1025,7 @@ const state = {
   preorderErrorMsg: null,
   preorderSubmitAttempted: false,
   preorderSubmitting: false,
+  preorderZoneMismatch: null,
   cateringForm: createDefaultCateringForm(),
   cateringStage: 0,
   cateringDraft: null,
@@ -1630,6 +1600,10 @@ const createPreorderStage0 = () => {
   const foodSubtotal = cartTotal();
   const zone = form.zone;
   const zoneConfig = zone ? DELIVERY_ZONES[zone] : null;
+  const isRemote = zone === "remote";
+  const zoneMismatch = detectZoneMismatch(zone, form.city);
+  state.preorderZoneMismatch = zoneMismatch;
+
   const ddTomorrow = new Date();
   ddTomorrow.setDate(ddTomorrow.getDate() + 1);
   const tomorrowStr = ddTomorrow.toISOString().slice(0, 10);
@@ -1659,44 +1633,33 @@ const createPreorderStage0 = () => {
     return `<div class="modal-cart-item"><span>${escapeHtml(text(dish.name))} × ${escapeHtml(qtyStr)}</span><em>${money(dish.price * quantity)}</em></div>`;
   }).join("");
 
-  const isOther = zone === "remote";
   const isZoneC = zone === "3";
-  const isFree  = !isOther && !isZoneC && !!zoneConfig?.freeAt && foodSubtotal >= zoneConfig.freeAt;
-  const belowMin = !!zoneConfig?.minOrder && foodSubtotal < zoneConfig.minOrder;
-  const freeRemaining = !isOther && !isZoneC && !!zoneConfig?.freeAt ? Math.max(0, zoneConfig.freeAt - foodSubtotal) : 0;
-
-  // Zone mismatch: city entered + matches a zone that differs from selected
-  const cityNorm = (form.city || "").trim().toLowerCase();
-  const detectedZone = cityNorm ? ZONE_CITY_MAP[cityNorm] : null;
-  const zoneMismatch = !!detectedZone && !!zone && !isOther && detectedZone !== zone;
+  const isZoneRemote = isRemote;
+  const isFree = !isZoneRemote && !isZoneC && !!zoneConfig?.freeAt && foodSubtotal >= zoneConfig.freeAt;
+  const belowMin = !isZoneRemote && !!zoneConfig?.minOrder && foodSubtotal < zoneConfig.minOrder;
+  const freeRemaining = !isZoneRemote && !isZoneC && !!zoneConfig?.freeAt ? Math.max(0, zoneConfig.freeAt - foodSubtotal) : 0;
 
   let pricingHtml = "";
   if (zoneConfig) {
-    if (isOther) {
-      const belowMsg = belowMin
-        ? `<p class="zone-min-warning">${escapeHtml(buildMinOrderMsg(zoneConfig.minOrder, zoneConfig.minOrder - foodSubtotal))}</p>`
-        : "";
+    if (isRemote) {
       pricingHtml = `
         <div class="checkout-pricing">
           <div class="pricing-row"><span>${escapeHtml(t("preorder.foodSubtotal"))}</span><em>${money(foodSubtotal)}</em></div>
-          <div class="pricing-row"><span>${escapeHtml(t("preorder.deliveryFee"))}</span><em class="muted-text">${escapeHtml(t("preorder.otherDelivery"))}</em></div>
-          <div class="pricing-row pricing-row-total"><span>${escapeHtml(t("preorder.orderTotal"))}</span><em class="muted-text">${escapeHtml(t("preorder.otherTotal"))}</em></div>
-          ${belowMsg}
-          <p class="zone-c-note">${escapeHtml(t("preorder.otherNote"))}</p>
+          <div class="pricing-row"><span>${escapeHtml(t("preorder.deliveryFee"))}</span><em class="muted-text">${escapeHtml(t("preorder.remoteDeliveryLabel"))}</em></div>
+          <p class="zone-c-note">${escapeHtml(t("preorder.remoteNote"))}</p>
         </div>`;
     } else if (isZoneC) {
-      const prelimTotal = foodSubtotal + zoneConfig.fee;
       const zoneNote = foodSubtotal >= (zoneConfig.freeAt ?? Infinity)
         ? escapeHtml(t("preorder.zoneCFreeNote"))
-        : escapeHtml(t("preorder.confirmationNote"));
+        : escapeHtml(t("preorder.zoneCNote"));
       const minMsg = belowMin
         ? `<p class="zone-min-warning">${escapeHtml(buildMinOrderMsg(zoneConfig.minOrder, zoneConfig.minOrder - foodSubtotal))}</p>`
         : "";
       pricingHtml = `
         <div class="checkout-pricing">
           <div class="pricing-row"><span>${escapeHtml(t("preorder.foodSubtotal"))}</span><em>${money(foodSubtotal)}</em></div>
-          <div class="pricing-row"><span>${escapeHtml(t("preorder.prelimDelivery"))}</span><em class="muted-text">${money(zoneConfig.fee)}</em></div>
-          <div class="pricing-row pricing-row-total"><span>${escapeHtml(t("preorder.prelimTotal"))}</span><strong class="muted-text">${money(prelimTotal)}</strong></div>
+          <div class="pricing-row"><span>${escapeHtml(t("preorder.deliveryFee"))}</span><em class="muted-text">${escapeHtml(t("preorder.zoneCFeeLabel"))}</em></div>
+          <div class="pricing-row pricing-row-total"><span>${escapeHtml(t("preorder.orderTotalNoDelivery"))}</span><strong>${money(foodSubtotal)}</strong></div>
           ${minMsg}
           <p class="zone-c-note">${zoneNote}</p>
         </div>`;
@@ -1748,10 +1711,6 @@ const createPreorderStage0 = () => {
     ? `<label class="form-field form-field-wide form-checkbox-label"><input type="checkbox" name="whatsappSamePhone" value="1"${form.whatsappSamePhone ? " checked" : ""} /><span>${escapeHtml(t("preorder.whatsappSamePhone"))}</span></label>`
     : "";
 
-  const mismatchBanner = zoneMismatch
-    ? `<p class="zone-mismatch-warning">${escapeHtml(t("preorder.zoneMismatch"))}</p>`
-    : "";
-
   const addressHtml = `
     <h4 class="checkout-section-label">${escapeHtml(t("preorder.deliveryTitle"))}</h4>
     <div class="form-grid">
@@ -1761,13 +1720,13 @@ const createPreorderStage0 = () => {
         ${errSpan("address")}
       </label>
       <label class="form-field${invCls("city")}">
-        <span>${escapeHtml(t("preorder.city"))} *</span>
+        <span>City *</span>
         <input name="city" type="text" value="${escapeHtml(form.city)}" autocomplete="address-level2" required />
         ${errSpan("city")}
       </label>
       <label class="form-field${invCls("zip")}">
-        <span>${escapeHtml(t("preorder.zip"))} *</span>
-        <input name="zip" type="text" value="${escapeHtml(form.zip)}" autocomplete="postal-code" inputmode="numeric" required />
+        <span>ZIP *</span>
+        <input name="zip" type="text" value="${escapeHtml(form.zip)}" autocomplete="postal-code" required />
         ${errSpan("zip")}
       </label>
       <label class="form-field">
@@ -1782,8 +1741,7 @@ const createPreorderStage0 = () => {
         <span>${escapeHtml(t("preorder.deliveryInstructions"))}</span>
         <textarea name="deliveryInstructions" rows="2">${escapeHtml(form.deliveryInstructions)}</textarea>
       </label>
-    </div>
-    ${mismatchBanner}`;
+    </div>`;
 
   const TIME_SLOTS = ["A", "B", "C", "D", "E", "F", "G", "H", "I"];
   const timeOptions = TIME_SLOTS.map((s) => {
@@ -1791,7 +1749,9 @@ const createPreorderStage0 = () => {
     return `<option value="${s}"${selected}>${escapeHtml(t(`preorder.time${s}`))}</option>`;
   }).join("");
 
-  const canSubmit = !!zone && !belowMin;
+  const canSubmit = zone && !belowMin;
+  const remoteWarning = isRemote
+    ? `<p class="zone-remote-note">${escapeHtml(t("preorder.remoteDisabledNote"))}</p>` : "";
 
   return `
     <div class="modal-cart-summary">
@@ -1848,6 +1808,10 @@ const createPreorderStage0 = () => {
           <textarea name="orderNotes" rows="2">${escapeHtml(form.orderNotes)}</textarea>
         </label>
       </div>
+      ${remoteWarning}
+      ${zoneMismatch
+        ? `<p class="zone-remote-note">⚠️ Zone check: customer selected Zone ${escapeHtml(DELIVERY_ZONES[zone]?.label || zone)}, address may belong to Zone ${escapeHtml(DELIVERY_ZONES[zoneMismatch.inferredZone]?.label || zoneMismatch.inferredZone)}. Manual review required.</p>`
+        : ""}
       <input type="text" name="_hp" value="" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
       ${state.preorderError && state.preorderErrorMsg
         ? `<p class="preorder-api-error">${escapeHtml(state.preorderErrorMsg)}</p>`
@@ -2259,12 +2223,12 @@ const syncPreorderForm = (formEl) => {
     phone: String(data.get("phone") || "").trim(),
     fulfillmentType: String(data.get("fulfillmentType") || "delivery"),
     zone: String(data.get("zone") || ""),
+    city: String(data.get("city") || "").trim(),
+    zip: String(data.get("zip") || "").trim(),
     contactMethod: String(data.get("contactMethod") || ""),
     telegramUsername: String(data.get("telegramUsername") || "").trim(),
     whatsappSamePhone: data.get("whatsappSamePhone") === "1",
     address: String(data.get("address") || "").trim(),
-    city: String(data.get("city") || "").trim(),
-    zip: String(data.get("zip") || "").trim(),
     apt: String(data.get("apt") || "").trim(),
     gateCode: String(data.get("gateCode") || "").trim(),
     deliveryInstructions: String(data.get("deliveryInstructions") || "").trim(),
@@ -2319,6 +2283,17 @@ const validateCateringForm = () => {
   return null;
 };
 
+const normalizeCity = (value) => String(value || "").trim().toLowerCase();
+
+const detectZoneMismatch = (zone, city) => {
+  const inferredZone = CITY_ZONE_RULES[normalizeCity(city)] || null;
+  if (!zone || !city || !inferredZone || inferredZone === zone) return null;
+  return {
+    selectedZone: zone,
+    inferredZone,
+  };
+};
+
 // ── Submit handlers ───────────────────────────────────────────────────────────
 
 const handlePreorderSubmit = async (formEl) => {
@@ -2337,12 +2312,8 @@ const handlePreorderSubmit = async (formEl) => {
 
   const form = state.preorderForm;
   const honeypot = formEl.querySelector("[name='_hp']")?.value || "";
-
-  const cityNormPay = (form.city || "").trim().toLowerCase();
-  const detectedZonePay = cityNormPay ? ZONE_CITY_MAP[cityNormPay] : null;
-  const zoneMismatchPay = detectedZonePay && form.zone !== "remote" && detectedZonePay !== form.zone
-    ? { selectedZone: form.zone, detectedZone: detectedZonePay, city: form.city }
-    : null;
+  const timeWindowLabel = t(`preorder.time${form.timeWindow}`) || form.timeWindow;
+  const zoneMismatch = detectZoneMismatch(form.zone, form.city);
 
   const payload = {
     _hp: honeypot,
@@ -2357,8 +2328,8 @@ const handlePreorderSubmit = async (formEl) => {
     delivery: {
       zone: form.zone,
       address: form.address,
-      city: form.city || null,
-      zip: form.zip || null,
+      city: form.city,
+      zip: form.zip,
       apt: form.apt || null,
       gateCode: form.gateCode || null,
       instructions: form.deliveryInstructions || null,
@@ -2366,18 +2337,19 @@ const handlePreorderSubmit = async (formEl) => {
     schedule: {
       date: form.date,
       timeWindow: form.timeWindow,
-      timeWindowLabel: t(`preorder.time${form.timeWindow}`) || form.timeWindow,
+      timeWindowLabel,
     },
+    zoneMismatch,
     notes: {
       allergies: form.allergies || null,
       orderNotes: form.orderNotes || null,
     },
-    zoneMismatch: zoneMismatchPay,
   };
 
   state.preorderSubmitting = true;
   state.preorderError = false;
   state.preorderErrorMsg = null;
+  state.preorderZoneMismatch = zoneMismatch;
   renderPreorderModal();
 
   if (!API_ENABLED) {
@@ -2390,6 +2362,7 @@ const handlePreorderSubmit = async (formEl) => {
     state.preorderSubmitting = false;
     state.preorderError = false;
     state.preorderErrorMsg = null;
+    state.preorderZoneMismatch = null;
     renderPreorderModal();
     renderCart();
     return;
@@ -2418,6 +2391,7 @@ const handlePreorderSubmit = async (formEl) => {
     state.preorderSubmitting = false;
     state.preorderError = false;
     state.preorderErrorMsg = null;
+    state.preorderZoneMismatch = null;
     renderPreorderModal();
     renderCart();
 
@@ -2425,6 +2399,7 @@ const handlePreorderSubmit = async (formEl) => {
     state.preorderSubmitting = false;
     state.preorderError = true;
     state.preorderErrorMsg = t("preorder.apiError");
+    state.preorderZoneMismatch = zoneMismatch;
     renderPreorderModal();
   }
 };
