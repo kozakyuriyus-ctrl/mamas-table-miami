@@ -5,9 +5,9 @@ const DISPLAY_PHONE = formatPhone(WHATSAPP_NUMBER);
 
 // ── Delivery zone config ─────────────────────────────────────────────────────
 const DELIVERY_ZONES = {
-  "1": { fee: 10 },
-  "2": { fee: 15 },
-  "3": { fee: 20 },
+  "1": { fee: 10, minOrder: 60,  freeAt: 110 },
+  "2": { fee: 15, minOrder: 80,  freeAt: 145 },
+  "3": { fee: 20, minOrder: 120, freeAt: 200, requiresManualConfirmation: true },
   remote: { fee: null },
 };
 
@@ -199,9 +199,16 @@ const copy = {
       zoneRemote: "Другие удалённые районы — по согласованию",
       foodSubtotal: "Сумма за блюда",
       deliveryFee: "Доставка",
-      remoteDeliveryLabel: "по согласованию",
+      freeDelivery: "Бесплатно",
+      freeDeliveryDiscount: "Скидка (бесплатная доставка)",
+      freeDeliveryUnlocked: "Бесплатная доставка включена",
       orderTotal: "Итого",
-      remoteNote: "Стоимость доставки будет согласована после подтверждения адреса.",
+      orderTotalNoDelivery: "Итог без учёта доставки",
+      zoneCFeeLabel: "от $20",
+      zoneCNote: "Доставка от $20. Точная стоимость подтверждается после проверки адреса.",
+      zoneCFreeNote: "Бесплатная доставка возможна после подтверждения адреса.",
+      remoteDeliveryLabel: "по согласованию",
+      remoteNote: "Возможность и стоимость доставки будут подтверждены вручную.",
       remoteDisabledNote: "Для удалённых районов стоимость и возможность доставки подтверждаются индивидуально.",
       contactTitle: "Контактные данные",
       contactMethod: "Способ связи",
@@ -489,9 +496,16 @@ const copy = {
       zoneRemote: "Other distant areas — by arrangement",
       foodSubtotal: "Food subtotal",
       deliveryFee: "Delivery",
-      remoteDeliveryLabel: "by arrangement",
+      freeDelivery: "Free",
+      freeDeliveryDiscount: "Free delivery discount",
+      freeDeliveryUnlocked: "Free delivery unlocked",
       orderTotal: "Total",
-      remoteNote: "Delivery cost will be confirmed after address verification.",
+      orderTotalNoDelivery: "Total (excl. delivery)",
+      zoneCFeeLabel: "from $20",
+      zoneCNote: "Delivery starts at $20. Final cost will be confirmed after the address is reviewed.",
+      zoneCFreeNote: "Free delivery may be available after the address is confirmed.",
+      remoteDeliveryLabel: "by arrangement",
+      remoteNote: "Delivery availability and cost will be confirmed manually.",
       remoteDisabledNote: "For distant areas, delivery cost and availability are confirmed individually.",
       contactTitle: "Your details",
       contactMethod: "Preferred contact method",
@@ -779,9 +793,16 @@ const copy = {
       zoneRemote: "Інші віддалені райони — за узгодженням",
       foodSubtotal: "Сума за страви",
       deliveryFee: "Доставка",
-      remoteDeliveryLabel: "за узгодженням",
+      freeDelivery: "Безкоштовно",
+      freeDeliveryDiscount: "Знижка (безкоштовна доставка)",
+      freeDeliveryUnlocked: "Безкоштовну доставку активовано",
       orderTotal: "Разом",
-      remoteNote: "Вартість доставки буде узгоджена після підтвердження адреси.",
+      orderTotalNoDelivery: "Разом без урахування доставки",
+      zoneCFeeLabel: "від $20",
+      zoneCNote: "Доставка від $20. Точна вартість підтверджується після перевірки адреси.",
+      zoneCFreeNote: "Безкоштовна доставка можлива після підтвердження адреси.",
+      remoteDeliveryLabel: "за узгодженням",
+      remoteNote: "Можливість і вартість доставки будуть підтверджені вручну.",
       remoteDisabledNote: "Для віддалених районів вартість і можливість доставки підтверджуються індивідуально.",
       contactTitle: "Ваші контакти",
       contactMethod: "Бажаний спосіб зв'язку",
@@ -1403,6 +1424,22 @@ const generatePreorderId = () => {
 };
 
 
+// ── Delivery helpers ──────────────────────────────────────────────────────────
+
+const buildMinOrderMsg = (minOrder, remaining) => {
+  if (state.lang === "en")
+    return `Minimum order for this area is ${money(minOrder)}. Add ${money(remaining)} more to continue.`;
+  if (state.lang === "uk")
+    return `Мінімальне замовлення для цього району — ${money(minOrder)}. Додайте ще ${money(remaining)}.`;
+  return `Минимальный заказ для выбранного района — ${money(minOrder)}. Добавьте ещё ${money(remaining)}.`;
+};
+
+const buildFreeDeliveryHint = (remaining) => {
+  if (state.lang === "en") return `Add ${money(remaining)} more for free delivery.`;
+  if (state.lang === "uk") return `Додайте ще ${money(remaining)} для безкоштовної доставки.`;
+  return `Добавьте ещё ${money(remaining)} для бесплатной доставки.`;
+};
+
 // ── Clipboard ─────────────────────────────────────────────────────────────────
 
 const copyOrderText = async (message) => {
@@ -1564,6 +1601,11 @@ const createPreorderStage0 = () => {
     return `<div class="modal-cart-item"><span>${escapeHtml(text(dish.name))} × ${escapeHtml(qtyStr)}</span><em>${money(dish.price * quantity)}</em></div>`;
   }).join("");
 
+  const isZoneC = zone === "3";
+  const isFree = !isRemote && !isZoneC && !!zoneConfig?.freeAt && foodSubtotal >= zoneConfig.freeAt;
+  const belowMin = !isRemote && !!zoneConfig?.minOrder && foodSubtotal < zoneConfig.minOrder;
+  const freeRemaining = !isRemote && !isZoneC && !!zoneConfig?.freeAt ? Math.max(0, zoneConfig.freeAt - foodSubtotal) : 0;
+
   let pricingHtml = "";
   if (zoneConfig) {
     if (isRemote) {
@@ -1573,14 +1615,39 @@ const createPreorderStage0 = () => {
           <div class="pricing-row"><span>${escapeHtml(t("preorder.deliveryFee"))}</span><em class="muted-text">${escapeHtml(t("preorder.remoteDeliveryLabel"))}</em></div>
           <p class="zone-c-note">${escapeHtml(t("preorder.remoteNote"))}</p>
         </div>`;
-    } else {
-      const deliveryFee = zoneConfig.fee;
-      const orderTotal = foodSubtotal + deliveryFee;
+    } else if (isZoneC) {
+      const zoneNote = foodSubtotal >= (zoneConfig.freeAt ?? Infinity)
+        ? escapeHtml(t("preorder.zoneCFreeNote"))
+        : escapeHtml(t("preorder.zoneCNote"));
+      const minMsg = belowMin
+        ? `<p class="zone-min-warning">${escapeHtml(buildMinOrderMsg(zoneConfig.minOrder, zoneConfig.minOrder - foodSubtotal))}</p>`
+        : "";
       pricingHtml = `
         <div class="checkout-pricing">
           <div class="pricing-row"><span>${escapeHtml(t("preorder.foodSubtotal"))}</span><em>${money(foodSubtotal)}</em></div>
-          <div class="pricing-row"><span>${escapeHtml(t("preorder.deliveryFee"))}</span><em>${money(deliveryFee)}</em></div>
+          <div class="pricing-row"><span>${escapeHtml(t("preorder.deliveryFee"))}</span><em class="muted-text">${escapeHtml(t("preorder.zoneCFeeLabel"))}</em></div>
+          <div class="pricing-row pricing-row-total"><span>${escapeHtml(t("preorder.orderTotalNoDelivery"))}</span><strong>${money(foodSubtotal)}</strong></div>
+          ${minMsg}
+          <p class="zone-c-note">${zoneNote}</p>
+        </div>`;
+    } else {
+      const deliveryFee = isFree ? 0 : zoneConfig.fee;
+      const orderTotal = foodSubtotal + deliveryFee;
+      const minMsg = belowMin
+        ? `<p class="zone-min-warning">${escapeHtml(buildMinOrderMsg(zoneConfig.minOrder, zoneConfig.minOrder - foodSubtotal))}</p>`
+        : "";
+      const freeHint = !isFree && freeRemaining > 0
+        ? `<p class="zone-free-hint">${escapeHtml(buildFreeDeliveryHint(freeRemaining))}</p>`
+        : "";
+      const freeUnlocked = isFree
+        ? `<p class="zone-free-unlocked">${escapeHtml(t("preorder.freeDeliveryUnlocked"))}</p>`
+        : "";
+      pricingHtml = `
+        <div class="checkout-pricing">
+          <div class="pricing-row"><span>${escapeHtml(t("preorder.foodSubtotal"))}</span><em>${money(foodSubtotal)}</em></div>
+          <div class="pricing-row"><span>${escapeHtml(t("preorder.deliveryFee"))}</span><em${isFree ? ' class="zone-free-label"' : ""}>${isFree ? escapeHtml(t("preorder.freeDelivery")) : money(deliveryFee)}</em></div>
           <div class="pricing-row pricing-row-total"><span>${escapeHtml(t("preorder.orderTotal"))}</span><strong>${money(orderTotal)}</strong></div>
+          ${minMsg}${freeHint}${freeUnlocked}
         </div>`;
     }
   }
@@ -1639,7 +1706,7 @@ const createPreorderStage0 = () => {
     return `<option value="${s}"${selected}>${escapeHtml(t(`preorder.time${s}`))}</option>`;
   }).join("");
 
-  const canSubmit = zone && !isRemote;
+  const canSubmit = zone && !isRemote && !belowMin;
   const remoteWarning = isRemote
     ? `<p class="zone-remote-note">${escapeHtml(t("preorder.remoteDisabledNote"))}</p>` : "";
 
@@ -2149,6 +2216,8 @@ const validatePreorderForm = () => {
   const dd = new Date();
   dd.setDate(dd.getDate() + 1);
   if (f.date < dd.toISOString().slice(0, 10)) return "preorder.dateNotFuture";
+  const zoneConfig = DELIVERY_ZONES[f.zone];
+  if (zoneConfig?.minOrder && cartTotal() < zoneConfig.minOrder) return "preorder.zoneRequired";
   return null;
 };
 
@@ -2181,7 +2250,9 @@ const handlePreorderSubmit = (formEl) => {
   const form = state.preorderForm;
   const zoneConfig = DELIVERY_ZONES[form.zone];
   const foodSubtotal = cartTotal();
-  const deliveryFee = zoneConfig?.fee ?? null;
+  const isZoneCSubmit = form.zone === "3";
+  const isFreeSubmit = !isZoneCSubmit && !!zoneConfig?.freeAt && foodSubtotal >= zoneConfig.freeAt;
+  const deliveryFee = isZoneCSubmit ? null : (isFreeSubmit ? 0 : (zoneConfig?.fee ?? null));
   const orderId = generatePreorderId();
 
   const request = {
@@ -2219,6 +2290,8 @@ const handlePreorderSubmit = (formEl) => {
       foodSubtotal,
       deliveryFee,
       orderTotal: deliveryFee !== null ? foodSubtotal + deliveryFee : null,
+      freeDelivery: isFreeSubmit,
+      requiresManualConfirmation: isZoneCSubmit,
     },
     notes: {
       allergies: form.allergies || null,

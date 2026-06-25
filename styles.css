@@ -2937,6 +2937,34 @@ body.modal-open {
   font-style: italic;
 }
 
+.zone-min-warning {
+  font-size: 13px;
+  color: #c62828;
+  font-weight: 600;
+  line-height: 1.4;
+  margin-top: 6px;
+}
+
+.zone-free-hint {
+  font-size: 13px;
+  color: #5a6b40;
+  line-height: 1.4;
+  margin-top: 4px;
+}
+
+.zone-free-unlocked {
+  font-size: 13px;
+  color: #2e7d32;
+  font-weight: 600;
+  line-height: 1.4;
+  margin-top: 4px;
+}
+
+.zone-free-label {
+  color: #2e7d32;
+  font-weight: 600;
+}
+
 /* ── Per-field validation ─── */
 
 .form-field.is-invalid > input,
