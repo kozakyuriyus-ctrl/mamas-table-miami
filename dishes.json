@@ -395,7 +395,7 @@
     "id": "chicken-pelmeni",
     "category": "main-dishes",
     "image": "assets/images/main-dishes/chicken-pelmeni.png",
-    "price": 13.5,
+    "price": 14,
     "name": {
       "ru": "Пельмени с куриным фаршем",
       "en": "Chicken Pelmeni",
