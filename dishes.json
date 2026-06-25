@@ -101,7 +101,7 @@
     "id": "meatball-soup",
     "category": "soups",
     "image": "assets/images/soups/meatball-soup.png",
-    "price": 30,
+    "price": 15,
     "name": {
       "ru": "Суп с фрикадельками",
       "en": "Meatball Soup",
