@@ -161,7 +161,7 @@ function buildTelegramMessage({ orderId, customer, delivery, schedule, orderItem
   let statusLine = "";
   if (delivery.zone === "3") {
     deliveryLine = `Предварительная доставка: $20`;
-    totalLine = `<b>Предварительный итог: $${pricing.foodSubtotal.toFixed(2)}</b>`;
+    totalLine = `<b>Предварительный итог: $${pricing.preliminaryOrderTotal.toFixed(2)}</b>`;
     statusLine = "\n⚠️ Ручное подтверждение требуется.";
   } else if (delivery.zone === "remote") {
     deliveryLine = `Доставка: По согласованию`;
@@ -338,6 +338,8 @@ async function handlePreorder(request, env, json) {
     foodSubtotal,
     deliveryFee,
     orderTotal,
+    preliminaryDeliveryFee: isZoneC ? zoneConfig.fee : null,
+    preliminaryOrderTotal: isZoneC ? foodSubtotal + zoneConfig.fee : null,
     freeDelivery:         !isZoneC && !isRemote && isFree,
     freeDeliveryPossible:  isZoneC && isFree,
     requiresManualConfirmation: isZoneC || isRemote,

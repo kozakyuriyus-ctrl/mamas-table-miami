@@ -1649,6 +1649,7 @@ const createPreorderStage0 = () => {
           <p class="zone-c-note">${escapeHtml(t("preorder.remoteNote"))}</p>
         </div>`;
     } else if (isZoneC) {
+      const preliminaryTotal = foodSubtotal + zoneConfig.fee;
       const zoneNote = foodSubtotal >= (zoneConfig.freeAt ?? Infinity)
         ? escapeHtml(t("preorder.zoneCFreeNote"))
         : escapeHtml(t("preorder.zoneCNote"));
@@ -1659,7 +1660,7 @@ const createPreorderStage0 = () => {
         <div class="checkout-pricing">
           <div class="pricing-row"><span>${escapeHtml(t("preorder.foodSubtotal"))}</span><em>${money(foodSubtotal)}</em></div>
           <div class="pricing-row"><span>${escapeHtml(t("preorder.deliveryFee"))}</span><em class="muted-text">${escapeHtml(t("preorder.zoneCFeeLabel"))}</em></div>
-          <div class="pricing-row pricing-row-total"><span>${escapeHtml(t("preorder.orderTotalNoDelivery"))}</span><strong>${money(foodSubtotal)}</strong></div>
+          <div class="pricing-row pricing-row-total"><span>${escapeHtml(t("preorder.orderTotal"))}</span><strong>${money(preliminaryTotal)}</strong></div>
           ${minMsg}
           <p class="zone-c-note">${zoneNote}</p>
         </div>`;
