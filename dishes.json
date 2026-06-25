@@ -21,7 +21,7 @@
     "id": "chicken-soup",
     "category": "soups",
     "image": "assets/images/soups/chicken-soup.png",
-    "price": 25,
+    "price": 15,
     "name": {
       "ru": "Суп куриный с лапшой",
       "en": "Chicken Noodle Soup",
