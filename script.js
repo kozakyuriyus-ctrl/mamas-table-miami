@@ -1066,6 +1066,9 @@ const scrollToCategoryDishes = (behavior = "smooth") => {
 };
 
 const revealCategoryDishes = () => {
+  // Make the panel itself visible first (it has class "reveal" → opacity:0 by default).
+  // Without this, browsers skip loading lazy images inside an invisible element.
+  document.querySelectorAll("[data-category-dishes]").forEach((el) => el.classList.add("is-visible"));
   document.querySelectorAll("[data-category-dishes] .reveal").forEach((el) => el.classList.add("is-visible"));
 };
 
@@ -1133,7 +1136,7 @@ const createDishCard = (dish, options = {}) => {
   <article class="dish-card${options.reveal === false ? "" : " reveal"}">
     <div class="dish-media">
       ${createDishBadge(dish.badge)}
-      <img src="${escapeHtml(dish.image)}" alt="${escapeHtml(text(dish.name))}" loading="lazy" />
+      <img src="${escapeHtml(dish.image)}" alt="${escapeHtml(text(dish.name))}" loading="${options.loading ?? "lazy"}" />
     </div>
     <div class="dish-card-body">
       <h3>${escapeHtml(text(dish.name))}</h3>
@@ -1249,7 +1252,7 @@ const createCategoryPage = (category) => `
     <div class="menu-page-layout">
       <section class="menu-panel menu-content category-dishes-panel reveal" id="${escapeHtml(category.id)}-dishes" data-category-dishes>
         <div class="dish-grid menu-dish-grid">${menuItemsByCategory(category.id)
-          .map((dish) => createDishCard(dish, { reveal: false }))
+          .map((dish, i) => createDishCard(dish, { reveal: false, loading: i < 8 ? "eager" : "lazy" }))
           .join("")}</div>
       </section>
       ${createRouteOrderCard()}
