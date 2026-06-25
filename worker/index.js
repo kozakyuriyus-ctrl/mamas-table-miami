@@ -7,6 +7,7 @@
  * Secrets required (set via Cloudflare dashboard or `wrangler secret put`):
  *   TELEGRAM_BOT_TOKEN
  *   TELEGRAM_CHAT_ID
+ *   TELEGRAM_WEBHOOK_SECRET
  *
  * Var (set in wrangler.toml or dashboard):
  *   ALLOWED_ORIGIN = "https://lanaskitchenmiami.com"
@@ -58,6 +59,22 @@ const MAX_BODY_SIZE = 32_000;
 const RATE_LIMIT_WINDOW_MS = 15 * 60 * 1000;
 const RATE_LIMIT_MAX = 5;
 const MENU_CACHE_TTL_S = 300; // 5 minutes
+
+const ORDER_STATUSES = {
+  confirmed: "✅ Подтверждено",
+  awaiting_payment: "💳 Ожидает оплату",
+  paid: "💰 Оплачено",
+};
+
+const STATUS_KEYBOARD = [
+  [
+    { text: "✅ Подтвердить", status: "confirmed" },
+    { text: "💳 Ожидает оплату", status: "awaiting_payment" },
+  ],
+  [
+    { text: "💰 Оплачено", status: "paid" },
+  ],
+];
 
 // In-memory rate limit (resets on Worker cold start — acceptable for simple protection)
 const rateLimitMap = new Map();
@@ -114,6 +131,37 @@ function getReadableDate(dateValue) {
   }).format(date);
 }
 
+function getMiamiTimeLabel() {
+  return new Intl.DateTimeFormat("en-US", {
+    timeZone: "America/New_York",
+    hour: "numeric",
+    minute: "2-digit",
+  }).format(new Date());
+}
+
+function buildStatusKeyboard(orderId) {
+  const shortId = String(orderId).split("-").at(-1) || "order";
+  return {
+    inline_keyboard: STATUS_KEYBOARD.map((row) =>
+      row.map((button) => ({
+        text: button.text,
+        callback_data: `st:${button.status}:${orderId}:${shortId}`,
+      }))
+    ),
+  };
+}
+
+function getInitialStatusText(deliveryZone) {
+  return deliveryZone === "3" || deliveryZone === "remote"
+    ? "Статус: Ожидает ручного подтверждения"
+    : "Статус: Новая заявка";
+}
+
+function replaceStatusBlock(text, statusLabel) {
+  const body = String(text || "").replace(/\n\nСтатус:[\s\S]*$/u, "");
+  return `${body}\n\nСтатус: ${statusLabel}\nОбновлено: ${getMiamiTimeLabel()}`;
+}
+
 function checkRateLimit(ip) {
   const now = Date.now();
   const key = String(ip || "unknown");
@@ -132,6 +180,14 @@ async function fetchMenuWithCache() {
   });
   if (!resp.ok) throw new Error(`Menu fetch ${resp.status}`);
   return resp.json();
+}
+
+async function callTelegram(env, method, payload) {
+  return fetch(`https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/${method}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
 }
 
 // ── Telegram message builder ──────────────────────────────────────────────────
@@ -201,7 +257,9 @@ ${totalLine}
 ${esc(notes.allergies?.trim() || "Нет")}
 
 <b>Комментарий к заказу:</b>
-${esc(notes.orderNotes?.trim() || "Нет")}${zoneMismatchLine}${statusLine}`;
+${esc(notes.orderNotes?.trim() || "Нет")}${zoneMismatchLine}${statusLine}
+
+${getInitialStatusText(delivery.zone)}`;
 }
 
 // ── Core preorder handler ─────────────────────────────────────────────────────
@@ -350,10 +408,11 @@ async function handlePreorder(request, env, json) {
 
   // ── Send Telegram notification ────────────────────────────────────────────
   const tgMessage = buildTelegramMessage({ orderId, customer, delivery, schedule, orderItems, pricing, notes, zoneMismatch });
-  const tgResp = await fetch(`https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/sendMessage`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ chat_id: env.TELEGRAM_CHAT_ID, text: tgMessage, parse_mode: "HTML" }),
+  const tgResp = await callTelegram(env, "sendMessage", {
+    chat_id: env.TELEGRAM_CHAT_ID,
+    text: tgMessage,
+    parse_mode: "HTML",
+    reply_markup: buildStatusKeyboard(orderId),
   });
 
   if (!tgResp.ok) {
@@ -365,6 +424,65 @@ async function handlePreorder(request, env, json) {
   return json({ ok: true, orderId, pricing });
 }
 
+async function answerCallback(env, callbackQueryId, text = "OK") {
+  if (!callbackQueryId) return;
+  await callTelegram(env, "answerCallbackQuery", {
+    callback_query_id: callbackQueryId,
+    text,
+    show_alert: false,
+  }).catch(() => {});
+}
+
+async function handleTelegramWebhook(request, env) {
+  if (request.method !== "POST") {
+    return new Response("OK", { status: 200 });
+  }
+
+  const secretHeader = request.headers.get("X-Telegram-Bot-Api-Secret-Token") || "";
+  if (!env.TELEGRAM_WEBHOOK_SECRET || secretHeader !== env.TELEGRAM_WEBHOOK_SECRET) {
+    return new Response("OK", { status: 200 });
+  }
+
+  let update;
+  try {
+    update = await request.json();
+  } catch {
+    return new Response("OK", { status: 200 });
+  }
+
+  const callback = update?.callback_query;
+  if (!callback) {
+    return new Response("OK", { status: 200 });
+  }
+
+  const chatId = String(callback.message?.chat?.id ?? "");
+  if (chatId !== String(env.TELEGRAM_CHAT_ID)) {
+    await answerCallback(env, callback.id);
+    return new Response("OK", { status: 200 });
+  }
+
+  const [prefix, status, orderId] = String(callback.data || "").split(":");
+  if (prefix !== "st" || !ORDER_STATUSES[status] || !orderId?.startsWith("LK-")) {
+    await answerCallback(env, callback.id);
+    return new Response("OK", { status: 200 });
+  }
+
+  await answerCallback(env, callback.id, ORDER_STATUSES[status]);
+
+  const message = callback.message;
+  const updatedText = replaceStatusBlock(message.text || message.caption || "", ORDER_STATUSES[status]);
+  const editPayload = {
+    chat_id: message.chat.id,
+    message_id: message.message_id,
+    text: updatedText,
+    reply_markup: buildStatusKeyboard(orderId),
+  };
+  if (message.entities?.length) editPayload.entities = message.entities;
+
+  await callTelegram(env, "editMessageText", editPayload).catch(() => {});
+  return new Response("OK", { status: 200 });
+}
+
 // ── Entry point ───────────────────────────────────────────────────────────────
 
 export default {
@@ -372,6 +490,10 @@ export default {
     const url    = new URL(request.url);
     const origin = request.headers.get("Origin") ?? "";
     const allowed = env.ALLOWED_ORIGIN ?? "https://lanaskitchenmiami.com";
+
+    if (url.pathname === "/telegram-webhook") {
+      return handleTelegramWebhook(request, env);
+    }
 
     const corsHeaders = {
       "Access-Control-Allow-Origin":  origin === allowed ? allowed : "",
