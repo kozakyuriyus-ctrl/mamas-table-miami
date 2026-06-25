@@ -197,12 +197,12 @@ const copy = {
       zone2: "Зона 2 — $15 · North Miami, North Miami Beach, Dania Beach, Miami Gardens",
       zone3: "Зона 3 — $20 · Miami Beach, Fort Lauderdale",
       zoneRemote: "Другие удалённые районы — по согласованию",
-      foodSubtotal: "Сумма за блюда",
+      foodSubtotal: "Сумма блюд",
       deliveryFee: "Доставка",
       freeDelivery: "Бесплатно",
       freeDeliveryDiscount: "Скидка (бесплатная доставка)",
-      freeDeliveryUnlocked: "Бесплатная доставка включена",
-      orderTotal: "Итого",
+      freeDeliveryUnlocked: "Бесплатная доставка применена",
+      orderTotal: "Итого к оплате",
       orderTotalNoDelivery: "Итог без учёта доставки",
       zoneCFeeLabel: "от $20",
       zoneCNote: "Доставка от $20. Точная стоимость подтверждается после проверки адреса.",
@@ -498,8 +498,8 @@ const copy = {
       deliveryFee: "Delivery",
       freeDelivery: "Free",
       freeDeliveryDiscount: "Free delivery discount",
-      freeDeliveryUnlocked: "Free delivery unlocked",
-      orderTotal: "Total",
+      freeDeliveryUnlocked: "Free delivery applied",
+      orderTotal: "Total to pay",
       orderTotalNoDelivery: "Total (excl. delivery)",
       zoneCFeeLabel: "from $20",
       zoneCNote: "Delivery starts at $20. Final cost will be confirmed after the address is reviewed.",
@@ -791,12 +791,12 @@ const copy = {
       zone2: "Зона 2 — $15 · North Miami, North Miami Beach, Dania Beach, Miami Gardens",
       zone3: "Зона 3 — $20 · Miami Beach, Fort Lauderdale",
       zoneRemote: "Інші віддалені райони — за узгодженням",
-      foodSubtotal: "Сума за страви",
+      foodSubtotal: "Сума страв",
       deliveryFee: "Доставка",
       freeDelivery: "Безкоштовно",
       freeDeliveryDiscount: "Знижка (безкоштовна доставка)",
-      freeDeliveryUnlocked: "Безкоштовну доставку активовано",
-      orderTotal: "Разом",
+      freeDeliveryUnlocked: "Безкоштовну доставку застосовано",
+      orderTotal: "Разом до оплати",
       orderTotalNoDelivery: "Разом без урахування доставки",
       zoneCFeeLabel: "від $20",
       zoneCNote: "Доставка від $20. Точна вартість підтверджується після перевірки адреси.",
@@ -1427,17 +1427,18 @@ const generatePreorderId = () => {
 // ── Delivery helpers ──────────────────────────────────────────────────────────
 
 const buildMinOrderMsg = (minOrder, remaining) => {
+  const m = money(minOrder), r = money(remaining);
   if (state.lang === "en")
-    return `Minimum order for this area is ${money(minOrder)}. Add ${money(remaining)} more to continue.`;
+    return `The minimum food subtotal for the selected area is ${m}. Delivery is not included in the minimum. Add ${r} more in dishes.`;
   if (state.lang === "uk")
-    return `Мінімальне замовлення для цього району — ${money(minOrder)}. Додайте ще ${money(remaining)}.`;
-  return `Минимальный заказ для выбранного района — ${money(minOrder)}. Добавьте ещё ${money(remaining)}.`;
+    return `Мінімальна сума страв для вибраного району — ${m}. Доставка не входить до мінімальної суми. Додайте страв ще на ${r}.`;
+  return `Минимальная сумма блюд для выбранного района — ${m}. Доставка не входит в минимальную сумму. Добавьте блюда ещё на ${r}.`;
 };
 
 const buildFreeDeliveryHint = (remaining) => {
-  if (state.lang === "en") return `Add ${money(remaining)} more for free delivery.`;
-  if (state.lang === "uk") return `Додайте ще ${money(remaining)} для безкоштовної доставки.`;
-  return `Добавьте ещё ${money(remaining)} для бесплатной доставки.`;
+  if (state.lang === "en") return `Spend ${money(remaining)} more on dishes to get free delivery.`;
+  if (state.lang === "uk") return `До безкоштовної доставки залишилося ${money(remaining)} за сумою страв.`;
+  return `До бесплатной доставки осталось ${money(remaining)} по сумме блюд.`;
 };
 
 // ── Clipboard ─────────────────────────────────────────────────────────────────
