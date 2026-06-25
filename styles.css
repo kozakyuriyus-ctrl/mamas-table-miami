@@ -1096,6 +1096,36 @@ p {
   line-height: 1.16;
 }
 
+.about-section {
+  background: var(--card-bg);
+}
+
+.about-inner {
+  max-width: 620px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.about-inner .eyebrow {
+  margin-bottom: 8px;
+}
+
+.about-inner h2 {
+  margin-bottom: 16px;
+}
+
+.about-body {
+  font-size: 17px;
+  line-height: 1.75;
+  color: var(--text);
+}
+
+@media (max-width: 600px) {
+  .about-body {
+    font-size: 15px;
+  }
+}
+
 .faq-list {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));

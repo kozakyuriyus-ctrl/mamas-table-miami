@@ -142,6 +142,11 @@ const copy = {
       title: "Что говорят клиенты",
       placeholder: "Первые отзывы клиентов скоро появятся здесь.",
     },
+    about: {
+      eyebrow: "О нас",
+      title: "О Lana's Kitchen",
+      text: "Мы готовим домашние восточноевропейские блюда в Майами по предварительному заказу. Каждое блюдо готовится свежим, небольшими партиями, с вниманием к вкусу, качеству ингредиентов и семейным традициям.",
+    },
     faq: {
       title: "Частые вопросы",
       oneQ: "За сколько времени делать заказ?",
@@ -441,6 +446,11 @@ const copy = {
       title: "What Customers Say",
       placeholder: "First customer reviews will appear here soon.",
     },
+    about: {
+      eyebrow: "About",
+      title: "About Lana's Kitchen",
+      text: "We prepare homemade Eastern European food in Miami by preorder. Every dish is cooked fresh in small batches, with care for flavor, quality ingredients, and family traditions.",
+    },
     faq: {
       title: "FAQ",
       oneQ: "How far in advance should I order?",
@@ -739,6 +749,11 @@ const copy = {
       eyebrow: "Відгуки",
       title: "Що кажуть клієнти",
       placeholder: "Перші відгуки клієнтів незабаром з'являться тут.",
+    },
+    about: {
+      eyebrow: "Про нас",
+      title: "Про Lana's Kitchen",
+      text: "Ми готуємо домашні східноєвропейські страви в Маямі за попереднім замовленням. Кожна страва готується свіжою, невеликими партіями, з увагою до смаку, якості інгредієнтів і сімейних традицій.",
     },
     faq: {
       title: "Часті питання",
