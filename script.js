@@ -153,7 +153,7 @@ const copy = {
       oneQ: "За сколько времени делать заказ?",
       oneA: "Лучше за 24–48 часов, особенно для семейных наборов и праздничных заказов.",
       twoQ: "Доставляете ли вы?",
-      twoA: "Да. Доставка работает по зонам: Zone A — $10, минимум блюд $60, бесплатно от $110; Zone B — $15, минимум блюд $80, бесплатно от $145; Zone C — предварительно $20, минимум блюд $120. Для remote areas минимум блюд $120, возможность и стоимость доставки подтверждаются вручную.",
+      twoA: "Да. Доставка работает по зонам: Зона A — $10, минимальный заказ $60, бесплатно от $110; Зона B — $15, минимальный заказ $80, бесплатно от $145; Зона C — предварительно $20, минимальный заказ $120. Для районов вне указанных зон минимальный заказ $120, возможность и стоимость доставки подтверждаются вручную.",
       fourQ: "Можно ли заказать на праздник?",
       fourA: "Да, можно собрать праздничный стол или семейный набор под количество гостей.",
       fiveQ: "Можно ли собрать индивидуальное меню?",
@@ -459,7 +459,7 @@ const copy = {
       oneQ: "How far in advance should I order?",
       oneA: "24–48 hours is best, especially for family sets and holiday orders.",
       twoQ: "Do you deliver?",
-      twoA: "Yes. Delivery is organized by zones: Zone A is $10 with a $60 food minimum and free delivery from $110; Zone B is $15 with an $80 food minimum and free delivery from $145; Zone C is preliminary $20 with a $120 food minimum. Remote areas have a $120 food minimum, and delivery availability and cost are confirmed manually.",
+      twoA: "Yes. Delivery is organized by zones: Zone A is $10 with a $60 order minimum and free delivery from $110; Zone B is $15 with an $80 order minimum and free delivery from $145; Zone C is preliminary $20 with a $120 order minimum. Other areas have a $120 order minimum, and delivery availability and cost are confirmed manually.",
       fourQ: "Can I order for a holiday?",
       fourA: "Yes, we can prepare family trays and holiday tables for your guest count.",
       fiveQ: "Can I create a custom menu?",
@@ -765,7 +765,7 @@ const copy = {
       oneQ: "За скільки часу робити замовлення?",
       oneA: "Краще за 24–48 годин, особливо для сімейних наборів і святкових замовлень.",
       twoQ: "Чи доставляєте ви?",
-      twoA: "Так. Доставка працює за зонами: Zone A — $10, мінімум страв $60, безкоштовно від $110; Zone B — $15, мінімум страв $80, безкоштовно від $145; Zone C — попередньо $20, мінімум страв $120. Для remote areas мінімум страв $120, можливість і вартість доставки підтверджуються вручну.",
+      twoA: "Так. Доставка працює за зонами: Зона A — $10, мінімальне замовлення $60, безкоштовно від $110; Зона B — $15, мінімальне замовлення $80, безкоштовно від $145; Зона C — попередньо $20, мінімальне замовлення $120. Для районів поза вказаними зонами мінімальне замовлення $120, можливість і вартість доставки підтверджуються вручну.",
       fourQ: "Чи можна замовити на свято?",
       fourA: "Так, можна зібрати святковий стіл або сімейний набір під кількість гостей.",
       fiveQ: "Чи можна зібрати індивідуальне меню?",
@@ -1669,33 +1669,37 @@ const createPreorderStage0 = () => {
   }).join("");
 
   const isZoneC = zone === "3";
-  const isZoneRemote = isRemote;
-  const isFree = !isZoneRemote && !isZoneC && !!zoneConfig?.freeAt && foodSubtotal >= zoneConfig.freeAt;
+  const isFree = !isRemote && !isZoneC && !!zoneConfig?.freeAt && foodSubtotal >= zoneConfig.freeAt;
   const belowMin = !!zoneConfig?.minOrder && foodSubtotal < zoneConfig.minOrder;
-  const freeRemaining = !isZoneRemote && !isZoneC && !!zoneConfig?.freeAt ? Math.max(0, zoneConfig.freeAt - foodSubtotal) : 0;
+  const freeRemaining = !isRemote && !isZoneC && !!zoneConfig?.freeAt ? Math.max(0, zoneConfig.freeAt - foodSubtotal) : 0;
 
   let pricingHtml = "";
   if (zoneConfig) {
     if (isRemote) {
+      const belowMsg = belowMin
+        ? `<p class="zone-min-warning">${escapeHtml(buildMinOrderMsg(zoneConfig.minOrder, zoneConfig.minOrder - foodSubtotal))}</p>`
+        : "";
       pricingHtml = `
         <div class="checkout-pricing">
           <div class="pricing-row"><span>${escapeHtml(t("preorder.foodSubtotal"))}</span><em>${money(foodSubtotal)}</em></div>
-          <div class="pricing-row"><span>${escapeHtml(t("preorder.deliveryFee"))}</span><em class="muted-text">${escapeHtml(t("preorder.remoteDeliveryLabel"))}</em></div>
-          <p class="zone-c-note">${escapeHtml(t("preorder.remoteNote"))}</p>
+          <div class="pricing-row"><span>${escapeHtml(t("preorder.deliveryFee"))}</span><em class="muted-text">${escapeHtml(t("preorder.otherDelivery"))}</em></div>
+          <div class="pricing-row pricing-row-total"><span>${escapeHtml(t("preorder.orderTotal"))}</span><em class="muted-text">${escapeHtml(t("preorder.otherTotal"))}</em></div>
+          ${belowMsg}
+          <p class="zone-c-note">${escapeHtml(t("preorder.otherNote"))}</p>
         </div>`;
     } else if (isZoneC) {
-      const preliminaryTotal = foodSubtotal + zoneConfig.fee;
+      const prelimTotal = foodSubtotal + zoneConfig.fee;
       const zoneNote = foodSubtotal >= (zoneConfig.freeAt ?? Infinity)
         ? escapeHtml(t("preorder.zoneCFreeNote"))
-        : escapeHtml(t("preorder.zoneCNote"));
+        : escapeHtml(t("preorder.confirmationNote"));
       const minMsg = belowMin
         ? `<p class="zone-min-warning">${escapeHtml(buildMinOrderMsg(zoneConfig.minOrder, zoneConfig.minOrder - foodSubtotal))}</p>`
         : "";
       pricingHtml = `
         <div class="checkout-pricing">
           <div class="pricing-row"><span>${escapeHtml(t("preorder.foodSubtotal"))}</span><em>${money(foodSubtotal)}</em></div>
-          <div class="pricing-row"><span>${escapeHtml(t("preorder.deliveryFee"))}</span><em class="muted-text">${escapeHtml(t("preorder.zoneCFeeLabel"))}</em></div>
-          <div class="pricing-row pricing-row-total"><span>${escapeHtml(t("preorder.orderTotal"))}</span><strong>${money(preliminaryTotal)}</strong></div>
+          <div class="pricing-row"><span>${escapeHtml(t("preorder.prelimDelivery"))}</span><em class="muted-text">${money(zoneConfig.fee)}</em></div>
+          <div class="pricing-row pricing-row-total"><span>${escapeHtml(t("preorder.prelimTotal"))}</span><strong class="muted-text">${money(prelimTotal)}</strong></div>
           ${minMsg}
           <p class="zone-c-note">${zoneNote}</p>
         </div>`;
@@ -1756,13 +1760,13 @@ const createPreorderStage0 = () => {
         ${errSpan("address")}
       </label>
       <label class="form-field${invCls("city")}">
-        <span>City *</span>
+        <span>${escapeHtml(t("preorder.city"))} *</span>
         <input name="city" type="text" value="${escapeHtml(form.city)}" autocomplete="address-level2" required />
         ${errSpan("city")}
       </label>
       <label class="form-field${invCls("zip")}">
-        <span>ZIP *</span>
-        <input name="zip" type="text" value="${escapeHtml(form.zip)}" autocomplete="postal-code" required />
+        <span>${escapeHtml(t("preorder.zip"))} *</span>
+        <input name="zip" type="text" value="${escapeHtml(form.zip)}" autocomplete="postal-code" inputmode="numeric" required />
         ${errSpan("zip")}
       </label>
       <label class="form-field">
@@ -1790,9 +1794,6 @@ const createPreorderStage0 = () => {
   const submitHelper = belowMin && zoneConfig?.minOrder
     ? buildMinOrderMsg(zoneConfig.minOrder, zoneConfig.minOrder - foodSubtotal)
     : (missingRequired ? t("preorder.completeRequired") : "");
-  const remoteWarning = isRemote
-    ? `<p class="zone-remote-note">${escapeHtml(t("preorder.remoteDisabledNote"))}</p>` : "";
-
   return `
     <div class="modal-cart-summary">
       <h3>${escapeHtml(t("preorder.cartSummaryTitle"))}</h3>
@@ -1848,10 +1849,7 @@ const createPreorderStage0 = () => {
           <textarea name="orderNotes" rows="2">${escapeHtml(form.orderNotes)}</textarea>
         </label>
       </div>
-      ${remoteWarning}
-      ${zoneMismatch
-        ? `<p class="zone-remote-note">⚠️ Zone check: customer selected Zone ${escapeHtml(DELIVERY_ZONES[zone]?.label || zone)}, address may belong to Zone ${escapeHtml(DELIVERY_ZONES[zoneMismatch.inferredZone]?.label || zoneMismatch.inferredZone)}. Manual review required.</p>`
-        : ""}
+      ${zoneMismatch ? `<p class="zone-mismatch-warning">${escapeHtml(t("preorder.zoneMismatch"))}</p>` : ""}
       <input type="text" name="_hp" value="" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
       ${state.preorderError && state.preorderErrorMsg
         ? `<p class="preorder-api-error">${escapeHtml(state.preorderErrorMsg)}</p>`
