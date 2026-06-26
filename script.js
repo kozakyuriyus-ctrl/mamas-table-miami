@@ -50,6 +50,7 @@ const copy = {
       soups: "Объём: 1 qt (32 fl oz / 946 мл) · 3–4 порции",
       salads: "Вес: 1 lb (454 г) · 3–4 порции",
       mainDishes: "Вес: 1 lb (454 г) · 2–3 порции",
+      chickenTabaka: "1 шт · примерно 1.2–1.3 lb (545–595 г) · 2 порции",
       dumplingsAndCrepes: "Вес: 1 lb (454 г) · 2 порции",
       mashedPotatoes: "Вес: 1 lb (454 г) · 3 порции",
     },
@@ -355,6 +356,7 @@ const copy = {
       soups: "Size: 1 qt (32 fl oz / 946 ml) · Serves 3–4",
       salads: "Size: 1 lb (454 g) · Serves 3–4",
       mainDishes: "Size: 1 lb (454 g) · Serves 2–3",
+      chickenTabaka: "1 pc · approx. 1.2–1.3 lb (545–595 g) · 2 servings",
       dumplingsAndCrepes: "Size: 1 lb (454 g) · Serves 2",
       mashedPotatoes: "Size: 1 lb (454 g) · Serves 3",
     },
@@ -660,6 +662,7 @@ const copy = {
       soups: "Об'єм: 1 qt (32 fl oz / 946 мл) · 3–4 порції",
       salads: "Вага: 1 lb (454 г) · 3–4 порції",
       mainDishes: "Вага: 1 lb (454 г) · 2–3 порції",
+      chickenTabaka: "1 шт · приблизно 1.2–1.3 lb (545–595 г) · 2 порції",
       dumplingsAndCrepes: "Вага: 1 lb (454 г) · 2 порції",
       mashedPotatoes: "Вага: 1 lb (454 г) · 3 порції",
     },
@@ -1154,6 +1157,7 @@ const buildDishSizeStr = (dish) => {
   if (dish.category === "salads") return t("size.salads");
   if (dish.category === "main-dishes") {
     if (dish.id === "mashed-potatoes") return t("size.mashedPotatoes");
+    if (dish.id === "chicken-tabaka") return t("size.chickenTabaka");
     if (DUMPLINGS_AND_CREPES.has(dish.id)) return t("size.dumplingsAndCrepes");
     return t("size.mainDishes");
   }
