@@ -152,7 +152,7 @@ const copy = {
       oneQ: "За сколько времени делать заказ?",
       oneA: "Лучше за 24–48 часов, особенно для семейных наборов и праздничных заказов.",
       twoQ: "Доставляете ли вы?",
-      twoA: "Да. Доставляем по Miami-Dade и Broward: Miami Beach, Brickell, Wynwood, Miami Lakes, Hialeah, Kendall (от $10); Hallandale Beach, Hollywood, Aventura, Sunny Isles Beach (от $15); Coral Springs, Pembroke Pines, Miramar, Dania Beach (от $20). Точная стоимость согласовывается после подтверждения адреса.",
+      twoA: "Да. Доставка работает по зонам: Zone A — $10, минимум блюд $60, бесплатно от $110; Zone B — $15, минимум блюд $80, бесплатно от $145; Zone C — предварительно $20, минимум блюд $120. Для remote areas минимум блюд $120, возможность и стоимость доставки подтверждаются вручную.",
       fourQ: "Можно ли заказать на праздник?",
       fourA: "Да, можно собрать праздничный стол или семейный набор под количество гостей.",
       fiveQ: "Можно ли собрать индивидуальное меню?",
@@ -209,6 +209,7 @@ const copy = {
       submitting: "Отправляем заявку…",
       apiError: "Ошибка при отправке заявки. Пожалуйста, попробуйте ещё раз.",
       required: "Заполните все обязательные поля.",
+      completeRequired: "Заполните обязательные поля, чтобы продолжить.",
       phoneInvalid: "Укажите корректный номер телефона.",
       dateNotFuture: "Выберите дату: завтра или позже.",
       zoneRequired: "Выберите зону доставки.",
@@ -456,7 +457,7 @@ const copy = {
       oneQ: "How far in advance should I order?",
       oneA: "24–48 hours is best, especially for family sets and holiday orders.",
       twoQ: "Do you deliver?",
-      twoA: "Yes. We deliver across Miami-Dade and Broward: Miami Beach, Brickell, Wynwood, Miami Lakes, Hialeah, Kendall (from $10); Hallandale Beach, Hollywood, Aventura, Sunny Isles Beach (from $15); Coral Springs, Pembroke Pines, Miramar, Dania Beach (from $20). The exact fee is confirmed after the delivery address is set.",
+      twoA: "Yes. Delivery is organized by zones: Zone A is $10 with a $60 food minimum and free delivery from $110; Zone B is $15 with an $80 food minimum and free delivery from $145; Zone C is preliminary $20 with a $120 food minimum. Remote areas have a $120 food minimum, and delivery availability and cost are confirmed manually.",
       fourQ: "Can I order for a holiday?",
       fourA: "Yes, we can prepare family trays and holiday tables for your guest count.",
       fiveQ: "Can I create a custom menu?",
@@ -513,6 +514,7 @@ const copy = {
       submitting: "Sending request…",
       apiError: "Failed to send request. Please try again.",
       required: "Please fill in all required fields.",
+      completeRequired: "Complete the required fields to continue.",
       phoneInvalid: "Please enter a valid phone number.",
       dateNotFuture: "Please select a future date (tomorrow or later).",
       zoneRequired: "Please select a delivery zone.",
@@ -760,7 +762,7 @@ const copy = {
       oneQ: "За скільки часу робити замовлення?",
       oneA: "Краще за 24–48 годин, особливо для сімейних наборів і святкових замовлень.",
       twoQ: "Чи доставляєте ви?",
-      twoA: "Так. Доставляємо по Miami-Dade і Broward: Miami Beach, Brickell, Wynwood, Miami Lakes, Hialeah, Kendall (від $10); Hallandale Beach, Hollywood, Aventura, Sunny Isles Beach (від $15); Coral Springs, Pembroke Pines, Miramar, Dania Beach (від $20). Точна вартість узгоджується після підтвердження адреси.",
+      twoA: "Так. Доставка працює за зонами: Zone A — $10, мінімум страв $60, безкоштовно від $110; Zone B — $15, мінімум страв $80, безкоштовно від $145; Zone C — попередньо $20, мінімум страв $120. Для remote areas мінімум страв $120, можливість і вартість доставки підтверджуються вручну.",
       fourQ: "Чи можна замовити на свято?",
       fourA: "Так, можна зібрати святковий стіл або сімейний набір під кількість гостей.",
       fiveQ: "Чи можна зібрати індивідуальне меню?",
@@ -817,6 +819,7 @@ const copy = {
       submitting: "Надсилаємо заявку…",
       apiError: "Помилка при відправці заявки. Будь ласка, спробуйте ще раз.",
       required: "Заповніть усі обов'язкові поля.",
+      completeRequired: "Заповніть обов’язкові поля, щоб продовжити.",
       phoneInvalid: "Вкажіть коректний номер телефону.",
       dateNotFuture: "Оберіть дату: завтра або пізніше.",
       zoneRequired: "Оберіть зону доставки.",
@@ -1171,6 +1174,7 @@ const createDishCard = (dish, options = {}) => {
   const unitHtml = rawUnit ? `<span class="dish-unit">${escapeHtml(text(rawUnit))}</span>` : "";
   const sizeStr = buildDishSizeStr(dish);
   const sizeHtml = sizeStr ? `<small class="dish-size">${escapeHtml(sizeStr)}</small>` : "";
+  const quantity = cartQuantity(dish.id);
   return `
   <article class="dish-card${options.reveal === false ? "" : " reveal"}">
     <div class="dish-media">
@@ -1183,13 +1187,13 @@ const createDishCard = (dish, options = {}) => {
       <strong>${money(dish.price)}${unitHtml}</strong>
       ${sizeHtml}
       <div class="dish-actions">
-        <button class="add-btn" type="button" data-add="${escapeHtml(dish.id)}">
+        <button class="add-btn${quantity > 0 ? " is-hidden" : ""}" type="button" data-add="${escapeHtml(dish.id)}"${quantity > 0 ? " hidden" : ""}>
           <span>${escapeHtml(t("cart.add"))}</span>
           <i data-lucide="plus-circle"></i>
         </button>
-        <div class="qty-control" aria-label="${escapeHtml(text(dish.name))} quantity">
+        <div class="qty-control${quantity > 0 ? "" : " is-hidden"}" aria-label="${escapeHtml(text(dish.name))} quantity"${quantity > 0 ? "" : " hidden"}>
           <button type="button" data-minus="${escapeHtml(dish.id)}">−</button>
-          <span data-dish-qty="${escapeHtml(dish.id)}">${cartQuantity(dish.id)}</span>
+          <span data-dish-qty="${escapeHtml(dish.id)}">${quantity}</span>
           <button type="button" data-plus="${escapeHtml(dish.id)}">+</button>
         </div>
       </div>
@@ -1352,7 +1356,15 @@ const setQuantity = (id, quantity) => {
 
 const renderDishQuantities = () => {
   document.querySelectorAll("[data-dish-qty]").forEach((element) => {
-    element.textContent = cartQuantity(element.dataset.dishQty);
+    const quantity = cartQuantity(element.dataset.dishQty);
+    element.textContent = quantity;
+    const actions = element.closest(".dish-actions");
+    const addButton = actions?.querySelector("[data-add]");
+    const quantityControl = actions?.querySelector(".qty-control");
+    addButton?.toggleAttribute("hidden", quantity > 0);
+    addButton?.classList.toggle("is-hidden", quantity > 0);
+    quantityControl?.toggleAttribute("hidden", quantity === 0);
+    quantityControl?.classList.toggle("is-hidden", quantity === 0);
   });
 };
 
@@ -1482,6 +1494,10 @@ const buildFreeDeliveryHint = (remaining) => {
   if (state.lang === "uk") return `До безкоштовної доставки залишилося ${money(remaining)} за сумою страв.`;
   return `До бесплатной доставки осталось ${money(remaining)} по сумме блюд.`;
 };
+
+const hasMissingPreorderRequiredFields = (form) =>
+  !form.name || !form.phone || !form.contactMethod || !form.zone ||
+  !form.address || !form.city || !form.zip || !form.date || !form.timeWindow;
 
 // ── Clipboard ─────────────────────────────────────────────────────────────────
 
@@ -1651,7 +1667,7 @@ const createPreorderStage0 = () => {
   const isZoneC = zone === "3";
   const isZoneRemote = isRemote;
   const isFree = !isZoneRemote && !isZoneC && !!zoneConfig?.freeAt && foodSubtotal >= zoneConfig.freeAt;
-  const belowMin = !isZoneRemote && !!zoneConfig?.minOrder && foodSubtotal < zoneConfig.minOrder;
+  const belowMin = !!zoneConfig?.minOrder && foodSubtotal < zoneConfig.minOrder;
   const freeRemaining = !isZoneRemote && !isZoneC && !!zoneConfig?.freeAt ? Math.max(0, zoneConfig.freeAt - foodSubtotal) : 0;
 
   let pricingHtml = "";
@@ -1765,7 +1781,11 @@ const createPreorderStage0 = () => {
     return `<option value="${s}"${selected}>${escapeHtml(t(`preorder.time${s}`))}</option>`;
   }).join("");
 
-  const canSubmit = zone && !belowMin;
+  const missingRequired = hasMissingPreorderRequiredFields(form);
+  const canSubmit = !missingRequired && !belowMin;
+  const submitHelper = belowMin && zoneConfig?.minOrder
+    ? buildMinOrderMsg(zoneConfig.minOrder, zoneConfig.minOrder - foodSubtotal)
+    : (missingRequired ? t("preorder.completeRequired") : "");
   const remoteWarning = isRemote
     ? `<p class="zone-remote-note">${escapeHtml(t("preorder.remoteDisabledNote"))}</p>` : "";
 
@@ -1836,6 +1856,7 @@ const createPreorderStage0 = () => {
         <span>${escapeHtml(state.preorderSubmitting ? t("preorder.submitting") : t("preorder.submit"))}</span>
         ${state.preorderSubmitting ? "" : '<i data-lucide="send"></i>'}
       </button>
+      ${submitHelper ? `<p class="checkout-submit-helper">${escapeHtml(submitHelper)}</p>` : ""}
     </form>
   `;
 };
@@ -2700,7 +2721,18 @@ const handleFormChange = (event) => {
     } else {
       state.preorderForm[preorderField.name] = preorderField.value;
     }
-    const reRenderFields = ["zone", "contactMethod", "fulfillmentType"];
+    const reRenderFields = [
+      "name",
+      "phone",
+      "zone",
+      "address",
+      "city",
+      "zip",
+      "date",
+      "timeWindow",
+      "contactMethod",
+      "fulfillmentType",
+    ];
     if (reRenderFields.includes(preorderField.name)) {
       const formEl = preorderField.closest("[data-preorder-form]");
       if (formEl) syncPreorderForm(formEl);

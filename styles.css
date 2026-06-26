@@ -656,6 +656,11 @@ p {
   margin-top: 10px;
 }
 
+.dish-actions [hidden],
+.dish-actions .is-hidden {
+  display: none !important;
+}
+
 .add-btn {
   display: inline-flex;
   align-items: center;
@@ -690,8 +695,8 @@ p {
 .qty-control button,
 .cart-row button {
   display: grid;
-  width: 28px;
-  height: 28px;
+  min-width: 44px;
+  min-height: 44px;
   place-items: center;
   border: 0;
   border-radius: 6px;
@@ -1642,7 +1647,7 @@ fieldset.form-field {
   position: fixed;
   left: 12px;
   right: 12px;
-  bottom: 12px;
+  bottom: max(12px, env(safe-area-inset-bottom));
   z-index: 60;
   display: none;
   align-items: center;
@@ -3050,6 +3055,14 @@ body.modal-open {
   pointer-events: none;
 }
 
+.checkout-submit-helper {
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.45;
+}
+
 .preorder-success .success-ref {
   font-size: 13px;
   color: var(--muted);
@@ -3073,6 +3086,7 @@ body.modal-open {
     max-width: 100%;
     border-radius: 16px 16px 0 0;
     max-height: 92vh;
+    max-height: 92dvh;
   }
 
   .modal-header {
@@ -3080,7 +3094,7 @@ body.modal-open {
   }
 
   .modal-body {
-    padding: 16px 18px 32px;
+    padding: 16px 18px max(32px, calc(24px + env(safe-area-inset-bottom)));
   }
 
   .modal-fallback-actions {
