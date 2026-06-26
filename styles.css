@@ -568,6 +568,23 @@ p {
   overflow: hidden;
 }
 
+.dish-media::after {
+  content: "Lana’s Kitchen";
+  position: absolute;
+  right: 14px;
+  bottom: 9px;
+  z-index: 2;
+  pointer-events: none;
+  user-select: none;
+  color: rgba(255, 250, 242, 0.92);
+  opacity: 0.46;
+  font-family: "Brush Script MT", "Segoe Script", cursive;
+  font-size: 19px;
+  line-height: 1;
+  white-space: nowrap;
+  text-shadow: 0 1px 3px rgba(70, 45, 25, 0.28);
+}
+
 .dish-media img {
   width: 100%;
   aspect-ratio: 1.16;
@@ -2175,6 +2192,12 @@ fieldset.form-field {
 
   .dish-card-body {
     min-height: 208px;
+  }
+
+  .dish-media::after {
+    right: 10px;
+    bottom: 8px;
+    font-size: 15px;
   }
 
   .category-dishes-panel .reveal {
