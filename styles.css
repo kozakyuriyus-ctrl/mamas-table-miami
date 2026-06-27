@@ -3046,6 +3046,18 @@ body.modal-open .route-order-card {
   border-radius: 6px;
 }
 
+.checkout-test-mode-banner {
+  font-size: 13px;
+  font-weight: 600;
+  color: #7a5010;
+  line-height: 1.45;
+  margin-top: 8px;
+  padding: 8px 12px;
+  background: #fef3c7;
+  border: 1px solid #f59e0b;
+  border-radius: 6px;
+}
+
 /* ── Per-field validation ─── */
 
 .form-field.is-invalid > input,
