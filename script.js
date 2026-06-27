@@ -265,6 +265,7 @@ const copy = {
       cityOther: "Другой район — по согласованию",
       date: "Дата доставки",
       allergies: "Аллергии / особые пожелания",
+      backToMenu: "← Вернуться в меню",
       submit: "Отправить заявку",
       submitting: "Отправляем заявку…",
       testModeBanner: "⚠ Тестовый режим: заказ не будет отправлен как реальный.",
@@ -586,6 +587,7 @@ const copy = {
       cityOther: "Other area — by arrangement",
       date: "Delivery date",
       allergies: "Allergies / special requests",
+      backToMenu: "← Back to menu",
       submit: "Send preorder request",
       submitting: "Sending request…",
       testModeBanner: "⚠ Test mode: this order will not be sent as a real order.",
@@ -907,6 +909,7 @@ const copy = {
       cityOther: "Інший район — за погодженням",
       date: "Дата доставки",
       allergies: "Алергії / особливі побажання",
+      backToMenu: "← Повернутися до меню",
       submit: "Надіслати заявку",
       submitting: "Надсилаємо заявку…",
       testModeBanner: "⚠ Тестовий режим: це замовлення не буде надіслано як реальне.",
@@ -1216,21 +1219,19 @@ const revealCategoryDishes = () => {
 };
 
 const scheduleCategoryDishesScroll = () => {
-  window.scrollTo({ top: 0, behavior: "auto" });
-  const syncScroll = () => {
-    scrollToCategoryDishes("auto");
-    revealCategoryDishes();
-  };
+  revealCategoryDishes();
+  const dishPanel = document.querySelector("[data-category-dishes]");
+  if (!dishPanel) return;
+  // Use scrollIntoView with scroll-margin-top (CSS) instead of manual getBoundingClientRect.
+  // Wait for the hero image so its height is settled before we calculate scroll position.
+  const doScroll = () => dishPanel.scrollIntoView({ behavior: "instant", block: "start" });
   const heroImage = document.querySelector(".route-hero-image > img");
   if (heroImage && !heroImage.complete) {
-    heroImage.addEventListener("load", syncScroll, { once: true });
+    heroImage.addEventListener("load", doScroll, { once: true });
+    requestAnimationFrame(doScroll); // best-effort first attempt; corrected on image load
+  } else {
+    requestAnimationFrame(doScroll);
   }
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      syncScroll();
-      [140, 420, 900, 1600].forEach((delay) => window.setTimeout(syncScroll, delay));
-    });
-  });
 };
 
 const cartEntries = () =>
@@ -1437,9 +1438,11 @@ const renderRoute = () => {
   refreshIcons();
   observeReveals();
 
-  if (category && isMobileViewport()) {
+  if (category) {
+    // Scroll to dishes on ALL viewports — not just mobile.
+    // On iPad/desktop, isMobileViewport() was false and scrolled to top instead,
+    // leaving dishes below fold and making it look like nothing happened.
     document.querySelectorAll("[data-route-view] .reveal").forEach((el) => el.classList.add("is-visible"));
-    revealCategoryDishes();
     scheduleCategoryDishesScroll();
   } else {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -1896,6 +1899,9 @@ const createPreorderStage0 = () => {
     ? buildMinOrderMsg(zoneConfig.minOrder, zoneConfig.minOrder - foodSubtotal)
     : (missingRequired ? t("preorder.completeRequired") : "");
   return `
+    <button class="btn-back-to-menu" type="button" data-close-modal="preorder">
+      ${escapeHtml(t("preorder.backToMenu"))}
+    </button>
     <div class="modal-cart-summary">
       <h3>${escapeHtml(t("preorder.cartSummaryTitle"))}</h3>
       ${cartRows}
@@ -2347,6 +2353,8 @@ const renderCart = () => {
   const mobileTotal = document.querySelector("[data-mobile-total]");
   if (mobileCount) mobileCount.textContent = `${count} ${cartItemLabel(count)}`;
   if (mobileTotal) mobileTotal.textContent = money(total);
+  // Drive mobile-order-bar visibility via CSS — show as soon as cart has items
+  document.body.classList.toggle("has-cart", hasEntries);
   refreshIcons();
 };
 

@@ -2222,7 +2222,8 @@ fieldset.form-field {
     transition: transform 220ms ease, opacity 220ms ease;
   }
 
-  body.has-scrolled .mobile-order-bar {
+  body.has-scrolled .mobile-order-bar,
+  body.has-cart .mobile-order-bar {
     transform: translateY(0);
     opacity: 1;
     pointer-events: auto;
@@ -2233,6 +2234,28 @@ fieldset.form-field {
   .social-links {
     align-items: flex-start;
     flex-direction: column;
+  }
+}
+
+/* ── Tablet / iPad: show mobile-order-bar when cart has items ────────────── */
+@media (min-width: 761px) and (max-width: 1100px) {
+  body {
+    padding-bottom: 80px;
+  }
+
+  .mobile-order-bar {
+    display: flex;
+    transform: translateY(calc(100% + 18px));
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 220ms ease, opacity 220ms ease;
+  }
+
+  /* On tablet, show bar as soon as cart has items (no scroll required) */
+  body.has-cart .mobile-order-bar {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
   }
 }
 
@@ -2572,10 +2595,10 @@ body.modal-open .route-order-card {
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow-y: auto;
+  /* overflow: hidden — overlay is NOT a scroll container.
+     Only the panel scrolls. This prevents iOS elastic bounce on the backdrop. */
+  overflow: hidden;
   padding: 24px 16px;
-  overscroll-behavior: contain;       /* prevent scroll leaking to body */
-  -webkit-overflow-scrolling: touch;  /* smooth momentum scrolling on iOS */
 }
 
 .modal-panel {
@@ -2589,8 +2612,11 @@ body.modal-open .route-order-card {
   flex-direction: column;
   box-shadow: 0 24px 64px rgba(31, 25, 16, 0.18);
   position: relative;
-  overscroll-behavior: contain;       /* prevent panel scroll from reaching body */
-  -webkit-overflow-scrolling: touch;  /* smooth momentum scroll inside panel on iOS */
+  /* Prevent panel scroll from rubber-banding to parent on iOS */
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  /* Allow vertical pan inside panel; overlay has no touch action of its own */
+  touch-action: pan-y;
 }
 
 .modal-header {
@@ -3044,6 +3070,31 @@ body.modal-open .route-order-card {
   background: #fff0f0;
   border: 1px solid #ffcdd2;
   border-radius: 6px;
+}
+
+.btn-back-to-menu {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 14px;
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--green);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1;
+  text-decoration: none;
+  opacity: 0.75;
+  transition: opacity 160ms ease;
+}
+
+.btn-back-to-menu:hover,
+.btn-back-to-menu:focus-visible {
+  opacity: 1;
+  text-decoration: underline;
+  outline: none;
 }
 
 .checkout-test-mode-banner {
