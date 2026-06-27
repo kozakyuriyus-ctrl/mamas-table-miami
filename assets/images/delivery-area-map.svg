@@ -1,0 +1,190 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-label="General service area: South Florida — Broward and Miami-Dade counties">
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40,0 L0,0 L0,40" fill="none" stroke="#b8ccd8" stroke-width="0.5" opacity="0.4"/>
+    </pattern>
+    <filter id="softBlur" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur stdDeviation="1.2"/>
+    </filter>
+  </defs>
+
+  <!-- Ocean background -->
+  <rect width="1200" height="800" fill="#c4d8e4"/>
+
+  <!-- Ocean grid texture -->
+  <rect width="1200" height="800" fill="url(#grid)"/>
+
+  <!-- Everglades / western wetlands -->
+  <path d="
+    M 0,0 L 280,0
+    C 270,80 265,160 260,240
+    C 255,320 258,400 255,480
+    C 252,560 248,640 240,800
+    L 0,800 Z
+  " fill="#b8cdb0" opacity="0.85"/>
+
+  <!-- Main land mass — South Florida simplified coastline -->
+  <path d="
+    M 0,0
+    L 880,0
+    C 895,35 905,75 900,120
+    C 895,155 888,185 882,220
+    C 876,255 868,285 862,320
+    C 858,350 860,375 862,405
+    C 864,435 862,460 855,490
+    C 848,520 840,542 826,562
+    C 812,582 800,598 782,616
+    C 764,634 744,650 718,668
+    C 692,686 662,700 630,718
+    C 598,736 562,750 520,762
+    C 478,774 432,782 380,790
+    C 328,798 270,800 200,800
+    L 0,800 Z
+  " fill="#e0d8cc"/>
+
+  <!-- Inner land warm highlight (populated east corridor) -->
+  <path d="
+    M 320,0
+    L 880,0
+    C 895,35 905,75 900,120
+    C 895,155 888,185 882,220
+    C 876,255 868,285 862,320
+    C 858,350 860,375 862,405
+    C 864,435 862,460 855,490
+    C 848,520 840,542 826,562
+    C 812,582 800,598 782,616
+    C 764,634 744,650 718,668
+    C 692,686 662,700 630,718
+    C 598,736 562,750 520,762
+    L 320,762 Z
+  " fill="#ece5da" opacity="0.5"/>
+
+  <!-- Biscayne Bay suggestion (subtle water area lower portion) -->
+  <path d="
+    M 790,490 C 810,510 820,535 818,562
+    C 816,590 808,610 794,626
+    C 780,642 762,654 742,666
+    C 720,678 698,690 670,706
+    C 645,720 616,734 582,748
+    L 680,800 L 840,800
+    C 870,750 890,700 892,650
+    C 894,600 888,560 878,530 Z
+  " fill="#b0c8d8" opacity="0.6"/>
+
+  <!-- Broward / Miami-Dade county line (~25.975°N → y≈308) -->
+  <line x1="260" y1="308" x2="862" y2="308"
+    stroke="#a09080" stroke-width="1.5" stroke-dasharray="14,7" opacity="0.55"/>
+
+  <!-- Very subtle arterial road hints (faint, purely decorative) -->
+  <!-- I-95 corridor -->
+  <line x1="548" y1="0" x2="524" y2="762"
+    stroke="#d0c8ba" stroke-width="1.5" opacity="0.35"/>
+  <!-- Florida Turnpike -->
+  <line x1="440" y1="0" x2="420" y2="762"
+    stroke="#d0c8ba" stroke-width="1" opacity="0.25"/>
+  <!-- US-1 / Federal Hwy -->
+  <line x1="640" y1="0" x2="618" y2="630"
+    stroke="#d0c8ba" stroke-width="1" opacity="0.25"/>
+
+  <!-- Subtle inner vignette on ocean side -->
+  <rect x="820" y="0" width="380" height="800"
+    fill="url(#grid)" opacity="0.2"/>
+
+  <!-- ── Service area outline (single neutral ring, no zones) ── -->
+  <!-- Soft glow under the ring -->
+  <ellipse cx="740" cy="365" rx="115" ry="285"
+    fill="#b78a55" opacity="0.06" filter="url(#softBlur)"/>
+  <!-- The ring itself -->
+  <ellipse cx="740" cy="365" rx="115" ry="285"
+    fill="none" stroke="#b78a55" stroke-width="2.5"
+    stroke-dasharray="10,6" opacity="0.65"/>
+
+  <!-- Location pin — center of service area (Hallandale/Aventura lat, coast lon) -->
+  <g transform="translate(744,310)">
+    <!-- pin shadow -->
+    <ellipse cx="0" cy="6" rx="10" ry="4" fill="#8a6838" opacity="0.18"/>
+    <!-- pin body -->
+    <path d="M0,0 C-14,-6 -22,-18 -22,-30 A22,22 0 1,1 22,-30 C22,-18 14,-6 0,0Z"
+      fill="#b78a55"/>
+    <!-- pin inner dot -->
+    <circle cx="0" cy="-30" r="9" fill="#fffdf8"/>
+  </g>
+
+  <!-- ── Text labels ── -->
+  <!-- Broward County -->
+  <text x="530" y="140"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-size="20" letter-spacing="2"
+    fill="#5a5048" text-anchor="middle"
+    opacity="0.7">BROWARD COUNTY</text>
+
+  <!-- Miami-Dade County -->
+  <text x="500" y="590"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-size="20" letter-spacing="2"
+    fill="#5a5048" text-anchor="middle"
+    opacity="0.7">MIAMI-DADE COUNTY</text>
+
+  <!-- Atlantic Ocean label (rotated) -->
+  <text x="1020" y="420"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-size="17" letter-spacing="3"
+    fill="#5a7888" text-anchor="middle"
+    opacity="0.65"
+    transform="rotate(-90,1020,420)">ATLANTIC OCEAN</text>
+
+  <!-- Everglades label (rotated) -->
+  <text x="135" y="400"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-size="14" letter-spacing="1"
+    fill="#4a5a42" text-anchor="middle"
+    opacity="0.6"
+    transform="rotate(-90,135,400)">Everglades</text>
+
+  <!-- County line label -->
+  <text x="295" y="300"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-size="11"
+    fill="#8a7868" text-anchor="start"
+    opacity="0.55">County line</text>
+
+  <!-- Compass rose (top-right) -->
+  <g transform="translate(1100,90)">
+    <circle cx="0" cy="0" r="32"
+      fill="#fffdf8" fill-opacity="0.82"
+      stroke="#c8b898" stroke-width="1.5"/>
+    <!-- N pointer -->
+    <polygon points="0,-22 4,-8 0,-13 -4,-8"
+      fill="#8a6838"/>
+    <!-- S pointer -->
+    <polygon points="0,22 4,8 0,13 -4,8"
+      fill="#c0b0a0"/>
+    <!-- E/W ticks -->
+    <line x1="-22" y1="0" x2="-15" y2="0"
+      stroke="#c0b0a0" stroke-width="1.5"/>
+    <line x1="15" y1="0" x2="22" y2="0"
+      stroke="#c0b0a0" stroke-width="1.5"/>
+    <text x="0" y="-26"
+      font-family="Georgia, serif" font-size="14"
+      font-weight="bold" fill="#4a3c2a"
+      text-anchor="middle">N</text>
+  </g>
+
+  <!-- Scale hint bar (bottom-right) -->
+  <g transform="translate(940, 746)">
+    <rect x="0" y="8" width="120" height="3" fill="#9a8878" rx="1.5"/>
+    <rect x="0" y="8" width="60" height="3" fill="#6a5848" rx="1.5"/>
+    <line x1="0" y1="5" x2="0" y2="14" stroke="#9a8878" stroke-width="1.5"/>
+    <line x1="60" y1="5" x2="60" y2="14" stroke="#9a8878" stroke-width="1.5"/>
+    <line x1="120" y1="5" x2="120" y2="14" stroke="#9a8878" stroke-width="1.5"/>
+    <text x="0" y="0"
+      font-family="Georgia, serif" font-size="11"
+      fill="#7a6858" text-anchor="middle">0</text>
+    <text x="60" y="0"
+      font-family="Georgia, serif" font-size="11"
+      fill="#7a6858" text-anchor="middle">10 mi</text>
+    <text x="120" y="0"
+      font-family="Georgia, serif" font-size="11"
+      fill="#7a6858" text-anchor="middle">20 mi</text>
+  </g>
+</svg>
