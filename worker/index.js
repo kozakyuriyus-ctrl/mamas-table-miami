@@ -8,6 +8,7 @@
  *   TELEGRAM_BOT_TOKEN
  *   TELEGRAM_CHAT_ID
  *   TELEGRAM_WEBHOOK_SECRET
+ *   TEST_TOKEN          ← secret for test mode (wrangler secret put TEST_TOKEN)
  *
  * Var (set in wrangler.toml or dashboard):
  *   ALLOWED_ORIGIN = "https://lanaskitchenmiami.com"
@@ -16,6 +17,11 @@
  * (single source of truth — cached 5 min at CDN level).
  *
  * Delivery zones MUST stay in sync with DELIVERY_ZONES in ../script.js
+ *
+ * TEST MODE: POST with { testMode: true, testToken: "<TEST_TOKEN>" }
+ * Runs all real server checks but does NOT send to Telegram/WhatsApp.
+ * Returns { ok: true, testMode: true, orderId: "TEST-...", zone, pricing... }
+ * Activate via: https://lanaskitchenmiami.com/?test=1&token=<TEST_TOKEN>
  */
 
 // ── Delivery zone config (mirrors DELIVERY_ZONES in script.js) ───────────────
@@ -263,6 +269,19 @@ async function handlePreorder(request, env, json) {
     return json({ ok: false, error: "invalid_json", message: "Could not parse JSON." }, 400);
   }
 
+  // ── Test mode guard ─────────────────────────────────────────────────────────
+  // If testMode flag is set, validate the token before doing anything else.
+  // Invalid token → safe 403, nothing is sent externally.
+  // Valid token → continue through ALL real checks, skip Telegram at the end.
+  const isTestMode = body.testMode === true;
+  if (isTestMode) {
+    const testToken = String(body.testToken || "");
+    const envToken = String(env.TEST_TOKEN || "");
+    if (!envToken || testToken !== envToken) {
+      return json({ ok: false, error: "test_auth_failed", message: "Test mode requires a valid token." }, 403);
+    }
+  }
+
   // Honeypot: bots fill hidden fields, humans don't
   if (body._hp) {
     return json({ ok: true, orderId: generateOrderId() });
@@ -381,6 +400,31 @@ async function handlePreorder(request, env, json) {
 
   // ── Generate server-side order ID ─────────────────────────────────────────
   const orderId = generateOrderId();
+
+  // ── Test mode: return detailed result without sending to Telegram ─────────
+  if (isTestMode) {
+    const testBuf = new Uint32Array(1);
+    crypto.getRandomValues(testBuf);
+    const testId = `TEST-${getMiamiDateStr()}-${1000 + (testBuf[0] % 9000)}`;
+    console.log(`[TEST ORDER] ${testId} zone=${serverZone}(${zoneConfig.letter}) fee=${pricing.deliveryFee ?? "TBD"} subtotal=${pricing.foodSubtotal} total=${pricing.orderTotal ?? "TBD"}`);
+    return json({
+      ok: true,
+      testMode: true,
+      orderId: testId,
+      zone: serverZone,
+      zoneLetter: zoneConfig.letter,
+      // Zone A/B: confirmed fee. Zone C/Remote: null (requires manual confirmation).
+      deliveryFee: pricing.deliveryFee,
+      // Zone C only: preliminary $20 (not final). null for all other zones.
+      preliminaryDeliveryFee: pricing.preliminaryDeliveryFee,
+      requiresManualConfirmation: pricing.requiresManualConfirmation,
+      minimumOrder: zoneConfig.minOrder,
+      freeDeliveryApplied: pricing.freeDelivery ?? false,
+      subtotal: pricing.foodSubtotal,
+      total: pricing.orderTotal,
+      pricing,
+    });
+  }
 
   // ── Send Telegram notification ────────────────────────────────────────────
   const tgMessage = buildTelegramMessage({ orderId, customer, delivery: serverDelivery, schedule, orderItems, pricing, notes, zoneMismatch });

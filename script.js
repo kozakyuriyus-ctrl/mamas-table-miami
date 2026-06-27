@@ -71,6 +71,13 @@ const DELIVERY_CITIES = [
 const API_ENABLED = true;
 const PREORDER_API_URL = "https://api.lanaskitchenmiami.com/preorder";
 
+// Test mode — activated only when URL contains ?test=1&token=<secret>
+// The token is never stored here; it's read from the URL and passed to the Worker,
+// which validates it against the TEST_TOKEN Cloudflare secret.
+const _qs = typeof location !== "undefined" ? new URLSearchParams(location.search) : new URLSearchParams();
+const TEST_MODE  = _qs.get("test")  === "1";
+const TEST_TOKEN = _qs.get("token") || "";
+
 const tr = (ru, en, uk) => ({ ru, en, uk });
 
 const copy = {
@@ -260,6 +267,7 @@ const copy = {
       allergies: "Аллергии / особые пожелания",
       submit: "Отправить заявку",
       submitting: "Отправляем заявку…",
+      testModeBanner: "⚠ Тестовый режим: заказ не будет отправлен как реальный.",
       apiError: "Ошибка при отправке заявки. Пожалуйста, попробуйте ещё раз.",
       required: "Заполните все обязательные поля.",
       completeRequired: "Заполните обязательные поля, чтобы продолжить.",
@@ -580,6 +588,7 @@ const copy = {
       allergies: "Allergies / special requests",
       submit: "Send preorder request",
       submitting: "Sending request…",
+      testModeBanner: "⚠ Test mode: this order will not be sent as a real order.",
       apiError: "Failed to send request. Please try again.",
       required: "Please fill in all required fields.",
       completeRequired: "Complete the required fields to continue.",
@@ -900,6 +909,7 @@ const copy = {
       allergies: "Алергії / особливі побажання",
       submit: "Надіслати заявку",
       submitting: "Надсилаємо заявку…",
+      testModeBanner: "⚠ Тестовий режим: це замовлення не буде надіслано як реальне.",
       apiError: "Помилка при відправці заявки. Будь ласка, спробуйте ще раз.",
       required: "Заповніть усі обов'язкові поля.",
       completeRequired: "Заповніть обов’язкові поля, щоб продовжити.",
@@ -1940,6 +1950,7 @@ const createPreorderStage0 = () => {
         </label>
       </div>
       <input type="text" name="_hp" value="" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
+      ${TEST_MODE ? `<p class="checkout-test-mode-banner" role="alert">${escapeHtml(t("preorder.testModeBanner"))}</p>` : ""}
       ${state.preorderError && state.preorderErrorMsg
         ? `<p class="preorder-api-error">${escapeHtml(state.preorderErrorMsg)}</p>`
         : ""}
@@ -2441,6 +2452,9 @@ const detectCityZipMismatch = (zipZone, city) => {
 // ── Submit handlers ───────────────────────────────────────────────────────────
 
 const handlePreorderSubmit = async (formEl) => {
+  // Guard against double-submit (rapid double-click or re-entry during async fetch)
+  if (state.preorderSubmitting) return;
+
   syncPreorderForm(formEl);
   const errorKey = validatePreorderForm();
   if (errorKey) {
@@ -2461,6 +2475,7 @@ const handlePreorderSubmit = async (formEl) => {
 
   const payload = {
     _hp: honeypot,
+    ...(TEST_MODE ? { testMode: true, testToken: TEST_TOKEN } : {}),
     items: cartEntries().map(({ dish, quantity }) => ({ id: dish.id, quantity })),
     customer: {
       name: form.name,
