@@ -2805,12 +2805,14 @@ const handleClick = (event) => {
   // Mobile order bar
   const mobileOrder = target.closest("[data-mobile-order]");
   if (mobileOrder) {
-    if (routeFromHash()) {
-      event.preventDefault();
-      document.querySelector("[data-route-order-card]")?.scrollIntoView({ behavior: "smooth", block: "start" });
-    } else if (cartEntries().length > 0) {
-      event.preventDefault();
+    event.preventDefault();
+    if (cartEntries().length > 0) {
+      // Always open checkout when cart has items — even on category/route pages.
+      // Previously this only worked on the home page; on route pages it scrolled
+      // to the order card instead, which required an extra tap to reach checkout.
       openPreorderModal(mobileOrder);
+    } else if (routeFromHash()) {
+      document.querySelector("[data-route-order-card]")?.scrollIntoView({ behavior: "smooth", block: "start" });
     }
     return;
   }
