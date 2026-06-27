@@ -2522,6 +2522,9 @@ a.contact-link:hover {
 
 body.modal-open {
   overflow: hidden;
+  position: fixed;   /* iOS Safari: prevents rubber-band scroll of background */
+  width: 100%;
+  /* top is set via JS to -window.scrollY so page doesn't jump */
 }
 
 #preorder-modal,
@@ -2540,6 +2543,8 @@ body.modal-open {
   justify-content: center;
   overflow-y: auto;
   padding: 24px 16px;
+  overscroll-behavior: contain;       /* prevent scroll leaking to body */
+  -webkit-overflow-scrolling: touch;  /* smooth momentum scrolling on iOS */
 }
 
 .modal-panel {
@@ -2553,6 +2558,8 @@ body.modal-open {
   flex-direction: column;
   box-shadow: 0 24px 64px rgba(31, 25, 16, 0.18);
   position: relative;
+  overscroll-behavior: contain;       /* prevent panel scroll from reaching body */
+  -webkit-overflow-scrolling: touch;  /* smooth momentum scroll inside panel on iOS */
 }
 
 .modal-header {

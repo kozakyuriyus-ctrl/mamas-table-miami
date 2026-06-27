@@ -2142,6 +2142,23 @@ const createCateringModal = () => {
 
 // ── Modal open/close/render ───────────────────────────────────────────────────
 
+// iOS Safari requires position:fixed + saved scrollY to truly lock background scroll.
+// overflow:hidden alone does not prevent rubber-band scrolling on iOS.
+const lockBodyScroll = () => {
+  const y = window.scrollY;
+  document.body.dataset.scrollLock = String(y);
+  document.body.style.top = `-${y}px`;
+  document.body.classList.add("modal-open");
+};
+
+const unlockBodyScroll = () => {
+  const y = parseInt(document.body.dataset.scrollLock || "0", 10);
+  document.body.style.top = "";
+  delete document.body.dataset.scrollLock;
+  document.body.classList.remove("modal-open");
+  window.scrollTo(0, y);
+};
+
 let preorderTriggerEl = null;
 let cateringTriggerEl = null;
 
@@ -2154,14 +2171,14 @@ const openPreorderModal = (trigger = null) => {
     document.body.appendChild(wrapper);
   }
   wrapper.innerHTML = createPreorderModal();
-  document.body.classList.add("modal-open");
+  lockBodyScroll();
   refreshIcons();
   wrapper.querySelector(".modal-close-btn, input, button")?.focus();
 };
 
 const closePreorderModal = () => {
   document.getElementById("preorder-modal")?.remove();
-  document.body.classList.remove("modal-open");
+  unlockBodyScroll();
   if (state.preorderStage === 1) {
     state.preorderForm = createDefaultPreorderForm();
     state.preorderDraft = null;
@@ -2193,14 +2210,14 @@ const openCateringModal = (trigger = null) => {
     document.body.appendChild(wrapper);
   }
   wrapper.innerHTML = createCateringModal();
-  document.body.classList.add("modal-open");
+  lockBodyScroll();
   refreshIcons();
   wrapper.querySelector(".modal-close-btn, input, button")?.focus();
 };
 
 const closeCateringModal = () => {
   document.getElementById("catering-modal")?.remove();
-  document.body.classList.remove("modal-open");
+  unlockBodyScroll();
   if (state.cateringStage === 4) {
     state.cateringForm = createDefaultCateringForm();
     state.cateringDraft = null;
