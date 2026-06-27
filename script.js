@@ -28,17 +28,34 @@ const zipToZoneKey = (zip) => {
   return "remote";
 };
 
-// City → typical zone for mismatch warning only (not for pricing)
-const CITY_TYPICAL_ZONE = {
-  "hallandale beach": "1", "aventura": "1", "golden beach": "1",
-  "sunny isles beach": "1", "north miami beach": "1",
-  "west park": "1", "pembroke park": "1",
-  "dania beach": "2", "north miami": "2", "miami shores": "2",
-  "bal harbour": "2", "bay harbor islands": "2", "surfside": "2",
-  "miami gardens": "2",
-  "fort lauderdale": "3", "oakland park": "3", "wilton manors": "3",
-  "lauderdale lakes": "3",
-  "davie": "remote", "cooper city": "remote", "miami beach": "remote",
+// City → acceptable zone(s) for mismatch warning only (not for pricing).
+// A city may span multiple zones — warning fires only when ZIP zone is outside this list.
+const CITY_ACCEPTABLE_ZONES = {
+  "hallandale beach":   ["1"],
+  "aventura":           ["1"],
+  "golden beach":       ["1"],
+  "sunny isles beach":  ["1"],
+  "north miami beach":  ["1", "remote"],
+  "west park":          ["1"],
+  "pembroke park":      ["1"],
+  "hollywood":          ["1", "2"],         // 33019/33020 = A, 33021/33024 = B
+  "dania beach":        ["2"],
+  "north miami":        ["2", "remote"],
+  "miami shores":       ["2", "remote"],
+  "bal harbour":        ["2"],
+  "bay harbor islands": ["2"],
+  "surfside":           ["2"],
+  "miramar":            ["2", "remote"],
+  "pembroke pines":     ["2", "remote"],
+  "miami gardens":      ["2", "remote"],
+  "fort lauderdale":    ["3", "remote"],
+  "oakland park":       ["3", "remote"],
+  "wilton manors":      ["3", "remote"],
+  "lauderdale lakes":   ["3", "remote"],
+  "davie":              ["3", "remote"],
+  "cooper city":        ["3", "remote"],
+  "miami beach":        ["remote"],
+  // "Other" → no key → warning never fires
 };
 
 // City list for address select (values are English city names)
@@ -2392,9 +2409,10 @@ const validateCateringForm = () => {
 const normalizeCity = (value) => String(value || "").trim().toLowerCase();
 
 const detectCityZipMismatch = (zipZone, city) => {
-  const typicalZone = CITY_TYPICAL_ZONE[normalizeCity(city)];
-  if (!zipZone || !city || !typicalZone || typicalZone === zipZone) return null;
-  return { zipZone, cityTypicalZone: typicalZone };
+  const acceptable = CITY_ACCEPTABLE_ZONES[normalizeCity(city)];
+  if (!acceptable || !zipZone || !city) return null;
+  if (acceptable.includes(zipZone)) return null;
+  return { zipZone, city };
 };
 
 // ── Submit handlers ───────────────────────────────────────────────────────────
