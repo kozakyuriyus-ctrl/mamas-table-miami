@@ -531,10 +531,16 @@ async function handleCustomOrder(request, env, json) {
     return json({ ok: true }); // silently accept
   }
 
-  // Test mode validation
-  const isTestMode = body.testMode === true && body.testToken;
-  if (isTestMode && body.testToken !== env.TEST_TOKEN) {
-    return json({ ok: false, error: "invalid_test_token" }, 403);
+  // Test mode validation — mirrors handlePreorder pattern:
+  // testMode:true with any token (including empty) → must validate against secret.
+  // If TOKEN env var is absent or tokens don't match → always 403, never reach Telegram.
+  const isTestMode = body.testMode === true;
+  if (isTestMode) {
+    const testToken = String(body.testToken || "");
+    const envToken  = String(env.TEST_TOKEN || "");
+    if (!envToken || testToken !== envToken) {
+      return json({ ok: false, error: "invalid_test_token" }, 403);
+    }
   }
 
   // Required field validation (server-side)
