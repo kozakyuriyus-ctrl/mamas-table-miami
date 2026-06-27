@@ -2527,6 +2527,14 @@ body.modal-open {
   /* top is set via JS to -window.scrollY so page doesn't jump */
 }
 
+/* Hide floating/sticky elements under the modal so they don't drift on iOS bounce */
+body.modal-open .site-header,
+body.modal-open .mobile-order-bar,
+body.modal-open .route-order-card {
+  visibility: hidden;
+  pointer-events: none;
+}
+
 #preorder-modal,
 #catering-modal {
   position: fixed;
