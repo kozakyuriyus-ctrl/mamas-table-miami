@@ -154,6 +154,8 @@ const copy = {
       benefit4: "Доставка по Miami-Dade и Broward",
       cta: "Получить предложение",
       ctaCustom: "Согласовать спецзаказ",
+      ctaCustomOrder: "Индивидуальный заказ",
+      ctaCustomOrderNote: "Праздники, семейные ужины, кейтеринг и блюда по договорённости.",
       note: "Меню, количество порций, время приготовления и стоимость согласовываются индивидуально перед подтверждением заказа.",
     },
     menuPage: {
@@ -476,6 +478,8 @@ const copy = {
       benefit4: "Delivery across Miami-Dade and Broward",
       cta: "Request a Quote",
       ctaCustom: "Request a Custom Order",
+      ctaCustomOrder: "Custom order",
+      ctaCustomOrderNote: "For celebrations, family dinners, catering and dishes by request.",
       note: "Menu, portions, preparation time, and final pricing are confirmed individually before the order is approved.",
     },
     menuPage: {
@@ -798,6 +802,8 @@ const copy = {
       benefit4: "Доставка по Miami-Dade та Broward",
       cta: "Отримати пропозицію",
       ctaCustom: "Узгодити спецзамовлення",
+      ctaCustomOrder: "Індивідуальне замовлення",
+      ctaCustomOrderNote: "Для свят, сімейних вечерь, кейтерингу та страв за домовленістю.",
       note: "Меню, кількість порцій, час приготування і вартість узгоджуються індивідуально перед підтвердженням замовлення.",
     },
     menuPage: {
@@ -1222,16 +1228,13 @@ const scheduleCategoryDishesScroll = () => {
   revealCategoryDishes();
   const dishPanel = document.querySelector("[data-category-dishes]");
   if (!dishPanel) return;
-  // Use scrollIntoView with scroll-margin-top (CSS) instead of manual getBoundingClientRect.
-  // Wait for the hero image so its height is settled before we calculate scroll position.
-  const doScroll = () => dishPanel.scrollIntoView({ behavior: "instant", block: "start" });
-  const heroImage = document.querySelector(".route-hero-image > img");
-  if (heroImage && !heroImage.complete) {
-    heroImage.addEventListener("load", doScroll, { once: true });
-    requestAnimationFrame(doScroll); // best-effort first attempt; corrected on image load
-  } else {
-    requestAnimationFrame(doScroll);
-  }
+  // .route-hero-image > img has CSS min-height:340px, so layout is stable
+  // even before the image finishes loading — no need to wait for the load event.
+  // The previous "wait for hero load + correction scroll" caused a jarring
+  // second jump on real devices when the hero image loaded over a slow connection.
+  requestAnimationFrame(() =>
+    dishPanel.scrollIntoView({ behavior: "instant", block: "start" })
+  );
 };
 
 const cartEntries = () =>

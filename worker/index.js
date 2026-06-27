@@ -93,6 +93,14 @@ function generateOrderId() {
   return `LK-${date}-${code}`;
 }
 
+function generateCustomOrderId() {
+  const date = getMiamiDateStr();
+  const buf = new Uint32Array(1);
+  crypto.getRandomValues(buf);
+  const code = 1000 + (buf[0] % 9000); // 1000–9999
+  return `CO-${date}-${code}`;
+}
+
 /** Escape HTML entities for Telegram HTML parse_mode */
 function esc(str) {
   return String(str ?? "")
@@ -503,6 +511,105 @@ async function handleTelegramWebhook(request, env) {
   return new Response("OK", { status: 200 });
 }
 
+// ── Custom Order handler ──────────────────────────────────────────────────────
+
+async function handleCustomOrder(request, env, json) {
+  const ip = request.headers.get("CF-Connecting-IP") ?? "unknown";
+  if (!checkRateLimit(ip)) {
+    return json({ ok: false, error: "rate_limited", message: "Too many requests. Try again in 15 minutes." }, 429);
+  }
+
+  let body;
+  try {
+    body = await request.json();
+  } catch {
+    return json({ ok: false, error: "invalid_json" }, 400);
+  }
+
+  // Honeypot: hidden field must be empty
+  if (body._hp) {
+    return json({ ok: true }); // silently accept
+  }
+
+  // Test mode validation
+  const isTestMode = body.testMode === true && body.testToken;
+  if (isTestMode && body.testToken !== env.TEST_TOKEN) {
+    return json({ ok: false, error: "invalid_test_token" }, 403);
+  }
+
+  // Required field validation (server-side)
+  const required = { name: body.name, phone: body.phone, orderType: body.orderType, guests: body.guests, date: body.date, description: body.description };
+  for (const [key, val] of Object.entries(required)) {
+    if (!val || !String(val).trim()) {
+      return json({ ok: false, error: "validation_error", field: key, message: `Missing required field: ${key}` }, 400);
+    }
+  }
+
+  // Sanitise
+  const s = (v) => String(v ?? "").trim().slice(0, 500);
+  const name        = s(body.name);
+  const phone       = s(body.phone);
+  const orderType   = s(body.orderType);
+  const guests      = s(body.guests);
+  const date        = s(body.date);
+  const time        = s(body.time);
+  const description = s(body.description);
+  const city        = s(body.city);
+  const zip         = s(body.zip);
+  const address     = s(body.address);
+  const comment     = s(body.comment);
+  const lang        = ["ru", "en", "uk"].includes(body.lang) ? body.lang : "ru";
+
+  const orderId = generateCustomOrderId();
+
+  const orderTypeLabels = {
+    birthday: "День рождения / Birthday",
+    family:   "Семейный ужин / Family dinner",
+    catering: "Кейтеринг / Catering",
+    custom:   "Блюда по договорённости / Custom dishes",
+    other:    "Другое / Other",
+  };
+
+  const dateLabel = (() => {
+    try { return getReadableDate(date); } catch { return date; }
+  })();
+
+  const locationLines = [city, zip, address].filter(Boolean).join(", ");
+
+  const tgMessage = `🟡 <b>CUSTOM ORDER REQUEST</b>
+${esc(orderId)}
+
+Имя: ${esc(name)}
+Телефон: ${esc(phone)}
+Язык: ${esc(lang)}
+
+<b>ЗАКАЗ</b>
+Тип: ${esc(orderTypeLabels[orderType] ?? orderType)}
+Гостей / порций: ${esc(guests)}
+Дата: ${esc(dateLabel)}${time ? `\nВремя: ${esc(time)}` : ""}
+
+<b>Описание:</b>
+${esc(description)}
+${locationLines ? `\n<b>Адрес:</b>\n${esc(locationLines)}` : ""}${comment ? `\n<b>Комментарий:</b>\n${esc(comment)}` : ""}
+
+Подано: ${getMiamiTimeLabel()} ET`;
+
+  if (!isTestMode) {
+    const tgRes = await callTelegram(env, "sendMessage", {
+      chat_id:    env.TELEGRAM_CHAT_ID,
+      text:       tgMessage,
+      parse_mode: "HTML",
+    });
+    if (!tgRes.ok) {
+      const errText = await tgRes.text();
+      console.error("Telegram error (custom-order):", tgRes.status, errText);
+      return json({ ok: false, error: "telegram_error", message: "Failed to deliver request." }, 502);
+    }
+  }
+
+  return json({ ok: true, orderId, testMode: isTestMode || undefined });
+}
+
 // ── Entry point ───────────────────────────────────────────────────────────────
 
 export default {
@@ -531,6 +638,21 @@ export default {
 
     if (request.method === "OPTIONS") {
       return new Response(null, { status: 204, headers: corsHeaders });
+    }
+
+    if (url.pathname === "/custom-order") {
+      if (request.method !== "POST") {
+        return new Response("Method not allowed", { status: 405, headers: { Allow: "POST, OPTIONS" } });
+      }
+      if (origin !== allowed) {
+        return json({ ok: false, error: "forbidden_origin" }, 403);
+      }
+      try {
+        return await handleCustomOrder(request, env, json);
+      } catch (err) {
+        console.error("Unhandled custom-order error:", err);
+        return json({ ok: false, error: "internal_error" }, 500);
+      }
     }
 
     if (url.pathname !== "/preorder") {

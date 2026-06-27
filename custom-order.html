@@ -1,0 +1,619 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Индивидуальный заказ | Custom Order | Lana's Kitchen Miami</title>
+    <meta name="description" content="Оставьте заявку на индивидуальный заказ — праздники, семейные ужины, кейтеринг и блюда по договорённости." />
+    <meta name="theme-color" content="#fbf6ed" />
+    <link rel="icon" href="data:," />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      /* ── Custom-order page specific ─────────────────────────────────── */
+      .co-page {
+        max-width: 680px;
+        margin: 0 auto;
+        padding: clamp(32px, 5vw, 64px) clamp(16px, 4vw, 32px) 80px;
+      }
+      .co-back {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        color: var(--green);
+        font-size: 13px;
+        font-weight: 700;
+        text-decoration: none;
+        opacity: 0.75;
+        transition: opacity 150ms;
+        margin-bottom: 28px;
+      }
+      .co-back:hover { opacity: 1; }
+      .co-back svg { width: 16px; height: 16px; flex-shrink: 0; }
+      .co-eyebrow {
+        font-size: 12px;
+        font-weight: 900;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin: 0 0 10px;
+      }
+      .co-title {
+        font-family: "Playfair Display", Georgia, serif;
+        font-size: clamp(26px, 5vw, 38px);
+        font-weight: 700;
+        color: var(--ink);
+        line-height: 1.2;
+        margin: 0 0 10px;
+      }
+      .co-subtitle {
+        color: var(--muted);
+        font-size: 15px;
+        line-height: 1.55;
+        margin: 0 0 36px;
+      }
+      .co-form-card {
+        background: var(--cream);
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        padding: clamp(20px, 4vw, 36px);
+      }
+      .co-section-label {
+        font-size: 12px;
+        font-weight: 900;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin: 0 0 16px;
+        padding-top: 24px;
+        border-top: 1px solid var(--line);
+      }
+      .co-section-label:first-child {
+        padding-top: 0;
+        border-top: none;
+        margin-top: 0;
+      }
+      .co-disclaimer {
+        font-size: 12px;
+        color: var(--muted);
+        line-height: 1.5;
+        margin: 20px 0 0;
+        padding: 14px 16px;
+        background: var(--soft);
+        border-radius: 8px;
+      }
+      .co-submit-row {
+        margin-top: 28px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .co-submit-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 14px 28px;
+        background: var(--green);
+        color: #fff;
+        border: none;
+        border-radius: 10px;
+        font-family: inherit;
+        font-size: 15px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: background 160ms, opacity 160ms;
+        touch-action: manipulation;
+      }
+      .co-submit-btn:hover { background: var(--green-2); }
+      .co-submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+      .co-submit-btn svg { width: 16px; height: 16px; flex-shrink: 0; }
+      .co-error-msg {
+        color: #b91c1c;
+        font-size: 13px;
+        font-weight: 700;
+        padding: 10px 14px;
+        background: #fef2f2;
+        border-radius: 8px;
+        display: none;
+      }
+      .co-error-msg.is-shown { display: block; }
+      .co-success {
+        display: none;
+        text-align: center;
+        padding: 40px 20px;
+      }
+      .co-success.is-shown { display: block; }
+      .co-success-icon {
+        font-size: 48px;
+        margin-bottom: 16px;
+      }
+      .co-success h2 {
+        font-family: "Playfair Display", Georgia, serif;
+        font-size: 26px;
+        margin: 0 0 12px;
+      }
+      .co-success p {
+        color: var(--muted);
+        font-size: 15px;
+        line-height: 1.55;
+        margin: 0 0 24px;
+      }
+      .co-test-banner {
+        font-size: 13px;
+        font-weight: 700;
+        color: #92400e;
+        background: #fffbeb;
+        border: 1px solid #fde68a;
+        border-radius: 8px;
+        padding: 10px 14px;
+        margin-bottom: 16px;
+      }
+      .field-error {
+        font-size: 11px;
+        color: #b91c1c;
+        font-weight: 700;
+        margin-top: 4px;
+        display: none;
+      }
+      .form-field.is-invalid input,
+      .form-field.is-invalid select,
+      .form-field.is-invalid textarea {
+        border-color: #f87171;
+        box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.15);
+      }
+      .form-field.is-invalid .field-error { display: block; }
+
+      @media (max-width: 480px) {
+        .co-form-card { padding: 16px; }
+        .form-grid { grid-template-columns: 1fr !important; }
+      }
+    </style>
+  </head>
+  <body>
+
+    <header class="site-header" data-header>
+      <a class="brand" href="/" aria-label="Lana's Kitchen">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 28 38" role="img">
+            <path d="M14 35V6" />
+            <path d="M14 17C8 15 5 11 5 6c5 0 9 4 9 11Z" />
+            <path d="M14 25c-6-2-10-6-10-11 6 0 10 5 10 11Z" />
+            <path d="M14 14c6-2 9-6 9-11-5 0-9 4-9 11Z" />
+            <path d="M14 22c6-2 10-6 10-11-6 0-10 5-10 11Z" />
+          </svg>
+        </span>
+        <span class="brand-text">
+          <strong>Lana's Kitchen</strong>
+          <small>MIAMI</small>
+        </span>
+      </a>
+      <div class="header-actions">
+        <div class="lang-switch" aria-label="Language">
+          <button class="lang-btn" type="button" data-co-lang="ru">RU</button>
+          <button class="lang-btn" type="button" data-co-lang="en">EN</button>
+          <button class="lang-btn" type="button" data-co-lang="uk">UA</button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <div class="co-page">
+
+        <a class="co-back" href="/#catering">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19 12H5M12 5l-7 7 7 7"/>
+          </svg>
+          <span data-co="back">← Назад</span>
+        </a>
+
+        <p class="co-eyebrow" data-co="eyebrow">Индивидуальный заказ</p>
+        <h1 class="co-title" data-co="title">Индивидуальный заказ</h1>
+        <p class="co-subtitle" data-co="subtitle">Праздники, семейные ужины, кейтеринг и блюда по договорённости. Оставьте заявку — мы свяжемся для уточнения деталей.</p>
+
+        <!-- ── Success state ── -->
+        <div class="co-success" id="co-success">
+          <div class="co-success-icon">✅</div>
+          <h2 data-co="successTitle">Заявка отправлена</h2>
+          <p data-co="successText">Мы получили вашу заявку и свяжемся с вами для уточнения деталей.</p>
+          <a class="btn btn-primary" href="/" data-co="successBack">Вернуться на сайт</a>
+        </div>
+
+        <!-- ── Form ── -->
+        <div class="co-form-card" id="co-form-card">
+          <div id="co-test-banner" class="co-test-banner" style="display:none" data-co="testBanner">🧪 TEST MODE — заявка не отправляется в Telegram</div>
+
+          <form id="co-form" novalidate>
+            <!-- Honeypot -->
+            <input type="text" name="_hp" value="" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+            <!-- Contact -->
+            <p class="co-section-label" data-co="sectionContact">Контакты</p>
+            <div class="form-grid">
+              <label class="form-field" id="ff-name">
+                <span data-co="labelName">Имя *</span>
+                <input name="name" type="text" autocomplete="name" required />
+                <span class="field-error" data-co="errName">Укажите имя</span>
+              </label>
+              <label class="form-field" id="ff-phone">
+                <span data-co="labelPhone">Телефон *</span>
+                <input name="phone" type="tel" autocomplete="tel" required />
+                <span class="field-error" data-co="errPhone">Укажите телефон</span>
+              </label>
+            </div>
+
+            <!-- Order type -->
+            <p class="co-section-label" data-co="sectionOrder">Заказ</p>
+            <div class="form-grid">
+              <label class="form-field" id="ff-type">
+                <span data-co="labelType">Тип заказа *</span>
+                <select name="orderType" required>
+                  <option value="" data-co="typePlaceholder">Выберите тип</option>
+                  <option value="birthday" data-co="typeBirthday">День рождения</option>
+                  <option value="family" data-co="typeFamily">Семейный ужин</option>
+                  <option value="catering" data-co="typeCatering">Кейтеринг / корпоратив</option>
+                  <option value="custom" data-co="typeCustom">Блюда по договорённости</option>
+                  <option value="other" data-co="typeOther">Другое</option>
+                </select>
+                <span class="field-error" data-co="errType">Выберите тип заказа</span>
+              </label>
+              <label class="form-field" id="ff-guests">
+                <span data-co="labelGuests">Количество гостей / порций *</span>
+                <input name="guests" type="text" required />
+                <span class="field-error" data-co="errGuests">Укажите количество</span>
+              </label>
+              <label class="form-field" id="ff-date">
+                <span data-co="labelDate">Желаемая дата *</span>
+                <input name="date" type="date" required />
+                <span class="field-error" data-co="errDate">Укажите дату</span>
+              </label>
+              <label class="form-field">
+                <span data-co="labelTime">Желаемое время</span>
+                <input name="time" type="text" placeholder="Например: 17:00–19:00" />
+              </label>
+              <label class="form-field form-field-wide" id="ff-description">
+                <span data-co="labelDescription">Описание пожеланий *</span>
+                <textarea name="description" rows="4" required></textarea>
+                <span class="field-error" data-co="errDescription">Опишите пожелания</span>
+              </label>
+            </div>
+
+            <!-- Optional: location -->
+            <p class="co-section-label" data-co="sectionLocation">Адрес (необязательно)</p>
+            <div class="form-grid">
+              <label class="form-field">
+                <span data-co="labelCity">Город</span>
+                <input name="city" type="text" autocomplete="address-level2" />
+              </label>
+              <label class="form-field">
+                <span data-co="labelZip">ZIP</span>
+                <input name="zip" type="text" inputmode="numeric" maxlength="5" autocomplete="postal-code" />
+              </label>
+              <label class="form-field form-field-wide">
+                <span data-co="labelAddress">Адрес / район</span>
+                <input name="address" type="text" autocomplete="street-address" />
+              </label>
+              <label class="form-field form-field-wide">
+                <span data-co="labelComment">Дополнительный комментарий</span>
+                <textarea name="comment" rows="2"></textarea>
+              </label>
+            </div>
+
+            <p class="co-disclaimer" data-co="disclaimer">
+              Это заявка, а не подтверждённый заказ. Мы свяжемся с вами для уточнения состава, даты, времени и стоимости. Цена не фиксируется при отправке формы.
+            </p>
+
+            <div class="co-submit-row">
+              <div class="co-error-msg" id="co-error"></div>
+              <button class="co-submit-btn" type="submit" id="co-submit-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13M22 2 15 22 11 13 2 9l20-7z"/></svg>
+                <span data-co="submit">Отправить заявку</span>
+              </button>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-brand">
+        <strong>Lana's Kitchen</strong>
+        <span>MIAMI · Fresh Homemade Meals</span>
+      </div>
+      <a href="https://t.me/Lanaskitchenmiami" target="_blank" rel="noopener noreferrer" style="color:var(--muted);font-size:13px;font-weight:700;">@Lanaskitchenmiami</a>
+    </footer>
+
+    <script>
+    (function () {
+      "use strict";
+
+      // ── Config ─────────────────────────────────────────────────────────
+      const WORKER_URL = "https://api.lanaskitchenmiami.com/custom-order";
+      const LANG_KEY   = "mamasTableLang";
+
+      // ── i18n ───────────────────────────────────────────────────────────
+      const copy = {
+        ru: {
+          back: "← Назад",
+          eyebrow: "Индивидуальный заказ",
+          title: "Индивидуальный заказ",
+          subtitle: "Праздники, семейные ужины, кейтеринг и блюда по договорённости. Оставьте заявку — мы свяжемся для уточнения деталей.",
+          sectionContact: "Контакты",
+          labelName: "Имя *",
+          labelPhone: "Телефон *",
+          errName: "Укажите имя",
+          errPhone: "Укажите телефон",
+          sectionOrder: "Заказ",
+          labelType: "Тип заказа *",
+          typePlaceholder: "Выберите тип",
+          typeBirthday: "День рождения",
+          typeFamily: "Семейный ужин",
+          typeCatering: "Кейтеринг / корпоратив",
+          typeCustom: "Блюда по договорённости",
+          typeOther: "Другое",
+          errType: "Выберите тип заказа",
+          labelGuests: "Количество гостей / порций *",
+          errGuests: "Укажите количество",
+          labelDate: "Желаемая дата *",
+          errDate: "Укажите дату",
+          labelTime: "Желаемое время",
+          labelDescription: "Описание пожеланий *",
+          errDescription: "Опишите пожелания",
+          sectionLocation: "Адрес (необязательно)",
+          labelCity: "Город",
+          labelZip: "ZIP",
+          labelAddress: "Адрес / район",
+          labelComment: "Дополнительный комментарий",
+          disclaimer: "Это заявка, а не подтверждённый заказ. Мы свяжемся с вами для уточнения состава, даты, времени и стоимости. Цена не фиксируется при отправке формы.",
+          submit: "Отправить заявку",
+          submitting: "Отправляем…",
+          successTitle: "Заявка отправлена",
+          successText: "Мы получили вашу заявку и свяжемся с вами для уточнения деталей.",
+          successBack: "Вернуться на сайт",
+          errorGeneric: "Не удалось отправить заявку. Пожалуйста, попробуйте ещё раз или напишите нам напрямую.",
+          errorRequired: "Пожалуйста, заполните все обязательные поля.",
+          testBanner: "🧪 TEST MODE — заявка не отправляется в Telegram",
+        },
+        en: {
+          back: "← Back",
+          eyebrow: "Custom Order",
+          title: "Custom Order",
+          subtitle: "For celebrations, family dinners, catering and dishes by request. Submit your inquiry — we'll reach out to confirm the details.",
+          sectionContact: "Contact",
+          labelName: "Name *",
+          labelPhone: "Phone *",
+          errName: "Please enter your name",
+          errPhone: "Please enter your phone",
+          sectionOrder: "Order",
+          labelType: "Order type *",
+          typePlaceholder: "Select type",
+          typeBirthday: "Birthday",
+          typeFamily: "Family dinner",
+          typeCatering: "Catering / corporate",
+          typeCustom: "Dishes by request",
+          typeOther: "Other",
+          errType: "Please select order type",
+          labelGuests: "Guests / portions *",
+          errGuests: "Please specify count",
+          labelDate: "Preferred date *",
+          errDate: "Please select a date",
+          labelTime: "Preferred time",
+          labelDescription: "Description *",
+          errDescription: "Please describe your request",
+          sectionLocation: "Location (optional)",
+          labelCity: "City",
+          labelZip: "ZIP",
+          labelAddress: "Address / area",
+          labelComment: "Additional comment",
+          disclaimer: "This is an inquiry, not a confirmed order. We will contact you to confirm the menu, date, time and pricing. No price is fixed upon submission.",
+          submit: "Submit inquiry",
+          submitting: "Submitting…",
+          successTitle: "Inquiry sent",
+          successText: "We've received your request and will contact you to confirm the details.",
+          successBack: "Back to site",
+          errorGeneric: "Failed to submit. Please try again or contact us directly.",
+          errorRequired: "Please fill in all required fields.",
+          testBanner: "🧪 TEST MODE — inquiry not sent to Telegram",
+        },
+        uk: {
+          back: "← Назад",
+          eyebrow: "Індивідуальне замовлення",
+          title: "Індивідуальне замовлення",
+          subtitle: "Для свят, сімейних вечерь, кейтерингу та страв за домовленістю. Залиште заявку — ми зв'яжемося для уточнення деталей.",
+          sectionContact: "Контакти",
+          labelName: "Ім'я *",
+          labelPhone: "Телефон *",
+          errName: "Вкажіть ім'я",
+          errPhone: "Вкажіть телефон",
+          sectionOrder: "Замовлення",
+          labelType: "Тип замовлення *",
+          typePlaceholder: "Оберіть тип",
+          typeBirthday: "День народження",
+          typeFamily: "Сімейна вечеря",
+          typeCatering: "Кейтеринг / корпоратив",
+          typeCustom: "Страви за домовленістю",
+          typeOther: "Інше",
+          errType: "Оберіть тип замовлення",
+          labelGuests: "Кількість гостей / порцій *",
+          errGuests: "Вкажіть кількість",
+          labelDate: "Бажана дата *",
+          errDate: "Вкажіть дату",
+          labelTime: "Бажаний час",
+          labelDescription: "Опис побажань *",
+          errDescription: "Опишіть побажання",
+          sectionLocation: "Адреса (необов'язково)",
+          labelCity: "Місто",
+          labelZip: "ZIP",
+          labelAddress: "Адреса / район",
+          labelComment: "Додатковий коментар",
+          disclaimer: "Це заявка, а не підтверджене замовлення. Ми зв'яжемося з вами для уточнення складу, дати, часу та вартості. Ціна не фіксується при відправці форми.",
+          submit: "Надіслати заявку",
+          submitting: "Надсилаємо…",
+          successTitle: "Заявку надіслано",
+          successText: "Ми отримали вашу заявку і зв'яжемося з вами для уточнення деталей.",
+          successBack: "Повернутися на сайт",
+          errorGeneric: "Не вдалося надіслати заявку. Спробуйте ще раз або зв'яжіться з нами напряму.",
+          errorRequired: "Будь ласка, заповніть усі обов'язкові поля.",
+          testBanner: "🧪 TEST MODE — заявка не надсилається в Telegram",
+        },
+      };
+
+      // ── Test mode ──────────────────────────────────────────────────────
+      const qs = new URLSearchParams(location.search);
+      const TEST_MODE  = qs.get("test")  === "1";
+      const TEST_TOKEN = qs.get("token") || "";
+
+      // ── Language ───────────────────────────────────────────────────────
+      function getLang() {
+        const stored = localStorage.getItem(LANG_KEY);
+        if (stored === "en" || stored === "uk") return stored;
+        return "ru";
+      }
+      let lang = getLang();
+
+      function applyLang() {
+        document.querySelectorAll("[data-co]").forEach((el) => {
+          const key = el.dataset.co;
+          const val = copy[lang][key];
+          if (val !== undefined) el.textContent = val;
+        });
+        document.querySelectorAll("[data-co-lang]").forEach((btn) => {
+          btn.classList.toggle("is-active", btn.dataset.coLang === lang);
+        });
+        if (TEST_MODE) {
+          document.getElementById("co-test-banner").style.display = "";
+        }
+      }
+
+      document.querySelectorAll("[data-co-lang]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          lang = btn.dataset.coLang;
+          localStorage.setItem(LANG_KEY, lang);
+          applyLang();
+        });
+      });
+
+      applyLang();
+
+      // ── Set tomorrow as min date ────────────────────────────────────────
+      const dateInput = document.querySelector("input[name='date']");
+      if (dateInput) {
+        const d = new Date();
+        d.setDate(d.getDate() + 1);
+        dateInput.min = d.toISOString().slice(0, 10);
+      }
+
+      // ── Validation ─────────────────────────────────────────────────────
+      const requiredFields = [
+        { name: "name",        ffId: "ff-name",        errKey: "errName" },
+        { name: "phone",       ffId: "ff-phone",       errKey: "errPhone" },
+        { name: "orderType",   ffId: "ff-type",        errKey: "errType" },
+        { name: "guests",      ffId: "ff-guests",      errKey: "errGuests" },
+        { name: "date",        ffId: "ff-date",        errKey: "errDate" },
+        { name: "description", ffId: "ff-description", errKey: "errDescription" },
+      ];
+
+      function validateForm(form) {
+        let valid = true;
+        requiredFields.forEach(({ name, ffId, errKey }) => {
+          const el = form.elements[name];
+          const ff = document.getElementById(ffId);
+          const errEl = ff?.querySelector(".field-error");
+          const val = el ? el.value.trim() : "";
+          const isOk = val.length > 0;
+          ff?.classList.toggle("is-invalid", !isOk);
+          if (errEl) errEl.textContent = copy[lang][errKey] || "";
+          if (!isOk) valid = false;
+        });
+        return valid;
+      }
+
+      // ── Submit ─────────────────────────────────────────────────────────
+      let submitting = false;
+      const form    = document.getElementById("co-form");
+      const btn     = document.getElementById("co-submit-btn");
+      const errBox  = document.getElementById("co-error");
+      const success = document.getElementById("co-success");
+      const formCard = document.getElementById("co-form-card");
+
+      function showError(msg) {
+        errBox.textContent = msg;
+        errBox.classList.add("is-shown");
+      }
+      function hideError() {
+        errBox.classList.remove("is-shown");
+      }
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        if (submitting) return;
+
+        hideError();
+
+        // Clear previous invalid state
+        requiredFields.forEach(({ ffId }) =>
+          document.getElementById(ffId)?.classList.remove("is-invalid")
+        );
+
+        if (!validateForm(form)) {
+          showError(copy[lang].errorRequired);
+          form.querySelector(".form-field.is-invalid input, .form-field.is-invalid select, .form-field.is-invalid textarea")?.focus();
+          return;
+        }
+
+        submitting = true;
+        btn.disabled = true;
+        const submitSpan = btn.querySelector("span");
+        if (submitSpan) submitSpan.textContent = copy[lang].submitting;
+
+        const fd = new FormData(form);
+        const payload = {
+          customOrder: true,
+          name:        fd.get("name")?.trim(),
+          phone:       fd.get("phone")?.trim(),
+          orderType:   fd.get("orderType"),
+          guests:      fd.get("guests")?.trim(),
+          date:        fd.get("date"),
+          time:        fd.get("time")?.trim() || "",
+          description: fd.get("description")?.trim(),
+          city:        fd.get("city")?.trim() || "",
+          zip:         fd.get("zip")?.trim() || "",
+          address:     fd.get("address")?.trim() || "",
+          comment:     fd.get("comment")?.trim() || "",
+          _hp:         fd.get("_hp") || "",
+          lang,
+          ...(TEST_MODE ? { testMode: true, testToken: TEST_TOKEN } : {}),
+        };
+
+        try {
+          const res = await fetch(WORKER_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          });
+          const data = await res.json().catch(() => ({}));
+
+          if (!res.ok || !data.ok) {
+            throw new Error(data.message || copy[lang].errorGeneric);
+          }
+
+          // Success
+          formCard.style.display = "none";
+          success.classList.add("is-shown");
+          window.scrollTo({ top: 0, behavior: "smooth" });
+
+        } catch (err) {
+          showError(err.message || copy[lang].errorGeneric);
+          submitting = false;
+          btn.disabled = false;
+          if (submitSpan) submitSpan.textContent = copy[lang].submit;
+        }
+      });
+
+    })();
+    </script>
+  </body>
+</html>

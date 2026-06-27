@@ -18,6 +18,30 @@
   box-sizing: border-box;
 }
 
+/* Eliminate the ~300ms iOS tap delay for all interactive elements.
+   Modern iOS 13+ disables it for viewport-scaled sites, but setting
+   touch-action:manipulation is an extra guarantee and also suppresses
+   double-tap-to-zoom on buttons, links and form controls. */
+a,
+button,
+[role="button"],
+label,
+select,
+input[type="checkbox"],
+input[type="radio"],
+input[type="submit"],
+input[type="button"],
+[data-add],
+[data-sub],
+[data-lang],
+[data-open-checkout],
+[data-mobile-order],
+.category-card,
+.choice-btn,
+.lang-btn {
+  touch-action: manipulation;
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -1590,6 +1614,17 @@ fieldset.form-field {
   transition: border-color 180ms ease, box-shadow 180ms ease;
 }
 
+/* iOS Safari renders input[type="date"] taller than other fields by default.
+   Explicit height + box-sizing locks it to match text/select visual height.
+   min-width:0 + max-width:100% prevent the native date control from overflowing
+   its grid cell on iPad, which caused the date and time-window fields to overlap. */
+.form-field input[type="date"] {
+  height: 40px;
+  box-sizing: border-box;
+  min-width: 0;
+  max-width: 100%;
+}
+
 .form-field textarea {
   resize: vertical;
 }
@@ -2238,7 +2273,10 @@ fieldset.form-field {
 }
 
 /* ── Tablet / iPad: show mobile-order-bar when cart has items ────────────── */
-@media (min-width: 761px) and (max-width: 1100px) {
+/* Upper bound 1199px covers all common iPads in landscape:
+   iPad mini ~1133px, iPad Air ~1180px, iPad Pro 11" ~1194px.
+   iPad Pro 12.9" (1366px) and desktop (1280px+) are excluded. */
+@media (min-width: 761px) and (max-width: 1199px) {
   body {
     padding-bottom: 80px;
   }
@@ -2595,10 +2633,12 @@ body.modal-open .route-order-card {
   display: flex;
   align-items: center;
   justify-content: center;
-  /* overflow: hidden — overlay is NOT a scroll container.
-     Only the panel scrolls. This prevents iOS elastic bounce on the backdrop. */
   overflow: hidden;
   padding: 24px 16px;
+  /* Prevent iOS Safari from rubber-banding the backdrop.
+     touch-action:none stops pan gestures on the overlay itself;
+     .modal-body below has pan-y to allow scrolling inside the form. */
+  touch-action: none;
 }
 
 .modal-panel {
@@ -2606,17 +2646,18 @@ body.modal-open .route-order-card {
   border-radius: 16px;
   width: 100%;
   max-width: 600px;
-  max-height: 90vh;
-  overflow-y: auto;
+  /* dvh: stable on iOS Safari (excludes browser chrome height changes) */
+  max-height: 90dvh;
+  max-height: 90vh; /* fallback for browsers without dvh */
+  /* Panel is a flex column only — NOT a scroll container.
+     Scrolling lives exclusively in .modal-body below.
+     Having two nested overflow:auto elements (panel + body) confuses
+     iOS Safari's scroll chain and causes the panel to drift with finger. */
+  overflow: visible;
   display: flex;
   flex-direction: column;
   box-shadow: 0 24px 64px rgba(31, 25, 16, 0.18);
   position: relative;
-  /* Prevent panel scroll from rubber-banding to parent on iOS */
-  overscroll-behavior: contain;
-  -webkit-overflow-scrolling: touch;
-  /* Allow vertical pan inside panel; overlay has no touch action of its own */
-  touch-action: pan-y;
 }
 
 .modal-header {
@@ -2658,8 +2699,18 @@ body.modal-open .route-order-card {
 
 .modal-body {
   padding: 24px;
-  overflow-y: auto;
+  /* Single scroll container for the modal. Using 'scroll' (not 'auto') gives
+     iOS Safari momentum scrolling without triggering rubber-band on the panel. */
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  /* Prevent the iOS scroll chain from propagating to the body when the
+     inner content hits its scroll boundary — no overlay bounce. */
+  overscroll-behavior: contain;
+  /* Allow vertical pan inside the form; overlay above has touch-action:none */
+  touch-action: pan-y;
   flex: 1;
+  /* Minimum height: 0 prevents the panel from growing past max-height in flex */
+  min-height: 0;
 }
 
 /* Modal form tweaks */
@@ -2669,6 +2720,14 @@ body.modal-open .route-order-card {
 
 .modal-form .form-grid {
   gap: 14px;
+}
+
+/* Prevent native date/select controls from overflowing the 2-column grid
+   on iPad where iOS native controls can exceed their container width */
+.modal-form .form-field input,
+.modal-form .form-field select {
+  min-width: 0;
+  max-width: 100%;
 }
 
 /* Cart summary inside modal */
@@ -3181,13 +3240,15 @@ body.modal-open .route-order-card {
   .modal-overlay {
     align-items: flex-end;
     padding: 0;
+    /* On mobile the overlay fills the fixed wrapper; align panel to bottom */
   }
 
   .modal-panel {
     max-width: 100%;
     border-radius: 16px 16px 0 0;
-    max-height: 92vh;
+    /* Override base max-height for the bottom-sheet variant */
     max-height: 92dvh;
+    max-height: 92vh; /* fallback */
   }
 
   .modal-header {
