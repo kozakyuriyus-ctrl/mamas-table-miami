@@ -1715,7 +1715,7 @@ const createPreorderStage0 = () => {
   const form = state.preorderForm;
   const entries = cartEntries();
   const foodSubtotal = cartTotal();
-  const zone = form.zone; // auto-derived from ZIP in syncPreorderForm
+  const zone = zipToZoneKey(form.zip); // always fresh — never reads stale state.preorderForm.zone
   const zoneConfig = zone ? DELIVERY_ZONES[zone] : null;
   const isRemote = zone === "remote";
   const cityZipMismatch = detectCityZipMismatch(zone, form.city);
@@ -2408,7 +2408,7 @@ const validatePreorderForm = () => {
   const dd = new Date();
   dd.setDate(dd.getDate() + 1);
   if (f.date < dd.toISOString().slice(0, 10)) return "preorder.dateNotFuture";
-  const zoneConfig = DELIVERY_ZONES[f.zone];
+  const zoneConfig = DELIVERY_ZONES[zipToZoneKey(f.zip)];
   if (zoneConfig?.minOrder && cartTotal() < zoneConfig.minOrder) return "preorder.zoneRequired";
   return null;
 };
@@ -2799,6 +2799,18 @@ const handleFormInput = (event) => {
   const preorderField = event.target.closest("[data-preorder-form] [name]");
   if (preorderField) {
     state.preorderForm[preorderField.name] = preorderField.value;
+    if (preorderField.name === "zip") {
+      const trimmed = preorderField.value.trim();
+      // Keep zone always in sync with zip so no re-render can use a stale zone
+      state.preorderForm.zone = zipToZoneKey(trimmed);
+      // Re-render immediately when ZIP becomes a valid 5-digit code or is fully cleared
+      if (trimmed.length === 5 || trimmed.length === 0) {
+        const formEl = preorderField.closest("[data-preorder-form]");
+        if (formEl) syncPreorderForm(formEl);
+        renderPreorderModal();
+        return;
+      }
+    }
     if (state.preorderSubmitAttempted) {
       const label = preorderField.closest(".form-field");
       if (label) {
