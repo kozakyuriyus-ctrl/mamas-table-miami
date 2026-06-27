@@ -20,40 +20,27 @@
 
 // ── Delivery zone config (mirrors DELIVERY_ZONES in script.js) ───────────────
 const DELIVERY_ZONES = {
-  "1": {
-    letter: "A",
-    fee: 10,
-    minOrder: 60,
-    freeAt: 110,
-    cityList: ["Hallandale Beach", "Aventura", "Sunny Isles Beach", "North Miami Beach"],
-    cities: "Hallandale Beach, Aventura, Sunny Isles Beach, North Miami Beach",
-  },
-  "2": {
-    letter: "B",
-    fee: 15,
-    minOrder: 80,
-    freeAt: 145,
-    cityList: ["Hollywood", "Dania Beach", "North Miami"],
-    cities: "Hollywood, Dania Beach, North Miami",
-  },
-  "3": {
-    letter: "C",
-    fee: 20,
-    minOrder: 120,
-    freeAt: 200,
-    requiresManualConfirmation: true,
-    cityList: ["Fort Lauderdale", "Miami Beach", "Miami Shores"],
-    cities: "Fort Lauderdale, Miami Beach, Miami Shores",
-  },
-  remote: {
-    letter: "Remote",
-    fee: null,
-    minOrder: 120,
-    requiresManualConfirmation: true,
-    cityList: [],
-    cities: "Other areas / remote",
-  },
+  "1": { letter: "A", fee: 10, minOrder: 60,  freeAt: 110 },
+  "2": { letter: "B", fee: 15, minOrder: 80,  freeAt: 145 },
+  "3": { letter: "C", fee: 20, minOrder: 120, freeAt: 200, requiresManualConfirmation: true },
+  remote: { letter: "Remote", fee: null, minOrder: 120, requiresManualConfirmation: true },
 };
+
+// ZIP → zone map (mirrors ZIP_DELIVERY_ZONES in script.js)
+const ZIP_DELIVERY_ZONES = {
+  A: ["33009", "33160", "33180", "33019", "33020", "33023"],
+  B: ["33004", "33021", "33024", "33025", "33154"],
+  C: ["33305", "33306", "33334"],
+};
+
+function zipToZoneKey(zip) {
+  const z = String(zip || "").trim();
+  if (!/^\d{5}$/.test(z)) return "remote";
+  if (ZIP_DELIVERY_ZONES.A.includes(z)) return "1";
+  if (ZIP_DELIVERY_ZONES.B.includes(z)) return "2";
+  if (ZIP_DELIVERY_ZONES.C.includes(z)) return "3";
+  return "remote";
+}
 
 const MAX_BODY_SIZE = 32_000;
 const RATE_LIMIT_WINDOW_MS = 15 * 60 * 1000;
@@ -106,18 +93,6 @@ function esc(str) {
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;");
-}
-
-function normalizeCity(value) {
-  return String(value ?? "").trim().toLowerCase();
-}
-
-function cityToZone(city) {
-  const normalized = normalizeCity(city);
-  for (const [zone, config] of Object.entries(DELIVERY_ZONES)) {
-    if ((config.cityList || []).some((entry) => normalizeCity(entry) === normalized)) return zone;
-  }
-  return null;
 }
 
 function getReadableDate(dateValue) {
@@ -209,7 +184,7 @@ function buildTelegramMessage({ orderId, customer, delivery, schedule, orderItem
   }).join("\n");
 
   const zoneMismatchLine = zoneMismatch
-    ? `\n⚠️ Zone check: customer selected Zone ${esc(zoneMismatch.selectedZoneLabel)}, address may belong to Zone ${esc(zoneMismatch.inferredZoneLabel)}. Manual review required.`
+    ? `\n⚠️ Zone check: frontend sent Zone ${esc(zoneMismatch.frontendZoneLabel)}, server computed Zone ${esc(zoneMismatch.serverZoneLabel)} from ZIP. Using server zone.`
     : "";
 
   let deliveryLine = "";
@@ -324,26 +299,27 @@ async function handlePreorder(request, env, json) {
   if ((customer.phone  || "").length >  30) return json({ ok: false, error: "field_too_long", message: "Phone too long."   }, 400);
   if ((delivery.address|| "").length > 500) return json({ ok: false, error: "field_too_long", message: "Address too long." }, 400);
 
-  // ── Zone validation ────────────────────────────────────────────────────────
-  const zoneConfig = DELIVERY_ZONES[delivery.zone];
-  if (!zoneConfig)
-    return json({ ok: false, error: "invalid_zone", message: "Invalid delivery zone." }, 400);
+  // ── Zone: derived server-side from ZIP (frontend zone is not trusted) ────────
+  const serverZone = zipToZoneKey(delivery.zip);
+  const zoneConfig = DELIVERY_ZONES[serverZone];
+  const frontendZone = delivery.zone;
+  const zoneMismatch = frontendZone && frontendZone !== serverZone
+    ? {
+        frontendZone,
+        frontendZoneLabel: DELIVERY_ZONES[frontendZone]?.letter ?? frontendZone,
+        serverZone,
+        serverZoneLabel: zoneConfig.letter,
+      }
+    : null;
+
+  // Build delivery object with server-computed zone (frontend zone not trusted)
+  const serverDelivery = { ...delivery, zone: serverZone };
 
   // ── Date validation (must be tomorrow or later, Miami time) ───────────────
   const todayStr = getMiamiDateStr();
   const todayISO = `${todayStr.slice(0, 4)}-${todayStr.slice(4, 6)}-${todayStr.slice(6)}`;
   if (!schedule.date || schedule.date <= todayISO)
     return json({ ok: false, error: "date_too_soon", message: "Delivery date must be tomorrow or later." }, 400);
-
-  const inferredZone = cityToZone(delivery.city);
-  const zoneMismatch = inferredZone && inferredZone !== delivery.zone
-    ? {
-        selectedZone: delivery.zone,
-        selectedZoneLabel: zoneConfig.letter,
-        inferredZone,
-        inferredZoneLabel: DELIVERY_ZONES[inferredZone]?.letter ?? inferredZone,
-      }
-    : null;
 
   // ── Load menu catalog (cached at CDN) ─────────────────────────────────────
   let dishes;
@@ -387,8 +363,8 @@ async function handlePreorder(request, env, json) {
   }
 
   // ── Compute server-side delivery pricing ──────────────────────────────────
-  const isZoneC = delivery.zone === "3";
-  const isRemote = delivery.zone === "remote";
+  const isZoneC = serverZone === "3";
+  const isRemote = serverZone === "remote";
   const isFree  = foodSubtotal >= zoneConfig.freeAt;
   const deliveryFee   = isZoneC || isRemote ? null : (isFree ? 0 : zoneConfig.fee);
   const orderTotal    = isZoneC || isRemote ? null : foodSubtotal + deliveryFee;
@@ -407,7 +383,7 @@ async function handlePreorder(request, env, json) {
   const orderId = generateOrderId();
 
   // ── Send Telegram notification ────────────────────────────────────────────
-  const tgMessage = buildTelegramMessage({ orderId, customer, delivery, schedule, orderItems, pricing, notes, zoneMismatch });
+  const tgMessage = buildTelegramMessage({ orderId, customer, delivery: serverDelivery, schedule, orderItems, pricing, notes, zoneMismatch });
   const tgResp = await callTelegram(env, "sendMessage", {
     chat_id: env.TELEGRAM_CHAT_ID,
     text: tgMessage,

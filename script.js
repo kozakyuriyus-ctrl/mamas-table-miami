@@ -12,15 +12,44 @@ const DELIVERY_ZONES = {
   remote: { label: "Remote", fee: null, minOrder: 120, requiresManualConfirmation: true },
 };
 
-const ZONE_CITY_RULES = {
-  "1": ["Hallandale Beach", "Aventura", "Sunny Isles Beach", "North Miami Beach"],
-  "2": ["Hollywood", "Dania Beach", "North Miami"],
-  "3": ["Fort Lauderdale", "Miami Beach", "Miami Shores"],
+// ZIP → zone map — single source of truth, mirrors ZIP_DELIVERY_ZONES in worker/index.js
+const ZIP_DELIVERY_ZONES = {
+  A: ["33009", "33160", "33180", "33019", "33020", "33023"],
+  B: ["33004", "33021", "33024", "33025", "33154"],
+  C: ["33305", "33306", "33334"],
 };
 
-const CITY_ZONE_RULES = Object.fromEntries(
-  Object.entries(ZONE_CITY_RULES).flatMap(([zone, cities]) => cities.map((city) => [city.toLowerCase(), zone]))
-);
+const zipToZoneKey = (zip) => {
+  const z = String(zip || "").trim();
+  if (!/^\d{5}$/.test(z)) return "";
+  if (ZIP_DELIVERY_ZONES.A.includes(z)) return "1";
+  if (ZIP_DELIVERY_ZONES.B.includes(z)) return "2";
+  if (ZIP_DELIVERY_ZONES.C.includes(z)) return "3";
+  return "remote";
+};
+
+// City → typical zone for mismatch warning only (not for pricing)
+const CITY_TYPICAL_ZONE = {
+  "hallandale beach": "1", "aventura": "1", "golden beach": "1",
+  "sunny isles beach": "1", "north miami beach": "1",
+  "west park": "1", "pembroke park": "1",
+  "dania beach": "2", "north miami": "2", "miami shores": "2",
+  "bal harbour": "2", "bay harbor islands": "2", "surfside": "2",
+  "miami gardens": "2",
+  "fort lauderdale": "3", "oakland park": "3", "wilton manors": "3",
+  "lauderdale lakes": "3",
+  "davie": "remote", "cooper city": "remote", "miami beach": "remote",
+};
+
+// City list for address select (values are English city names)
+const DELIVERY_CITIES = [
+  "Hallandale Beach", "Aventura", "Golden Beach", "Sunny Isles Beach",
+  "North Miami Beach", "Hollywood", "West Park", "Pembroke Park",
+  "Dania Beach", "North Miami", "Miami Shores", "Bal Harbour",
+  "Bay Harbor Islands", "Surfside", "Miramar", "Pembroke Pines",
+  "Miami Gardens", "Fort Lauderdale", "Oakland Park", "Wilton Manors",
+  "Lauderdale Lakes", "Davie", "Cooper City", "Miami Beach",
+];
 
 const API_ENABLED = true;
 const PREORDER_API_URL = "https://api.lanaskitchenmiami.com/preorder";
@@ -203,7 +232,11 @@ const copy = {
       name: "Имя",
       phone: "Телефон",
       address: "Адрес доставки",
-      apt: "Apartment / Unit",
+      apt: "Квартира / Unit (необязательно)",
+      city: "Город",
+      zip: "ZIP-код",
+      cityPlaceholder: "Выберите город",
+      cityOther: "Другой район — по согласованию",
       date: "Дата доставки",
       allergies: "Аллергии / особые пожелания",
       submit: "Отправить заявку",
@@ -262,6 +295,14 @@ const copy = {
       successText: "Мы проверим адрес, детали доставки и возможность приготовления, затем свяжемся с вами выбранным способом. Заказ будет поставлен в приготовление только после подтверждения и оплаты.",
       successRef: "№ заявки:",
       fieldRequired: "Заполните это поле",
+      zoneMismatch: "Указанный ZIP-код относится к другой зоне доставки. Условия доставки рассчитаны по ZIP-коду.",
+      zipUnknown: "Этот ZIP-код требует ручного подтверждения доставки. Стоимость доставки будет подтверждена после проверки адреса.",
+      otherDelivery: "по согласованию",
+      otherTotal: "будет подтверждён после проверки адреса",
+      otherNote: "Возможность и стоимость доставки будут подтверждены вручную.",
+      prelimDelivery: "Предварительная доставка",
+      prelimTotal: "Предварительный итог",
+      confirmationNote: "Точная стоимость доставки будет подтверждена после проверки адреса.",
     },
     cateringForm: {
       modalTitle: "Заявка на кейтеринг",
@@ -509,7 +550,11 @@ const copy = {
       name: "Name",
       phone: "Phone",
       address: "Delivery address",
-      apt: "Apartment / Unit",
+      apt: "Apartment / Unit (optional)",
+      city: "City",
+      zip: "ZIP code",
+      cityPlaceholder: "Select city",
+      cityOther: "Other area — by arrangement",
       date: "Delivery date",
       allergies: "Allergies / special requests",
       submit: "Send preorder request",
@@ -568,6 +613,14 @@ const copy = {
       successText: "We will review the address, delivery details, and availability, then contact you using your preferred method. Your order will be placed in preparation only after confirmation and payment.",
       successRef: "Request #:",
       fieldRequired: "Please fill out this field",
+      zoneMismatch: "This ZIP code belongs to a different delivery zone. Delivery terms were calculated based on the ZIP code.",
+      zipUnknown: "This ZIP code requires manual delivery confirmation. The delivery fee will be confirmed after the address is reviewed.",
+      otherDelivery: "by arrangement",
+      otherTotal: "to be confirmed after address review",
+      otherNote: "Delivery availability and cost will be confirmed manually.",
+      prelimDelivery: "Preliminary delivery",
+      prelimTotal: "Preliminary total",
+      confirmationNote: "Exact delivery cost will be confirmed after the address is reviewed.",
     },
     cateringForm: {
       modalTitle: "Catering request",
@@ -815,7 +868,11 @@ const copy = {
       name: "Ім'я",
       phone: "Телефон",
       address: "Адреса доставки",
-      apt: "Apartment / Unit",
+      apt: "Квартира / Unit (необов'язково)",
+      city: "Місто",
+      zip: "ZIP-код",
+      cityPlaceholder: "Оберіть місто",
+      cityOther: "Інший район — за погодженням",
       date: "Дата доставки",
       allergies: "Алергії / особливі побажання",
       submit: "Надіслати заявку",
@@ -874,6 +931,14 @@ const copy = {
       successText: "Ми перевіримо адресу, деталі доставки та можливість приготування, після чого зв'яжемося з вами обраним способом. Замовлення буде передано в приготування лише після підтвердження та оплаті.",
       successRef: "№ заявки:",
       fieldRequired: "Заповніть це поле",
+      zoneMismatch: "Цей ZIP-код належить до іншої зони доставки. Умови доставки розраховані за ZIP-кодом.",
+      zipUnknown: "Цей ZIP-код потребує ручного підтвердження доставки. Вартість доставки буде підтверджена після перевірки адреси.",
+      otherDelivery: "за погодженням",
+      otherTotal: "буде підтверджений після перевірки адреси",
+      otherNote: "Можливість і вартість доставки будуть підтверджені вручну.",
+      prelimDelivery: "Попередня доставка",
+      prelimTotal: "Попередній підсумок",
+      confirmationNote: "Точна вартість доставки буде підтверджена після перевірки адреси.",
     },
     cateringForm: {
       modalTitle: "Заявка на кейтеринг",
@@ -1633,11 +1698,12 @@ const createPreorderStage0 = () => {
   const form = state.preorderForm;
   const entries = cartEntries();
   const foodSubtotal = cartTotal();
-  const zone = form.zone;
+  const zone = form.zone; // auto-derived from ZIP in syncPreorderForm
   const zoneConfig = zone ? DELIVERY_ZONES[zone] : null;
   const isRemote = zone === "remote";
-  const zoneMismatch = detectZoneMismatch(zone, form.city);
-  state.preorderZoneMismatch = zoneMismatch;
+  const cityZipMismatch = detectCityZipMismatch(zone, form.city);
+  const isZipUnknown = isRemote && !!form.zip;
+  state.preorderZoneMismatch = cityZipMismatch;
 
   const ddTomorrow = new Date();
   ddTomorrow.setDate(ddTomorrow.getDate() + 1);
@@ -1650,7 +1716,6 @@ const createPreorderStage0 = () => {
       case "name": return !f.name;
       case "phone": return !f.phone || validatePhone(f.phone) !== null;
       case "contactMethod": return !f.contactMethod;
-      case "zone": return !f.zone;
       case "address": return !f.address;
       case "city": return !f.city;
       case "zip": return !f.zip;
@@ -1725,16 +1790,9 @@ const createPreorderStage0 = () => {
     }
   }
 
-  const zoneHtml = `
-    <h4 class="checkout-section-label">${escapeHtml(t("preorder.zoneTitle"))}</h4>
-    <div class="form-option-group${invCls("zone")}" role="radiogroup" aria-label="${escapeHtml(t("preorder.zoneTitle"))}">
-      ${["1", "2", "3", "remote"].map((z) => {
-        const checked = form.zone === z ? " checked" : "";
-        const sel = form.zone === z ? " is-selected" : "";
-        return `<label class="choice-card${sel}"><input type="radio" name="zone" value="${z}"${checked} /><span>${escapeHtml(t(`preorder.zone${z === "remote" ? "Remote" : z}`))}</span></label>`;
-      }).join("")}
-      ${errSpan("zone")}
-    </div>
+  const zipInfoHtml = `
+    ${cityZipMismatch ? `<p class="zone-mismatch-warning">${escapeHtml(t("preorder.zoneMismatch"))}</p>` : ""}
+    ${isZipUnknown ? `<p class="zone-mismatch-warning">${escapeHtml(t("preorder.zipUnknown"))}</p>` : ""}
     ${pricingHtml}`;
 
   const contactOptions = [["sms", "contactSms"], ["whatsapp", "contactWhatsapp"], ["telegram", "contactTelegram"], ["callMe", "contactCallMe"]]
@@ -1751,6 +1809,11 @@ const createPreorderStage0 = () => {
     ? `<label class="form-field form-field-wide form-checkbox-label"><input type="checkbox" name="whatsappSamePhone" value="1"${form.whatsappSamePhone ? " checked" : ""} /><span>${escapeHtml(t("preorder.whatsappSamePhone"))}</span></label>`
     : "";
 
+  const cityOptions = DELIVERY_CITIES.map((c) => {
+    const sel = form.city === c ? " selected" : "";
+    return `<option value="${escapeHtml(c)}"${sel}>${escapeHtml(c)}</option>`;
+  }).join("");
+
   const addressHtml = `
     <h4 class="checkout-section-label">${escapeHtml(t("preorder.deliveryTitle"))}</h4>
     <div class="form-grid">
@@ -1761,12 +1824,16 @@ const createPreorderStage0 = () => {
       </label>
       <label class="form-field${invCls("city")}">
         <span>${escapeHtml(t("preorder.city"))} *</span>
-        <input name="city" type="text" value="${escapeHtml(form.city)}" autocomplete="address-level2" required />
+        <select name="city" autocomplete="address-level2" required>
+          <option value="">${escapeHtml(t("preorder.cityPlaceholder"))}</option>
+          ${cityOptions}
+          <option value="Other"${form.city === "Other" ? " selected" : ""}>${escapeHtml(t("preorder.cityOther"))}</option>
+        </select>
         ${errSpan("city")}
       </label>
       <label class="form-field${invCls("zip")}">
         <span>${escapeHtml(t("preorder.zip"))} *</span>
-        <input name="zip" type="text" value="${escapeHtml(form.zip)}" autocomplete="postal-code" inputmode="numeric" required />
+        <input name="zip" type="text" value="${escapeHtml(form.zip)}" autocomplete="postal-code" inputmode="numeric" maxlength="5" required />
         ${errSpan("zip")}
       </label>
       <label class="form-field">
@@ -1781,7 +1848,8 @@ const createPreorderStage0 = () => {
         <span>${escapeHtml(t("preorder.deliveryInstructions"))}</span>
         <textarea name="deliveryInstructions" rows="2">${escapeHtml(form.deliveryInstructions)}</textarea>
       </label>
-    </div>`;
+    </div>
+    ${zipInfoHtml}`;
 
   const TIME_SLOTS = ["A", "B", "C", "D", "E", "F", "G", "H", "I"];
   const timeOptions = TIME_SLOTS.map((s) => {
@@ -1822,7 +1890,6 @@ const createPreorderStage0 = () => {
         </div>
         ${tgField}${waCheckbox}
       </div>
-      ${zoneHtml}
       ${addressHtml}
       <h4 class="checkout-section-label">${escapeHtml(t("preorder.scheduleTitle"))}</h4>
       <div class="form-grid">
@@ -1849,7 +1916,6 @@ const createPreorderStage0 = () => {
           <textarea name="orderNotes" rows="2">${escapeHtml(form.orderNotes)}</textarea>
         </label>
       </div>
-      ${zoneMismatch ? `<p class="zone-mismatch-warning">${escapeHtml(t("preorder.zoneMismatch"))}</p>` : ""}
       <input type="text" name="_hp" value="" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
       ${state.preorderError && state.preorderErrorMsg
         ? `<p class="preorder-api-error">${escapeHtml(state.preorderErrorMsg)}</p>`
@@ -2257,13 +2323,14 @@ const refreshIcons = () => {
 
 const syncPreorderForm = (formEl) => {
   const data = new FormData(formEl);
+  const rawZip = String(data.get("zip") || "").trim();
   state.preorderForm = {
     name: String(data.get("name") || "").trim(),
     phone: String(data.get("phone") || "").trim(),
     fulfillmentType: String(data.get("fulfillmentType") || "delivery"),
-    zone: String(data.get("zone") || ""),
     city: String(data.get("city") || "").trim(),
-    zip: String(data.get("zip") || "").trim(),
+    zip: rawZip,
+    zone: zipToZoneKey(rawZip),
     contactMethod: String(data.get("contactMethod") || ""),
     telegramUsername: String(data.get("telegramUsername") || "").trim(),
     whatsappSamePhone: data.get("whatsappSamePhone") === "1",
@@ -2301,8 +2368,8 @@ const todayStr = () => new Date().toISOString().slice(0, 10);
 const validatePreorderForm = () => {
   const f = state.preorderForm;
   if (!f.name || !f.phone || !f.contactMethod || !f.date || !f.timeWindow) return "preorder.required";
-  if (!f.zone) return "preorder.zoneRequired";
   if (!f.address || !f.city || !f.zip) return "preorder.required";
+  if (!/^\d{5}$/.test(f.zip)) return "preorder.required";
   if (validatePhone(f.phone) !== null) return "preorder.phoneInvalid";
   const dd = new Date();
   dd.setDate(dd.getDate() + 1);
@@ -2324,13 +2391,10 @@ const validateCateringForm = () => {
 
 const normalizeCity = (value) => String(value || "").trim().toLowerCase();
 
-const detectZoneMismatch = (zone, city) => {
-  const inferredZone = CITY_ZONE_RULES[normalizeCity(city)] || null;
-  if (!zone || !city || !inferredZone || inferredZone === zone) return null;
-  return {
-    selectedZone: zone,
-    inferredZone,
-  };
+const detectCityZipMismatch = (zipZone, city) => {
+  const typicalZone = CITY_TYPICAL_ZONE[normalizeCity(city)];
+  if (!zipZone || !city || !typicalZone || typicalZone === zipZone) return null;
+  return { zipZone, cityTypicalZone: typicalZone };
 };
 
 // ── Submit handlers ───────────────────────────────────────────────────────────
@@ -2352,7 +2416,7 @@ const handlePreorderSubmit = async (formEl) => {
   const form = state.preorderForm;
   const honeypot = formEl.querySelector("[name='_hp']")?.value || "";
   const timeWindowLabel = t(`preorder.time${form.timeWindow}`) || form.timeWindow;
-  const zoneMismatch = detectZoneMismatch(form.zone, form.city);
+  const zoneMismatch = detectCityZipMismatch(form.zone, form.city);
 
   const payload = {
     _hp: honeypot,
@@ -2726,7 +2790,6 @@ const handleFormChange = (event) => {
     const reRenderFields = [
       "name",
       "phone",
-      "zone",
       "address",
       "city",
       "zip",
