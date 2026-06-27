@@ -413,7 +413,11 @@ async function handlePreorder(request, env, json) {
       orderId: testId,
       zone: serverZone,
       zoneLetter: zoneConfig.letter,
+      // Zone A/B: confirmed fee. Zone C/Remote: null (requires manual confirmation).
       deliveryFee: pricing.deliveryFee,
+      // Zone C only: preliminary $20 (not final). null for all other zones.
+      preliminaryDeliveryFee: pricing.preliminaryDeliveryFee,
+      requiresManualConfirmation: pricing.requiresManualConfirmation,
       minimumOrder: zoneConfig.minOrder,
       freeDeliveryApplied: pricing.freeDelivery ?? false,
       subtotal: pricing.foodSubtotal,
