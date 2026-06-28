@@ -2282,7 +2282,6 @@ fieldset.form-field {
     transition: transform 220ms ease, opacity 220ms ease;
   }
 
-  body.has-scrolled .mobile-order-bar,
   body.has-cart .mobile-order-bar {
     transform: translateY(0);
     opacity: 1;
@@ -2302,7 +2301,7 @@ fieldset.form-field {
    iPad mini ~1133px, iPad Air ~1180px, iPad Pro 11" ~1194px.
    iPad Pro 12.9" (1366px) and desktop (1280px+) are excluded. */
 @media (min-width: 761px) and (max-width: 1199px) {
-  body {
+  body.has-cart {
     padding-bottom: 80px;
   }
 
