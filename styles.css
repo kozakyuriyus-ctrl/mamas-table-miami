@@ -1614,15 +1614,40 @@ fieldset.form-field {
   transition: border-color 180ms ease, box-shadow 180ms ease;
 }
 
-/* iOS Safari renders input[type="date"] taller than other fields by default.
-   Explicit height + box-sizing locks it to match text/select visual height.
-   min-width:0 + max-width:100% prevent the native date control from overflowing
-   its grid cell on iPad, which caused the date and time-window fields to overlap. */
+/* iOS Safari renders input[type="date"] with a large native "chrome" that
+   ignores CSS height. Root cause: appearance:auto lets WebKit use its own
+   system control sizing, overriding height:40px from this rule and
+   ::-webkit-date-and-time-value gets a browser-set min-height (~100px+).
+   Fix: -webkit-appearance:none removes the native visual shell while keeping
+   the wheel-picker functional (picker is triggered by type="date", not by
+   the appearance property). min-height:0 lets height:40px be the authority.
+   The webkit pseudo-element overrides suppress internal vertical padding.
+   Native iOS date picker still opens and works as expected. */
 .form-field input[type="date"] {
+  -webkit-appearance: none;
+  appearance: none;
   height: 40px;
+  min-height: 0;
+  line-height: 1.2;
   box-sizing: border-box;
   min-width: 0;
   max-width: 100%;
+}
+
+.form-field input[type="date"]::-webkit-date-and-time-value {
+  margin: 0;
+  min-height: 0;
+  height: auto;
+  line-height: inherit;
+}
+
+.form-field input[type="date"]::-webkit-datetime-edit {
+  padding: 0;
+  line-height: 1;
+}
+
+.form-field input[type="date"]::-webkit-datetime-edit-fields-wrapper {
+  padding: 0;
 }
 
 .form-field textarea {
