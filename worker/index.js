@@ -101,6 +101,14 @@ function generateCustomOrderId() {
   return `CO-${date}-${code}`;
 }
 
+function generateContactId() {
+  const date = getMiamiDateStr();
+  const buf = new Uint32Array(1);
+  crypto.getRandomValues(buf);
+  const code = 1000 + (buf[0] % 9000); // 1000–9999
+  return `CR-${date}-${code}`;
+}
+
 /** Escape HTML entities for Telegram HTML parse_mode */
 function esc(str) {
   return String(str ?? "")
@@ -616,6 +624,107 @@ ${locationLines ? `\n<b>Адрес:</b>\n${esc(locationLines)}` : ""}${comment ?
   return json({ ok: true, orderId, testMode: isTestMode || undefined });
 }
 
+// ── Contact request handler ───────────────────────────────────────────────────
+
+async function handleContactRequest(request, env, json) {
+  const ip = request.headers.get("CF-Connecting-IP") ?? "unknown";
+  if (!checkRateLimit(ip)) {
+    return json({ ok: false, error: "rate_limited", message: "Too many requests. Try again in 15 minutes." }, 429);
+  }
+
+  let body;
+  try {
+    body = await request.json();
+  } catch {
+    return json({ ok: false, error: "invalid_json" }, 400);
+  }
+
+  // Honeypot: hidden field must be empty
+  if (body._hp) {
+    return json({ ok: true }); // silently accept
+  }
+
+  // Test mode validation
+  const isTestMode = body.testMode === true;
+  if (isTestMode) {
+    const testToken = String(body.testToken || "");
+    const envToken  = String(env.TEST_TOKEN || "");
+    if (!envToken || testToken !== envToken) {
+      return json({ ok: false, error: "invalid_test_token" }, 403);
+    }
+  }
+
+  // Required field validation
+  const required = { name: body.name, phone: body.phone, topic: body.topic, message: body.message };
+  for (const [key, val] of Object.entries(required)) {
+    if (!val || !String(val).trim()) {
+      return json({ ok: false, error: "validation_error", field: key, message: `Missing required field: ${key}` }, 400);
+    }
+  }
+
+  // Sanitise
+  const s = (v) => String(v ?? "").trim().slice(0, 500);
+  const name        = s(body.name);
+  const phone       = s(body.phone);
+  const topic       = s(body.topic);
+  const message     = s(body.message);
+  const date        = s(body.date);
+  const guests      = s(body.guests);
+  const area        = s(body.area);
+  const contactPref = s(body.contactPref);
+  const comment     = s(body.comment);
+  const lang        = ["ru", "en", "uk"].includes(body.lang) ? body.lang : "ru";
+
+  const contactId = generateContactId();
+
+  const topicLabels = {
+    menu:        "Menu question / Вопрос по меню",
+    custom:      "Custom order / Индивидуальный заказ",
+    celebration: "Celebration / Праздник",
+    catering:    "Catering / Кейтеринг",
+    other:       "Other / Другое",
+  };
+
+  const dateLabel = date
+    ? (() => { try { return getReadableDate(date); } catch { return date; } })()
+    : "";
+
+  const optionalLines = [
+    dateLabel    ? `Preferred date: ${esc(dateLabel)}` : "",
+    guests       ? `Guests/portions: ${esc(guests)}`   : "",
+    area         ? `Area / ZIP: ${esc(area)}`           : "",
+    contactPref  ? `Preferred contact: ${esc(contactPref)}` : "",
+  ].filter(Boolean).join("\n");
+
+  const tgMessage = `📩 <b>NEW CONTACT REQUEST</b>
+ID: ${esc(contactId)}
+
+Name: ${esc(name)}
+Phone: ${esc(phone)}
+Topic: ${esc(topicLabels[topic] ?? topic)}
+${optionalLines ? optionalLines + "\n" : ""}
+<b>Message:</b>
+${esc(message)}
+${comment ? `\n<b>Comment:</b>\n${esc(comment)}` : ""}
+Lang: ${esc(lang)}
+Sent: ${getMiamiTimeLabel()} ET`;
+
+  if (!isTestMode) {
+    const tgRes = await callTelegram(env, "sendMessage", {
+      chat_id:    env.TELEGRAM_CHAT_ID,
+      text:       tgMessage,
+      parse_mode: "HTML",
+    });
+    if (!tgRes.ok) {
+      const errText = await tgRes.text();
+      console.error("Telegram error (contact):", tgRes.status, errText);
+      return json({ ok: false, error: "telegram_error", message: "Failed to deliver message." }, 502);
+    }
+  }
+
+  return json({ ok: true, contactId, testMode: isTestMode || undefined });
+}
+
 // ── Entry point ───────────────────────────────────────────────────────────────
 
 export default {
@@ -644,6 +753,21 @@ export default {
 
     if (request.method === "OPTIONS") {
       return new Response(null, { status: 204, headers: corsHeaders });
+    }
+
+    if (url.pathname === "/contact") {
+      if (request.method !== "POST") {
+        return new Response("Method not allowed", { status: 405, headers: { Allow: "POST, OPTIONS" } });
+      }
+      if (origin !== allowed) {
+        return json({ ok: false, error: "forbidden_origin" }, 403);
+      }
+      try {
+        return await handleContactRequest(request, env, json);
+      } catch (err) {
+        console.error("Unhandled contact error:", err);
+        return json({ ok: false, error: "internal_error" }, 500);
+      }
     }
 
     if (url.pathname === "/custom-order") {
