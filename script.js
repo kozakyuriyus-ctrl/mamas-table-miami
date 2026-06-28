@@ -1905,9 +1905,6 @@ const createPreorderStage0 = () => {
     ? buildMinOrderMsg(zoneConfig.minOrder, zoneConfig.minOrder - foodSubtotal)
     : (missingRequired ? t("preorder.completeRequired") : "");
   return `
-    <button class="btn-back-to-menu" type="button" data-close-modal="preorder">
-      ${escapeHtml(t("preorder.backToMenu"))}
-    </button>
     <div class="modal-cart-summary">
       <h3>${escapeHtml(t("preorder.cartSummaryTitle"))}</h3>
       ${cartRows}
@@ -1992,12 +1989,18 @@ const createPreorderSuccess = () => {
 
 const createPreorderModal = () => {
   const body = state.preorderStage === 0 ? createPreorderStage0() : createPreorderSuccess();
+  const backBtn = state.preorderStage === 0
+    ? `<button class="btn-back-to-menu" type="button" data-close-modal="preorder">${escapeHtml(t("preorder.backToMenu"))}</button>`
+    : "";
   return `
     <div class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="preorder-modal-title" data-modal-overlay="preorder">
       <div class="modal-panel">
         <div class="modal-header">
-          <h2 id="preorder-modal-title">${escapeHtml(t("preorder.modalTitle"))}</h2>
-          <button class="modal-close-btn" type="button" data-close-modal="preorder" aria-label="${escapeHtml(t("preorder.close"))}">✕</button>
+          <div class="modal-header-top">
+            <h2 id="preorder-modal-title">${escapeHtml(t("preorder.modalTitle"))}</h2>
+            <button class="modal-close-btn" type="button" data-close-modal="preorder" aria-label="${escapeHtml(t("preorder.close"))}">✕</button>
+          </div>
+          ${backBtn}
         </div>
         <div class="modal-body">
           ${body}
@@ -2200,6 +2203,8 @@ const openPreorderModal = (trigger = null) => {
     document.body.appendChild(wrapper);
   }
   wrapper.innerHTML = createPreorderModal();
+  const modalBody = wrapper.querySelector(".modal-body");
+  if (modalBody) modalBody.scrollTop = 0;
   lockBodyScroll();
   refreshIcons();
   wrapper.querySelector(".modal-close-btn, input, button")?.focus();
