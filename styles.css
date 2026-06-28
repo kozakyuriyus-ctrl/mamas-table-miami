@@ -2687,15 +2687,24 @@ body.modal-open .route-order-card {
 
 .modal-header {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 20px 24px 0;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px 24px 14px;
   position: sticky;
   top: 0;
   background: var(--cream);
   z-index: 1;
   border-bottom: 1px solid var(--line);
-  padding-bottom: 16px;
+}
+
+.modal-header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.modal-header .btn-back-to-menu {
+  margin-bottom: 0;
 }
 
 .modal-header h2 {
@@ -3277,7 +3286,8 @@ body.modal-open .route-order-card {
   }
 
   .modal-header {
-    padding: 16px 18px 14px;
+    padding: 14px 18px 12px;
+    gap: 8px;
   }
 
   .modal-body {
