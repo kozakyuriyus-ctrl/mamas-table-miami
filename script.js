@@ -2361,6 +2361,15 @@ const renderCart = () => {
   if (mobileTotal) mobileTotal.textContent = money(total);
   // Drive mobile-order-bar visibility via CSS — show as soon as cart has items
   document.body.classList.toggle("has-cart", hasEntries);
+  const mobileBar = document.querySelector(".mobile-order-bar");
+  if (mobileBar) {
+    mobileBar.setAttribute("aria-hidden", String(!hasEntries));
+    if (hasEntries) {
+      mobileBar.removeAttribute("tabindex");
+    } else {
+      mobileBar.setAttribute("tabindex", "-1");
+    }
+  }
   refreshIcons();
 };
 
