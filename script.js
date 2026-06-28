@@ -233,8 +233,9 @@ const copy = {
     },
     contact: {
       title: "Связаться с нами",
-      text: "Для заказа выберите блюда и заполните форму на сайте.",
-      customOrder: "Индивидуальный заказ",
+      text: "Есть вопрос, нужен заказ на праздник или хотите обсудить особые пожелания? Напишите нам — мы свяжемся с вами.",
+      btn: "Написать нам",
+      note: "Вопросы, праздники, кейтеринг и индивидуальные пожелания.",
     },
     cart: {
       title: "Ваш заказ",
@@ -557,8 +558,9 @@ const copy = {
     },
     contact: {
       title: "Contact Us",
-      text: "To place an order, choose dishes and fill in the form on the site.",
-      customOrder: "Custom Order",
+      text: "Have a question, planning a celebration, or need a custom request? Send us a message and we will get back to you.",
+      btn: "Send us a message",
+      note: "Questions, celebrations, catering and custom requests.",
     },
     cart: {
       title: "Your Order",
@@ -880,9 +882,10 @@ const copy = {
       buttonSecondary: "Запитання або індивідуальне замовлення",
     },
     contact: {
-      title: "Зв'яжіться з нами",
-      text: "Для замовлення оберіть страви і заповніть форму на сайті.",
-      customOrder: "Індивідуальне замовлення",
+      title: "Зв'язатися з нами",
+      text: "Маєте запитання, плануєте свято або хочете обговорити особливе замовлення? Напишіть нам — ми зв'яжемося з вами.",
+      btn: "Написати нам",
+      note: "Запитання, свята, кейтеринг та індивідуальні побажання.",
     },
     cart: {
       title: "Ваше замовлення",

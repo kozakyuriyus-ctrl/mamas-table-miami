@@ -1,0 +1,604 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Связаться с нами | Contact Us | Lana's Kitchen Miami</title>
+    <meta name="description" content="Вопросы, праздники, кейтеринг и индивидуальные пожелания — напишите нам." />
+    <meta name="theme-color" content="#fbf6ed" />
+    <link rel="icon" href="data:," />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      /* ── Contact page specific ─────────────────────────────────────────── */
+      .cr-page {
+        max-width: 680px;
+        margin: 0 auto;
+        padding: clamp(32px, 5vw, 64px) clamp(16px, 4vw, 32px) 80px;
+      }
+      .cr-back {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        color: var(--green);
+        font-size: 13px;
+        font-weight: 700;
+        text-decoration: none;
+        opacity: 0.75;
+        transition: opacity 150ms;
+        margin-bottom: 28px;
+      }
+      .cr-back:hover { opacity: 1; }
+      .cr-back svg { width: 16px; height: 16px; flex-shrink: 0; }
+      .cr-eyebrow {
+        font-size: 12px;
+        font-weight: 900;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin: 0 0 10px;
+      }
+      .cr-title {
+        font-family: "Playfair Display", Georgia, serif;
+        font-size: clamp(26px, 5vw, 38px);
+        font-weight: 700;
+        color: var(--ink);
+        line-height: 1.2;
+        margin: 0 0 10px;
+      }
+      .cr-subtitle {
+        color: var(--muted);
+        font-size: 15px;
+        line-height: 1.55;
+        margin: 0 0 36px;
+      }
+      .cr-form-card {
+        background: var(--cream);
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        padding: clamp(20px, 4vw, 36px);
+      }
+      .cr-section-label {
+        font-size: 12px;
+        font-weight: 900;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin: 0 0 16px;
+        padding-top: 24px;
+        border-top: 1px solid var(--line);
+      }
+      .cr-section-label:first-child {
+        padding-top: 0;
+        border-top: none;
+        margin-top: 0;
+      }
+      .cr-disclaimer {
+        font-size: 12px;
+        color: var(--muted);
+        line-height: 1.5;
+        margin: 20px 0 0;
+        padding: 14px 16px;
+        background: var(--soft);
+        border-radius: 8px;
+      }
+      .cr-submit-row {
+        margin-top: 28px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .cr-submit-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 14px 28px;
+        background: var(--green);
+        color: #fff;
+        border: none;
+        border-radius: 10px;
+        font-family: inherit;
+        font-size: 15px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: background 160ms, opacity 160ms;
+        touch-action: manipulation;
+      }
+      .cr-submit-btn:hover { background: var(--green-2); }
+      .cr-submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+      .cr-submit-btn svg { width: 16px; height: 16px; flex-shrink: 0; }
+      .cr-error-msg {
+        color: #b91c1c;
+        font-size: 13px;
+        font-weight: 700;
+        padding: 10px 14px;
+        background: #fef2f2;
+        border-radius: 8px;
+        display: none;
+      }
+      .cr-error-msg.is-shown { display: block; }
+      .cr-success {
+        display: none;
+        text-align: center;
+        padding: 40px 20px;
+      }
+      .cr-success.is-shown { display: block; }
+      .cr-success-icon {
+        font-size: 48px;
+        margin-bottom: 16px;
+      }
+      .cr-success h2 {
+        font-family: "Playfair Display", Georgia, serif;
+        font-size: 26px;
+        margin: 0 0 12px;
+      }
+      .cr-success p {
+        color: var(--muted);
+        font-size: 15px;
+        line-height: 1.55;
+        margin: 0 0 24px;
+      }
+      .cr-test-banner {
+        font-size: 13px;
+        font-weight: 700;
+        color: #92400e;
+        background: #fffbeb;
+        border: 1px solid #fde68a;
+        border-radius: 8px;
+        padding: 10px 14px;
+        margin-bottom: 16px;
+      }
+      .field-error {
+        font-size: 11px;
+        color: #b91c1c;
+        font-weight: 700;
+        margin-top: 4px;
+        display: none;
+      }
+      .form-field.is-invalid input,
+      .form-field.is-invalid select,
+      .form-field.is-invalid textarea {
+        border-color: #f87171;
+        box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.15);
+      }
+      .form-field.is-invalid .field-error { display: block; }
+
+      @media (max-width: 480px) {
+        .cr-form-card { padding: 16px; }
+        .form-grid { grid-template-columns: 1fr !important; }
+      }
+    </style>
+  </head>
+  <body>
+
+    <header class="site-header" data-header>
+      <a class="brand" href="/" aria-label="Lana's Kitchen">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 28 38" role="img">
+            <path d="M14 35V6" />
+            <path d="M14 17C8 15 5 11 5 6c5 0 9 4 9 11Z" />
+            <path d="M14 25c-6-2-10-6-10-11 6 0 10 5 10 11Z" />
+            <path d="M14 14c6-2 9-6 9-11-5 0-9 4-9 11Z" />
+            <path d="M14 22c6-2 10-6 10-11-6 0-10 5-10 11Z" />
+          </svg>
+        </span>
+        <span class="brand-text">
+          <strong>Lana's Kitchen</strong>
+          <small>MIAMI</small>
+        </span>
+      </a>
+      <div class="header-actions">
+        <div class="lang-switch" aria-label="Language">
+          <button class="lang-btn" type="button" data-cr-lang="ru">RU</button>
+          <button class="lang-btn" type="button" data-cr-lang="en">EN</button>
+          <button class="lang-btn" type="button" data-cr-lang="uk">UA</button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <div class="cr-page">
+
+        <a class="cr-back" href="/#contact">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19 12H5M12 5l-7 7 7 7"/>
+          </svg>
+          <span data-cr="back">← Назад</span>
+        </a>
+
+        <p class="cr-eyebrow" data-cr="eyebrow">Связаться с нами</p>
+        <h1 class="cr-title" data-cr="title">Связаться с нами</h1>
+        <p class="cr-subtitle" data-cr="subtitle">Есть вопрос, нужен заказ на праздник или хотите обсудить особые пожелания? Напишите нам — мы свяжемся с вами.</p>
+
+        <!-- ── Success state ── -->
+        <div class="cr-success" id="cr-success">
+          <div class="cr-success-icon">✅</div>
+          <h2 data-cr="successTitle">Сообщение отправлено</h2>
+          <p data-cr="successText">Спасибо! Ваше сообщение отправлено. Мы свяжемся с вами, чтобы уточнить детали.</p>
+          <a class="btn btn-primary" href="/" data-cr="successBack">Вернуться на сайт</a>
+        </div>
+
+        <!-- ── Form ── -->
+        <div class="cr-form-card" id="cr-form-card">
+          <div id="cr-test-banner" class="cr-test-banner" style="display:none" data-cr="testBanner">🧪 TEST MODE — сообщение не отправляется в Telegram</div>
+
+          <form id="cr-form" novalidate>
+            <!-- Honeypot -->
+            <input type="text" name="_hp" value="" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+            <!-- Contact -->
+            <p class="cr-section-label" data-cr="sectionContact">Контакты</p>
+            <div class="form-grid">
+              <label class="form-field" id="ff-name">
+                <span data-cr="labelName">Имя *</span>
+                <input name="name" type="text" autocomplete="name" required />
+                <span class="field-error" data-cr="errName">Укажите имя</span>
+              </label>
+              <label class="form-field" id="ff-phone">
+                <span data-cr="labelPhone">Телефон *</span>
+                <input name="phone" type="tel" autocomplete="tel" required />
+                <span class="field-error" data-cr="errPhone">Укажите телефон</span>
+              </label>
+            </div>
+
+            <!-- Topic + Message -->
+            <p class="cr-section-label" data-cr="sectionMessage">Обращение</p>
+            <div class="form-grid">
+              <label class="form-field form-field-wide" id="ff-topic">
+                <span data-cr="labelTopic">Тема обращения *</span>
+                <select name="topic" required>
+                  <option value="" data-cr="topicPlaceholder">Выберите тему</option>
+                  <option value="menu" data-cr="topicMenu">Вопрос по меню</option>
+                  <option value="custom" data-cr="topicCustom">Индивидуальный заказ</option>
+                  <option value="celebration" data-cr="topicCelebration">Праздник / семейный ужин</option>
+                  <option value="catering" data-cr="topicCatering">Кейтеринг</option>
+                  <option value="other" data-cr="topicOther">Другое</option>
+                </select>
+                <span class="field-error" data-cr="errTopic">Выберите тему</span>
+              </label>
+              <label class="form-field form-field-wide" id="ff-message">
+                <span data-cr="labelMessage">Сообщение *</span>
+                <textarea name="message" rows="4" required></textarea>
+                <span class="field-error" data-cr="errMessage">Напишите сообщение</span>
+              </label>
+            </div>
+
+            <!-- Optional fields -->
+            <p class="cr-section-label" data-cr="sectionOptional">Дополнительно (необязательно)</p>
+            <div class="form-grid">
+              <label class="form-field">
+                <span data-cr="labelDate">Желаемая дата</span>
+                <input name="date" type="date" />
+              </label>
+              <label class="form-field">
+                <span data-cr="labelGuests">Гостей / порций</span>
+                <input name="guests" type="text" inputmode="numeric" />
+              </label>
+              <label class="form-field">
+                <span data-cr="labelArea">Район или ZIP</span>
+                <input name="area" type="text" />
+              </label>
+              <label class="form-field">
+                <span data-cr="labelContactPref">Удобный способ связи</span>
+                <select name="contactPref">
+                  <option value="" data-cr="contactPrefPlaceholder">Не указано</option>
+                  <option value="whatsapp">WhatsApp</option>
+                  <option value="telegram">Telegram</option>
+                  <option value="sms">SMS</option>
+                  <option value="call" data-cr="contactPrefCall">Позвонить</option>
+                </select>
+              </label>
+              <label class="form-field form-field-wide">
+                <span data-cr="labelComment">Дополнительный комментарий</span>
+                <textarea name="comment" rows="2"></textarea>
+              </label>
+            </div>
+
+            <p class="cr-disclaimer" data-cr="disclaimer">
+              Это обращение, а не подтверждённый заказ. Мы свяжемся с вами для обсуждения деталей.
+            </p>
+
+            <div class="cr-submit-row">
+              <div class="cr-error-msg" id="cr-error"></div>
+              <button class="cr-submit-btn" type="submit" id="cr-submit-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13M22 2 15 22 11 13 2 9l20-7z"/></svg>
+                <span data-cr="submit">Написать нам</span>
+              </button>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-brand">
+        <strong>Lana's Kitchen</strong>
+        <span>MIAMI · Fresh Homemade Meals</span>
+      </div>
+      <a href="https://t.me/Lanaskitchenmiami" target="_blank" rel="noopener noreferrer" style="color:var(--muted);font-size:13px;font-weight:700;">@Lanaskitchenmiami</a>
+    </footer>
+
+    <script>
+    (function () {
+      "use strict";
+
+      const WORKER_URL = "https://api.lanaskitchenmiami.com/contact";
+      const LANG_KEY   = "mamasTableLang";
+
+      const copy = {
+        ru: {
+          back:                 "← Назад",
+          eyebrow:              "Связаться с нами",
+          title:                "Связаться с нами",
+          subtitle:             "Есть вопрос, нужен заказ на праздник или хотите обсудить особые пожелания? Напишите нам — мы свяжемся с вами.",
+          sectionContact:       "Контакты",
+          labelName:            "Имя *",
+          labelPhone:           "Телефон *",
+          errName:              "Укажите имя",
+          errPhone:             "Укажите телефон",
+          sectionMessage:       "Обращение",
+          labelTopic:           "Тема обращения *",
+          topicPlaceholder:     "Выберите тему",
+          topicMenu:            "Вопрос по меню",
+          topicCustom:          "Индивидуальный заказ",
+          topicCelebration:     "Праздник / семейный ужин",
+          topicCatering:        "Кейтеринг",
+          topicOther:           "Другое",
+          errTopic:             "Выберите тему",
+          labelMessage:         "Сообщение *",
+          errMessage:           "Напишите сообщение",
+          sectionOptional:      "Дополнительно (необязательно)",
+          labelDate:            "Желаемая дата",
+          labelGuests:          "Гостей / порций",
+          labelArea:            "Район или ZIP",
+          labelContactPref:     "Удобный способ связи",
+          contactPrefPlaceholder: "Не указано",
+          contactPrefCall:      "Позвонить",
+          labelComment:         "Дополнительный комментарий",
+          disclaimer:           "Это обращение, а не подтверждённый заказ. Мы свяжемся с вами для обсуждения деталей.",
+          submit:               "Написать нам",
+          submitting:           "Отправляем…",
+          successTitle:         "Сообщение отправлено",
+          successText:          "Спасибо! Ваше сообщение отправлено. Мы свяжемся с вами, чтобы уточнить детали.",
+          successBack:          "Вернуться на сайт",
+          errorGeneric:         "Не удалось отправить сообщение. Пожалуйста, попробуйте ещё раз или напишите нам напрямую.",
+          errorRequired:        "Пожалуйста, заполните все обязательные поля.",
+          testBanner:           "🧪 TEST MODE — сообщение не отправляется в Telegram",
+        },
+        en: {
+          back:                 "← Back",
+          eyebrow:              "Contact Us",
+          title:                "Contact Us",
+          subtitle:             "Have a question, planning a celebration, or need a custom request? Send us a message and we will get back to you.",
+          sectionContact:       "Contact",
+          labelName:            "Name *",
+          labelPhone:           "Phone *",
+          errName:              "Please enter your name",
+          errPhone:             "Please enter your phone",
+          sectionMessage:       "Message",
+          labelTopic:           "Topic *",
+          topicPlaceholder:     "Select topic",
+          topicMenu:            "Menu question",
+          topicCustom:          "Custom order",
+          topicCelebration:     "Celebration / family dinner",
+          topicCatering:        "Catering",
+          topicOther:           "Other",
+          errTopic:             "Please select a topic",
+          labelMessage:         "Message *",
+          errMessage:           "Please write your message",
+          sectionOptional:      "Optional details",
+          labelDate:            "Preferred date",
+          labelGuests:          "Guests / portions",
+          labelArea:            "Area or ZIP",
+          labelContactPref:     "Preferred contact method",
+          contactPrefPlaceholder: "Not specified",
+          contactPrefCall:      "Phone call",
+          labelComment:         "Additional comment",
+          disclaimer:           "This is an inquiry, not a confirmed order. We will contact you to discuss the details.",
+          submit:               "Send us a message",
+          submitting:           "Sending…",
+          successTitle:         "Message sent",
+          successText:          "Thank you! Your message has been sent. We will contact you to discuss the details.",
+          successBack:          "Back to site",
+          errorGeneric:         "Failed to send. Please try again or contact us directly.",
+          errorRequired:        "Please fill in all required fields.",
+          testBanner:           "🧪 TEST MODE — message not sent to Telegram",
+        },
+        uk: {
+          back:                 "← Назад",
+          eyebrow:              "Зв'язатися з нами",
+          title:                "Зв'язатися з нами",
+          subtitle:             "Маєте запитання, плануєте свято або хочете обговорити особливе замовлення? Напишіть нам — ми зв'яжемося з вами.",
+          sectionContact:       "Контакти",
+          labelName:            "Ім'я *",
+          labelPhone:           "Телефон *",
+          errName:              "Вкажіть ім'я",
+          errPhone:             "Вкажіть телефон",
+          sectionMessage:       "Звернення",
+          labelTopic:           "Тема звернення *",
+          topicPlaceholder:     "Оберіть тему",
+          topicMenu:            "Запитання щодо меню",
+          topicCustom:          "Індивідуальне замовлення",
+          topicCelebration:     "Свято / сімейна вечеря",
+          topicCatering:        "Кейтеринг",
+          topicOther:           "Інше",
+          errTopic:             "Оберіть тему",
+          labelMessage:         "Повідомлення *",
+          errMessage:           "Напишіть повідомлення",
+          sectionOptional:      "Додатково (необов'язково)",
+          labelDate:            "Бажана дата",
+          labelGuests:          "Гостей / порцій",
+          labelArea:            "Район або ZIP",
+          labelContactPref:     "Зручний спосіб зв'язку",
+          contactPrefPlaceholder: "Не вказано",
+          contactPrefCall:      "Зателефонувати",
+          labelComment:         "Додатковий коментар",
+          disclaimer:           "Це звернення, а не підтверджене замовлення. Ми зв'яжемося з вами для обговорення деталей.",
+          submit:               "Написати нам",
+          submitting:           "Надсилаємо…",
+          successTitle:         "Повідомлення надіслано",
+          successText:          "Дякуємо! Ваше повідомлення надіслано. Ми зв'яжемося з вами, щоб уточнити деталі.",
+          successBack:          "Повернутися на сайт",
+          errorGeneric:         "Не вдалося надіслати повідомлення. Спробуйте ще раз або зв'яжіться з нами напряму.",
+          errorRequired:        "Будь ласка, заповніть усі обов'язкові поля.",
+          testBanner:           "🧪 TEST MODE — повідомлення не надсилається в Telegram",
+        },
+      };
+
+      // ── Test mode ──────────────────────────────────────────────────────────
+      const qs = new URLSearchParams(location.search);
+      const TEST_MODE  = qs.get("test")  === "1";
+      const TEST_TOKEN = qs.get("token") || "";
+
+      // ── Language ───────────────────────────────────────────────────────────
+      function getLang() {
+        const stored = localStorage.getItem(LANG_KEY);
+        if (stored === "en" || stored === "uk") return stored;
+        return "ru";
+      }
+      let lang = getLang();
+
+      function applyLang() {
+        // Text nodes
+        document.querySelectorAll("[data-cr]").forEach((el) => {
+          const key = el.dataset.cr;
+          const val = copy[lang][key];
+          if (val !== undefined) el.textContent = val;
+        });
+        // Active lang button
+        document.querySelectorAll("[data-cr-lang]").forEach((btn) => {
+          btn.classList.toggle("is-active", btn.dataset.crLang === lang);
+        });
+        // Test banner
+        if (TEST_MODE) {
+          document.getElementById("cr-test-banner").style.display = "";
+        }
+        // Update document lang attr for accessibility
+        document.documentElement.lang = lang === "uk" ? "uk" : lang === "en" ? "en" : "ru";
+      }
+
+      document.querySelectorAll("[data-cr-lang]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          lang = btn.dataset.crLang;
+          localStorage.setItem(LANG_KEY, lang);
+          applyLang();
+        });
+      });
+
+      applyLang();
+
+      // ── Optional: set tomorrow as min date ──────────────────────────────────
+      const dateInput = document.querySelector("input[name='date']");
+      if (dateInput) {
+        const d = new Date();
+        d.setDate(d.getDate() + 1);
+        dateInput.min = d.toISOString().slice(0, 10);
+      }
+
+      // ── Validation ─────────────────────────────────────────────────────────
+      const requiredFields = [
+        { name: "name",    ffId: "ff-name",    errKey: "errName"    },
+        { name: "phone",   ffId: "ff-phone",   errKey: "errPhone"   },
+        { name: "topic",   ffId: "ff-topic",   errKey: "errTopic"   },
+        { name: "message", ffId: "ff-message", errKey: "errMessage" },
+      ];
+
+      function validateForm(form) {
+        let valid = true;
+        requiredFields.forEach(({ name, ffId, errKey }) => {
+          const el = form.elements[name];
+          const ff = document.getElementById(ffId);
+          const errEl = ff?.querySelector(".field-error");
+          const val = el ? el.value.trim() : "";
+          const isOk = val.length > 0;
+          ff?.classList.toggle("is-invalid", !isOk);
+          if (errEl) errEl.textContent = copy[lang][errKey] || "";
+          if (!isOk) valid = false;
+        });
+        return valid;
+      }
+
+      // ── Submit ─────────────────────────────────────────────────────────────
+      let submitting = false;
+      const form     = document.getElementById("cr-form");
+      const btn      = document.getElementById("cr-submit-btn");
+      const errBox   = document.getElementById("cr-error");
+      const success  = document.getElementById("cr-success");
+      const formCard = document.getElementById("cr-form-card");
+
+      function showError(msg) {
+        errBox.textContent = msg;
+        errBox.classList.add("is-shown");
+      }
+      function hideError() {
+        errBox.classList.remove("is-shown");
+      }
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        if (submitting) return;
+
+        hideError();
+        requiredFields.forEach(({ ffId }) =>
+          document.getElementById(ffId)?.classList.remove("is-invalid")
+        );
+
+        if (!validateForm(form)) {
+          showError(copy[lang].errorRequired);
+          form.querySelector(".form-field.is-invalid input, .form-field.is-invalid select, .form-field.is-invalid textarea")?.focus();
+          return;
+        }
+
+        submitting = true;
+        btn.disabled = true;
+        const submitSpan = btn.querySelector("span");
+        if (submitSpan) submitSpan.textContent = copy[lang].submitting;
+
+        const fd = new FormData(form);
+        const payload = {
+          name:        fd.get("name")?.trim(),
+          phone:       fd.get("phone")?.trim(),
+          topic:       fd.get("topic"),
+          message:     fd.get("message")?.trim(),
+          date:        fd.get("date")?.trim() || "",
+          guests:      fd.get("guests")?.trim() || "",
+          area:        fd.get("area")?.trim() || "",
+          contactPref: fd.get("contactPref") || "",
+          comment:     fd.get("comment")?.trim() || "",
+          _hp:         fd.get("_hp") || "",
+          lang,
+          ...(TEST_MODE ? { testMode: true, testToken: TEST_TOKEN } : {}),
+        };
+
+        try {
+          const res = await fetch(WORKER_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          });
+          const data = await res.json().catch(() => ({}));
+
+          if (!res.ok || !data.ok) {
+            throw new Error(data.message || copy[lang].errorGeneric);
+          }
+
+          formCard.style.display = "none";
+          success.classList.add("is-shown");
+          window.scrollTo({ top: 0, behavior: "smooth" });
+
+        } catch (err) {
+          showError(err.message || copy[lang].errorGeneric);
+          submitting = false;
+          btn.disabled = false;
+          if (submitSpan) submitSpan.textContent = copy[lang].submit;
+        }
+      });
+
+    })();
+    </script>
+  </body>
+</html>
