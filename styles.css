@@ -2688,12 +2688,10 @@ body.modal-open .route-order-card {
 .modal-header {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  padding: 16px 24px 14px;
-  position: sticky;
-  top: 0;
+  gap: 8px;
+  padding: 14px 24px 12px;
+  flex-shrink: 0;
   background: var(--cream);
-  z-index: 1;
   border-bottom: 1px solid var(--line);
 }
 
@@ -3286,8 +3284,8 @@ body.modal-open .route-order-card {
   }
 
   .modal-header {
-    padding: 14px 18px 12px;
-    gap: 8px;
+    padding: 12px 18px 10px;
+    gap: 6px;
   }
 
   .modal-body {
