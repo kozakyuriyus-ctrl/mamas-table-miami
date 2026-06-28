@@ -3,7 +3,7 @@
     "id": "borscht",
     "category": "soups",
     "badge": "bestseller",
-    "image": "assets/images/soups/borscht.png",
+    "image": "assets/images/soups/borscht.webp",
     "popular": true,
     "price": 18,
     "name": {
@@ -20,7 +20,7 @@
   {
     "id": "chicken-soup",
     "category": "soups",
-    "image": "assets/images/soups/chicken-soup.png",
+    "image": "assets/images/soups/chicken-soup.webp",
     "price": 15,
     "name": {
       "ru": "Суп куриный с лапшой",
@@ -36,7 +36,7 @@
   {
     "id": "topcheta-meatball-soup",
     "category": "soups",
-    "image": "assets/images/soups/topcheta-meatball-soup.png",
+    "image": "assets/images/soups/topcheta-meatball-soup.webp",
     "price": 18,
     "name": {
       "ru": "Суп с фрикадельками Топчета",
@@ -52,7 +52,7 @@
   {
     "id": "solyanka",
     "category": "soups",
-    "image": "assets/images/soups/solyanka.png",
+    "image": "assets/images/soups/solyanka.webp",
     "price": 20,
     "name": {
       "ru": "Солянка сборная мясная",
@@ -68,7 +68,7 @@
   {
     "id": "pea-soup",
     "category": "soups",
-    "image": "assets/images/soups/pea-soup.png",
+    "image": "assets/images/soups/pea-soup.webp",
     "price": 15,
     "name": {
       "ru": "Суп гороховый",
@@ -84,7 +84,7 @@
   {
     "id": "rassolnik",
     "category": "soups",
-    "image": "assets/images/soups/rassolnik.png",
+    "image": "assets/images/soups/rassolnik.webp",
     "price": 18,
     "name": {
       "ru": "Рассольник",
@@ -100,7 +100,7 @@
   {
     "id": "meatball-soup",
     "category": "soups",
-    "image": "assets/images/soups/meatball-soup.png",
+    "image": "assets/images/soups/meatball-soup.webp",
     "price": 15,
     "name": {
       "ru": "Суп с фрикадельками",
@@ -117,7 +117,7 @@
     "id": "mercimek-soup",
     "category": "soups",
     "badge": "bestseller",
-    "image": "assets/images/soups/mercimek-soup.png",
+    "image": "assets/images/soups/mercimek-soup.webp",
     "price": 15,
     "name": {
       "ru": "Турецкий чечевичный суп мерджимек",
@@ -133,7 +133,7 @@
   {
     "id": "ukrainian-kapustnyak",
     "category": "soups",
-    "image": "assets/images/soups/kapustnyak.png",
+    "image": "assets/images/soups/kapustnyak.webp",
     "price": 18,
     "name": {
       "ru": "Капустняк Украинский",
@@ -149,7 +149,7 @@
   {
     "id": "ayran-okroshka",
     "category": "soups",
-    "image": "assets/images/soups/okroshka-ayran.png",
+    "image": "assets/images/soups/okroshka-ayran.webp",
     "price": 15,
     "name": {
       "ru": "Окрошка на айране",
@@ -165,7 +165,7 @@
   {
     "id": "mushroom-cream-soup",
     "category": "soups",
-    "image": "assets/images/soups/mushroom-soup.png",
+    "image": "assets/images/soups/mushroom-soup.webp",
     "price": 15,
     "name": {
       "ru": "Грибной суп-пюре",
@@ -182,7 +182,7 @@
     "id": "green-borscht",
     "category": "soups",
     "badge": "new",
-    "image": "assets/images/soups/green-borscht.png",
+    "image": "assets/images/soups/green-borscht.webp",
     "price": 18,
     "name": {
       "ru": "Зеленый борщ",
@@ -199,7 +199,7 @@
     "id": "varenyky",
     "category": "main-dishes",
     "badge": "bestseller",
-    "image": "assets/images/main-dishes/varenyky.png",
+    "image": "assets/images/main-dishes/varenyky.webp",
     "popular": true,
     "price": 12,
     "name": {
@@ -219,7 +219,7 @@
     "id": "cabbage-rolls",
     "category": "main-dishes",
     "badge": "bestseller",
-    "image": "assets/images/main-dishes/cabbage-rolls.png",
+    "image": "assets/images/main-dishes/cabbage-rolls.webp",
     "popular": true,
     "price": 14,
     "name": {
@@ -237,7 +237,7 @@
   {
     "id": "beef-stroganoff",
     "category": "main-dishes",
-    "image": "assets/images/main-dishes/beef-stroganoff.png",
+    "image": "assets/images/main-dishes/beef-stroganoff.webp",
     "price": 18,
     "name": {
       "ru": "Бефстроганов",
@@ -254,7 +254,7 @@
   {
     "id": "chicken-mince-cutlets",
     "category": "main-dishes",
-    "image": "assets/images/main-dishes/chicken-mince-cutlets.png",
+    "image": "assets/images/main-dishes/chicken-mince-cutlets.webp",
     "price": 14,
     "name": {
       "ru": "Котлеты с куриным фаршем",
@@ -271,7 +271,7 @@
   {
     "id": "pork-mince-cutlets",
     "category": "main-dishes",
-    "image": "assets/images/main-dishes/pork-mince-cutlets.png",
+    "image": "assets/images/main-dishes/pork-mince-cutlets.webp",
     "price": 14,
     "name": {
       "ru": "Котлеты со свиным фаршем",
@@ -288,7 +288,7 @@
   {
     "id": "beef-goulash",
     "category": "main-dishes",
-    "image": "assets/images/main-dishes/beef-goulash.png",
+    "image": "assets/images/main-dishes/beef-goulash.webp",
     "price": 18,
     "name": {
       "ru": "Гуляш из говядины",
@@ -305,7 +305,7 @@
   {
     "id": "pork-podzharka",
     "category": "main-dishes",
-    "image": "assets/images/main-dishes/pork-podzharka.png",
+    "image": "assets/images/main-dishes/pork-podzharka.webp",
     "price": 13.5,
     "name": {
       "ru": "Поджарка из свинины",
@@ -323,7 +323,7 @@
     "id": "eggplant-pepper-saute",
     "category": "main-dishes",
     "badge": "vegetarian",
-    "image": "assets/images/main-dishes/eggplant-pepper-saute.png",
+    "image": "assets/images/main-dishes/eggplant-pepper-saute.webp",
     "price": 11.5,
     "name": {
       "ru": "Соте из баклажанов с болгарским перцем",
@@ -340,7 +340,7 @@
   {
     "id": "meat-filled-blini",
     "category": "main-dishes",
-    "image": "assets/images/main-dishes/meat-filled-blini.png",
+    "image": "assets/images/main-dishes/meat-filled-blini.webp",
     "price": 13.5,
     "name": {
       "ru": "Блины с мясной начинкой",
@@ -358,7 +358,7 @@
   {
     "id": "cottage-cheese-blini",
     "category": "main-dishes",
-    "image": "assets/images/main-dishes/cottage-cheese-blini.png",
+    "image": "assets/images/main-dishes/cottage-cheese-blini.webp",
     "price": 13.5,
     "name": {
       "ru": "Блины с творогом",
@@ -376,7 +376,7 @@
   {
     "id": "pork-pelmeni",
     "category": "main-dishes",
-    "image": "assets/images/main-dishes/pork-pelmeni.png",
+    "image": "assets/images/main-dishes/pork-pelmeni.webp",
     "price": 14,
     "name": {
       "ru": "Пельмени со свиным фаршем",
@@ -394,7 +394,7 @@
   {
     "id": "chicken-pelmeni",
     "category": "main-dishes",
-    "image": "assets/images/main-dishes/chicken-pelmeni.png",
+    "image": "assets/images/main-dishes/chicken-pelmeni.webp",
     "price": 14,
     "name": {
       "ru": "Пельмени с куриным фаршем",
@@ -412,7 +412,7 @@
   {
     "id": "potato-zrazy-meat",
     "category": "main-dishes",
-    "image": "assets/images/main-dishes/potato-zrazy-meat.png",
+    "image": "assets/images/main-dishes/potato-zrazy-meat.webp",
     "price": 12,
     "name": {
       "ru": "Зразы картофельные с мясом",
@@ -429,7 +429,7 @@
   {
     "id": "liver-cake",
     "category": "main-dishes",
-    "image": "assets/images/main-dishes/liver-cake.png",
+    "image": "assets/images/main-dishes/liver-cake.webp",
     "price": 13.5,
     "name": {
       "ru": "Печеночный торт",
@@ -446,7 +446,7 @@
   {
     "id": "meat-rice-meatballs",
     "category": "main-dishes",
-    "image": "assets/images/main-dishes/meat-rice-meatballs.png",
+    "image": "assets/images/main-dishes/meat-rice-meatballs.webp",
     "price": 11.5,
     "name": {
       "ru": "Тефтели мясные с рисом",
@@ -463,7 +463,7 @@
   {
     "id": "chicken-tabaka",
     "category": "main-dishes",
-    "image": "assets/images/main-dishes/chicken-tabaka.png",
+    "image": "assets/images/main-dishes/chicken-tabaka.webp",
     "price": 18,
     "name": {
       "ru": "Цыпленок тапака",
@@ -480,7 +480,7 @@
   {
     "id": "chicken-chops",
     "category": "main-dishes",
-    "image": "assets/images/main-dishes/chicken-chops.png",
+    "image": "assets/images/main-dishes/chicken-chops.webp",
     "price": 16,
     "name": {
       "ru": "Отбивные куриные",
@@ -497,7 +497,7 @@
   {
     "id": "hawaiian-chicken-pineapple-cutlets",
     "category": "main-dishes",
-    "image": "assets/images/main-dishes/hawaiian-chicken-pineapple-cutlets.png",
+    "image": "assets/images/main-dishes/hawaiian-chicken-pineapple-cutlets.webp",
     "price": 16,
     "name": {
       "ru": "Куриные отбивные по-гавайски с ананасом",
@@ -514,7 +514,7 @@
   {
     "id": "pork-chops",
     "category": "main-dishes",
-    "image": "assets/images/main-dishes/pork-chops.png",
+    "image": "assets/images/main-dishes/pork-chops.webp",
     "price": 16,
     "name": {
       "ru": "Отбивные свиные",
@@ -531,7 +531,7 @@
   {
     "id": "plain-blini",
     "category": "main-dishes",
-    "image": "assets/images/main-dishes/plain-blini.png",
+    "image": "assets/images/main-dishes/plain-blini.webp",
     "price": 8,
     "name": {
       "ru": "Блины без начинки",
@@ -549,7 +549,7 @@
   {
     "id": "chicken-liver-pate",
     "category": "main-dishes",
-    "image": "assets/images/main-dishes/chicken-liver-pate.png",
+    "image": "assets/images/main-dishes/chicken-liver-pate.webp",
     "price": 16,
     "name": {
       "ru": "Паштет из куриной печени",
@@ -566,7 +566,7 @@
   {
     "id": "bbq-ribs",
     "category": "main-dishes",
-    "image": "assets/images/main-dishes/bbq-ribs.png",
+    "image": "assets/images/main-dishes/bbq-ribs.webp",
     "price": 18,
     "name": {
       "ru": "Ребра барбекю",
@@ -583,7 +583,7 @@
   {
     "id": "fish-cutlets",
     "category": "main-dishes",
-    "image": "assets/images/main-dishes/fish-cutlets.png",
+    "image": "assets/images/main-dishes/fish-cutlets.webp",
     "price": 16,
     "name": {
       "ru": "Котлеты рыбные",
@@ -600,7 +600,7 @@
   {
     "id": "mashed-potatoes",
     "category": "main-dishes",
-    "image": "assets/images/main-dishes/mashed-potatoes.png",
+    "image": "assets/images/main-dishes/mashed-potatoes.webp",
     "price": 3,
     "name": {
       "ru": "Картофельное пюре",
@@ -618,7 +618,7 @@
   {
     "id": "pork-beef-kholodets",
     "category": "main-dishes",
-    "image": "assets/images/main-dishes/pork-beef-kholodets.png",
+    "image": "assets/images/main-dishes/pork-beef-kholodets.webp",
     "price": 16,
     "name": {
       "ru": "Холодец свино-говяжий",
@@ -635,7 +635,7 @@
   {
     "id": "chicken-kholodets",
     "category": "main-dishes",
-    "image": "assets/images/main-dishes/chicken-kholodets.png",
+    "image": "assets/images/main-dishes/chicken-kholodets.webp",
     "price": 16,
     "name": {
       "ru": "Холодец куриный",
@@ -652,7 +652,7 @@
   {
     "id": "grilled-salmon-broccoli",
     "category": "main-dishes",
-    "image": "assets/images/main-dishes/grilled-salmon-broccoli.png",
+    "image": "assets/images/main-dishes/grilled-salmon-broccoli.webp",
     "price": 20.5,
     "name": {
       "ru": "Лосось гриль с брокколи",
@@ -670,7 +670,7 @@
   {
     "id": "olivier",
     "category": "salads",
-    "image": "assets/images/salads/olivier.png",
+    "image": "assets/images/salads/olivier.webp",
     "popular": true,
     "price": 15,
     "name": {
@@ -688,7 +688,7 @@
   {
     "id": "vinaigrette",
     "category": "salads",
-    "image": "assets/images/salads/vinaigrette.png",
+    "image": "assets/images/salads/vinaigrette.webp",
     "price": 14,
     "name": {
       "ru": "Винегрет",
@@ -706,7 +706,7 @@
     "id": "spring-salad",
     "category": "salads",
     "badge": "new",
-    "image": "assets/images/salads/spring-salad.png",
+    "image": "assets/images/salads/spring-salad.webp",
     "price": 9,
     "name": {
       "ru": "Салат весенний",
@@ -724,7 +724,7 @@
     "id": "mimosa-salad",
     "category": "salads",
     "badge": "new",
-    "image": "assets/images/salads/mimosa-salad.png",
+    "image": "assets/images/salads/mimosa-salad.webp",
     "price": 13.5,
     "name": {
       "ru": "Салат Мимоза",
@@ -741,7 +741,7 @@
   {
     "id": "herring-under-fur-coat",
     "category": "salads",
-    "image": "assets/images/salads/herring-under-fur-coat.png",
+    "image": "assets/images/salads/herring-under-fur-coat.webp",
     "price": 14,
     "name": {
       "ru": "Салат Сельдь под шубой",
@@ -759,7 +759,7 @@
     "id": "fresh-cabbage-salad",
     "category": "salads",
     "badge": "vegetarian",
-    "image": "assets/images/salads/fresh-cabbage-salad.png",
+    "image": "assets/images/salads/fresh-cabbage-salad.webp",
     "price": 7,
     "name": {
       "ru": "Салат со свежей капустой",
@@ -776,7 +776,7 @@
   {
     "id": "korean-carrots",
     "category": "salads",
-    "image": "assets/images/salads/korean-carrots.png",
+    "image": "assets/images/salads/korean-carrots.webp",
     "price": 7,
     "name": {
       "ru": "Морковка по-корейски",
@@ -794,7 +794,7 @@
   {
     "id": "raw-eggplant-caviar",
     "category": "salads",
-    "image": "assets/images/salads/raw-eggplant-caviar.png",
+    "image": "assets/images/salads/raw-eggplant-caviar.webp",
     "price": 9,
     "name": {
       "ru": "Икра баклажанная",
@@ -811,7 +811,7 @@
   {
     "id": "fried-eggplant-caviar",
     "category": "salads",
-    "image": "assets/images/salads/fried-eggplant-caviar.png",
+    "image": "assets/images/salads/fried-eggplant-caviar.webp",
     "price": 9,
     "name": {
       "ru": "Икра баклажанная жареная",
@@ -828,7 +828,7 @@
   {
     "id": "liver-mushroom-salad",
     "category": "salads",
-    "image": "assets/images/salads/liver-mushroom-salad.png",
+    "image": "assets/images/salads/liver-mushroom-salad.webp",
     "price": 11.5,
     "name": {
       "ru": "Салат с куриной печенью и грибами",
@@ -845,7 +845,7 @@
   {
     "id": "stolichny-chicken-salad",
     "category": "salads",
-    "image": "assets/images/salads/stolichny-chicken-salad.png",
+    "image": "assets/images/salads/stolichny-chicken-salad.webp",
     "price": 13.5,
     "name": {
       "ru": "Салат Столичный с курицей",
@@ -862,7 +862,7 @@
   {
     "id": "crab-salad",
     "category": "salads",
-    "image": "assets/images/salads/crab-salad.png",
+    "image": "assets/images/salads/crab-salad.webp",
     "price": 13.5,
     "name": {
       "ru": "Салат Крабовый",
