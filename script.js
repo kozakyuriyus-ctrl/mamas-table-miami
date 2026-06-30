@@ -237,6 +237,11 @@ const copy = {
       btn: "Написать нам",
       note: "Вопросы, праздники, кейтеринг и индивидуальные пожелания.",
     },
+    social: {
+      title: "Мы в социальных сетях",
+      instagram: "Instagram Lana's Kitchen Miami",
+      facebook: "Facebook Lana's Kitchen Miami",
+    },
     cart: {
       title: "Ваш заказ",
       empty: "Добавьте блюда из меню.",
@@ -562,6 +567,11 @@ const copy = {
       btn: "Send us a message",
       note: "Questions, celebrations, catering and custom requests.",
     },
+    social: {
+      title: "Follow us",
+      instagram: "Instagram Lana's Kitchen Miami",
+      facebook: "Facebook Lana's Kitchen Miami",
+    },
     cart: {
       title: "Your Order",
       empty: "Add dishes from the menu.",
@@ -886,6 +896,11 @@ const copy = {
       text: "Маєте запитання, плануєте свято або хочете обговорити особливе замовлення? Напишіть нам — ми зв'яжемося з вами.",
       btn: "Написати нам",
       note: "Запитання, свята, кейтеринг та індивідуальні побажання.",
+    },
+    social: {
+      title: "Ми в соціальних мережах",
+      instagram: "Instagram Lana's Kitchen Miami",
+      facebook: "Facebook Lana's Kitchen Miami",
     },
     cart: {
       title: "Ваше замовлення",
@@ -2391,6 +2406,11 @@ const applyTranslations = () => {
   // aria-label on WhatsApp float
   const waFloat = document.querySelector("[data-whatsapp-float]");
   if (waFloat) waFloat.setAttribute("aria-label", t("actions.questionsWA") + " WhatsApp");
+  // aria-label on social links
+  const igLink = document.querySelector("[data-social-instagram]");
+  if (igLink) igLink.setAttribute("aria-label", t("social.instagram"));
+  const fbLink = document.querySelector("[data-social-facebook]");
+  if (fbLink) fbLink.setAttribute("aria-label", t("social.facebook"));
   document.title = t("meta.title");
 };
 
