@@ -1811,14 +1811,27 @@ fieldset.form-field {
   color: var(--green);
 }
 
+.footer-social {
+  display: grid;
+  justify-items: end;
+  gap: 10px;
+}
+
+.footer-social-title {
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  font-weight: 600;
+}
+
 .social-links {
   gap: 10px;
 }
 
 .social-link {
   display: grid;
-  width: 34px;
-  height: 34px;
+  width: 38px;
+  height: 38px;
   place-items: center;
   border: 1px solid rgba(36, 63, 34, 0.16);
   border-radius: 50%;
@@ -1828,10 +1841,22 @@ fieldset.form-field {
   transition: transform 180ms ease, background 180ms ease, color 180ms ease, border-color 180ms ease;
 }
 
+.social-link svg {
+  width: 18px;
+  height: 18px;
+}
+
 .social-link:hover {
   transform: translateY(-2px);
   border-color: var(--green);
   background: var(--green);
+  color: #fffdfa;
+}
+
+.social-link:active {
+  transform: translateY(0);
+  background: var(--green-2);
+  border-color: var(--green-2);
   color: #fffdfa;
 }
 
@@ -2289,10 +2314,27 @@ fieldset.form-field {
   }
 
   .site-footer,
-  .footer-links,
-  .social-links {
+  .footer-links {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .footer-social {
+    justify-items: start;
+  }
+
+  .social-links {
+    flex-direction: row;
+  }
+
+  .social-link {
+    width: 44px;
+    height: 44px;
+  }
+
+  .social-link svg {
+    width: 20px;
+    height: 20px;
   }
 }
 
@@ -2302,7 +2344,17 @@ fieldset.form-field {
    iPad Pro 12.9" (1366px) and desktop (1280px+) are excluded. */
 @media (min-width: 761px) and (max-width: 1199px) {
   body.has-cart {
-    padding-bottom: 80px;
+    padding-bottom: 110px;
+  }
+
+  .social-link {
+    width: 44px;
+    height: 44px;
+  }
+
+  .social-link svg {
+    width: 20px;
+    height: 20px;
   }
 
   .mobile-order-bar {
