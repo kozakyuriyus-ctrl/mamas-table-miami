@@ -1097,6 +1097,10 @@ const ga4CartItems = () =>
 // ─────────────────────────────────────────────────────────────────────────────
 
 let menuItems = [];
+// Tracks the last category for which view_item_list was sent in the current page session.
+// Prevents double-firing when the [data-category-route] click handler calls renderRoute()
+// directly AND the resulting hashchange also triggers renderRoute().
+let lastViewedCategoryId = null;
 
 const categories = [
   {
@@ -1458,6 +1462,7 @@ const renderRoute = () => {
   const isRoute = route === "menu" || Boolean(category);
 
   if (!isRoute) {
+    lastViewedCategoryId = null;
     homeView.hidden = false;
     routeView.hidden = true;
     routeView.innerHTML = "";
@@ -1483,11 +1488,14 @@ const renderRoute = () => {
   observeReveals();
 
   if (category) {
-    ga4("view_item_list", {
-      item_list_id: category.id,
-      item_list_name: category.title.en || category.title.ru,
-      items: menuItemsByCategory(category.id).map((dish) => ga4Item(dish)),
-    });
+    if (category.id !== lastViewedCategoryId) {
+      lastViewedCategoryId = category.id;
+      ga4("view_item_list", {
+        item_list_id: category.id,
+        item_list_name: category.title.en || category.title.ru,
+        items: menuItemsByCategory(category.id).map((dish) => ga4Item(dish)),
+      });
+    }
     // Scroll to dishes on ALL viewports — not just mobile.
     // On iPad/desktop, isMobileViewport() was false and scrolled to top instead,
     // leaving dishes below fold and making it look like nothing happened.
@@ -2239,7 +2247,7 @@ let cateringTriggerEl = null;
 
 const openPreorderModal = (trigger = null) => {
   preorderTriggerEl = trigger;
-  if (state.preorderStage === 0) {
+  if (state.preorderStage === 0 && !document.getElementById("preorder-modal")) {
     ga4("begin_checkout", {
       currency: "USD",
       value: cartTotal(),
