@@ -397,12 +397,12 @@
     "image": "assets/images/main-dishes/chicken-pelmeni.webp",
     "price": 14,
     "name": {
-      "ru": "Пельмени с куриным фаршем",
+      "ru": "Пельмени с курицей",
       "en": "Chicken Pelmeni",
       "uk": "Пельмені з курячим фаршем"
     },
     "description": {
-      "ru": "Нежные домашние пельмени с куриным фаршем.",
+      "ru": "Нежные домашние пельмени с курицей.",
       "en": "Tender homemade pelmeni with chicken filling.",
       "uk": "Ніжні домашні пельмені з курячим фаршем."
     },
