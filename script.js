@@ -1073,6 +1073,29 @@ const copy = {
   },
 };
 
+// ── Google Analytics 4 ───────────────────────────────────────────────────────
+
+const ga4 = (eventName, params) => {
+  if (typeof window.gtag !== "function") return;
+  window.gtag("event", eventName, params);
+};
+
+// Build a safe GA4 item object — only non-PII dish/product fields.
+const ga4Item = (dish, quantity = 1) => ({
+  item_id: dish.id,
+  item_name: dish.name.en || dish.name.ru,
+  item_category: dish.category,
+  price: dish.price,
+  quantity,
+  currency: "USD",
+});
+
+// Build items array from current cart entries.
+const ga4CartItems = () =>
+  cartEntries().map(({ dish, quantity }) => ga4Item(dish, quantity));
+
+// ─────────────────────────────────────────────────────────────────────────────
+
 let menuItems = [];
 
 const categories = [
@@ -1460,6 +1483,11 @@ const renderRoute = () => {
   observeReveals();
 
   if (category) {
+    ga4("view_item_list", {
+      item_list_id: category.id,
+      item_list_name: category.title.en || category.title.ru,
+      items: menuItemsByCategory(category.id).map((dish) => ga4Item(dish)),
+    });
     // Scroll to dishes on ALL viewports — not just mobile.
     // On iPad/desktop, isMobileViewport() was false and scrolled to top instead,
     // leaving dishes below fold and making it look like nothing happened.
@@ -2211,6 +2239,13 @@ let cateringTriggerEl = null;
 
 const openPreorderModal = (trigger = null) => {
   preorderTriggerEl = trigger;
+  if (state.preorderStage === 0) {
+    ga4("begin_checkout", {
+      currency: "USD",
+      value: cartTotal(),
+      items: ga4CartItems(),
+    });
+  }
   let wrapper = document.getElementById("preorder-modal");
   if (!wrapper) {
     wrapper = document.createElement("div");
@@ -2562,6 +2597,12 @@ const handlePreorderSubmit = async (formEl) => {
   if (!API_ENABLED) {
     const orderId = generateOrderId();
     state.preorderDraft = { orderId, form: { ...form }, stage: 1, requestType: "preorder" };
+    ga4("preorder_submitted", {
+      currency: "USD",
+      value: cartTotal(),
+      transaction_id: orderId,
+      items: ga4CartItems(),
+    });
     state.cart.clear();
     saveCart(state.cart);
     clearDraft("preorder");
@@ -2591,6 +2632,12 @@ const handlePreorderSubmit = async (formEl) => {
 
     const orderId = result.orderId;
     state.preorderDraft = { orderId, form: { ...form }, stage: 1, requestType: "preorder" };
+    ga4("preorder_submitted", {
+      currency: "USD",
+      value: cartTotal(),
+      transaction_id: orderId,
+      items: ga4CartItems(),
+    });
     state.cart.clear();
     saveCart(state.cart);
     clearDraft("preorder");
@@ -2671,10 +2718,36 @@ const handleClick = (event) => {
   const plus = target.closest("[data-plus]");
   const minus = target.closest("[data-minus]");
   const remove = target.closest("[data-remove]");
-  if (add) { setQuantity(add.dataset.add, cartQuantity(add.dataset.add) + 1); return; }
-  if (plus) { setQuantity(plus.dataset.plus, cartQuantity(plus.dataset.plus) + 1); return; }
-  if (minus) { setQuantity(minus.dataset.minus, cartQuantity(minus.dataset.minus) - 1); return; }
-  if (remove) { setQuantity(remove.dataset.remove, 0); return; }
+  if (add) {
+    const id = add.dataset.add;
+    const dish = dishById(id);
+    setQuantity(id, cartQuantity(id) + 1);
+    if (dish) ga4("add_to_cart", { currency: "USD", value: dish.price, items: [ga4Item(dish, 1)] });
+    return;
+  }
+  if (plus) {
+    const id = plus.dataset.plus;
+    const dish = dishById(id);
+    setQuantity(id, cartQuantity(id) + 1);
+    if (dish) ga4("add_to_cart", { currency: "USD", value: dish.price, items: [ga4Item(dish, 1)] });
+    return;
+  }
+  if (minus) {
+    const id = minus.dataset.minus;
+    const dish = dishById(id);
+    const prevQty = cartQuantity(id);
+    setQuantity(id, prevQty - 1);
+    if (dish && prevQty > 0) ga4("remove_from_cart", { currency: "USD", value: dish.price, items: [ga4Item(dish, 1)] });
+    return;
+  }
+  if (remove) {
+    const id = remove.dataset.remove;
+    const dish = dishById(id);
+    const qty = cartQuantity(id);
+    setQuantity(id, 0);
+    if (dish && qty > 0) ga4("remove_from_cart", { currency: "USD", value: dish.price * qty, items: [ga4Item(dish, qty)] });
+    return;
+  }
 
   // Toggle cart expand
   const toggleCart = target.closest("[data-toggle-cart]");
@@ -2712,8 +2785,10 @@ const handleClick = (event) => {
     const messenger = sendMessenger.dataset.messenger;
     const draft = type === "preorder" ? state.preorderDraft : state.cateringDraft;
     if (messenger === "whatsapp") {
+      ga4("click_whatsapp", { source: type });
       window.open(waUrl(draft?.message || ""), "_blank", "noopener,noreferrer");
     } else if (messenger === "telegram") {
+      ga4("click_telegram", { source: type });
       window.open(tgUrl(), "_blank", "noopener,noreferrer");
       if (draft?.message) copyOrderText(draft.message).catch(() => {});
     }
@@ -2838,6 +2913,7 @@ const handleClick = (event) => {
   const quick = target.closest("[data-whatsapp-quick]");
   if (quick) {
     event.preventDefault();
+    ga4("click_whatsapp", { source: "quick_cta" });
     window.open(waUrl(t("order.help")), "_blank", "noopener,noreferrer");
     return;
   }
