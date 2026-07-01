@@ -24,7 +24,8 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      gtag('config', 'G-4C444M4YML');
+      var _ga4DebugMode = new URLSearchParams(location.search).get('debug_mode') === '1';
+      gtag('config', 'G-4C444M4YML', _ga4DebugMode ? {debug_mode: true} : {});
     </script>
   </head>
   <body>

@@ -1075,9 +1075,10 @@ const copy = {
 
 // ── Google Analytics 4 ───────────────────────────────────────────────────────
 
+const ga4DebugMode = new URLSearchParams(location.search).get("debug_mode") === "1";
 const ga4 = (eventName, params) => {
   if (typeof window.gtag !== "function") return;
-  window.gtag("event", eventName, params);
+  window.gtag("event", eventName, ga4DebugMode ? { ...params, debug_mode: true } : params);
 };
 
 // Build a safe GA4 item object — only non-PII dish/product fields.
