@@ -379,12 +379,12 @@
     "image": "assets/images/main-dishes/pork-pelmeni.webp",
     "price": 14,
     "name": {
-      "ru": "Пельмени со свиным фаршем",
+      "ru": "Пельмени со свининой",
       "en": "Pork Pelmeni",
       "uk": "Пельмені зі свинячим фаршем"
     },
     "description": {
-      "ru": "Домашние пельмени со свиным фаршем и классической подачей.",
+      "ru": "Домашние пельмени со свининой и классической подачей.",
       "en": "Homemade pelmeni with pork filling and classic serving.",
       "uk": "Домашні пельмені зі свинячим фаршем і класичною подачею."
     },
