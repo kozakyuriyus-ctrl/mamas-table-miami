@@ -106,6 +106,9 @@ const copy = {
       chickenTabaka: "1 шт · примерно 1.2–1.3 lb (545–595 г) · 2 порции",
       dumplingsAndCrepes: "Вес: 1 lb (454 г) · 2 порции",
       mashedPotatoes: "Вес: 1 lb (454 г) · 3 порции",
+      liverCake: "1 шт. примерно 3 lb (1 кг 362 г) · 6–8 порций",
+      mimosaSalad: "Вес: 2 lb (908 г) · 6–8 порций",
+      herringUnderFurCoat: "Вес: 2 lb (908 г) · 6–8 порций",
     },
     hero: {
       eyebrow: "Настоящая домашняя кухня",
@@ -436,6 +439,9 @@ const copy = {
       chickenTabaka: "1 pc · approx. 1.2–1.3 lb (545–595 g) · 2 servings",
       dumplingsAndCrepes: "Size: 1 lb (454 g) · Serves 2",
       mashedPotatoes: "Size: 1 lb (454 g) · Serves 3",
+      liverCake: "1 piece, approximately 3 lb (1.36 kg) · 6–8 servings",
+      mimosaSalad: "Weight: 2 lb (908 g) · 6–8 servings",
+      herringUnderFurCoat: "Weight: 2 lb (908 g) · 6–8 servings",
     },
     hero: {
       eyebrow: "Real Home Cooking",
@@ -766,6 +772,9 @@ const copy = {
       chickenTabaka: "1 шт · приблизно 1.2–1.3 lb (545–595 г) · 2 порції",
       dumplingsAndCrepes: "Вага: 1 lb (454 г) · 2 порції",
       mashedPotatoes: "Вага: 1 lb (454 г) · 3 порції",
+      liverCake: "1 шт., приблизно 3 lb (1,36 кг) · 6–8 порцій",
+      mimosaSalad: "Вага: 2 lb (908 г) · 6–8 порцій",
+      herringUnderFurCoat: "Вага: 2 lb (908 г) · 6–8 порцій",
     },
     hero: {
       eyebrow: "Справжня домашня кухня",
@@ -1302,8 +1311,13 @@ const DUMPLINGS_AND_CREPES = new Set([
 
 const buildDishSizeStr = (dish) => {
   if (dish.category === "soups") return t("size.soups");
-  if (dish.category === "salads") return t("size.salads");
+  if (dish.category === "salads") {
+    if (dish.id === "mimosa-salad") return t("size.mimosaSalad");
+    if (dish.id === "herring-under-fur-coat") return t("size.herringUnderFurCoat");
+    return t("size.salads");
+  }
   if (dish.category === "main-dishes") {
+    if (dish.id === "liver-cake") return t("size.liverCake");
     if (dish.id === "mashed-potatoes") return t("size.mashedPotatoes");
     if (dish.id === "chicken-tabaka") return t("size.chickenTabaka");
     if (DUMPLINGS_AND_CREPES.has(dish.id)) return t("size.dumplingsAndCrepes");
