@@ -16,7 +16,7 @@
       "en": "Traditional Ukrainian beet soup with sour cream and herbs.",
       "uk": "Традиційний український борщ зі сметаною та зеленню."
     },
-    "unit": "L"
+    "unit": "qt"
   },
   {
     "id": "chicken-soup",
@@ -33,7 +33,7 @@
       "en": "Light chicken broth with vegetables, herbs and homemade noodles.",
       "uk": "Легкий курячий бульйон з овочами, зеленню та домашньою локшиною."
     },
-    "unit": "L"
+    "unit": "qt"
   },
   {
     "id": "topcheta-meatball-soup",
@@ -50,7 +50,7 @@
       "en": "Tender meatball soup with yogurt dressing, a light tangy flavor, and subtle mint notes.",
       "uk": "Ніжний суп з фрикадельками, йогуртовою заправкою, легкою кислинкою та нотками м’яти."
     },
-    "unit": "L"
+    "unit": "qt"
   },
   {
     "id": "solyanka",
@@ -67,7 +67,7 @@
       "en": "Savory Eastern European soup with meats, lemon and olives.",
       "uk": "Пікантний східноєвропейський суп з м'ясом, лимоном та оливками."
     },
-    "unit": "L"
+    "unit": "qt"
   },
   {
     "id": "pea-soup",
@@ -84,7 +84,7 @@
       "en": "Homemade pea soup with vegetables and a rich, comforting flavor.",
       "uk": "Домашній гороховий суп з овочами та м'яким насиченим смаком."
     },
-    "unit": "L"
+    "unit": "qt"
   },
   {
     "id": "rassolnik",
@@ -101,7 +101,7 @@
       "en": "Classic soup with barley, pickles and homemade broth.",
       "uk": "Класичний суп з перловкою, солоними огірками та домашнім бульйоном."
     },
-    "unit": "L"
+    "unit": "qt"
   },
   {
     "id": "meatball-soup",
@@ -118,7 +118,7 @@
       "en": "Light soup with meatballs, vegetables and herbs.",
       "uk": "Легкий суп з м'ясними фрикадельками, овочами та зеленню."
     },
-    "unit": "L"
+    "unit": "qt"
   },
   {
     "id": "mercimek-soup",
@@ -136,7 +136,7 @@
       "en": "Velvety lentil soup with Turkish spices and lemon.",
       "uk": "Оксамитовий сочевичний суп з турецькими спеціями та лимоном."
     },
-    "unit": "L"
+    "unit": "qt"
   },
   {
     "id": "ukrainian-kapustnyak",
@@ -153,7 +153,7 @@
       "en": "Ukrainian cabbage soup with potatoes and homemade broth.",
       "uk": "Український капусняк з капустою, картоплею та домашнім бульйоном."
     },
-    "unit": "L"
+    "unit": "qt"
   },
   {
     "id": "ayran-okroshka",
@@ -170,7 +170,7 @@
       "en": "Refreshing cold ayran soup with vegetables, herbs and egg.",
       "uk": "Освіжаючий холодний суп на айрані з овочами, зеленню та яйцем."
     },
-    "unit": "L"
+    "unit": "qt"
   },
   {
     "id": "mushroom-cream-soup",
@@ -187,7 +187,7 @@
       "en": "Creamy mushroom soup with gentle herbs.",
       "uk": "Ніжний кремовий суп-пюре з грибами та м'якими травами."
     },
-    "unit": "L"
+    "unit": "qt"
   },
   {
     "id": "green-borscht",
@@ -205,7 +205,7 @@
       "en": "Green borscht with sorrel, egg, potatoes and herbs.",
       "uk": "Зелений борщ зі щавлем, яйцем, картоплею та зеленню."
     },
-    "unit": "L"
+    "unit": "qt"
   },
   {
     "id": "varenyky",
@@ -453,7 +453,8 @@
       "en": "Layered liver cake with a tender homemade filling.",
       "uk": "Шаровий печінковий торт з ніжною домашньою начинкою."
     },
-    "unit": "lb"
+    "unit": "lb",
+    "orderUnitRu": "1 шт. примерно 3 lb (1 кг 362 г) · 6–8 порций"
   },
   {
     "id": "meat-rice-meatballs",
@@ -487,7 +488,7 @@
       "en": "Caucasian-style pressed chicken with crisp skin and spices.",
       "uk": "Кавказьке курча з хрусткою скоринкою та спеціями."
     },
-    "unit": "lb"
+    "unit": "шт."
   },
   {
     "id": "chicken-chops",
@@ -748,7 +749,8 @@
       "en": "Layered salad with fish, egg, vegetables and a tender dressing.",
       "uk": "Шаровий салат з рибою, яйцем, овочами та ніжною заправкою."
     },
-    "unit": "lb"
+    "unit": "lb",
+    "orderUnitRu": "Вес: 2 lb (908 г) · 6–8 порций"
   },
   {
     "id": "herring-under-fur-coat",
@@ -765,7 +767,8 @@
       "en": "Classic layered salad with herring, beets, potatoes and carrots.",
       "uk": "Класичний шаровий салат з оселедцем, буряком, картоплею та морквою."
     },
-    "unit": "lb"
+    "unit": "lb",
+    "orderUnitRu": "Вес: 2 lb (908 г) · 6–8 порций"
   },
   {
     "id": "fresh-cabbage-salad",

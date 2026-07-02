@@ -238,6 +238,16 @@ async function sendTelegramToRecipients(env, messagePayload) {
   return { ok: primaryOk, results };
 }
 
+// ── Order unit label (Russian, for Telegram) ──────────────────────────────────
+
+function getOrderUnitRu(it) {
+  if (it.orderUnitRu) return it.orderUnitRu;
+  if (it.category === "soups") return "1 qt";
+  if (it.unit === "lb") return "1 lb";
+  if (it.unit === "шт.") return "1 шт.";
+  return "1 шт.";
+}
+
 // ── Telegram message builder ──────────────────────────────────────────────────
 
 function buildTelegramMessage({ orderId, customer, delivery, schedule, orderItems, pricing, notes, zoneMismatch }) {
@@ -252,9 +262,9 @@ function buildTelegramMessage({ orderId, customer, delivery, schedule, orderItem
   ].filter(Boolean);
 
   const itemsLines = orderItems.map((it) => {
-    if (!it.unit) console.warn(`[WARN] No unit for item ${it.id}, using fallback "шт."`);
-    const unit = it.unit ?? "шт.";
-    return `• ${esc(it.name)} × ${it.quantity} ${esc(unit)} — $${it.lineTotal.toFixed(2)}`;
+    const unitLabel = getOrderUnitRu(it);
+    const qtyPart = it.quantity !== 1 ? ` × ${it.quantity}` : "";
+    return `• ${esc(it.name)} ${esc(unitLabel)}${qtyPart} — $${it.lineTotal.toFixed(2)}`;
   }).join("\n");
 
   const zoneMismatchLine = zoneMismatch
@@ -438,7 +448,7 @@ async function handlePreorder(request, env, json) {
       ? (dish.name.ru ?? dish.name.en ?? String(dish.name))
       : String(dish.name);
 
-    orderItems.push({ id: dish.id, name: dishName, quantity: item.quantity, unit: dish.unit ?? null, unitPrice: dish.price, lineTotal });
+    orderItems.push({ id: dish.id, name: dishName, quantity: item.quantity, unit: dish.unit ?? null, category: dish.category ?? null, orderUnitRu: dish.orderUnitRu ?? null, unitPrice: dish.price, lineTotal });
   }
 
   // ── Minimum order check (food subtotal only, delivery excluded) ───────────
@@ -477,9 +487,9 @@ async function handlePreorder(request, env, json) {
     console.log(`[TEST ORDER] ${testId} zone=${serverZone}(${zoneConfig.letter}) fee=${pricing.deliveryFee ?? "TBD"} subtotal=${pricing.foodSubtotal} total=${pricing.orderTotal ?? "TBD"}`);
     // Include formatted order lines so test-mode callers can verify the Telegram message format.
     const orderItemsFormatted = orderItems.map((it) => {
-      if (!it.unit) console.warn(`[WARN] No unit for item ${it.id}, using fallback "шт."`);
-      const unit = it.unit ?? "шт.";
-      return `• ${it.name} × ${it.quantity} ${unit} — $${it.lineTotal.toFixed(2)}`;
+      const unitLabel = getOrderUnitRu(it);
+      const qtyPart = it.quantity !== 1 ? ` × ${it.quantity}` : "";
+      return `• ${it.name} ${unitLabel}${qtyPart} — $${it.lineTotal.toFixed(2)}`;
     });
     return json({
       ok: true,
