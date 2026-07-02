@@ -7,6 +7,7 @@
  * Secrets required (set via Cloudflare dashboard or `wrangler secret put`):
  *   TELEGRAM_BOT_TOKEN
  *   TELEGRAM_CHAT_ID
+ *   TELEGRAM_SECONDARY_CHAT_ID (optional)
  *   TELEGRAM_WEBHOOK_SECRET
  *   TEST_TOKEN          ← secret for test mode (wrangler secret put TEST_TOKEN)
  *
@@ -187,6 +188,66 @@ async function callTelegram(env, method, payload) {
   });
 }
 
+async function sendTelegramToRecipients(env, messagePayload) {
+  if (!env.TELEGRAM_CHAT_ID) {
+    console.error("Telegram primary recipient is not configured.");
+    return { ok: false };
+  }
+
+  const recipients = [
+    { label: "primary", chatId: env.TELEGRAM_CHAT_ID },
+    { label: "secondary", chatId: env.TELEGRAM_SECONDARY_CHAT_ID },
+  ].filter((recipient) => recipient.chatId);
+
+  const results = await Promise.allSettled(
+    recipients.map(async (recipient) => {
+      const resp = await callTelegram(env, "sendMessage", {
+        ...messagePayload,
+        chat_id: recipient.chatId,
+      });
+
+      if (!resp.ok) {
+        const errText = await resp.text().catch(() => "");
+        throw new Error(errText || `Telegram API ${resp.status}`);
+      }
+
+      return { recipient: recipient.label };
+    }),
+  );
+
+  let primaryOk = false;
+
+  results.forEach((result, index) => {
+    const recipient = recipients[index]?.label || "unknown";
+
+    if (result.status === "fulfilled" && recipient === "primary") {
+      primaryOk = true;
+      return;
+    }
+
+    if (result.status === "rejected") {
+      const message = result.reason?.message || result.reason;
+      if (recipient === "secondary") {
+        console.error("Telegram secondary recipient error:", message);
+      } else {
+        console.error("Telegram primary recipient error:", message);
+      }
+    }
+  });
+
+  return { ok: primaryOk, results };
+}
+
+// ── Order unit label (Russian, for Telegram) ──────────────────────────────────
+
+function getOrderUnitRu(it) {
+  if (it.orderUnitRu) return it.orderUnitRu;
+  if (it.category === "soups") return "1 qt";
+  if (it.unit === "lb") return "1 lb";
+  if (it.unit === "шт.") return "1 шт.";
+  return "1 шт.";
+}
+
 // ── Telegram message builder ──────────────────────────────────────────────────
 
 function buildTelegramMessage({ orderId, customer, delivery, schedule, orderItems, pricing, notes, zoneMismatch }) {
@@ -201,8 +262,9 @@ function buildTelegramMessage({ orderId, customer, delivery, schedule, orderItem
   ].filter(Boolean);
 
   const itemsLines = orderItems.map((it) => {
-    const qty = it.unit === "lb" ? `${it.quantity} lb` : `× ${it.quantity}`;
-    return `• ${esc(it.name)} ${qty} — $${it.lineTotal.toFixed(2)}`;
+    const unitLabel = getOrderUnitRu(it);
+    const qtyPart = it.quantity !== 1 ? ` × ${it.quantity}` : "";
+    return `• ${esc(it.name)} ${esc(unitLabel)}${qtyPart} — $${it.lineTotal.toFixed(2)}`;
   }).join("\n");
 
   const zoneMismatchLine = zoneMismatch
@@ -372,7 +434,7 @@ async function handlePreorder(request, env, json) {
   for (const item of items) {
     if (typeof item.id !== "string" || !item.id)
       return json({ ok: false, error: "invalid_item", message: "Invalid item ID." }, 400);
-    if (!Number.isInteger(item.quantity) || item.quantity < 1 || item.quantity > 200)
+    if (typeof item.quantity !== "number" || !isFinite(item.quantity) || item.quantity <= 0 || item.quantity > 200)
       return json({ ok: false, error: "invalid_quantity", message: `Invalid quantity for item: ${item.id}` }, 400);
 
     const dish = dishMap.get(item.id);
@@ -386,7 +448,7 @@ async function handlePreorder(request, env, json) {
       ? (dish.name.ru ?? dish.name.en ?? String(dish.name))
       : String(dish.name);
 
-    orderItems.push({ id: dish.id, name: dishName, quantity: item.quantity, unit: dish.unit ?? null, unitPrice: dish.price, lineTotal });
+    orderItems.push({ id: dish.id, name: dishName, quantity: item.quantity, unit: dish.unit ?? null, category: dish.category ?? null, orderUnitRu: dish.orderUnitRu ?? null, unitPrice: dish.price, lineTotal });
   }
 
   // ── Minimum order check (food subtotal only, delivery excluded) ───────────
@@ -423,6 +485,12 @@ async function handlePreorder(request, env, json) {
     crypto.getRandomValues(testBuf);
     const testId = `TEST-${getMiamiDateStr()}-${1000 + (testBuf[0] % 9000)}`;
     console.log(`[TEST ORDER] ${testId} zone=${serverZone}(${zoneConfig.letter}) fee=${pricing.deliveryFee ?? "TBD"} subtotal=${pricing.foodSubtotal} total=${pricing.orderTotal ?? "TBD"}`);
+    // Include formatted order lines so test-mode callers can verify the Telegram message format.
+    const orderItemsFormatted = orderItems.map((it) => {
+      const unitLabel = getOrderUnitRu(it);
+      const qtyPart = it.quantity !== 1 ? ` × ${it.quantity}` : "";
+      return `• ${it.name} ${unitLabel}${qtyPart} — $${it.lineTotal.toFixed(2)}`;
+    });
     return json({
       ok: true,
       testMode: true,
@@ -439,21 +507,19 @@ async function handlePreorder(request, env, json) {
       subtotal: pricing.foodSubtotal,
       total: pricing.orderTotal,
       pricing,
+      orderItemsFormatted,
     });
   }
 
   // ── Send Telegram notification ────────────────────────────────────────────
   const tgMessage = buildTelegramMessage({ orderId, customer, delivery: serverDelivery, schedule, orderItems, pricing, notes, zoneMismatch });
-  const tgResp = await callTelegram(env, "sendMessage", {
-    chat_id: env.TELEGRAM_CHAT_ID,
+  const tgResult = await sendTelegramToRecipients(env, {
     text: tgMessage,
     parse_mode: "HTML",
     reply_markup: buildStatusKeyboard(orderId),
   });
 
-  if (!tgResp.ok) {
-    const err = await tgResp.json().catch(() => ({}));
-    console.error("Telegram API error:", err.description ?? err);
+  if (!tgResult.ok) {
     return json({ ok: false, error: "delivery_failed", message: "Failed to send your order. Please try again or contact us directly." }, 500);
   }
 
@@ -609,14 +675,11 @@ ${locationLines ? `\n<b>Адрес:</b>\n${esc(locationLines)}` : ""}${comment ?
 Подано: ${getMiamiTimeLabel()} ET`;
 
   if (!isTestMode) {
-    const tgRes = await callTelegram(env, "sendMessage", {
-      chat_id:    env.TELEGRAM_CHAT_ID,
+    const tgRes = await sendTelegramToRecipients(env, {
       text:       tgMessage,
       parse_mode: "HTML",
     });
     if (!tgRes.ok) {
-      const errText = await tgRes.text();
-      console.error("Telegram error (custom-order):", tgRes.status, errText);
       return json({ ok: false, error: "telegram_error", message: "Failed to deliver request." }, 502);
     }
   }
@@ -710,14 +773,11 @@ Lang: ${esc(lang)}
 Sent: ${getMiamiTimeLabel()} ET`;
 
   if (!isTestMode) {
-    const tgRes = await callTelegram(env, "sendMessage", {
-      chat_id:    env.TELEGRAM_CHAT_ID,
+    const tgRes = await sendTelegramToRecipients(env, {
       text:       tgMessage,
       parse_mode: "HTML",
     });
     if (!tgRes.ok) {
-      const errText = await tgRes.text();
-      console.error("Telegram error (contact):", tgRes.status, errText);
       return json({ ok: false, error: "telegram_error", message: "Failed to deliver message." }, 502);
     }
   }

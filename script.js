@@ -110,6 +110,9 @@ const copy = {
       mimosaSalad: "Вес: 2 lb (908 г) · 6–8 порций",
       herringUnderFurCoat: "Вес: 2 lb (908 г) · 6–8 порций",
     },
+    orderUnit: {
+      piece: "1 шт.",
+    },
     hero: {
       eyebrow: "Настоящая домашняя кухня",
       title: "Свежая домашняя еда в Майами",
@@ -443,6 +446,9 @@ const copy = {
       mimosaSalad: "Weight: 2 lb (908 g) · 6–8 servings",
       herringUnderFurCoat: "Weight: 2 lb (908 g) · 6–8 servings",
     },
+    orderUnit: {
+      piece: "1 piece",
+    },
     hero: {
       eyebrow: "Real Home Cooking",
       title: "Fresh Homemade Meals in Miami",
@@ -775,6 +781,9 @@ const copy = {
       liverCake: "1 шт., приблизно 3 lb (1,36 кг) · 6–8 порцій",
       mimosaSalad: "Вага: 2 lb (908 г) · 6–8 порцій",
       herringUnderFurCoat: "Вага: 2 lb (908 г) · 6–8 порцій",
+    },
+    orderUnit: {
+      piece: "1 шт.",
     },
     hero: {
       eyebrow: "Справжня домашня кухня",
@@ -1326,6 +1335,15 @@ const buildDishSizeStr = (dish) => {
   return "";
 };
 
+const buildOrderUnitStr = (dish) => {
+  if (dish.category === "soups") return "1 qt";
+  if (dish.id === "liver-cake") return t("size.liverCake");
+  if (dish.id === "mimosa-salad") return t("size.mimosaSalad");
+  if (dish.id === "herring-under-fur-coat") return t("size.herringUnderFurCoat");
+  if (dish.unit === "lb") return "1 lb";
+  return t("orderUnit.piece");
+};
+
 const escapeHtml = (value) =>
   String(value).replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" })[char]);
 
@@ -1743,8 +1761,9 @@ const buildPreorderMessage = (orderId) => {
   lines.push("");
   lines.push(`${t("order.items")}:`);
   entries.forEach(({ dish, quantity }) => {
-    const qtyStr = dish.unit === "lb" ? `${quantity} lb` : String(quantity);
-    lines.push(`• ${text(dish.name)} × ${qtyStr} — ${money(dish.price * quantity)}`);
+    const unitLabel = buildOrderUnitStr(dish);
+    const qtyPart = quantity !== 1 ? ` × ${quantity}` : "";
+    lines.push(`• ${text(dish.name)} ${unitLabel}${qtyPart} — ${money(dish.price * quantity)}`);
   });
   lines.push("");
   lines.push(`${t("order.subtotal")}: ${money(cartTotal())}`);
@@ -1837,8 +1856,10 @@ const createPreorderStage0 = () => {
   const invCls = (fn) => fieldErr(fn) ? " is-invalid" : "";
 
   const cartRows = entries.map(({ dish, quantity }) => {
-    const qtyStr = dish.unit === "lb" ? `${quantity} lb` : `${quantity}`;
-    return `<div class="modal-cart-item"><span>${escapeHtml(text(dish.name))} × ${escapeHtml(qtyStr)}</span><em>${money(dish.price * quantity)}</em></div>`;
+    const unitLabel = buildOrderUnitStr(dish);
+    const qtyPart = quantity !== 1 ? ` × ${quantity}` : "";
+    const itemStr = `${text(dish.name)} ${unitLabel}${qtyPart}`;
+    return `<div class="modal-cart-item"><span>${escapeHtml(itemStr)}</span><em>${money(dish.price * quantity)}</em></div>`;
   }).join("");
 
   const isZoneC = zone === "3";
@@ -2373,7 +2394,7 @@ const createCartDetails = (entries) =>
   entries
     .map(({ dish, quantity }) => {
       const unitLabel = dish.unit === "lb" ? t("cart.unitLb") : t("cart.unitPrice");
-      const qtyStr = dish.unit === "lb" ? `×${quantity} lb` : `×${quantity}`;
+      const qtyStr = `×${quantity} ${dish.unit ?? "шт."}`;
       return `
       <div class="cart-item">
         <div class="cart-item-main">
