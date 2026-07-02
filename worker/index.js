@@ -7,6 +7,7 @@
  * Secrets required (set via Cloudflare dashboard or `wrangler secret put`):
  *   TELEGRAM_BOT_TOKEN
  *   TELEGRAM_CHAT_ID
+ *   TELEGRAM_SECONDARY_CHAT_ID (optional)
  *   TELEGRAM_WEBHOOK_SECRET
  *   TEST_TOKEN          ← secret for test mode (wrangler secret put TEST_TOKEN)
  *
@@ -185,6 +186,56 @@ async function callTelegram(env, method, payload) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload),
   });
+}
+
+async function sendTelegramToRecipients(env, messagePayload) {
+  if (!env.TELEGRAM_CHAT_ID) {
+    console.error("Telegram primary recipient is not configured.");
+    return { ok: false };
+  }
+
+  const recipients = [
+    { label: "primary", chatId: env.TELEGRAM_CHAT_ID },
+    { label: "secondary", chatId: env.TELEGRAM_SECONDARY_CHAT_ID },
+  ].filter((recipient) => recipient.chatId);
+
+  const results = await Promise.allSettled(
+    recipients.map(async (recipient) => {
+      const resp = await callTelegram(env, "sendMessage", {
+        ...messagePayload,
+        chat_id: recipient.chatId,
+      });
+
+      if (!resp.ok) {
+        const errText = await resp.text().catch(() => "");
+        throw new Error(errText || `Telegram API ${resp.status}`);
+      }
+
+      return { recipient: recipient.label };
+    }),
+  );
+
+  let primaryOk = false;
+
+  results.forEach((result, index) => {
+    const recipient = recipients[index]?.label || "unknown";
+
+    if (result.status === "fulfilled" && recipient === "primary") {
+      primaryOk = true;
+      return;
+    }
+
+    if (result.status === "rejected") {
+      const message = result.reason?.message || result.reason;
+      if (recipient === "secondary") {
+        console.error("Telegram secondary recipient error:", message);
+      } else {
+        console.error("Telegram primary recipient error:", message);
+      }
+    }
+  });
+
+  return { ok: primaryOk, results };
 }
 
 // ── Telegram message builder ──────────────────────────────────────────────────
@@ -444,16 +495,13 @@ async function handlePreorder(request, env, json) {
 
   // ── Send Telegram notification ────────────────────────────────────────────
   const tgMessage = buildTelegramMessage({ orderId, customer, delivery: serverDelivery, schedule, orderItems, pricing, notes, zoneMismatch });
-  const tgResp = await callTelegram(env, "sendMessage", {
-    chat_id: env.TELEGRAM_CHAT_ID,
+  const tgResult = await sendTelegramToRecipients(env, {
     text: tgMessage,
     parse_mode: "HTML",
     reply_markup: buildStatusKeyboard(orderId),
   });
 
-  if (!tgResp.ok) {
-    const err = await tgResp.json().catch(() => ({}));
-    console.error("Telegram API error:", err.description ?? err);
+  if (!tgResult.ok) {
     return json({ ok: false, error: "delivery_failed", message: "Failed to send your order. Please try again or contact us directly." }, 500);
   }
 
@@ -609,14 +657,11 @@ ${locationLines ? `\n<b>Адрес:</b>\n${esc(locationLines)}` : ""}${comment ?
 Подано: ${getMiamiTimeLabel()} ET`;
 
   if (!isTestMode) {
-    const tgRes = await callTelegram(env, "sendMessage", {
-      chat_id:    env.TELEGRAM_CHAT_ID,
+    const tgRes = await sendTelegramToRecipients(env, {
       text:       tgMessage,
       parse_mode: "HTML",
     });
     if (!tgRes.ok) {
-      const errText = await tgRes.text();
-      console.error("Telegram error (custom-order):", tgRes.status, errText);
       return json({ ok: false, error: "telegram_error", message: "Failed to deliver request." }, 502);
     }
   }
@@ -710,14 +755,11 @@ Lang: ${esc(lang)}
 Sent: ${getMiamiTimeLabel()} ET`;
 
   if (!isTestMode) {
-    const tgRes = await callTelegram(env, "sendMessage", {
-      chat_id:    env.TELEGRAM_CHAT_ID,
+    const tgRes = await sendTelegramToRecipients(env, {
       text:       tgMessage,
       parse_mode: "HTML",
     });
     if (!tgRes.ok) {
-      const errText = await tgRes.text();
-      console.error("Telegram error (contact):", tgRes.status, errText);
       return json({ ok: false, error: "telegram_error", message: "Failed to deliver message." }, 502);
     }
   }
