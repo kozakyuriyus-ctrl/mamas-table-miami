@@ -15,7 +15,8 @@
       "ru": "Традиционный украинский борщ с мясом",
       "en": "Traditional Ukrainian beet soup with sour cream and herbs.",
       "uk": "Традиційний український борщ зі сметаною та зеленню."
-    }
+    },
+    "unit": "L"
   },
   {
     "id": "chicken-soup",
@@ -31,7 +32,8 @@
       "ru": "Легкий куриный бульон с овощами, зеленью и лапшой.",
       "en": "Light chicken broth with vegetables, herbs and homemade noodles.",
       "uk": "Легкий курячий бульйон з овочами, зеленню та домашньою локшиною."
-    }
+    },
+    "unit": "L"
   },
   {
     "id": "topcheta-meatball-soup",
@@ -47,7 +49,8 @@
       "ru": "Нежный суп с фрикадельками, йогуртовой заправкой, лёгкой кислинкой и нотками мяты.",
       "en": "Tender meatball soup with yogurt dressing, a light tangy flavor, and subtle mint notes.",
       "uk": "Ніжний суп з фрикадельками, йогуртовою заправкою, легкою кислинкою та нотками м’яти."
-    }
+    },
+    "unit": "L"
   },
   {
     "id": "solyanka",
@@ -63,7 +66,8 @@
       "ru": "Насыщенный пикантный суп с богатым мясным вкусом , лимоном и оливками.",
       "en": "Savory Eastern European soup with meats, lemon and olives.",
       "uk": "Пікантний східноєвропейський суп з м'ясом, лимоном та оливками."
-    }
+    },
+    "unit": "L"
   },
   {
     "id": "pea-soup",
@@ -79,7 +83,8 @@
       "ru": "Домашний гороховый суп с копченостями",
       "en": "Homemade pea soup with vegetables and a rich, comforting flavor.",
       "uk": "Домашній гороховий суп з овочами та м'яким насиченим смаком."
-    }
+    },
+    "unit": "L"
   },
   {
     "id": "rassolnik",
@@ -95,7 +100,8 @@
       "ru": "Традиционный суп с перловкой, солеными огурцами на мясном бульоне.",
       "en": "Classic soup with barley, pickles and homemade broth.",
       "uk": "Класичний суп з перловкою, солоними огірками та домашнім бульйоном."
-    }
+    },
+    "unit": "L"
   },
   {
     "id": "meatball-soup",
@@ -111,7 +117,8 @@
       "ru": "Легкий суп с мясными фрикадельками, овощами и макарошками.",
       "en": "Light soup with meatballs, vegetables and herbs.",
       "uk": "Легкий суп з м'ясними фрикадельками, овочами та зеленню."
-    }
+    },
+    "unit": "L"
   },
   {
     "id": "mercimek-soup",
@@ -128,7 +135,8 @@
       "ru": "Бархатный чечевичный суп с турецкими специями и лимоном.",
       "en": "Velvety lentil soup with Turkish spices and lemon.",
       "uk": "Оксамитовий сочевичний суп з турецькими спеціями та лимоном."
-    }
+    },
+    "unit": "L"
   },
   {
     "id": "ukrainian-kapustnyak",
@@ -144,7 +152,8 @@
       "ru": "Суп со свиными ребрышками и квашеной капустой",
       "en": "Ukrainian cabbage soup with potatoes and homemade broth.",
       "uk": "Український капусняк з капустою, картоплею та домашнім бульйоном."
-    }
+    },
+    "unit": "L"
   },
   {
     "id": "ayran-okroshka",
@@ -160,7 +169,8 @@
       "ru": "Освежающий холодный суп на айране с овощами, зеленью и яйцом.",
       "en": "Refreshing cold ayran soup with vegetables, herbs and egg.",
       "uk": "Освіжаючий холодний суп на айрані з овочами, зеленню та яйцем."
-    }
+    },
+    "unit": "L"
   },
   {
     "id": "mushroom-cream-soup",
@@ -176,7 +186,8 @@
       "ru": "Нежный кремовый суп-пюре с грибами и мягкими травами.",
       "en": "Creamy mushroom soup with gentle herbs.",
       "uk": "Ніжний кремовий суп-пюре з грибами та м'якими травами."
-    }
+    },
+    "unit": "L"
   },
   {
     "id": "green-borscht",
@@ -193,7 +204,8 @@
       "ru": "Зеленый борщ со щавелем, яйцом, картофелем и зеленью.",
       "en": "Green borscht with sorrel, egg, potatoes and herbs.",
       "uk": "Зелений борщ зі щавлем, яйцем, картоплею та зеленню."
-    }
+    },
+    "unit": "L"
   },
   {
     "id": "varenyky",
@@ -891,7 +903,8 @@
       "ru": "Тонкие блины с разными начинками.",
       "en": "Thin crepes with various fillings.",
       "uk": "Тонкі млинці з різними начинками."
-    }
+    },
+    "unit": "шт."
   },
   {
     "id": "cheese-nalistniki",
@@ -907,7 +920,8 @@
       "ru": "Нежные налистники с творожной начинкой и сметаной.",
       "en": "Tender crepes filled with sweet farmer cheese and sour cream.",
       "uk": "Ніжні налисники з сирною начинкою та сметаною."
-    }
+    },
+    "unit": "шт."
   },
   {
     "id": "chicken-crepes",
@@ -923,7 +937,8 @@
       "ru": "Сытные блины с курицей, грибами и сливочным соусом.",
       "en": "Savory crepes with chicken, mushrooms and cream sauce.",
       "uk": "Ситні млинці з куркою, грибами та вершковим соусом."
-    }
+    },
+    "unit": "шт."
   },
   {
     "id": "berry-crepes",
@@ -939,7 +954,8 @@
       "ru": "Тонкие блины с ягодами и легкой сладкой начинкой.",
       "en": "Thin crepes with berries and a light sweet filling.",
       "uk": "Тонкі млинці з ягодами та легкою солодкою начинкою."
-    }
+    },
+    "unit": "шт."
   },
   {
     "id": "family-dinner",
@@ -955,7 +971,8 @@
       "ru": "Сбалансированный набор на 4–6 гостей с супом, основными блюдами и салатом.",
       "en": "A balanced set for 4–6 guests with soup, mains and salad.",
       "uk": "Збалансований набір на 4–6 гостей із супом, основними стравами та салатом."
-    }
+    },
+    "unit": "шт."
   },
   {
     "id": "ukrainian-family-tray",
@@ -971,7 +988,8 @@
       "ru": "Борщ, вареники, голубцы, салаты и домашняя выпечка для стола.",
       "en": "Borscht, vareniki, cabbage rolls, salads and homemade pastries.",
       "uk": "Борщ, вареники, голубці, салати та домашня випічка для столу."
-    }
+    },
+    "unit": "шт."
   },
   {
     "id": "mediterranean-family-tray",
@@ -987,7 +1005,8 @@
       "ru": "Мясные блюда, салаты, овощи и соусы для легкого семейного ужина.",
       "en": "Meat dishes, salads, vegetables and sauces for an easy family dinner.",
       "uk": "М'ясні страви, салати, овочі та соуси для легкої сімейної вечері."
-    }
+    },
+    "unit": "шт."
   },
   {
     "id": "comfort-dinner-set",
@@ -1003,7 +1022,8 @@
       "ru": "Котлеты, гарнир, салат и блины для уютного домашнего вечера.",
       "en": "Cutlets, sides, salad and crepes for a cozy homemade evening.",
       "uk": "Котлети, гарнір, салат і млинці для затишного домашнього вечора."
-    }
+    },
+    "unit": "шт."
   },
   {
     "id": "holiday-table",
@@ -1019,7 +1039,8 @@
       "ru": "Индивидуальный набор блюд для семейных праздников и встреч.",
       "en": "A custom dish set for family holidays and gatherings.",
       "uk": "Індивідуальний набір страв для сімейних свят і зустрічей."
-    }
+    },
+    "unit": "шт."
   },
   {
     "id": "party-varenyky-tray",
@@ -1035,7 +1056,8 @@
       "ru": "Большой поднос вареников для гостей, офиса или семейного события.",
       "en": "A large vareniki tray for guests, office orders or family events.",
       "uk": "Великий піднос вареників для гостей, офісу або сімейної події."
-    }
+    },
+    "unit": "шт."
   },
   {
     "id": "blini-platter",
@@ -1051,7 +1073,8 @@
       "ru": "Ассорти блинов и налистников с солеными и сладкими начинками.",
       "en": "Assorted blini and crepes with savory and sweet fillings.",
       "uk": "Асорті млинців і налисників із солоними та солодкими начинками."
-    }
+    },
+    "unit": "шт."
   },
   {
     "id": "custom-event-menu",
@@ -1067,6 +1090,7 @@
       "ru": "Меню под количество гостей, кухни, пожелания и формат мероприятия.",
       "en": "A menu planned around guest count, cuisines, preferences and event style.",
       "uk": "Меню під кількість гостей, кухні, побажання та формат події."
-    }
+    },
+    "unit": "шт."
   }
 ]

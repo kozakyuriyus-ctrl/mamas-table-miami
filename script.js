@@ -1743,8 +1743,8 @@ const buildPreorderMessage = (orderId) => {
   lines.push("");
   lines.push(`${t("order.items")}:`);
   entries.forEach(({ dish, quantity }) => {
-    const qtyStr = dish.unit === "lb" ? `${quantity} lb` : String(quantity);
-    lines.push(`• ${text(dish.name)} × ${qtyStr} — ${money(dish.price * quantity)}`);
+    const unit = dish.unit ?? "шт.";
+    lines.push(`• ${text(dish.name)} × ${quantity} ${unit} — ${money(dish.price * quantity)}`);
   });
   lines.push("");
   lines.push(`${t("order.subtotal")}: ${money(cartTotal())}`);
@@ -1837,7 +1837,8 @@ const createPreorderStage0 = () => {
   const invCls = (fn) => fieldErr(fn) ? " is-invalid" : "";
 
   const cartRows = entries.map(({ dish, quantity }) => {
-    const qtyStr = dish.unit === "lb" ? `${quantity} lb` : `${quantity}`;
+    const unit = dish.unit ?? "шт.";
+    const qtyStr = `${quantity} ${unit}`;
     return `<div class="modal-cart-item"><span>${escapeHtml(text(dish.name))} × ${escapeHtml(qtyStr)}</span><em>${money(dish.price * quantity)}</em></div>`;
   }).join("");
 
@@ -2373,7 +2374,7 @@ const createCartDetails = (entries) =>
   entries
     .map(({ dish, quantity }) => {
       const unitLabel = dish.unit === "lb" ? t("cart.unitLb") : t("cart.unitPrice");
-      const qtyStr = dish.unit === "lb" ? `×${quantity} lb` : `×${quantity}`;
+      const qtyStr = `×${quantity} ${dish.unit ?? "шт."}`;
       return `
       <div class="cart-item">
         <div class="cart-item-main">

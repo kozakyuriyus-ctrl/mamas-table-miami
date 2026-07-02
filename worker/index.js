@@ -252,8 +252,9 @@ function buildTelegramMessage({ orderId, customer, delivery, schedule, orderItem
   ].filter(Boolean);
 
   const itemsLines = orderItems.map((it) => {
-    const qty = it.unit === "lb" ? `${it.quantity} lb` : `× ${it.quantity}`;
-    return `• ${esc(it.name)} ${qty} — $${it.lineTotal.toFixed(2)}`;
+    if (!it.unit) console.warn(`[WARN] No unit for item ${it.id}, using fallback "шт."`);
+    const unit = it.unit ?? "шт.";
+    return `• ${esc(it.name)} × ${it.quantity} ${esc(unit)} — $${it.lineTotal.toFixed(2)}`;
   }).join("\n");
 
   const zoneMismatchLine = zoneMismatch
@@ -423,7 +424,7 @@ async function handlePreorder(request, env, json) {
   for (const item of items) {
     if (typeof item.id !== "string" || !item.id)
       return json({ ok: false, error: "invalid_item", message: "Invalid item ID." }, 400);
-    if (!Number.isInteger(item.quantity) || item.quantity < 1 || item.quantity > 200)
+    if (typeof item.quantity !== "number" || !isFinite(item.quantity) || item.quantity <= 0 || item.quantity > 200)
       return json({ ok: false, error: "invalid_quantity", message: `Invalid quantity for item: ${item.id}` }, 400);
 
     const dish = dishMap.get(item.id);
@@ -474,6 +475,12 @@ async function handlePreorder(request, env, json) {
     crypto.getRandomValues(testBuf);
     const testId = `TEST-${getMiamiDateStr()}-${1000 + (testBuf[0] % 9000)}`;
     console.log(`[TEST ORDER] ${testId} zone=${serverZone}(${zoneConfig.letter}) fee=${pricing.deliveryFee ?? "TBD"} subtotal=${pricing.foodSubtotal} total=${pricing.orderTotal ?? "TBD"}`);
+    // Include formatted order lines so test-mode callers can verify the Telegram message format.
+    const orderItemsFormatted = orderItems.map((it) => {
+      if (!it.unit) console.warn(`[WARN] No unit for item ${it.id}, using fallback "шт."`);
+      const unit = it.unit ?? "шт.";
+      return `• ${it.name} × ${it.quantity} ${unit} — $${it.lineTotal.toFixed(2)}`;
+    });
     return json({
       ok: true,
       testMode: true,
@@ -490,6 +497,7 @@ async function handlePreorder(request, env, json) {
       subtotal: pricing.foodSubtotal,
       total: pricing.orderTotal,
       pricing,
+      orderItemsFormatted,
     });
   }
 
