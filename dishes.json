@@ -962,7 +962,8 @@
     "unit": "lb",
     "sizeRu": "Вес: 1 lb (454 г) · 4–6 порций как закуска",
     "sizeEn": "Size: 1 lb (454 g) · 4–6 servings as an appetizer",
-    "sizeUa": "Вага: 1 lb (454 г) · 4–6 порцій як закуска"
+    "sizeUa": "Вага: 1 lb (454 г) · 4–6 порцій як закуска",
+    "badge": "vegetarian"
   },
   {
     "id": "fried-eggplant-caviar",
