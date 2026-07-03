@@ -1319,6 +1319,9 @@ const DUMPLINGS_AND_CREPES = new Set([
 ]);
 
 const buildDishSizeStr = (dish) => {
+  if (state.lang === "ru" && dish.sizeRu) return dish.sizeRu;
+  if (state.lang === "en" && dish.sizeEn) return dish.sizeEn;
+  if (state.lang === "uk" && dish.sizeUa) return dish.sizeUa;
   if (dish.category === "soups") return t("size.soups");
   if (dish.category === "salads") {
     if (dish.id === "mimosa-salad") return t("size.mimosaSalad");
