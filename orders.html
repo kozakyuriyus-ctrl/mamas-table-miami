@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Мои недавние заказы | Lana's Kitchen Miami</title>
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="theme-color" content="#fbf6ed" />
+    <link rel="icon" href="data:," />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4C444M4YML"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-4C444M4YML');
+    </script>
+    <!-- Meta Pixel Code -->
+    <script>
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window,document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init','905291535935823');
+      fbq('track','PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id=905291535935823&ev=PageView&noscript=1" alt=""/></noscript>
+    <!-- End Meta Pixel Code -->
+  </head>
+  <body>
+    <div class="oh-page" id="oh-page"></div>
+
+    <script>
+      // ── i18n ──────────────────────────────────────────────────────────────────
+      const COPY = {
+        ru: {
+          back: "Назад",
+          eyebrow: "Lana's Kitchen Miami",
+          title: "Мои недавние заказы",
+          subtitle: "Заказы хранятся только на этом устройстве 30 дней.",
+          status: "Заявка отправлена — ждём подтверждения",
+          empty: "Недавних заказов пока нет.",
+          emptySub: "После оформления заказа он появится здесь.",
+          deleteBtn: "Удалить историю заказов с этого устройства",
+          deleteConfirm: "Удалить все сохранённые заказы с этого устройства? Это действие нельзя отменить.",
+          deleteCancel: "Отмена",
+          deleteOk: "Удалить",
+          orderNum: "Заказ",
+          deliveryLabel: "Доставка:",
+          subtotal: "Сумма блюд",
+          delivery: "Доставка",
+          deliveryTbd: "уточняется",
+          total: "Итого",
+          dishes: "Состав заказа",
+          details: "Детали доставки",
+          address: "Адрес доставки",
+          date: "Дата доставки",
+          time: "Время",
+          comment: "Комментарий",
+          allergies: "Аллергии / пожелания",
+          contactMethod: "Способ связи",
+          contact: { sms: "SMS", whatsapp: "WhatsApp", telegram: "Telegram", callMe: "Позвоните мне" },
+        },
+        en: {
+          back: "Back",
+          eyebrow: "Lana's Kitchen Miami",
+          title: "My recent orders",
+          subtitle: "Orders are stored on this device for 30 days.",
+          status: "Order submitted — awaiting confirmation",
+          empty: "No recent orders yet.",
+          emptySub: "Your completed order will appear here.",
+          deleteBtn: "Delete order history from this device",
+          deleteConfirm: "Delete all saved orders from this device? This cannot be undone.",
+          deleteCancel: "Cancel",
+          deleteOk: "Delete",
+          orderNum: "Order",
+          deliveryLabel: "Delivery:",
+          subtotal: "Food subtotal",
+          delivery: "Delivery",
+          deliveryTbd: "to be confirmed",
+          total: "Total",
+          dishes: "Order contents",
+          details: "Delivery details",
+          address: "Delivery address",
+          date: "Delivery date",
+          time: "Time",
+          comment: "Comment",
+          allergies: "Allergies / requests",
+          contactMethod: "Contact method",
+          contact: { sms: "SMS", whatsapp: "WhatsApp", telegram: "Telegram", callMe: "Call me" },
+        },
+        uk: {
+          back: "Назад",
+          eyebrow: "Lana's Kitchen Miami",
+          title: "Мої нещодавні замовлення",
+          subtitle: "Замовлення зберігаються лише на цьому пристрої протягом 30 днів.",
+          status: "Заявку відправлено — очікуємо підтвердження",
+          empty: "Нещодавніх замовлень поки немає.",
+          emptySub: "Після оформлення замовлення воно з'явиться тут.",
+          deleteBtn: "Видалити історію замовлень з цього пристрою",
+          deleteConfirm: "Видалити всі збережені замовлення з цього пристрою? Цю дію не можна скасувати.",
+          deleteCancel: "Скасувати",
+          deleteOk: "Видалити",
+          orderNum: "Замовлення",
+          deliveryLabel: "Доставка:",
+          subtotal: "Сума страв",
+          delivery: "Доставка",
+          deliveryTbd: "уточнюється",
+          total: "Разом",
+          dishes: "Склад замовлення",
+          details: "Деталі доставки",
+          address: "Адреса доставки",
+          date: "Дата доставки",
+          time: "Час",
+          comment: "Коментар",
+          allergies: "Алергії / побажання",
+          contactMethod: "Спосіб зв'язку",
+          contact: { sms: "SMS", whatsapp: "WhatsApp", telegram: "Telegram", callMe: "Зателефонуйте мені" },
+        },
+      };
+
+      const TIME_SLOTS = {
+        A: "10:00 AM – 11:00 AM",
+        B: "11:00 AM – 12:00 PM",
+        C: "12:00 PM – 1:00 PM",
+        D: "1:00 PM – 2:00 PM",
+        E: "2:00 PM – 3:00 PM",
+        F: "3:00 PM – 4:00 PM",
+        G: "4:00 PM – 5:00 PM",
+        H: "5:00 PM – 6:00 PM",
+        I: "6:00 PM – 7:00 PM",
+      };
+
+      // ── Language ──────────────────────────────────────────────────────────────
+      const urlLang = new URLSearchParams(location.search).get("lang");
+      const storedLang = localStorage.getItem("mamasTableLang");
+      const lang = (["ru", "en", "uk"].includes(urlLang) ? urlLang : null)
+        || (["ru", "en", "uk"].includes(storedLang) ? storedLang : null)
+        || "ru";
+      const c = COPY[lang];
+      document.documentElement.lang = lang === "uk" ? "uk" : lang === "en" ? "en" : "ru";
+
+      // ── Storage ───────────────────────────────────────────────────────────────
+      const ORDER_HISTORY_KEY = "lk_order_history";
+      const ORDER_HISTORY_TTL = 30 * 24 * 60 * 60 * 1000;
+
+      const loadHistory = () => {
+        let list = [];
+        try { list = JSON.parse(localStorage.getItem(ORDER_HISTORY_KEY) || "[]"); } catch {}
+        const cutoff = Date.now() - ORDER_HISTORY_TTL;
+        const fresh = list.filter(o => { try { return new Date(o.createdAt).getTime() > cutoff; } catch { return false; } });
+        if (fresh.length !== list.length) try { localStorage.setItem(ORDER_HISTORY_KEY, JSON.stringify(fresh)); } catch {}
+        return fresh;
+      };
+
+      const clearHistory = () => {
+        try { localStorage.removeItem(ORDER_HISTORY_KEY); } catch {}
+      };
+
+      // ── Formatting ────────────────────────────────────────────────────────────
+      const esc = (s) => String(s == null ? "" : s)
+        .replace(/[&<>"']/g, ch => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" })[ch]);
+
+      const money = (v) => {
+        if (v == null) return "—";
+        const s = v.toFixed(2);
+        return "$" + (s.endsWith(".00") ? s.slice(0, -3) : s);
+      };
+
+      const fmtDate = (dateStr) => {
+        if (!dateStr) return dateStr;
+        try {
+          const [y, m, d] = dateStr.split("-").map(Number);
+          const dt = new Date(y, m - 1, d);
+          const locale = { ru: "ru-RU", en: "en-US", uk: "uk-UA" }[lang] || "ru-RU";
+          return new Intl.DateTimeFormat(locale, { weekday: "long", year: "numeric", month: "long", day: "numeric" }).format(dt);
+        } catch { return dateStr; }
+      };
+
+      const fmtTime = (key) => TIME_SLOTS[key] || key || "—";
+
+      const itemName = (item) => {
+        if (item.name && typeof item.name === "object") {
+          return item.name[lang] || item.name.ru || item.name.en || "";
+        }
+        return String(item.name || "");
+      };
+
+      const itemUnit = (item) => item.unit || null;
+
+      // ── Render ────────────────────────────────────────────────────────────────
+      const renderCard = (order, idx) => {
+        const addrFull = [order.address, order.apt ? `apt ${order.apt}` : null, order.city, order.zip]
+          .filter(Boolean).join(", ");
+        const dateStr = fmtDate(order.deliveryDate);
+        const timeStr = fmtTime(order.timeWindow);
+        const totalStr = money(order.total);
+        const contactLabel = c.contact[order.contactMethod] || order.contactMethod || "—";
+
+        const itemsHtml = (order.items || []).map(item => {
+          const unit = itemUnit(item);
+          const unitStr = unit ? ` ${unit}` : "";
+          return `<div class="oh-item">
+            <span class="oh-item-name">${esc(itemName(item))}</span>
+            <span class="oh-item-qty">×${esc(item.quantity)}${esc(unitStr)}</span>
+            <span class="oh-item-price">${money(item.price * item.quantity)}</span>
+          </div>`;
+        }).join("");
+
+        const deliveryStr = order.deliveryFee == null
+          ? c.deliveryTbd
+          : money(order.deliveryFee);
+
+        const metaRows = [];
+        metaRows.push(`<div class="oh-meta-row"><span class="oh-meta-label">${esc(c.address)}</span><span class="oh-meta-value">${esc(addrFull)}</span></div>`);
+        metaRows.push(`<div class="oh-meta-row"><span class="oh-meta-label">${esc(c.contactMethod)}</span><span class="oh-meta-value">${esc(contactLabel)}</span></div>`);
+        if (order.comment) metaRows.push(`<div class="oh-meta-row"><span class="oh-meta-label">${esc(c.comment)}</span><span class="oh-meta-value">${esc(order.comment)}</span></div>`);
+        if (order.allergies) metaRows.push(`<div class="oh-meta-row"><span class="oh-meta-label">${esc(c.allergies)}</span><span class="oh-meta-value">${esc(order.allergies)}</span></div>`);
+
+        return `<div class="oh-card" data-idx="${idx}">
+          <div class="oh-card-head" role="button" aria-expanded="false" tabindex="0">
+            <div class="oh-card-chevron" aria-hidden="true">&#8964;</div>
+            <div class="oh-card-num">${esc(c.orderNum)} ${esc(order.orderId)}</div>
+            <div class="oh-card-delivery">${esc(c.deliveryLabel)} ${esc(dateStr)} · ${esc(timeStr)}</div>
+            <div class="oh-card-total">${esc(totalStr)}</div>
+            <div class="oh-card-status">${esc(c.status)}</div>
+          </div>
+          <div class="oh-card-body">
+            <div class="oh-section-label">${esc(c.dishes)}</div>
+            <div class="oh-items">${itemsHtml}</div>
+            <div class="oh-pricing">
+              <div class="oh-pricing-row"><span>${esc(c.subtotal)}</span><span>${money(order.subtotal)}</span></div>
+              <div class="oh-pricing-row"><span>${esc(c.delivery)}</span><span>${esc(deliveryStr)}</span></div>
+              <div class="oh-pricing-row oh-total"><span>${esc(c.total)}</span><span>${esc(totalStr)}</span></div>
+            </div>
+            <div class="oh-section-label">${esc(c.details)}</div>
+            <div class="oh-meta">${metaRows.join("")}</div>
+          </div>
+        </div>`;
+      };
+
+      const render = () => {
+        const history = loadHistory();
+        const backUrl = "/?lang=" + encodeURIComponent(lang);
+
+        let content;
+        if (history.length === 0) {
+          content = `<div class="oh-empty">
+            <p class="oh-empty-title">${esc(c.empty)}</p>
+            <p class="oh-empty-sub">${esc(c.emptySub)}</p>
+          </div>`;
+        } else {
+          const cards = history.map((o, i) => renderCard(o, i)).join("");
+          content = `<div class="oh-list">${cards}</div>
+          <div class="oh-delete-zone">
+            <button class="oh-delete-btn" id="oh-delete-btn">${esc(c.deleteBtn)}</button>
+          </div>`;
+        }
+
+        document.getElementById("oh-page").innerHTML = `
+          <a href="${backUrl}" class="oh-back">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            ${esc(c.back)}
+          </a>
+          <p class="oh-eyebrow">${esc(c.eyebrow)}</p>
+          <h1 class="oh-title">${esc(c.title)}</h1>
+          <p class="oh-subtitle">${esc(c.subtitle)}</p>
+          ${content}
+        `;
+
+        document.getElementById("oh-delete-btn")?.addEventListener("click", showDeleteConfirm);
+
+        document.querySelectorAll(".oh-card-head").forEach(head => {
+          head.addEventListener("click", () => {
+            const card = head.closest(".oh-card");
+            const open = card.classList.toggle("is-open");
+            head.setAttribute("aria-expanded", String(open));
+          });
+          head.addEventListener("keydown", e => {
+            if (e.key === "Enter" || e.key === " ") { e.preventDefault(); head.click(); }
+          });
+        });
+      };
+
+      const showDeleteConfirm = () => {
+        const overlay = document.createElement("div");
+        overlay.className = "oh-confirm-overlay";
+        overlay.innerHTML = `<div class="oh-confirm-box" role="dialog" aria-modal="true">
+          <p class="oh-confirm-text">${esc(c.deleteConfirm)}</p>
+          <div class="oh-confirm-actions">
+            <button class="oh-confirm-cancel" id="oh-cancel">${esc(c.deleteCancel)}</button>
+            <button class="oh-confirm-delete" id="oh-confirm">${esc(c.deleteOk)}</button>
+          </div>
+        </div>`;
+        document.body.appendChild(overlay);
+
+        document.getElementById("oh-cancel").addEventListener("click", () => overlay.remove());
+        document.getElementById("oh-confirm").addEventListener("click", () => {
+          clearHistory();
+          overlay.remove();
+          render();
+        });
+        overlay.addEventListener("click", e => { if (e.target === overlay) overlay.remove(); });
+      };
+
+      render();
+    </script>
+  </body>
+</html>
