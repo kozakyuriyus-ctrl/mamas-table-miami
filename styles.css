@@ -3893,11 +3893,11 @@ body.nav-open {
   gap: 8px;
   max-width: 280px;
   word-break: break-word;
-  animation: toast-in 0.22s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  animation: toast-in 0.28s ease-out both;
 }
 
 .toast.toast-out {
-  animation: toast-out 0.28s ease forwards;
+  animation: toast-out 0.28s ease-in forwards;
 }
 
 .toast svg {
@@ -3907,12 +3907,12 @@ body.nav-open {
 }
 
 @keyframes toast-in {
-  from { opacity: 0; transform: translateY(14px) scale(0.94); }
-  to   { opacity: 1; transform: translateY(0) scale(1); }
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes toast-out {
-  to { opacity: 0; transform: translateY(10px) scale(0.96); }
+  to { opacity: 0; transform: translateY(6px); }
 }
 
 @media (max-width: 760px) {
