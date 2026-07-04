@@ -1146,6 +1146,17 @@ const ga4Item = (dish, quantity = 1) => ({
 const ga4CartItems = () =>
   cartEntries().map(({ dish, quantity }) => ga4Item(dish, quantity));
 
+// ── Meta Pixel helpers ────────────────────────────────────────────────────────
+// Safe wrappers — no-op if fbq not loaded. All Meta events route through here.
+const metaTrack = (eventName, params = {}) => {
+  if (typeof window.fbq !== "function") return;
+  window.fbq("track", eventName, params);
+};
+const metaTrackCustom = (eventName, params = {}) => {
+  if (typeof window.fbq !== "function") return;
+  window.fbq("trackCustom", eventName, params);
+};
+
 // ─────────────────────────────────────────────────────────────────────────────
 
 let menuItems = [];
@@ -1563,6 +1574,12 @@ const renderRoute = () => {
         item_list_id: category.id,
         item_list_name: category.title.en || category.title.ru,
         items: menuItemsByCategory(category.id).map((dish) => ga4Item(dish)),
+      });
+      metaTrack("ViewContent", {
+        content_type: "product_group",
+        content_category: category.id,
+        content_name: category.title.en || category.title.ru,
+        currency: "USD",
       });
     }
     // Scroll to dishes on ALL viewports — not just mobile.
@@ -2334,6 +2351,13 @@ const openPreorderModal = (trigger = null) => {
       value: cartTotal(),
       items: ga4CartItems(),
     });
+    metaTrack("InitiateCheckout", {
+      content_ids: cartEntries().map(({ dish }) => dish.id),
+      content_type: "product",
+      num_items: cartEntries().reduce((s, { quantity }) => s + quantity, 0),
+      value: cartTotal(),
+      currency: "USD",
+    });
   }
   let wrapper = document.getElementById("preorder-modal");
   if (!wrapper) {
@@ -2693,6 +2717,13 @@ const handlePreorderSubmit = async (formEl) => {
       transaction_id: orderId,
       items: ga4CartItems(),
     });
+    metaTrack("Lead", {
+      content_ids: cartEntries().map(({ dish }) => dish.id),
+      content_type: "product",
+      num_items: cartEntries().reduce((s, { quantity }) => s + quantity, 0),
+      value: cartTotal(),
+      currency: "USD",
+    });
     state.cart.clear();
     saveCart(state.cart);
     clearDraft("preorder");
@@ -2727,6 +2758,13 @@ const handlePreorderSubmit = async (formEl) => {
       value: cartTotal(),
       transaction_id: orderId,
       items: ga4CartItems(),
+    });
+    metaTrack("Lead", {
+      content_ids: cartEntries().map(({ dish }) => dish.id),
+      content_type: "product",
+      num_items: cartEntries().reduce((s, { quantity }) => s + quantity, 0),
+      value: cartTotal(),
+      currency: "USD",
     });
     state.cart.clear();
     saveCart(state.cart);
@@ -2812,14 +2850,36 @@ const handleClick = (event) => {
     const id = add.dataset.add;
     const dish = dishById(id);
     setQuantity(id, cartQuantity(id) + 1);
-    if (dish) ga4("add_to_cart", { currency: "USD", value: dish.price, items: [ga4Item(dish, 1)] });
+    if (dish) {
+      ga4("add_to_cart", { currency: "USD", value: dish.price, items: [ga4Item(dish, 1)] });
+      metaTrack("AddToCart", {
+        content_ids: [dish.id],
+        content_name: dish.name.en || dish.name.ru,
+        content_type: "product",
+        content_category: dish.category,
+        value: dish.price,
+        currency: "USD",
+        num_items: 1,
+      });
+    }
     return;
   }
   if (plus) {
     const id = plus.dataset.plus;
     const dish = dishById(id);
     setQuantity(id, cartQuantity(id) + 1);
-    if (dish) ga4("add_to_cart", { currency: "USD", value: dish.price, items: [ga4Item(dish, 1)] });
+    if (dish) {
+      ga4("add_to_cart", { currency: "USD", value: dish.price, items: [ga4Item(dish, 1)] });
+      metaTrack("AddToCart", {
+        content_ids: [dish.id],
+        content_name: dish.name.en || dish.name.ru,
+        content_type: "product",
+        content_category: dish.category,
+        value: dish.price,
+        currency: "USD",
+        num_items: 1,
+      });
+    }
     return;
   }
   if (minus) {
@@ -2827,7 +2887,18 @@ const handleClick = (event) => {
     const dish = dishById(id);
     const prevQty = cartQuantity(id);
     setQuantity(id, prevQty - 1);
-    if (dish && prevQty > 0) ga4("remove_from_cart", { currency: "USD", value: dish.price, items: [ga4Item(dish, 1)] });
+    if (dish && prevQty > 0) {
+      ga4("remove_from_cart", { currency: "USD", value: dish.price, items: [ga4Item(dish, 1)] });
+      metaTrackCustom("RemoveFromCart", {
+        content_ids: [dish.id],
+        content_name: dish.name.en || dish.name.ru,
+        content_type: "product",
+        content_category: dish.category,
+        value: dish.price,
+        currency: "USD",
+        num_items: 1,
+      });
+    }
     return;
   }
   if (remove) {
@@ -2835,7 +2906,18 @@ const handleClick = (event) => {
     const dish = dishById(id);
     const qty = cartQuantity(id);
     setQuantity(id, 0);
-    if (dish && qty > 0) ga4("remove_from_cart", { currency: "USD", value: dish.price * qty, items: [ga4Item(dish, qty)] });
+    if (dish && qty > 0) {
+      ga4("remove_from_cart", { currency: "USD", value: dish.price * qty, items: [ga4Item(dish, qty)] });
+      metaTrackCustom("RemoveFromCart", {
+        content_ids: [dish.id],
+        content_name: dish.name.en || dish.name.ru,
+        content_type: "product",
+        content_category: dish.category,
+        value: dish.price * qty,
+        currency: "USD",
+        num_items: qty,
+      });
+    }
     return;
   }
 
@@ -2942,6 +3024,8 @@ const handleClick = (event) => {
   const openGenericWA = target.closest("[data-open-generic-wa]");
   if (openGenericWA) {
     event.preventDefault();
+    metaTrack("Contact", { content_name: "WhatsApp" });
+    metaTrackCustom("click_whatsapp");
     window.open(waUrl(t("order.help")), "_blank", "noopener,noreferrer");
     return;
   }
@@ -2950,6 +3034,8 @@ const handleClick = (event) => {
   const openGenericTG = target.closest("[data-open-generic-tg]");
   if (openGenericTG) {
     event.preventDefault();
+    metaTrack("Contact", { content_name: "Telegram" });
+    metaTrackCustom("click_telegram");
     window.open(tgUrl(), "_blank", "noopener,noreferrer");
     return;
   }
