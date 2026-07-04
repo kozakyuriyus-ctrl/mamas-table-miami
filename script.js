@@ -337,6 +337,17 @@ const copy = {
       successText: "Мы проверим адрес, детали доставки и возможность приготовления, затем свяжемся с вами выбранным способом. Заказ будет поставлен в приготовление только после подтверждения и оплаты.",
       successRef: "№ заявки:",
       fieldRequired: "Заполните это поле",
+      validationBanner: "Пожалуйста, заполните все обязательные поля.",
+      err: {
+        name: "Введите ваше имя",
+        phone: "Введите номер телефона",
+        phoneInvalid: "Неверный формат телефона",
+        address: "Введите адрес доставки",
+        city: "Выберите город",
+        zip: "Введите ZIP-код (5 цифр)",
+        date: "Выберите дату (минимум завтра)",
+        timeWindow: "Выберите временной интервал",
+      },
       zoneMismatch: "Указанный ZIP-код относится к другой зоне доставки. Условия доставки рассчитаны по ZIP-коду.",
       zipUnknown: "Этот ZIP-код требует ручного подтверждения доставки. Стоимость доставки будет подтверждена после проверки адреса.",
       otherDelivery: "по согласованию",
@@ -673,6 +684,17 @@ const copy = {
       successText: "We will review the address, delivery details, and availability, then contact you using your preferred method. Your order will be placed in preparation only after confirmation and payment.",
       successRef: "Request #:",
       fieldRequired: "Please fill out this field",
+      validationBanner: "Please fill in all required fields.",
+      err: {
+        name: "Enter your name",
+        phone: "Enter your phone number",
+        phoneInvalid: "Invalid phone number format",
+        address: "Enter your delivery address",
+        city: "Select a city",
+        zip: "Enter ZIP code (5 digits)",
+        date: "Select a date (tomorrow or later)",
+        timeWindow: "Select a delivery time window",
+      },
       zoneMismatch: "This ZIP code belongs to a different delivery zone. Delivery terms were calculated based on the ZIP code.",
       zipUnknown: "This ZIP code requires manual delivery confirmation. The delivery fee will be confirmed after the address is reviewed.",
       otherDelivery: "by arrangement",
@@ -1009,6 +1031,17 @@ const copy = {
       successText: "Ми перевіримо адресу, деталі доставки та можливість приготування, після чого зв'яжемося з вами обраним способом. Замовлення буде передано в приготування лише після підтвердження та оплаті.",
       successRef: "№ заявки:",
       fieldRequired: "Заповніть це поле",
+      validationBanner: "Будь ласка, заповніть усі обов'язкові поля.",
+      err: {
+        name: "Введіть ваше ім'я",
+        phone: "Введіть номер телефону",
+        phoneInvalid: "Невірний формат телефону",
+        address: "Введіть адресу доставки",
+        city: "Оберіть місто",
+        zip: "Введіть ZIP-код (5 цифр)",
+        date: "Оберіть дату (мінімум завтра)",
+        timeWindow: "Оберіть часовий інтервал",
+      },
       zoneMismatch: "Цей ZIP-код належить до іншої зони доставки. Умови доставки розраховані за ZIP-кодом.",
       zipUnknown: "Цей ZIP-код потребує ручного підтвердження доставки. Вартість доставки буде підтверджена після перевірки адреси.",
       otherDelivery: "за погодженням",
@@ -1839,23 +1872,28 @@ const createPreorderStage0 = () => {
   ddTomorrow.setDate(ddTomorrow.getDate() + 1);
   const tomorrowStr = ddTomorrow.toISOString().slice(0, 10);
 
-  const fieldErr = (fieldName) => {
-    if (!state.preorderSubmitAttempted) return false;
+  const fieldErrKey = (fieldName) => {
+    if (!state.preorderSubmitAttempted) return null;
     const f = form;
     switch (fieldName) {
-      case "name": return !f.name;
-      case "phone": return !f.phone || validatePhone(f.phone) !== null;
-      case "contactMethod": return !f.contactMethod;
-      case "address": return !f.address;
-      case "city": return !f.city;
-      case "zip": return !f.zip;
-      case "date": return !f.date || f.date < tomorrowStr;
-      case "timeWindow": return !f.timeWindow;
-      default: return false;
+      case "name": return !f.name ? "preorder.err.name" : null;
+      case "phone":
+        if (!f.phone) return "preorder.err.phone";
+        return validatePhone(f.phone) !== null ? "preorder.err.phoneInvalid" : null;
+      case "contactMethod": return !f.contactMethod ? "preorder.fieldRequired" : null;
+      case "address": return !f.address ? "preorder.err.address" : null;
+      case "city": return !f.city ? "preorder.err.city" : null;
+      case "zip": return !f.zip ? "preorder.err.zip" : null;
+      case "date": return (!f.date || f.date < tomorrowStr) ? "preorder.err.date" : null;
+      case "timeWindow": return !f.timeWindow ? "preorder.err.timeWindow" : null;
+      default: return null;
     }
   };
-  const errSpan = (fn) => fieldErr(fn)
-    ? `<span class="field-error">${escapeHtml(t("preorder.fieldRequired"))}</span>` : "";
+  const fieldErr = (fn) => !!fieldErrKey(fn);
+  const errSpan = (fn) => {
+    const key = fieldErrKey(fn);
+    return key ? `<span class="field-error">${escapeHtml(t(key))}</span>` : "";
+  };
   const invCls = (fn) => fieldErr(fn) ? " is-invalid" : "";
 
   const cartRows = entries.map(({ dish, quantity }) => {
@@ -1989,16 +2027,20 @@ const createPreorderStage0 = () => {
     return `<option value="${s}"${selected}>${escapeHtml(t(`preorder.time${s}`))}</option>`;
   }).join("");
 
-  const missingRequired = hasMissingPreorderRequiredFields(form);
-  const canSubmit = !missingRequired && !belowMin;
+  const anyFieldErr = state.preorderSubmitAttempted &&
+    ["name","phone","contactMethod","address","city","zip","date","timeWindow"].some(fn => fieldErr(fn));
+  const validationBanner = anyFieldErr
+    ? `<div class="validation-banner" role="alert">${escapeHtml(t("preorder.validationBanner"))}</div>`
+    : "";
   const submitHelper = belowMin && zoneConfig?.minOrder
     ? buildMinOrderMsg(zoneConfig.minOrder, zoneConfig.minOrder - foodSubtotal)
-    : (missingRequired ? t("preorder.completeRequired") : "");
+    : "";
   return `
     <div class="modal-cart-summary">
       <h3>${escapeHtml(t("preorder.cartSummaryTitle"))}</h3>
       ${cartRows}
     </div>
+    ${validationBanner}
     <form class="modal-form checkout-form" data-preorder-form novalidate>
       <input type="hidden" name="fulfillmentType" value="delivery" />
       <h4 class="checkout-section-label">${escapeHtml(t("preorder.contactTitle"))}</h4>
@@ -2053,7 +2095,7 @@ const createPreorderStage0 = () => {
       ${state.preorderError && state.preorderErrorMsg
         ? `<p class="preorder-api-error">${escapeHtml(state.preorderErrorMsg)}</p>`
         : ""}
-      <button class="btn btn-primary checkout-submit" type="submit"${canSubmit && !state.preorderSubmitting ? "" : " disabled"}>
+      <button class="btn btn-primary checkout-submit" type="submit"${state.preorderSubmitting ? " disabled" : ""}>
         <span>${escapeHtml(state.preorderSubmitting ? t("preorder.submitting") : t("preorder.submit"))}</span>
         ${state.preorderSubmitting ? "" : '<i data-lucide="send"></i>'}
       </button>
@@ -2592,9 +2634,10 @@ const handlePreorderSubmit = async (formEl) => {
     state.preorderError = false;
     renderPreorderModal();
     const modal = document.getElementById("preorder-modal");
+    const banner = modal?.querySelector(".validation-banner");
     const firstInvalid = modal?.querySelector(".is-invalid input, .is-invalid select, .is-invalid [type='radio']");
+    (banner || firstInvalid)?.scrollIntoView({ block: "start" });
     firstInvalid?.focus();
-    firstInvalid?.scrollIntoView({ behavior: "smooth", block: "center" });
     return;
   }
 
