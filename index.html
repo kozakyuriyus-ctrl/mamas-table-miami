@@ -82,8 +82,35 @@
           <span data-i18n="actions.chooseDishes">Выбрать блюда</span>
           <i data-lucide="utensils"></i>
         </a>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-drawer" data-nav-toggle>
+          <i data-lucide="menu" aria-hidden="true"></i>
+          <span class="sr-only" data-i18n="nav.openMenu">Меню</span>
+        </button>
       </div>
     </header>
+
+    <!-- ── A1: Mobile nav drawer ─────────────────────────────────────────────── -->
+    <div id="nav-drawer" class="nav-drawer" aria-hidden="true" data-nav-drawer>
+      <div class="nav-drawer-overlay" data-nav-overlay></div>
+      <nav class="nav-drawer-panel" aria-label="Primary navigation">
+        <button class="nav-drawer-close" type="button" data-nav-close>
+          <i data-lucide="x" aria-hidden="true"></i>
+          <span class="sr-only" data-i18n="nav.closeMenu">Закрыть</span>
+        </button>
+        <a href="#/menu" data-i18n="nav.menu" data-nav-link>Меню</a>
+        <a href="#catering" data-i18n="nav.catering" data-nav-link>Кейтеринг</a>
+        <a href="#how" data-i18n="nav.how" data-nav-link>Как заказать</a>
+        <a href="#delivery" data-i18n="nav.delivery" data-nav-link>Доставка</a>
+        <a href="#about" data-i18n="nav.about" data-nav-link>О нас</a>
+        <a href="#faq" data-i18n="nav.faq" data-nav-link>FAQ</a>
+        <a href="#contact" data-i18n="nav.contact" data-nav-link>Контакты</a>
+        <div class="nav-drawer-lang">
+          <button class="lang-btn" type="button" data-lang="ru">RU</button>
+          <button class="lang-btn" type="button" data-lang="en">EN</button>
+          <button class="lang-btn" type="button" data-lang="uk">UA</button>
+        </div>
+      </nav>
+    </div>
 
     <main id="top">
       <div data-home-view>
@@ -145,6 +172,17 @@
             <img src="assets/images/mamas-table-hero-new.jpg" alt="" aria-hidden="true" />
             <a class="hero-card-btn" href="#/menu" data-i18n="actions.chooseDishes">Выбрать блюда</a>
           </div>
+        </div>
+      </section>
+
+      <!-- ── A2: Popular Dishes ────────────────────────────────────────────── -->
+      <section class="section section-popular" id="popular-dishes" data-popular-section>
+        <div class="section-title section-title-center">
+          <h2 data-i18n="popular.title">Популярные блюда</h2>
+        </div>
+        <div class="popular-grid" data-popular-grid></div>
+        <div class="popular-footer">
+          <a class="btn btn-secondary" href="#/menu" data-i18n="actions.viewFullMenu">Все меню</a>
         </div>
       </section>
 
@@ -428,6 +466,9 @@
         </div>
       </div>
     </footer>
+
+    <!-- A3: Toast container -->
+    <div id="toast-root" aria-live="polite" aria-atomic="false"></div>
 
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
     <script src="script.js?v=3afdbf1"></script>

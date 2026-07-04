@@ -92,6 +92,8 @@ const copy = {
       about: "О нас",
       faq: "FAQ",
       contact: "Контакты",
+      openMenu: "Открыть меню",
+      closeMenu: "Закрыть меню",
     },
     actions: {
       chooseDishes: "Выбрать блюда",
@@ -265,6 +267,12 @@ const copy = {
       itemWord: "позиций",
       unitPrice: "за ед.",
       unitLb: "за фунт",
+    },
+    popular: {
+      title: "Популярные блюда",
+    },
+    toast: {
+      added: "Добавлено в заказ",
     },
     preorder: {
       modalTitle: "Детали предзаказа",
@@ -468,6 +476,8 @@ const copy = {
       about: "About Us",
       faq: "FAQ",
       contact: "Contact",
+      openMenu: "Open menu",
+      closeMenu: "Close menu",
     },
     actions: {
       chooseDishes: "Choose dishes",
@@ -641,6 +651,12 @@ const copy = {
       itemWord: "items",
       unitPrice: "each",
       unitLb: "per lb",
+    },
+    popular: {
+      title: "Popular Dishes",
+    },
+    toast: {
+      added: "Added to order",
     },
     preorder: {
       modalTitle: "Pre-order details",
@@ -844,6 +860,8 @@ const copy = {
       about: "Про нас",
       faq: "FAQ",
       contact: "Контакти",
+      openMenu: "Відкрити меню",
+      closeMenu: "Закрити меню",
     },
     actions: {
       chooseDishes: "Обрати страви",
@@ -1017,6 +1035,12 @@ const copy = {
       itemWord: "позицій",
       unitPrice: "за од.",
       unitLb: "за фунт",
+    },
+    popular: {
+      title: "Популярні страви",
+    },
+    toast: {
+      added: "Додано до замовлення",
     },
     preorder: {
       modalTitle: "Деталі передзамовлення",
@@ -2976,12 +3000,31 @@ const handleClick = (event) => {
   const target = event.target;
 
   // Language switch
+  // A1: Hamburger toggle
+  const navToggle = target.closest("[data-nav-toggle]");
+  if (navToggle) {
+    isNavDrawerOpen() ? closeNavDrawer() : openNavDrawer();
+    return;
+  }
+
+  // A1: Close drawer via × button or overlay click
+  const navClose = target.closest("[data-nav-close]");
+  if (navClose) { closeNavDrawer(); return; }
+
+  const navOverlay = target.closest("[data-nav-overlay]");
+  if (navOverlay) { closeNavDrawer(); return; }
+
+  // A1: Nav drawer links — close drawer then let href navigate naturally
+  const navLink = target.closest("[data-nav-link]");
+  if (navLink && isNavDrawerOpen()) { closeNavDrawer(); }
+
   const lang = target.closest("[data-lang]");
   if (lang) {
     state.lang = lang.dataset.lang;
     localStorage.setItem("mamasTableLang", state.lang);
     applyTranslations();
     renderStaticData();
+    renderPopularDishes();
     renderRoute();
     renderOrderHistoryBtn();
     return;
@@ -3007,6 +3050,7 @@ const handleClick = (event) => {
     const dish = dishById(id);
     setQuantity(id, cartQuantity(id) + 1);
     if (dish) {
+      showToast(text(dish.name));
       ga4("add_to_cart", { currency: "USD", value: dish.price, items: [ga4Item(dish, 1)] });
       metaTrack("AddToCart", {
         content_ids: [dish.id],
@@ -3355,6 +3399,8 @@ const handleSubmit = (event) => {
 
 const handleKeydown = (event) => {
   if (event.key === "Escape") {
+    // A1: Close nav drawer first if open
+    if (isNavDrawerOpen()) { closeNavDrawer(); return; }
     const preorderOpen = !!document.getElementById("preorder-modal");
     const cateringOpen = !!document.getElementById("catering-modal");
     if (preorderOpen && (state.preorderStage === 0 || state.preorderStage === 1)) closePreorderModal();
@@ -3362,6 +3408,27 @@ const handleKeydown = (event) => {
     return;
   }
   if (event.key === "Tab") {
+    // A1: Focus trap for nav drawer when open
+    if (isNavDrawerOpen()) {
+      const drawer = document.querySelector("[data-nav-drawer] .nav-drawer-panel");
+      if (drawer) {
+        const focusable = Array.from(
+          drawer.querySelectorAll('button:not([disabled]), a[href]'),
+        ).filter((el) => el.offsetParent !== null);
+        if (focusable.length >= 2) {
+          const first = focusable[0];
+          const last = focusable[focusable.length - 1];
+          if (event.shiftKey && document.activeElement === first) {
+            event.preventDefault();
+            last.focus();
+          } else if (!event.shiftKey && document.activeElement === last) {
+            event.preventDefault();
+            first.focus();
+          }
+        }
+        return;
+      }
+    }
     const modal =
       document.getElementById("preorder-modal")?.querySelector(".modal-overlay") ||
       document.getElementById("catering-modal")?.querySelector(".modal-overlay");
@@ -3430,6 +3497,71 @@ const observeReveals = () => {
   document.querySelectorAll(".reveal:not(.is-visible)").forEach((el) => revealObserver.observe(el));
 };
 
+// ── A2: Popular dishes ────────────────────────────────────────────────────────
+
+const renderPopularDishes = () => {
+  const grid = document.querySelector("[data-popular-grid]");
+  if (!grid) return;
+  const popular = menuItems.filter((d) => d.popular);
+  if (!popular.length) {
+    const section = document.querySelector("[data-popular-section]");
+    if (section) section.hidden = true;
+    return;
+  }
+  grid.innerHTML = popular.map((d) => createDishCard(d, { reveal: true })).join("");
+  refreshIcons();
+  observeReveals();
+};
+
+// ── A1: Nav drawer ────────────────────────────────────────────────────────────
+
+let _navPrevFocus = null;
+
+const openNavDrawer = () => {
+  const drawer = document.querySelector("[data-nav-drawer]");
+  const toggle = document.querySelector("[data-nav-toggle]");
+  if (!drawer) return;
+  _navPrevFocus = document.activeElement;
+  drawer.classList.add("is-open");
+  drawer.setAttribute("aria-hidden", "false");
+  document.body.classList.add("nav-open");
+  if (toggle) toggle.setAttribute("aria-expanded", "true");
+  const firstFocusable = drawer.querySelector("button, a[href]");
+  firstFocusable?.focus();
+};
+
+const closeNavDrawer = () => {
+  const drawer = document.querySelector("[data-nav-drawer]");
+  const toggle = document.querySelector("[data-nav-toggle]");
+  if (!drawer) return;
+  drawer.classList.remove("is-open");
+  drawer.setAttribute("aria-hidden", "true");
+  document.body.classList.remove("nav-open");
+  if (toggle) toggle.setAttribute("aria-expanded", "false");
+  (_navPrevFocus || toggle)?.focus();
+  _navPrevFocus = null;
+};
+
+const isNavDrawerOpen = () =>
+  document.querySelector("[data-nav-drawer]")?.classList.contains("is-open") ?? false;
+
+// ── A3: Toast ─────────────────────────────────────────────────────────────────
+
+const showToast = (dishName) => {
+  const root = document.getElementById("toast-root");
+  if (!root) return;
+  const toast = document.createElement("div");
+  toast.className = "toast";
+  toast.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg><span>${escapeHtml(t("toast.added"))}: <strong>${escapeHtml(dishName)}</strong></span>`;
+  root.appendChild(toast);
+  const DURATION = 2500;
+  const FADE = 300;
+  setTimeout(() => {
+    toast.classList.add("toast-out");
+    setTimeout(() => toast.remove(), FADE);
+  }, DURATION);
+};
+
 // ── Session restore ───────────────────────────────────────────────────────────
 
 const restoreSessionDrafts = () => {
@@ -3454,6 +3586,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   setupFaqAccordion();
   applyTranslations();
   renderStaticData();
+  renderPopularDishes();
   renderRoute();
   renderCart();
   renderOrderHistoryBtn();
