@@ -427,6 +427,35 @@ const copy = {
       deliveryNote: "Стоимость доставки и итоговая сумма подтверждаются отдельно.",
       help: "Здравствуйте! Хочу задать вопрос или оформить индивидуальный заказ.",
     },
+    orders: {
+      btnLabel: "Мои недавние заказы",
+      btnSub: "Посмотреть заказы, отправленные с этого устройства.",
+      title: "Мои недавние заказы",
+      subtitle: "Заказы хранятся только на этом устройстве 30 дней.",
+      status: "Заявка отправлена — ждём подтверждения",
+      empty: "Недавних заказов пока нет.",
+      emptySub: "После оформления заказа он появится здесь.",
+      deleteBtn: "Удалить историю заказов с этого устройства",
+      deleteConfirm: "Удалить все сохранённые заказы с этого устройства? Это действие нельзя отменить.",
+      deleteCancel: "Отмена",
+      deleteOk: "Удалить",
+      subtotal: "Сумма блюд",
+      delivery: "Доставка",
+      deliveryTbd: "уточняется",
+      total: "Итого",
+      address: "Адрес доставки",
+      date: "Дата доставки",
+      time: "Время",
+      comment: "Комментарий",
+      allergies: "Аллергии / пожелания",
+      contactMethod: "Способ связи",
+      backLink: "Назад",
+      orderNum: "Заказ",
+      contactSms: "SMS",
+      contactWhatsapp: "WhatsApp",
+      contactTelegram: "Telegram",
+      contactCallMe: "Позвоните мне",
+    },
   },
   en: {
     meta: { title: "Lana's Kitchen Miami | Fresh Homemade Meals" },
@@ -773,6 +802,35 @@ const copy = {
       allergies: "Allergies / requests",
       deliveryNote: "Delivery cost and final total will be confirmed separately.",
       help: "Hello! I have a question or would like to place a custom order.",
+    },
+    orders: {
+      btnLabel: "My recent orders",
+      btnSub: "View orders sent from this device.",
+      title: "My recent orders",
+      subtitle: "Orders are stored on this device for 30 days.",
+      status: "Order submitted — awaiting confirmation",
+      empty: "No recent orders yet.",
+      emptySub: "Your completed order will appear here.",
+      deleteBtn: "Delete order history from this device",
+      deleteConfirm: "Delete all saved orders from this device? This cannot be undone.",
+      deleteCancel: "Cancel",
+      deleteOk: "Delete",
+      subtotal: "Food subtotal",
+      delivery: "Delivery",
+      deliveryTbd: "to be confirmed",
+      total: "Total",
+      address: "Delivery address",
+      date: "Delivery date",
+      time: "Time",
+      comment: "Comment",
+      allergies: "Allergies / requests",
+      contactMethod: "Contact method",
+      backLink: "Back",
+      orderNum: "Order",
+      contactSms: "SMS",
+      contactWhatsapp: "WhatsApp",
+      contactTelegram: "Telegram",
+      contactCallMe: "Call me",
     },
   },
   uk: {
@@ -1121,6 +1179,35 @@ const copy = {
       deliveryNote: "Вартість доставки та фінальна сума будуть підтверджені окремо.",
       help: "Доброго дня! Маю питання або хочу оформити індивідуальне замовлення.",
     },
+    orders: {
+      btnLabel: "Мої нещодавні замовлення",
+      btnSub: "Переглянути замовлення, надіслані з цього пристрою.",
+      title: "Мої нещодавні замовлення",
+      subtitle: "Замовлення зберігаються лише на цьому пристрої протягом 30 днів.",
+      status: "Заявку відправлено — очікуємо підтвердження",
+      empty: "Нещодавніх замовлень поки немає.",
+      emptySub: "Після оформлення замовлення воно з'явиться тут.",
+      deleteBtn: "Видалити історію замовлень з цього пристрою",
+      deleteConfirm: "Видалити всі збережені замовлення з цього пристрою? Цю дію не можна скасувати.",
+      deleteCancel: "Скасувати",
+      deleteOk: "Видалити",
+      subtotal: "Сума страв",
+      delivery: "Доставка",
+      deliveryTbd: "уточнюється",
+      total: "Разом",
+      address: "Адреса доставки",
+      date: "Дата доставки",
+      time: "Час",
+      comment: "Коментар",
+      allergies: "Алергії / побажання",
+      contactMethod: "Спосіб зв'язку",
+      backLink: "Назад",
+      orderNum: "Замовлення",
+      contactSms: "SMS",
+      contactWhatsapp: "WhatsApp",
+      contactTelegram: "Telegram",
+      contactCallMe: "Зателефонуйте мені",
+    },
   },
 };
 
@@ -1155,6 +1242,45 @@ const metaTrack = (eventName, params = {}) => {
 const metaTrackCustom = (eventName, params = {}) => {
   if (typeof window.fbq !== "function") return;
   window.fbq("trackCustom", eventName, params);
+};
+
+// ── Order history (localStorage only) ────────────────────────────────────────
+const ORDER_HISTORY_KEY = "lk_order_history";
+const ORDER_HISTORY_MAX = 5;
+const ORDER_HISTORY_TTL = 30 * 24 * 60 * 60 * 1000;
+
+const computeHistoryDeliveryFee = (form, subtotal) => {
+  const zoneKey = zipToZoneKey(form.zip);
+  const cfg = zoneKey ? DELIVERY_ZONES[zoneKey] : null;
+  if (!cfg || cfg.requiresManualConfirmation) return null;
+  return (!cfg.freeAt || subtotal < cfg.freeAt) ? cfg.fee : 0;
+};
+
+const loadOrderHistory = () => {
+  let list = [];
+  try { list = JSON.parse(localStorage.getItem(ORDER_HISTORY_KEY) || "[]"); } catch {}
+  const cutoff = Date.now() - ORDER_HISTORY_TTL;
+  const fresh = list.filter(o => { try { return new Date(o.createdAt).getTime() > cutoff; } catch { return false; } });
+  if (fresh.length !== list.length) try { localStorage.setItem(ORDER_HISTORY_KEY, JSON.stringify(fresh)); } catch {}
+  return fresh;
+};
+
+const saveOrderToHistory = (record) => {
+  let list = loadOrderHistory();
+  list.unshift(record);
+  list = list.slice(0, ORDER_HISTORY_MAX);
+  try { localStorage.setItem(ORDER_HISTORY_KEY, JSON.stringify(list)); } catch {}
+};
+
+const renderOrderHistoryBtn = () => {
+  const wrap = document.getElementById("order-history-btn-wrap");
+  if (!wrap) return;
+  if (TEST_MODE || loadOrderHistory().length === 0) { wrap.hidden = true; return; }
+  wrap.hidden = false;
+  wrap.innerHTML = `<a href="/orders.html?lang=${encodeURIComponent(state.lang)}" class="order-history-footer-btn">
+    <span class="ohfb-label">${escapeHtml(t("orders.btnLabel"))}</span>
+    <span class="ohfb-sub">${escapeHtml(t("orders.btnSub"))}</span>
+  </a>`;
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -2766,6 +2892,35 @@ const handlePreorderSubmit = async (formEl) => {
       value: cartTotal(),
       currency: "USD",
     });
+    if (!TEST_MODE) {
+      const subtotal = cartTotal();
+      const deliveryFee = computeHistoryDeliveryFee(form, subtotal);
+      saveOrderToHistory({
+        orderId,
+        createdAt: new Date().toISOString(),
+        deliveryDate: form.date,
+        timeWindow: form.timeWindow,
+        items: cartEntries().map(({ dish, quantity }) => ({
+          id: dish.id,
+          name: dish.name,
+          category: dish.category,
+          quantity,
+          unit: dish.unit || null,
+          price: dish.price,
+        })),
+        subtotal,
+        deliveryFee,
+        total: subtotal + (deliveryFee ?? 0),
+        address: form.address,
+        apt: form.apt || null,
+        city: form.city,
+        zip: form.zip,
+        contactMethod: form.contactMethod,
+        comment: form.orderNotes || null,
+        allergies: form.allergies || null,
+      });
+      renderOrderHistoryBtn();
+    }
     state.cart.clear();
     saveCart(state.cart);
     clearDraft("preorder");
@@ -2828,6 +2983,7 @@ const handleClick = (event) => {
     applyTranslations();
     renderStaticData();
     renderRoute();
+    renderOrderHistoryBtn();
     return;
   }
 
@@ -3300,6 +3456,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   renderStaticData();
   renderRoute();
   renderCart();
+  renderOrderHistoryBtn();
   restoreSessionDrafts();
 
   document.addEventListener("click", handleClick);
