@@ -2069,8 +2069,8 @@ fieldset.form-field {
   }
 
   .lang-btn {
-    min-width: 30px;
-    min-height: 30px;
+    min-width: 44px;
+    min-height: 44px;
     font-size: 11px;
   }
 
@@ -3914,6 +3914,36 @@ body.nav-open {
 @keyframes toast-out {
   to { opacity: 0; transform: translateY(6px); }
 }
+
+/* ── Stage 2A ──────────────────────────────────────────────────────────────── */
+
+/* B1: Cart count badge on header CTA */
+.header-cta { position: relative; }
+
+.header-cart-badge {
+  position: absolute;
+  top: -7px;
+  right: -7px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 9px;
+  background: #d94f4f;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 800;
+  line-height: 18px;
+  text-align: center;
+  pointer-events: none;
+}
+
+/* B4: CSS-animation fallback for .reveal — fires after 5s if JS never sets is-visible */
+@keyframes reveal-noscript {
+  to { opacity: 1; transform: none; }
+}
+
+.reveal { animation: reveal-noscript 0s 5s forwards; }
+.reveal.is-visible { animation: none; }
 
 @media (max-width: 760px) {
   #toast-root {

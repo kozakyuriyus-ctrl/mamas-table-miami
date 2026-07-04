@@ -151,6 +151,7 @@ const copy = {
       subtitle: "Выберите категорию, чтобы посмотреть полный список блюд.",
       open: "Открыть",
       viewAll: "Все меню",
+      from: "от",
     },
     catering: {
       eyebrow: "Кейтеринг",
@@ -535,6 +536,7 @@ const copy = {
       subtitle: "Choose a category to view the full dish list.",
       open: "Open",
       viewAll: "View full menu",
+      from: "from",
     },
     catering: {
       eyebrow: "Catering",
@@ -919,6 +921,7 @@ const copy = {
       subtitle: "Оберіть категорію, щоб переглянути повний список страв.",
       open: "Відкрити",
       viewAll: "Все меню",
+      from: "від",
     },
     catering: {
       eyebrow: "Кейтеринг",
@@ -1384,10 +1387,21 @@ const createDefaultCateringForm = () => ({
   comment: "",
 });
 
+const CART_KEY = "lanasKitchenCart";
+const CART_KEY_OLD = "mamasTableCart";
+
 const loadCart = () => {
   try {
-    const saved = localStorage.getItem("mamasTableCart");
-    return saved ? new Map(JSON.parse(saved)) : new Map();
+    const newSaved = localStorage.getItem(CART_KEY);
+    if (newSaved) return new Map(JSON.parse(newSaved));
+    const oldSaved = localStorage.getItem(CART_KEY_OLD);
+    if (oldSaved) {
+      const cart = new Map(JSON.parse(oldSaved));
+      localStorage.setItem(CART_KEY, JSON.stringify(Array.from(cart.entries())));
+      localStorage.removeItem(CART_KEY_OLD);
+      return cart;
+    }
+    return new Map();
   } catch {
     return new Map();
   }
@@ -1395,7 +1409,7 @@ const loadCart = () => {
 
 const saveCart = (cart) => {
   try {
-    localStorage.setItem("mamasTableCart", JSON.stringify(Array.from(cart.entries())));
+    localStorage.setItem(CART_KEY, JSON.stringify(Array.from(cart.entries())));
   } catch {}
 };
 
@@ -1583,16 +1597,42 @@ const createDishCard = (dish, options = {}) => {
 `;
 };
 
-const createCategoryCard = (category) => `
+const dishCountLabel = (n) => {
+  if (state.lang === "en") return `${n} ${n === 1 ? "dish" : "dishes"}`;
+  if (state.lang === "uk") {
+    const rem = n % 100;
+    const last = n % 10;
+    if (rem >= 11 && rem <= 19) return `${n} страв`;
+    if (last === 1) return `${n} страва`;
+    if (last >= 2 && last <= 4) return `${n} страви`;
+    return `${n} страв`;
+  }
+  const rem = n % 100;
+  const last = n % 10;
+  if (rem >= 11 && rem <= 19) return `${n} блюд`;
+  if (last === 1) return `${n} блюдо`;
+  if (last >= 2 && last <= 4) return `${n} блюда`;
+  return `${n} блюд`;
+};
+
+const createCategoryCard = (category) => {
+  const dishes = menuItemsByCategory(category.id);
+  const count = dishes.length;
+  const minPrice = count ? Math.min(...dishes.map((d) => d.price)) : 0;
+  const meta = count
+    ? `${dishCountLabel(count)} · ${t("categories.from")} ${money(minPrice)}`
+    : escapeHtml(t("categories.open"));
+  return `
   <a class="category-card reveal" href="#/${escapeHtml(category.id)}" data-category-route="${escapeHtml(category.id)}">
     <img src="${escapeHtml(category.image)}" alt="${escapeHtml(text(category.title))}" loading="lazy" />
     <span>
       <i data-lucide="${escapeHtml(category.icon)}"></i>
       <strong>${escapeHtml(text(category.title))}</strong>
-      <small>${escapeHtml(t("categories.open"))}</small>
+      <small>${escapeHtml(meta)}</small>
     </span>
   </a>
 `;
+};
 
 const renderStaticData = () => {
   document.querySelector("[data-category-grid]").innerHTML = categories.map(createCategoryCard).join("");
@@ -2673,6 +2713,11 @@ const renderCart = () => {
   document.querySelectorAll("[data-cart-count]").forEach((el) => {
     el.textContent = count;
   });
+  const headerBadge = document.querySelector("[data-header-cart-badge]");
+  if (headerBadge) {
+    headerBadge.textContent = count > 99 ? "99+" : count;
+    headerBadge.hidden = !hasEntries;
+  }
   const mobileCount = document.querySelector("[data-mobile-count]");
   const mobileTotal = document.querySelector("[data-mobile-total]");
   if (mobileCount) mobileCount.textContent = `${count} ${cartItemLabel(count)}`;
@@ -3495,6 +3540,9 @@ const observeReveals = () => {
     { threshold: 0.12 },
   );
   document.querySelectorAll(".reveal:not(.is-visible)").forEach((el) => revealObserver.observe(el));
+  setTimeout(() => {
+    document.querySelectorAll(".reveal:not(.is-visible)").forEach((el) => el.classList.add("is-visible"));
+  }, 8000);
 };
 
 // ── A2: Popular dishes ────────────────────────────────────────────────────────
