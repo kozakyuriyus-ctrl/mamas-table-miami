@@ -2654,13 +2654,12 @@ const createCartReviewModal = () => {
     deliveryCell = `<span class="cr-delivery-note">${escapeHtml(t("cartReview.deliveryConfirming"))}</span>`;
   } else if (isZoneC) {
     const fee = zoneConfig.fee;
-    deliveryCell = `<em class="muted-text">${money(fee)}</em>`;
+    deliveryCell = `<em>${money(fee)}</em>`;
     totalRowHtml = `
       <div class="cr-row cr-total-row">
-        <span>${escapeHtml(t("preorder.prelimTotal"))}</span>
-        <strong class="muted-text">${money(subtotal + fee)}</strong>
+        <span>${escapeHtml(t("preorder.orderTotal"))}</span>
+        <strong>${money(subtotal + fee)}</strong>
       </div>`;
-    zoneNoteHtml = `<p class="cr-zone-note">${escapeHtml(t("preorder.confirmationNote"))}</p>`;
   } else {
     const fee = isFree ? 0 : zoneConfig.fee;
     deliveryCell = isFree
