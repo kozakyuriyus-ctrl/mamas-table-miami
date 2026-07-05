@@ -276,7 +276,7 @@ const copy = {
       delivery: "Доставка",
       deliveryNote: "Стоимость будет рассчитана после ввода адреса",
       deliveryConfirming: "Доставка подтверждается после проверки адреса",
-      proceed: "Продолжить к оформлению",
+      proceed: "Перейти к оформлению заказа",
       backToMenu: "Продолжить покупки",
     },
     popular: {
@@ -671,7 +671,7 @@ const copy = {
       delivery: "Delivery",
       deliveryNote: "Cost calculated after entering your address",
       deliveryConfirming: "Delivery will be confirmed after address review",
-      proceed: "Continue to checkout",
+      proceed: "Proceed to checkout",
       backToMenu: "Continue shopping",
     },
     popular: {
@@ -1066,7 +1066,7 @@ const copy = {
       delivery: "Доставка",
       deliveryNote: "Вартість буде розрахована після введення адреси",
       deliveryConfirming: "Доставка буде підтверджена після перевірки адреси",
-      proceed: "Продовжити до оформлення",
+      proceed: "Перейти до оформлення замовлення",
       backToMenu: "Продовжити вибір",
     },
     popular: {
@@ -2731,7 +2731,7 @@ const createCartReviewModal = () => {
             <button class="btn btn-primary" type="button" data-review-proceed>
               ${escapeHtml(t("cartReview.proceed"))}
             </button>
-            <button class="btn-back-to-menu" type="button" data-close-modal="cart-review">
+            <button class="btn btn-secondary" type="button" data-cart-review-back>
               ${escapeHtml(t("cartReview.backToMenu"))}
             </button>
           </div>
@@ -3391,6 +3391,18 @@ const handleClick = (event) => {
     return;
   }
 
+  // "Continue shopping" — close cart review then scroll to categories
+  const cartReviewBack = target.closest("[data-cart-review-back]");
+  if (cartReviewBack) {
+    event.preventDefault();
+    closeCartReview();
+    // Wait for unlockBodyScroll's window.scrollTo to settle before smooth-scrolling
+    setTimeout(() => {
+      document.querySelector("[data-category-grid]")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 50);
+    return;
+  }
+
   // Close modal
   const closeModal = target.closest("[data-close-modal]");
   if (closeModal) {
@@ -3547,7 +3559,6 @@ const handleClick = (event) => {
     return;
   }
 
-  // Mobile order bar
   const mobileOrder = target.closest("[data-mobile-order]");
   if (mobileOrder) {
     event.preventDefault();
@@ -3759,7 +3770,8 @@ const observeReveals = () => {
 const renderPopularDishes = () => {
   const grid = document.querySelector("[data-popular-grid]");
   if (!grid) return;
-  const popular = menuItems.filter((d) => d.popular);
+  const visibleCategoryIds = new Set(categories.map((c) => c.id));
+  const popular = menuItems.filter((d) => d.popular && visibleCategoryIds.has(d.category));
   if (!popular.length) {
     const section = document.querySelector("[data-popular-section]");
     if (section) section.hidden = true;

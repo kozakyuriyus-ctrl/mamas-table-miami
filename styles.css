@@ -1258,7 +1258,7 @@ p {
 
 .final-order {
   display: grid;
-  grid-template-columns: 0.92fr 0.86fr 0.9fr;
+  grid-template-columns: 1fr 1fr;
   gap: 24px;
   align-items: stretch;
   padding-bottom: 56px;
@@ -1531,6 +1531,7 @@ p {
   min-height: 42px;
   width: 100%;
   padding: 0 12px;
+  font-weight: 700;
 }
 
 .checkout-panel {
@@ -2815,6 +2816,12 @@ body.modal-open .route-order-card {
   max-width: 100%;
 }
 
+/* Center the time-window select text in its collapsed state */
+select[name="timeWindow"] {
+  text-align: center;
+  text-align-last: center;
+}
+
 /* Cart summary inside modal */
 .modal-cart-summary {
   background: var(--soft);
@@ -3866,6 +3873,22 @@ body.nav-open {
     height: 100%;
     scroll-snap-align: start;
   }
+
+  /* Force uniform photo height so all card bodies start at the same Y */
+  .popular-grid .dish-media img {
+    aspect-ratio: unset;
+    height: 160px;
+  }
+
+  /* Remove min-height constraints so body fills remaining fixed space */
+  .popular-grid .dish-card-body {
+    min-height: 0;
+  }
+
+  .popular-grid .dish-card h3,
+  .popular-grid .dish-card p {
+    min-height: 0;
+  }
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -4072,7 +4095,7 @@ body.nav-open {
 
 .cr-footer .btn { width: 100%; justify-content: center; }
 
-.cr-footer .btn-back-to-menu { text-align: center; }
+.cr-footer .btn-secondary { font-weight: 700; }
 
 .cr-total-row {
   font-size: 15px;
