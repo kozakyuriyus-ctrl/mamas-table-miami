@@ -816,7 +816,8 @@
     "unit": "lb",
     "sizeRu": "Вес: 1 lb (454 г) · 2–3 порции",
     "sizeEn": "Size: 1 lb (454 g) · Serves 2–3",
-    "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції"
+    "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції",
+    "badge": "bestseller"
   },
   {
     "id": "vinaigrette",
