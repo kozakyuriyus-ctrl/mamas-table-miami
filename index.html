@@ -9,7 +9,16 @@
       content="Lana's Kitchen — свежая домашняя еда с доставкой по Miami, Hallandale, Hollywood, Aventura, Sunny Isles, North Miami и Miami Beach."
     />
     <meta name="theme-color" content="#fbf6ed" />
-    <link rel="icon" href="data:," />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://lanaskitchenmiami.com/" />
+    <meta property="og:title" content="Lana's Kitchen Miami | Fresh Homemade Meals" />
+    <meta property="og:description" content="Lana's Kitchen — свежая домашняя еда с доставкой по Miami, Hallandale, Hollywood, Aventura, Sunny Isles, North Miami и Miami Beach." />
+    <meta property="og:image" content="https://lanaskitchenmiami.com/assets/images/hero-table.jpg" />
+    <meta property="og:image:width" content="1800" />
+    <meta property="og:image:height" content="900" />
+    <meta name="twitter:card" content="summary_large_image" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -78,12 +87,40 @@
           <button class="lang-btn" type="button" data-lang="en">EN</button>
           <button class="lang-btn" type="button" data-lang="uk">UA</button>
         </div>
-        <a class="header-cta" href="#/menu">
+        <a class="header-cta" href="#/menu" data-header-cta aria-label="Выбрать блюда">
+          <span class="header-cart-badge" data-header-cart-badge hidden></span>
           <span data-i18n="actions.chooseDishes">Выбрать блюда</span>
-          <i data-lucide="utensils"></i>
+          <i data-lucide="shopping-cart"></i>
         </a>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-drawer" data-nav-toggle>
+          <i data-lucide="menu" aria-hidden="true"></i>
+          <span class="sr-only" data-i18n="nav.openMenu">Меню</span>
+        </button>
       </div>
     </header>
+
+    <!-- ── A1: Mobile nav drawer ─────────────────────────────────────────────── -->
+    <div id="nav-drawer" class="nav-drawer" aria-hidden="true" data-nav-drawer>
+      <div class="nav-drawer-overlay" data-nav-overlay></div>
+      <nav class="nav-drawer-panel" aria-label="Primary navigation">
+        <button class="nav-drawer-close" type="button" data-nav-close>
+          <i data-lucide="x" aria-hidden="true"></i>
+          <span class="sr-only" data-i18n="nav.closeMenu">Закрыть</span>
+        </button>
+        <a href="#/menu" data-i18n="nav.menu" data-nav-link>Меню</a>
+        <a href="#catering" data-i18n="nav.catering" data-nav-link>Кейтеринг</a>
+        <a href="#how" data-i18n="nav.how" data-nav-link>Как заказать</a>
+        <a href="#delivery" data-i18n="nav.delivery" data-nav-link>Доставка</a>
+        <a href="#about" data-i18n="nav.about" data-nav-link>О нас</a>
+        <a href="#faq" data-i18n="nav.faq" data-nav-link>FAQ</a>
+        <a href="#contact" data-i18n="nav.contact" data-nav-link>Контакты</a>
+        <div class="nav-drawer-lang">
+          <button class="lang-btn" type="button" data-lang="ru">RU</button>
+          <button class="lang-btn" type="button" data-lang="en">EN</button>
+          <button class="lang-btn" type="button" data-lang="uk">UA</button>
+        </div>
+      </nav>
+    </div>
 
     <main id="top">
       <div data-home-view>
@@ -145,6 +182,17 @@
             <img src="assets/images/mamas-table-hero-new.jpg" alt="" aria-hidden="true" />
             <a class="hero-card-btn" href="#/menu" data-i18n="actions.chooseDishes">Выбрать блюда</a>
           </div>
+        </div>
+      </section>
+
+      <!-- ── A2: Popular Dishes ────────────────────────────────────────────── -->
+      <section class="section section-popular" id="popular-dishes" data-popular-section>
+        <div class="section-title section-title-center">
+          <h2 data-i18n="popular.title">Популярные блюда</h2>
+        </div>
+        <div class="popular-grid" data-popular-grid></div>
+        <div class="popular-footer">
+          <a class="btn btn-secondary" href="#/menu" data-i18n="actions.viewFullMenu">Все меню</a>
         </div>
       </section>
 
@@ -362,20 +410,6 @@
           </a>
           <p class="contact-note" data-i18n="contact.note">Вопросы, праздники, кейтеринг и индивидуальные пожелания.</p>
         </div>
-        <aside class="order-card reveal" id="order-card">
-          <div class="order-head">
-            <h3 data-i18n="cart.title">Ваш заказ</h3>
-            <span data-cart-count>0</span>
-          </div>
-          <div class="cart-summary" data-cart-summary></div>
-          <div class="cart-actions" data-cart-actions></div>
-          <div class="cart-details" data-cart-details>
-            <div class="cart-list" data-cart-list></div>
-          </div>
-          <div class="cart-empty" data-cart-empty data-i18n="cart.empty">Добавьте блюда из меню.</div>
-          <div class="checkout-panel" data-checkout-panel hidden></div>
-          <div class="cart-thankyou" data-cart-thankyou hidden></div>
-        </aside>
       </section>
 
       </div>
@@ -428,6 +462,9 @@
         </div>
       </div>
     </footer>
+
+    <!-- A3: Toast container -->
+    <div id="toast-root" aria-live="polite" aria-atomic="false"></div>
 
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
     <script src="script.js?v=3afdbf1"></script>

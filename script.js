@@ -92,9 +92,12 @@ const copy = {
       about: "О нас",
       faq: "FAQ",
       contact: "Контакты",
+      openMenu: "Открыть меню",
+      closeMenu: "Закрыть меню",
     },
     actions: {
       chooseDishes: "Выбрать блюда",
+      openCart: "Открыть корзину",
       howItWorks: "Как заказать",
       questionsWA: "Вопросы или индивидуальный заказ",
       viewFullMenu: "Все меню",
@@ -149,6 +152,7 @@ const copy = {
       subtitle: "Выберите категорию, чтобы посмотреть полный список блюд.",
       open: "Открыть",
       viewAll: "Все меню",
+      from: "от",
     },
     catering: {
       eyebrow: "Кейтеринг",
@@ -265,6 +269,21 @@ const copy = {
       itemWord: "позиций",
       unitPrice: "за ед.",
       unitLb: "за фунт",
+    },
+    cartReview: {
+      title: "Ваш заказ",
+      subtotal: "Блюда",
+      delivery: "Доставка",
+      deliveryNote: "Стоимость будет рассчитана после ввода адреса",
+      deliveryConfirming: "Доставка подтверждается после проверки адреса",
+      proceed: "Перейти к оформлению заказа",
+      backToMenu: "Продолжить покупки",
+    },
+    popular: {
+      title: "Популярные блюда",
+    },
+    toast: {
+      added: "Добавлено в заказ",
     },
     preorder: {
       modalTitle: "Детали предзаказа",
@@ -468,9 +487,12 @@ const copy = {
       about: "About Us",
       faq: "FAQ",
       contact: "Contact",
+      openMenu: "Open menu",
+      closeMenu: "Close menu",
     },
     actions: {
       chooseDishes: "Choose dishes",
+      openCart: "Open cart",
       howItWorks: "How ordering works",
       questionsWA: "Questions or custom order",
       viewFullMenu: "View full menu",
@@ -525,6 +547,7 @@ const copy = {
       subtitle: "Choose a category to view the full dish list.",
       open: "Open",
       viewAll: "View full menu",
+      from: "from",
     },
     catering: {
       eyebrow: "Catering",
@@ -641,6 +664,21 @@ const copy = {
       itemWord: "items",
       unitPrice: "each",
       unitLb: "per lb",
+    },
+    cartReview: {
+      title: "Your Order",
+      subtotal: "Dishes",
+      delivery: "Delivery",
+      deliveryNote: "Cost calculated after entering your address",
+      deliveryConfirming: "Delivery will be confirmed after address review",
+      proceed: "Proceed to checkout",
+      backToMenu: "Continue shopping",
+    },
+    popular: {
+      title: "Popular Dishes",
+    },
+    toast: {
+      added: "Added to order",
     },
     preorder: {
       modalTitle: "Pre-order details",
@@ -844,9 +882,12 @@ const copy = {
       about: "Про нас",
       faq: "FAQ",
       contact: "Контакти",
+      openMenu: "Відкрити меню",
+      closeMenu: "Закрити меню",
     },
     actions: {
       chooseDishes: "Обрати страви",
+      openCart: "Відкрити кошик",
       howItWorks: "Як замовити",
       questionsWA: "Запитання або індивідуальне замовлення",
       viewFullMenu: "Все меню",
@@ -901,6 +942,7 @@ const copy = {
       subtitle: "Оберіть категорію, щоб переглянути повний список страв.",
       open: "Відкрити",
       viewAll: "Все меню",
+      from: "від",
     },
     catering: {
       eyebrow: "Кейтеринг",
@@ -1017,6 +1059,21 @@ const copy = {
       itemWord: "позицій",
       unitPrice: "за од.",
       unitLb: "за фунт",
+    },
+    cartReview: {
+      title: "Ваше замовлення",
+      subtotal: "Страви",
+      delivery: "Доставка",
+      deliveryNote: "Вартість буде розрахована після введення адреси",
+      deliveryConfirming: "Доставка буде підтверджена після перевірки адреси",
+      proceed: "Перейти до оформлення замовлення",
+      backToMenu: "Продовжити вибір",
+    },
+    popular: {
+      title: "Популярні страви",
+    },
+    toast: {
+      added: "Додано до замовлення",
     },
     preorder: {
       modalTitle: "Деталі передзамовлення",
@@ -1360,10 +1417,37 @@ const createDefaultCateringForm = () => ({
   comment: "",
 });
 
+const CART_KEY = "lanasKitchenCart";
+const CART_KEY_OLD = "mamasTableCart";
+const CART_MIGRATED_TS_KEY = "lanasKitchenCartMigratedAt";
+const CART_MIGRATION_TTL_MS = 30 * 24 * 60 * 60 * 1000; // 30 days
+
 const loadCart = () => {
   try {
-    const saved = localStorage.getItem("mamasTableCart");
-    return saved ? new Map(JSON.parse(saved)) : new Map();
+    const newSaved = localStorage.getItem(CART_KEY);
+    if (newSaved) {
+      // Clean up old key only after 30 days from confirmed migration
+      const migratedAt = localStorage.getItem(CART_MIGRATED_TS_KEY);
+      if (migratedAt && Date.now() - Number(migratedAt) > CART_MIGRATION_TTL_MS) {
+        localStorage.removeItem(CART_KEY_OLD);
+        localStorage.removeItem(CART_MIGRATED_TS_KEY);
+      }
+      return new Map(JSON.parse(newSaved));
+    }
+    const oldSaved = localStorage.getItem(CART_KEY_OLD);
+    if (oldSaved) {
+      const cart = new Map(JSON.parse(oldSaved));
+      const serialized = JSON.stringify(Array.from(cart.entries()));
+      localStorage.setItem(CART_KEY, serialized);
+      // Verify write succeeded before recording migration — keep old key as backup
+      const verified = localStorage.getItem(CART_KEY);
+      if (verified === serialized) {
+        localStorage.setItem(CART_MIGRATED_TS_KEY, String(Date.now()));
+      }
+      // Old key intentionally NOT removed here — deleted after 30-day TTL on future loads
+      return cart;
+    }
+    return new Map();
   } catch {
     return new Map();
   }
@@ -1371,7 +1455,7 @@ const loadCart = () => {
 
 const saveCart = (cart) => {
   try {
-    localStorage.setItem("mamasTableCart", JSON.stringify(Array.from(cart.entries())));
+    localStorage.setItem(CART_KEY, JSON.stringify(Array.from(cart.entries())));
   } catch {}
 };
 
@@ -1559,16 +1643,42 @@ const createDishCard = (dish, options = {}) => {
 `;
 };
 
-const createCategoryCard = (category) => `
+const dishCountLabel = (n) => {
+  if (state.lang === "en") return `${n} ${n === 1 ? "dish" : "dishes"}`;
+  if (state.lang === "uk") {
+    const rem = n % 100;
+    const last = n % 10;
+    if (rem >= 11 && rem <= 19) return `${n} страв`;
+    if (last === 1) return `${n} страва`;
+    if (last >= 2 && last <= 4) return `${n} страви`;
+    return `${n} страв`;
+  }
+  const rem = n % 100;
+  const last = n % 10;
+  if (rem >= 11 && rem <= 19) return `${n} блюд`;
+  if (last === 1) return `${n} блюдо`;
+  if (last >= 2 && last <= 4) return `${n} блюда`;
+  return `${n} блюд`;
+};
+
+const createCategoryCard = (category) => {
+  const dishes = menuItemsByCategory(category.id);
+  const count = dishes.length;
+  const minPrice = count ? Math.min(...dishes.map((d) => d.price)) : 0;
+  const meta = count
+    ? `${dishCountLabel(count)} · ${t("categories.from")} ${money(minPrice)}`
+    : escapeHtml(t("categories.open"));
+  return `
   <a class="category-card reveal" href="#/${escapeHtml(category.id)}" data-category-route="${escapeHtml(category.id)}">
     <img src="${escapeHtml(category.image)}" alt="${escapeHtml(text(category.title))}" loading="lazy" />
     <span>
       <i data-lucide="${escapeHtml(category.icon)}"></i>
       <strong>${escapeHtml(text(category.title))}</strong>
-      <small>${escapeHtml(t("categories.open"))}</small>
+      <small>${escapeHtml(meta)}</small>
     </span>
   </a>
 `;
+};
 
 const renderStaticData = () => {
   document.querySelector("[data-category-grid]").innerHTML = categories.map(createCategoryCard).join("");
@@ -2452,15 +2562,18 @@ const createCateringModal = () => {
 // iOS Safari requires position:fixed + saved scrollY to truly lock background scroll.
 // overflow:hidden alone does not prevent rubber-band scrolling on iOS.
 const lockBodyScroll = () => {
+  const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
   const y = window.scrollY;
   document.body.dataset.scrollLock = String(y);
   document.body.style.top = `-${y}px`;
+  if (scrollbarWidth > 0) document.body.style.paddingRight = `${scrollbarWidth}px`;
   document.body.classList.add("modal-open");
 };
 
 const unlockBodyScroll = () => {
   const y = parseInt(document.body.dataset.scrollLock || "0", 10);
   document.body.style.top = "";
+  document.body.style.paddingRight = "";
   delete document.body.dataset.scrollLock;
   document.body.classList.remove("modal-open");
   window.scrollTo(0, y);
@@ -2517,11 +2630,143 @@ const closePreorderModal = () => {
 const renderPreorderModal = () => {
   const wrapper = document.getElementById("preorder-modal");
   if (!wrapper) return;
+  const prevBody = wrapper.querySelector(".modal-body");
+  const savedScroll = prevBody ? prevBody.scrollTop : 0;
   wrapper.innerHTML = createPreorderModal();
   refreshIcons();
+  const newBody = wrapper.querySelector(".modal-body");
+  if (newBody && savedScroll > 0) newBody.scrollTop = savedScroll;
   if (state.preorderStage > 0) {
     wrapper.querySelector("button")?.focus();
   }
+};
+
+// ── A4: Cart review screen ────────────────────────────────────────────────────
+
+let cartReviewTriggerEl = null;
+
+const createCartReviewModal = () => {
+  const entries = cartEntries();
+  const subtotal = cartTotal();
+
+  // ── Delivery calculation (mirrors preorder form — same zone constants, same ZIP) ──
+  const zip = state.preorderForm.zip || "";
+  const zoneKey = zip ? zipToZoneKey(zip) : "";
+  const zoneConfig = zoneKey ? DELIVERY_ZONES[zoneKey] : null;
+  const isRemote = zoneKey === "remote";
+  const isZoneC = zoneKey === "3";
+  const isFree = !isRemote && !isZoneC && !!zoneConfig?.freeAt && subtotal >= zoneConfig.freeAt;
+
+  let deliveryCell, totalRowHtml = "", zoneNoteHtml = "";
+  if (!zoneKey) {
+    deliveryCell = `<span class="cr-delivery-note">${escapeHtml(t("cartReview.deliveryNote"))}</span>`;
+  } else if (isRemote) {
+    deliveryCell = `<span class="cr-delivery-note">${escapeHtml(t("cartReview.deliveryConfirming"))}</span>`;
+  } else if (isZoneC) {
+    const fee = zoneConfig.fee;
+    deliveryCell = `<em>${money(fee)}</em>`;
+    totalRowHtml = `
+      <div class="cr-row cr-total-row">
+        <span>${escapeHtml(t("preorder.orderTotal"))}</span>
+        <strong>${money(subtotal + fee)}</strong>
+      </div>`;
+  } else {
+    const fee = isFree ? 0 : zoneConfig.fee;
+    deliveryCell = isFree
+      ? `<em class="zone-free-label">${escapeHtml(t("preorder.freeDelivery"))}</em>`
+      : `<em>${money(fee)}</em>`;
+    totalRowHtml = `
+      <div class="cr-row cr-total-row">
+        <span>${escapeHtml(t("preorder.orderTotal"))}</span>
+        <strong>${money(subtotal + fee)}</strong>
+      </div>`;
+  }
+
+  const items = entries
+    .map(({ dish, quantity }) => {
+      const unitLabel = dish.unit === "lb" ? t("cart.unitLb") : t("cart.unitPrice");
+      return `
+      <div class="cart-item cr-item">
+        <div class="cart-item-main">
+          <div>
+            <strong>${escapeHtml(text(dish.name))}</strong>
+            <span>${money(dish.price)} ${escapeHtml(unitLabel)}</span>
+          </div>
+          <em>${money(dish.price * quantity)}</em>
+        </div>
+        <div class="cart-row">
+          <button type="button" class="cr-qty-btn" data-minus="${escapeHtml(dish.id)}" aria-label="−1">−</button>
+          <span class="cr-qty">${quantity}</span>
+          <button type="button" class="cr-qty-btn" data-plus="${escapeHtml(dish.id)}" aria-label="+1">+</button>
+          <button type="button" class="cr-remove" data-remove="${escapeHtml(dish.id)}">${escapeHtml(t("cart.remove"))}</button>
+        </div>
+      </div>`;
+    })
+    .join("");
+
+  return `
+    <div class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="cart-review-title" data-modal-overlay="cart-review">
+      <div class="modal-panel cr-panel">
+        <div class="modal-header">
+          <div class="modal-header-top">
+            <h2 id="cart-review-title">${escapeHtml(t("cartReview.title"))}</h2>
+            <button class="modal-close-btn" type="button" data-close-modal="cart-review" aria-label="✕">✕</button>
+          </div>
+        </div>
+        <div class="modal-body cr-body">
+          <div class="cr-items">${items}</div>
+          <div class="cr-totals">
+            <div class="cr-row cr-subtotal-row">
+              <span>${escapeHtml(t("cartReview.subtotal"))}</span>
+              <strong>${money(subtotal)}</strong>
+            </div>
+            <div class="cr-row cr-delivery-row">
+              <span>${escapeHtml(t("cartReview.delivery"))}</span>
+              ${deliveryCell}
+            </div>
+            ${totalRowHtml}
+            ${zoneNoteHtml}
+          </div>
+          <div class="cr-footer">
+            <button class="btn btn-primary" type="button" data-review-proceed>
+              ${escapeHtml(t("cartReview.proceed"))}
+            </button>
+            <button class="btn btn-secondary" type="button" data-cart-review-back>
+              ${escapeHtml(t("cartReview.backToMenu"))}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>`;
+};
+
+const openCartReview = (trigger = null) => {
+  cartReviewTriggerEl = trigger;
+  let wrapper = document.getElementById("cart-review-modal");
+  if (!wrapper) {
+    wrapper = document.createElement("div");
+    wrapper.id = "cart-review-modal";
+    document.body.appendChild(wrapper);
+  }
+  wrapper.innerHTML = createCartReviewModal();
+  lockBodyScroll();
+  refreshIcons();
+  wrapper.querySelector("[data-review-proceed]")?.focus();
+};
+
+const closeCartReview = () => {
+  document.getElementById("cart-review-modal")?.remove();
+  unlockBodyScroll();
+  cartReviewTriggerEl?.focus();
+  cartReviewTriggerEl = null;
+};
+
+const renderCartReviewModal = () => {
+  const wrapper = document.getElementById("cart-review-modal");
+  if (!wrapper) return;
+  if (!cartEntries().length) { closeCartReview(); return; }
+  wrapper.innerHTML = createCartReviewModal();
+  refreshIcons();
 };
 
 const openCateringModal = (trigger = null) => {
@@ -2649,6 +2894,15 @@ const renderCart = () => {
   document.querySelectorAll("[data-cart-count]").forEach((el) => {
     el.textContent = count;
   });
+  const headerBadge = document.querySelector("[data-header-cart-badge]");
+  if (headerBadge) {
+    headerBadge.textContent = count > 99 ? "99+" : count;
+    headerBadge.hidden = !hasEntries;
+  }
+  const headerCta = document.querySelector("[data-header-cta]");
+  if (headerCta) {
+    headerCta.setAttribute("aria-label", hasEntries ? t("actions.openCart") : t("actions.chooseDishes"));
+  }
   const mobileCount = document.querySelector("[data-mobile-count]");
   const mobileTotal = document.querySelector("[data-mobile-total]");
   if (mobileCount) mobileCount.textContent = `${count} ${cartItemLabel(count)}`;
@@ -2665,6 +2919,7 @@ const renderCart = () => {
     }
   }
   refreshIcons();
+  renderCartReviewModal();
 };
 
 // ── Translations ──────────────────────────────────────────────────────────────
@@ -2976,12 +3231,31 @@ const handleClick = (event) => {
   const target = event.target;
 
   // Language switch
+  // A1: Hamburger toggle
+  const navToggle = target.closest("[data-nav-toggle]");
+  if (navToggle) {
+    isNavDrawerOpen() ? closeNavDrawer() : openNavDrawer();
+    return;
+  }
+
+  // A1: Close drawer via × button or overlay click
+  const navClose = target.closest("[data-nav-close]");
+  if (navClose) { closeNavDrawer(); return; }
+
+  const navOverlay = target.closest("[data-nav-overlay]");
+  if (navOverlay) { closeNavDrawer(); return; }
+
+  // A1: Nav drawer links — close drawer then let href navigate naturally
+  const navLink = target.closest("[data-nav-link]");
+  if (navLink && isNavDrawerOpen()) { closeNavDrawer(); }
+
   const lang = target.closest("[data-lang]");
   if (lang) {
     state.lang = lang.dataset.lang;
     localStorage.setItem("mamasTableLang", state.lang);
     applyTranslations();
     renderStaticData();
+    renderPopularDishes();
     renderRoute();
     renderOrderHistoryBtn();
     return;
@@ -3007,6 +3281,7 @@ const handleClick = (event) => {
     const dish = dishById(id);
     setQuantity(id, cartQuantity(id) + 1);
     if (dish) {
+      showToast(text(dish.name));
       ga4("add_to_cart", { currency: "USD", value: dish.price, items: [ga4Item(dish, 1)] });
       metaTrack("AddToCart", {
         content_ids: [dish.id],
@@ -3086,12 +3361,45 @@ const handleClick = (event) => {
     return;
   }
 
-  // Open preorder modal
+  // Header CTA: open cart review if cart has items, else navigate to menu (#/menu)
+  const headerCta = target.closest("[data-header-cta]");
+  if (headerCta) {
+    if (cartEntries().length) {
+      event.preventDefault();
+      openCartReview(headerCta);
+    }
+    // cart empty → let default href="#/menu" navigate normally
+    return;
+  }
+
+  // Open cart review (A4 — intermediate step before checkout form)
   const openCheckout = target.closest("[data-open-checkout]");
   if (openCheckout) {
     event.preventDefault();
     if (!cartEntries().length) return;
-    openPreorderModal(openCheckout);
+    openCartReview(openCheckout);
+    return;
+  }
+
+  // A4: Proceed from cart review to preorder form
+  const reviewProceed = target.closest("[data-review-proceed]");
+  if (reviewProceed) {
+    event.preventDefault();
+    const trigger = cartReviewTriggerEl;
+    closeCartReview();
+    openPreorderModal(trigger);
+    return;
+  }
+
+  // "Continue shopping" — close cart review then scroll to categories
+  const cartReviewBack = target.closest("[data-cart-review-back]");
+  if (cartReviewBack) {
+    event.preventDefault();
+    closeCartReview();
+    // Wait for unlockBodyScroll's window.scrollTo to settle before smooth-scrolling
+    setTimeout(() => {
+      document.querySelector("[data-category-grid]")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 50);
     return;
   }
 
@@ -3102,6 +3410,7 @@ const handleClick = (event) => {
     const type = closeModal.dataset.closeModal;
     if (type === "preorder") closePreorderModal();
     else if (type === "catering") closeCateringModal();
+    else if (type === "cart-review") closeCartReview();
     return;
   }
 
@@ -3250,7 +3559,6 @@ const handleClick = (event) => {
     return;
   }
 
-  // Mobile order bar
   const mobileOrder = target.closest("[data-mobile-order]");
   if (mobileOrder) {
     event.preventDefault();
@@ -3271,6 +3579,7 @@ const handleClick = (event) => {
     const type = overlay.dataset.modalOverlay;
     if (type === "preorder" && (state.preorderStage === 0 || state.preorderStage === 1)) closePreorderModal();
     else if (type === "catering" && (state.cateringStage === 0 || state.cateringStage === 4)) closeCateringModal();
+    else if (type === "cart-review") closeCartReview();
   }
 };
 
@@ -3313,17 +3622,14 @@ const handleFormChange = (event) => {
     } else {
       state.preorderForm[preorderField.name] = preorderField.value;
     }
-    const reRenderFields = [
-      "name",
-      "phone",
-      "address",
-      "city",
-      "zip",
-      "date",
-      "timeWindow",
-      "contactMethod",
-      "fulfillmentType",
-    ];
+    // Only re-render when the field structurally changes the form:
+    // contactMethod → shows/hides telegram field, updates is-selected class
+    // fulfillmentType → toggles delivery/pickup display
+    // All other fields (name, phone, address, city, zip, date, timeWindow) only
+    // need state sync — zip re-render is already handled in handleFormInput at 5 digits.
+    // Re-rendering on every field change resets modal scrollTop on iOS Safari,
+    // causing the form to jump to top on every tap.
+    const reRenderFields = ["contactMethod", "fulfillmentType"];
     if (reRenderFields.includes(preorderField.name)) {
       const formEl = preorderField.closest("[data-preorder-form]");
       if (formEl) syncPreorderForm(formEl);
@@ -3355,13 +3661,38 @@ const handleSubmit = (event) => {
 
 const handleKeydown = (event) => {
   if (event.key === "Escape") {
+    // A1: Close nav drawer first if open
+    if (isNavDrawerOpen()) { closeNavDrawer(); return; }
     const preorderOpen = !!document.getElementById("preorder-modal");
     const cateringOpen = !!document.getElementById("catering-modal");
+    const reviewOpen = !!document.getElementById("cart-review-modal");
+    if (reviewOpen) { closeCartReview(); return; }
     if (preorderOpen && (state.preorderStage === 0 || state.preorderStage === 1)) closePreorderModal();
     else if (cateringOpen && (state.cateringStage === 0 || state.cateringStage === 4)) closeCateringModal();
     return;
   }
   if (event.key === "Tab") {
+    // A1: Focus trap for nav drawer when open
+    if (isNavDrawerOpen()) {
+      const drawer = document.querySelector("[data-nav-drawer] .nav-drawer-panel");
+      if (drawer) {
+        const focusable = Array.from(
+          drawer.querySelectorAll('button:not([disabled]), a[href]'),
+        ).filter((el) => el.offsetParent !== null);
+        if (focusable.length >= 2) {
+          const first = focusable[0];
+          const last = focusable[focusable.length - 1];
+          if (event.shiftKey && document.activeElement === first) {
+            event.preventDefault();
+            last.focus();
+          } else if (!event.shiftKey && document.activeElement === last) {
+            event.preventDefault();
+            first.focus();
+          }
+        }
+        return;
+      }
+    }
     const modal =
       document.getElementById("preorder-modal")?.querySelector(".modal-overlay") ||
       document.getElementById("catering-modal")?.querySelector(".modal-overlay");
@@ -3410,12 +3741,14 @@ const setupFaqAccordion = () => {
 
 let revealObserver;
 
+const revealAll = () =>
+  document.querySelectorAll(".reveal:not(.is-visible)").forEach((el) => el.classList.add("is-visible"));
+
 const observeReveals = () => {
   if (revealObserver) revealObserver.disconnect();
-  if (!("IntersectionObserver" in window)) {
-    document.querySelectorAll(".reveal").forEach((el) => el.classList.add("is-visible"));
-    return;
-  }
+  // Immediately reveal if user prefers reduced motion or IO unavailable
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) { revealAll(); return; }
+  if (!("IntersectionObserver" in window)) { revealAll(); return; }
   revealObserver = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
@@ -3428,6 +3761,74 @@ const observeReveals = () => {
     { threshold: 0.12 },
   );
   document.querySelectorAll(".reveal:not(.is-visible)").forEach((el) => revealObserver.observe(el));
+  // Safety net: force-reveal any stuck elements after 800ms
+  setTimeout(revealAll, 800);
+};
+
+// ── A2: Popular dishes ────────────────────────────────────────────────────────
+
+const renderPopularDishes = () => {
+  const grid = document.querySelector("[data-popular-grid]");
+  if (!grid) return;
+  const visibleCategoryIds = new Set(categories.map((c) => c.id));
+  const popular = menuItems.filter((d) => d.popular && visibleCategoryIds.has(d.category));
+  if (!popular.length) {
+    const section = document.querySelector("[data-popular-section]");
+    if (section) section.hidden = true;
+    return;
+  }
+  grid.innerHTML = popular.map((d) => createDishCard(d, { reveal: true })).join("");
+  refreshIcons();
+  observeReveals();
+};
+
+// ── A1: Nav drawer ────────────────────────────────────────────────────────────
+
+let _navPrevFocus = null;
+
+const openNavDrawer = () => {
+  const drawer = document.querySelector("[data-nav-drawer]");
+  const toggle = document.querySelector("[data-nav-toggle]");
+  if (!drawer) return;
+  _navPrevFocus = document.activeElement;
+  drawer.classList.add("is-open");
+  drawer.setAttribute("aria-hidden", "false");
+  document.body.classList.add("nav-open");
+  if (toggle) toggle.setAttribute("aria-expanded", "true");
+  const firstFocusable = drawer.querySelector("button, a[href]");
+  firstFocusable?.focus();
+};
+
+const closeNavDrawer = () => {
+  const drawer = document.querySelector("[data-nav-drawer]");
+  const toggle = document.querySelector("[data-nav-toggle]");
+  if (!drawer) return;
+  drawer.classList.remove("is-open");
+  drawer.setAttribute("aria-hidden", "true");
+  document.body.classList.remove("nav-open");
+  if (toggle) toggle.setAttribute("aria-expanded", "false");
+  (_navPrevFocus || toggle)?.focus();
+  _navPrevFocus = null;
+};
+
+const isNavDrawerOpen = () =>
+  document.querySelector("[data-nav-drawer]")?.classList.contains("is-open") ?? false;
+
+// ── A3: Toast ─────────────────────────────────────────────────────────────────
+
+const showToast = (dishName) => {
+  const root = document.getElementById("toast-root");
+  if (!root) return;
+  const toast = document.createElement("div");
+  toast.className = "toast";
+  toast.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg><span>${escapeHtml(t("toast.added"))}: <strong>${escapeHtml(dishName)}</strong></span>`;
+  root.appendChild(toast);
+  const DURATION = 2500;
+  const FADE = 300;
+  setTimeout(() => {
+    toast.classList.add("toast-out");
+    setTimeout(() => toast.remove(), FADE);
+  }, DURATION);
 };
 
 // ── Session restore ───────────────────────────────────────────────────────────
@@ -3454,6 +3855,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   setupFaqAccordion();
   applyTranslations();
   renderStaticData();
+  renderPopularDishes();
   renderRoute();
   renderCart();
   renderOrderHistoryBtn();
