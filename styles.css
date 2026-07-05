@@ -2697,7 +2697,8 @@ body.modal-open .route-order-card {
 }
 
 #preorder-modal,
-#catering-modal {
+#catering-modal,
+#cart-review-modal {
   position: fixed;
   inset: 0;
   z-index: 900;
@@ -3971,3 +3972,100 @@ body.nav-open {
     max-width: 100%;
   }
 }
+
+/* ── A4: Cart review modal ─────────────────────────────────────────────────── */
+
+.cr-panel { max-width: 480px; }
+
+.cr-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 0;
+}
+
+.cr-items {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px 24px 16px;
+}
+
+.cr-item { background: var(--paper); }
+
+.cr-qty-btn {
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--cream);
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cr-qty-btn:hover { background: var(--soft); }
+
+.cr-qty {
+  min-width: 24px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.cr-remove {
+  margin-left: auto;
+  background: none;
+  border: none;
+  color: var(--gold);
+  font-size: 12px;
+  cursor: pointer;
+  padding: 4px 6px;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.cr-remove:hover { color: var(--ink); }
+
+.cr-totals {
+  border-top: 1px solid var(--line);
+  padding: 16px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.cr-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  font-size: 14px;
+}
+
+.cr-subtotal-row { font-weight: 600; font-size: 15px; }
+
+.cr-delivery-row { flex-wrap: wrap; }
+
+.cr-delivery-note {
+  font-size: 12px;
+  color: #7a7265;
+  text-align: right;
+  flex: 1;
+}
+
+.cr-footer {
+  border-top: 1px solid var(--line);
+  padding: 16px 24px calc(16px + env(safe-area-inset-bottom, 0px));
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: stretch;
+}
+
+.cr-footer .btn { width: 100%; justify-content: center; }
+
+.cr-footer .btn-back-to-menu { text-align: center; }

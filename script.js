@@ -269,6 +269,14 @@ const copy = {
       unitPrice: "за ед.",
       unitLb: "за фунт",
     },
+    cartReview: {
+      title: "Ваш заказ",
+      subtotal: "Блюда",
+      delivery: "Доставка",
+      deliveryNote: "Стоимость будет рассчитана после ввода адреса",
+      proceed: "Продолжить к оформлению",
+      backToMenu: "Продолжить покупки",
+    },
     popular: {
       title: "Популярные блюда",
     },
@@ -654,6 +662,14 @@ const copy = {
       unitPrice: "each",
       unitLb: "per lb",
     },
+    cartReview: {
+      title: "Your Order",
+      subtotal: "Dishes",
+      delivery: "Delivery",
+      deliveryNote: "Cost calculated after entering your address",
+      proceed: "Continue to checkout",
+      backToMenu: "Continue shopping",
+    },
     popular: {
       title: "Popular Dishes",
     },
@@ -1038,6 +1054,14 @@ const copy = {
       itemWord: "позицій",
       unitPrice: "за од.",
       unitLb: "за фунт",
+    },
+    cartReview: {
+      title: "Ваше замовлення",
+      subtotal: "Страви",
+      delivery: "Доставка",
+      deliveryNote: "Вартість буде розрахована після введення адреси",
+      proceed: "Продовжити до оформлення",
+      backToMenu: "Продовжити вибір",
     },
     popular: {
       title: "Популярні страви",
@@ -2604,6 +2628,97 @@ const renderPreorderModal = () => {
   }
 };
 
+// ── A4: Cart review screen ────────────────────────────────────────────────────
+
+let cartReviewTriggerEl = null;
+
+const createCartReviewModal = () => {
+  const entries = cartEntries();
+  const subtotal = cartTotal();
+  const items = entries
+    .map(({ dish, quantity }) => {
+      const unitLabel = dish.unit === "lb" ? t("cart.unitLb") : t("cart.unitPrice");
+      return `
+      <div class="cart-item cr-item">
+        <div class="cart-item-main">
+          <div>
+            <strong>${escapeHtml(text(dish.name))}</strong>
+            <span>${money(dish.price)} ${escapeHtml(unitLabel)}</span>
+          </div>
+          <em>${money(dish.price * quantity)}</em>
+        </div>
+        <div class="cart-row">
+          <button type="button" class="cr-qty-btn" data-minus="${escapeHtml(dish.id)}" aria-label="−1">−</button>
+          <span class="cr-qty">${quantity}</span>
+          <button type="button" class="cr-qty-btn" data-plus="${escapeHtml(dish.id)}" aria-label="+1">+</button>
+          <button type="button" class="cr-remove" data-remove="${escapeHtml(dish.id)}">${escapeHtml(t("cart.remove"))}</button>
+        </div>
+      </div>`;
+    })
+    .join("");
+  return `
+    <div class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="cart-review-title" data-modal-overlay="cart-review">
+      <div class="modal-panel cr-panel">
+        <div class="modal-header">
+          <div class="modal-header-top">
+            <h2 id="cart-review-title">${escapeHtml(t("cartReview.title"))}</h2>
+            <button class="modal-close-btn" type="button" data-close-modal="cart-review" aria-label="✕">✕</button>
+          </div>
+        </div>
+        <div class="modal-body cr-body">
+          <div class="cr-items">${items}</div>
+          <div class="cr-totals">
+            <div class="cr-row cr-subtotal-row">
+              <span>${escapeHtml(t("cartReview.subtotal"))}</span>
+              <strong>${money(subtotal)}</strong>
+            </div>
+            <div class="cr-row cr-delivery-row">
+              <span>${escapeHtml(t("cartReview.delivery"))}</span>
+              <span class="cr-delivery-note">${escapeHtml(t("cartReview.deliveryNote"))}</span>
+            </div>
+          </div>
+          <div class="cr-footer">
+            <button class="btn btn-primary" type="button" data-review-proceed>
+              ${escapeHtml(t("cartReview.proceed"))}
+            </button>
+            <button class="btn-back-to-menu" type="button" data-close-modal="cart-review">
+              ${escapeHtml(t("cartReview.backToMenu"))}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>`;
+};
+
+const openCartReview = (trigger = null) => {
+  cartReviewTriggerEl = trigger;
+  let wrapper = document.getElementById("cart-review-modal");
+  if (!wrapper) {
+    wrapper = document.createElement("div");
+    wrapper.id = "cart-review-modal";
+    document.body.appendChild(wrapper);
+  }
+  wrapper.innerHTML = createCartReviewModal();
+  lockBodyScroll();
+  refreshIcons();
+  wrapper.querySelector("[data-review-proceed]")?.focus();
+};
+
+const closeCartReview = () => {
+  document.getElementById("cart-review-modal")?.remove();
+  unlockBodyScroll();
+  cartReviewTriggerEl?.focus();
+  cartReviewTriggerEl = null;
+};
+
+const renderCartReviewModal = () => {
+  const wrapper = document.getElementById("cart-review-modal");
+  if (!wrapper) return;
+  if (!cartEntries().length) { closeCartReview(); return; }
+  wrapper.innerHTML = createCartReviewModal();
+  refreshIcons();
+};
+
 const openCateringModal = (trigger = null) => {
   cateringTriggerEl = trigger;
   let wrapper = document.getElementById("catering-modal");
@@ -2750,6 +2865,7 @@ const renderCart = () => {
     }
   }
   refreshIcons();
+  renderCartReviewModal();
 };
 
 // ── Translations ──────────────────────────────────────────────────────────────
@@ -3191,12 +3307,22 @@ const handleClick = (event) => {
     return;
   }
 
-  // Open preorder modal
+  // Open cart review (A4 — intermediate step before checkout form)
   const openCheckout = target.closest("[data-open-checkout]");
   if (openCheckout) {
     event.preventDefault();
     if (!cartEntries().length) return;
-    openPreorderModal(openCheckout);
+    openCartReview(openCheckout);
+    return;
+  }
+
+  // A4: Proceed from cart review to preorder form
+  const reviewProceed = target.closest("[data-review-proceed]");
+  if (reviewProceed) {
+    event.preventDefault();
+    const trigger = cartReviewTriggerEl;
+    closeCartReview();
+    openPreorderModal(trigger);
     return;
   }
 
@@ -3207,6 +3333,7 @@ const handleClick = (event) => {
     const type = closeModal.dataset.closeModal;
     if (type === "preorder") closePreorderModal();
     else if (type === "catering") closeCateringModal();
+    else if (type === "cart-review") closeCartReview();
     return;
   }
 
@@ -3376,6 +3503,7 @@ const handleClick = (event) => {
     const type = overlay.dataset.modalOverlay;
     if (type === "preorder" && (state.preorderStage === 0 || state.preorderStage === 1)) closePreorderModal();
     else if (type === "catering" && (state.cateringStage === 0 || state.cateringStage === 4)) closeCateringModal();
+    else if (type === "cart-review") closeCartReview();
   }
 };
 
@@ -3464,6 +3592,8 @@ const handleKeydown = (event) => {
     if (isNavDrawerOpen()) { closeNavDrawer(); return; }
     const preorderOpen = !!document.getElementById("preorder-modal");
     const cateringOpen = !!document.getElementById("catering-modal");
+    const reviewOpen = !!document.getElementById("cart-review-modal");
+    if (reviewOpen) { closeCartReview(); return; }
     if (preorderOpen && (state.preorderStage === 0 || state.preorderStage === 1)) closePreorderModal();
     else if (cateringOpen && (state.cateringStage === 0 || state.cateringStage === 4)) closeCateringModal();
     return;
