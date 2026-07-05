@@ -274,6 +274,7 @@ const copy = {
       subtotal: "Блюда",
       delivery: "Доставка",
       deliveryNote: "Стоимость будет рассчитана после ввода адреса",
+      deliveryConfirming: "Доставка подтверждается после проверки адреса",
       proceed: "Продолжить к оформлению",
       backToMenu: "Продолжить покупки",
     },
@@ -667,6 +668,7 @@ const copy = {
       subtotal: "Dishes",
       delivery: "Delivery",
       deliveryNote: "Cost calculated after entering your address",
+      deliveryConfirming: "Delivery will be confirmed after address review",
       proceed: "Continue to checkout",
       backToMenu: "Continue shopping",
     },
@@ -1060,6 +1062,7 @@ const copy = {
       subtotal: "Страви",
       delivery: "Доставка",
       deliveryNote: "Вартість буде розрахована після введення адреси",
+      deliveryConfirming: "Доставка буде підтверджена після перевірки адреси",
       proceed: "Продовжити до оформлення",
       backToMenu: "Продовжити вибір",
     },
@@ -2635,6 +2638,41 @@ let cartReviewTriggerEl = null;
 const createCartReviewModal = () => {
   const entries = cartEntries();
   const subtotal = cartTotal();
+
+  // ── Delivery calculation (mirrors preorder form — same zone constants, same ZIP) ──
+  const zip = state.preorderForm.zip || "";
+  const zoneKey = zip ? zipToZoneKey(zip) : "";
+  const zoneConfig = zoneKey ? DELIVERY_ZONES[zoneKey] : null;
+  const isRemote = zoneKey === "remote";
+  const isZoneC = zoneKey === "3";
+  const isFree = !isRemote && !isZoneC && !!zoneConfig?.freeAt && subtotal >= zoneConfig.freeAt;
+
+  let deliveryCell, totalRowHtml = "", zoneNoteHtml = "";
+  if (!zoneKey) {
+    deliveryCell = `<span class="cr-delivery-note">${escapeHtml(t("cartReview.deliveryNote"))}</span>`;
+  } else if (isRemote) {
+    deliveryCell = `<span class="cr-delivery-note">${escapeHtml(t("cartReview.deliveryConfirming"))}</span>`;
+  } else if (isZoneC) {
+    const fee = zoneConfig.fee;
+    deliveryCell = `<em class="muted-text">${money(fee)}</em>`;
+    totalRowHtml = `
+      <div class="cr-row cr-total-row">
+        <span>${escapeHtml(t("preorder.prelimTotal"))}</span>
+        <strong class="muted-text">${money(subtotal + fee)}</strong>
+      </div>`;
+    zoneNoteHtml = `<p class="cr-zone-note">${escapeHtml(t("preorder.confirmationNote"))}</p>`;
+  } else {
+    const fee = isFree ? 0 : zoneConfig.fee;
+    deliveryCell = isFree
+      ? `<em class="zone-free-label">${escapeHtml(t("preorder.freeDelivery"))}</em>`
+      : `<em>${money(fee)}</em>`;
+    totalRowHtml = `
+      <div class="cr-row cr-total-row">
+        <span>${escapeHtml(t("preorder.orderTotal"))}</span>
+        <strong>${money(subtotal + fee)}</strong>
+      </div>`;
+  }
+
   const items = entries
     .map(({ dish, quantity }) => {
       const unitLabel = dish.unit === "lb" ? t("cart.unitLb") : t("cart.unitPrice");
@@ -2656,6 +2694,7 @@ const createCartReviewModal = () => {
       </div>`;
     })
     .join("");
+
   return `
     <div class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="cart-review-title" data-modal-overlay="cart-review">
       <div class="modal-panel cr-panel">
@@ -2674,8 +2713,10 @@ const createCartReviewModal = () => {
             </div>
             <div class="cr-row cr-delivery-row">
               <span>${escapeHtml(t("cartReview.delivery"))}</span>
-              <span class="cr-delivery-note">${escapeHtml(t("cartReview.deliveryNote"))}</span>
+              ${deliveryCell}
             </div>
+            ${totalRowHtml}
+            ${zoneNoteHtml}
           </div>
           <div class="cr-footer">
             <button class="btn btn-primary" type="button" data-review-proceed>

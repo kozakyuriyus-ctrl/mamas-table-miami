@@ -4069,3 +4069,18 @@ body.nav-open {
 .cr-footer .btn { width: 100%; justify-content: center; }
 
 .cr-footer .btn-back-to-menu { text-align: center; }
+
+.cr-total-row {
+  font-size: 15px;
+  font-weight: 700;
+  border-top: 1px solid var(--line);
+  padding-top: 10px;
+  margin-top: 2px;
+}
+
+.cr-zone-note {
+  font-size: 11px;
+  color: #7a7265;
+  margin: 0;
+  padding: 4px 0 0;
+}
