@@ -97,6 +97,7 @@ const copy = {
     },
     actions: {
       chooseDishes: "Выбрать блюда",
+      openCart: "Открыть корзину",
       howItWorks: "Как заказать",
       questionsWA: "Вопросы или индивидуальный заказ",
       viewFullMenu: "Все меню",
@@ -491,6 +492,7 @@ const copy = {
     },
     actions: {
       chooseDishes: "Choose dishes",
+      openCart: "Open cart",
       howItWorks: "How ordering works",
       questionsWA: "Questions or custom order",
       viewFullMenu: "View full menu",
@@ -885,6 +887,7 @@ const copy = {
     },
     actions: {
       chooseDishes: "Обрати страви",
+      openCart: "Відкрити кошик",
       howItWorks: "Як замовити",
       questionsWA: "Запитання або індивідуальне замовлення",
       viewFullMenu: "Все меню",
@@ -2559,15 +2562,18 @@ const createCateringModal = () => {
 // iOS Safari requires position:fixed + saved scrollY to truly lock background scroll.
 // overflow:hidden alone does not prevent rubber-band scrolling on iOS.
 const lockBodyScroll = () => {
+  const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
   const y = window.scrollY;
   document.body.dataset.scrollLock = String(y);
   document.body.style.top = `-${y}px`;
+  if (scrollbarWidth > 0) document.body.style.paddingRight = `${scrollbarWidth}px`;
   document.body.classList.add("modal-open");
 };
 
 const unlockBodyScroll = () => {
   const y = parseInt(document.body.dataset.scrollLock || "0", 10);
   document.body.style.top = "";
+  document.body.style.paddingRight = "";
   delete document.body.dataset.scrollLock;
   document.body.classList.remove("modal-open");
   window.scrollTo(0, y);
@@ -2624,8 +2630,12 @@ const closePreorderModal = () => {
 const renderPreorderModal = () => {
   const wrapper = document.getElementById("preorder-modal");
   if (!wrapper) return;
+  const prevBody = wrapper.querySelector(".modal-body");
+  const savedScroll = prevBody ? prevBody.scrollTop : 0;
   wrapper.innerHTML = createPreorderModal();
   refreshIcons();
+  const newBody = wrapper.querySelector(".modal-body");
+  if (newBody && savedScroll > 0) newBody.scrollTop = savedScroll;
   if (state.preorderStage > 0) {
     wrapper.querySelector("button")?.focus();
   }
@@ -2888,6 +2898,10 @@ const renderCart = () => {
   if (headerBadge) {
     headerBadge.textContent = count > 99 ? "99+" : count;
     headerBadge.hidden = !hasEntries;
+  }
+  const headerCta = document.querySelector("[data-header-cta]");
+  if (headerCta) {
+    headerCta.setAttribute("aria-label", hasEntries ? t("actions.openCart") : t("actions.chooseDishes"));
   }
   const mobileCount = document.querySelector("[data-mobile-count]");
   const mobileTotal = document.querySelector("[data-mobile-total]");
@@ -3347,6 +3361,17 @@ const handleClick = (event) => {
     return;
   }
 
+  // Header CTA: open cart review if cart has items, else navigate to menu (#/menu)
+  const headerCta = target.closest("[data-header-cta]");
+  if (headerCta) {
+    if (cartEntries().length) {
+      event.preventDefault();
+      openCartReview(headerCta);
+    }
+    // cart empty → let default href="#/menu" navigate normally
+    return;
+  }
+
   // Open cart review (A4 — intermediate step before checkout form)
   const openCheckout = target.closest("[data-open-checkout]");
   if (openCheckout) {
@@ -3586,17 +3611,14 @@ const handleFormChange = (event) => {
     } else {
       state.preorderForm[preorderField.name] = preorderField.value;
     }
-    const reRenderFields = [
-      "name",
-      "phone",
-      "address",
-      "city",
-      "zip",
-      "date",
-      "timeWindow",
-      "contactMethod",
-      "fulfillmentType",
-    ];
+    // Only re-render when the field structurally changes the form:
+    // contactMethod → shows/hides telegram field, updates is-selected class
+    // fulfillmentType → toggles delivery/pickup display
+    // All other fields (name, phone, address, city, zip, date, timeWindow) only
+    // need state sync — zip re-render is already handled in handleFormInput at 5 digits.
+    // Re-rendering on every field change resets modal scrollTop on iOS Safari,
+    // causing the form to jump to top on every tap.
+    const reRenderFields = ["contactMethod", "fulfillmentType"];
     if (reRenderFields.includes(preorderField.name)) {
       const formEl = preorderField.closest("[data-preorder-form]");
       if (formEl) syncPreorderForm(formEl);

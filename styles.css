@@ -3851,6 +3851,9 @@ body.nav-open {
     -webkit-overflow-scrolling: touch;
     padding-bottom: 6px;
     scrollbar-width: none;
+    /* Explicit height so all cards stretch uniformly on iOS Safari */
+    height: 390px;
+    align-items: stretch;
   }
 
   .popular-grid::-webkit-scrollbar {
@@ -3860,6 +3863,7 @@ body.nav-open {
   .popular-grid .dish-card {
     flex-shrink: 0;
     width: 210px;
+    height: 100%;
     scroll-snap-align: start;
   }
 }
@@ -3975,7 +3979,7 @@ body.nav-open {
 
 /* ── A4: Cart review modal ─────────────────────────────────────────────────── */
 
-.cr-panel { max-width: 480px; }
+.cr-panel { max-width: 480px; margin: 0 auto; }
 
 .cr-body {
   display: flex;
