@@ -1389,16 +1389,32 @@ const createDefaultCateringForm = () => ({
 
 const CART_KEY = "lanasKitchenCart";
 const CART_KEY_OLD = "mamasTableCart";
+const CART_MIGRATED_TS_KEY = "lanasKitchenCartMigratedAt";
+const CART_MIGRATION_TTL_MS = 30 * 24 * 60 * 60 * 1000; // 30 days
 
 const loadCart = () => {
   try {
     const newSaved = localStorage.getItem(CART_KEY);
-    if (newSaved) return new Map(JSON.parse(newSaved));
+    if (newSaved) {
+      // Clean up old key only after 30 days from confirmed migration
+      const migratedAt = localStorage.getItem(CART_MIGRATED_TS_KEY);
+      if (migratedAt && Date.now() - Number(migratedAt) > CART_MIGRATION_TTL_MS) {
+        localStorage.removeItem(CART_KEY_OLD);
+        localStorage.removeItem(CART_MIGRATED_TS_KEY);
+      }
+      return new Map(JSON.parse(newSaved));
+    }
     const oldSaved = localStorage.getItem(CART_KEY_OLD);
     if (oldSaved) {
       const cart = new Map(JSON.parse(oldSaved));
-      localStorage.setItem(CART_KEY, JSON.stringify(Array.from(cart.entries())));
-      localStorage.removeItem(CART_KEY_OLD);
+      const serialized = JSON.stringify(Array.from(cart.entries()));
+      localStorage.setItem(CART_KEY, serialized);
+      // Verify write succeeded before recording migration — keep old key as backup
+      const verified = localStorage.getItem(CART_KEY);
+      if (verified === serialized) {
+        localStorage.setItem(CART_MIGRATED_TS_KEY, String(Date.now()));
+      }
+      // Old key intentionally NOT removed here — deleted after 30-day TTL on future loads
       return cart;
     }
     return new Map();
@@ -3522,12 +3538,14 @@ const setupFaqAccordion = () => {
 
 let revealObserver;
 
+const revealAll = () =>
+  document.querySelectorAll(".reveal:not(.is-visible)").forEach((el) => el.classList.add("is-visible"));
+
 const observeReveals = () => {
   if (revealObserver) revealObserver.disconnect();
-  if (!("IntersectionObserver" in window)) {
-    document.querySelectorAll(".reveal").forEach((el) => el.classList.add("is-visible"));
-    return;
-  }
+  // Immediately reveal if user prefers reduced motion or IO unavailable
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) { revealAll(); return; }
+  if (!("IntersectionObserver" in window)) { revealAll(); return; }
   revealObserver = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
@@ -3540,9 +3558,8 @@ const observeReveals = () => {
     { threshold: 0.12 },
   );
   document.querySelectorAll(".reveal:not(.is-visible)").forEach((el) => revealObserver.observe(el));
-  setTimeout(() => {
-    document.querySelectorAll(".reveal:not(.is-visible)").forEach((el) => el.classList.add("is-visible"));
-  }, 8000);
+  // Safety net: force-reveal any stuck elements after 800ms
+  setTimeout(revealAll, 800);
 };
 
 // ── A2: Popular dishes ────────────────────────────────────────────────────────
