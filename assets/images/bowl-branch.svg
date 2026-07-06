@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 180" fill="none">
+  <defs>
+    <radialGradient id="bowlGrad" cx="45%" cy="38%" r="58%">
+      <stop offset="0%" stop-color="#E07848"/>
+      <stop offset="55%" stop-color="#C05228"/>
+      <stop offset="100%" stop-color="#8B3515"/>
+    </radialGradient>
+    <radialGradient id="innerGrad" cx="50%" cy="30%" r="60%">
+      <stop offset="0%" stop-color="#F5E8D8" stop-opacity="1"/>
+      <stop offset="60%" stop-color="#D4875A" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#C05228" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="baseGrad" cx="50%" cy="20%" r="60%">
+      <stop offset="0%" stop-color="#7A3010"/>
+      <stop offset="100%" stop-color="#4A1E08"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Bowl outer body -->
+  <path d="M18 88 Q18 152 105 158 Q192 152 192 88 Z" fill="url(#bowlGrad)"/>
+
+  <!-- Bowl inner (highlight at rim) -->
+  <ellipse cx="105" cy="88" rx="87" ry="18" fill="#F0E0CC" opacity="0.9"/>
+  <ellipse cx="105" cy="88" rx="78" ry="11" fill="url(#innerGrad)"/>
+
+  <!-- Bowl rim shadow/depth -->
+  <ellipse cx="105" cy="90" rx="87" ry="18" fill="none" stroke="#8B3515" stroke-width="2" opacity="0.4"/>
+
+  <!-- Bowl base foot -->
+  <ellipse cx="105" cy="157" rx="28" ry="7" fill="url(#baseGrad)"/>
+  <rect x="89" y="152" width="32" height="8" rx="3" fill="url(#baseGrad)"/>
+
+  <!-- Steam wisp left -->
+  <path d="M88 82 C86 68 92 56 88 42 C84 28 90 18 88 6"
+        stroke="#C05228" stroke-width="4.5" stroke-linecap="round"
+        fill="none" opacity="0.85"/>
+
+  <!-- Steam wisp right -->
+  <path d="M104 80 C102 66 108 54 104 40 C100 26 106 16 104 4"
+        stroke="#C05228" stroke-width="3.5" stroke-linecap="round"
+        fill="none" opacity="0.75"/>
+
+  <!-- Herb branch stem -->
+  <path d="M148 148 C158 140 168 128 175 116 C180 108 178 100 175 96"
+        stroke="#5C6A38" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+
+  <!-- Branch leaves (pairs along stem) -->
+  <!-- leaf 1 right -->
+  <ellipse cx="178" cy="104" rx="10" ry="5" fill="#5C6A38" transform="rotate(-30 178 104)"/>
+  <!-- leaf 1 left -->
+  <ellipse cx="172" cy="112" rx="9" ry="4.5" fill="#6A7A42" transform="rotate(20 172 112)"/>
+  <!-- leaf 2 right -->
+  <ellipse cx="174" cy="120" rx="11" ry="5" fill="#5C6A38" transform="rotate(-25 174 120)"/>
+  <!-- leaf 2 left -->
+  <ellipse cx="166" cy="128" rx="10" ry="4.5" fill="#6A7A42" transform="rotate(18 166 128)"/>
+  <!-- leaf 3 right top -->
+  <ellipse cx="176" cy="96" rx="8" ry="4" fill="#4E5E30" transform="rotate(-35 176 96)"/>
+  <!-- leaf top small -->
+  <ellipse cx="175" cy="90" rx="6" ry="3" fill="#5C6A38" transform="rotate(-40 175 90)"/>
+  <!-- leaf 3 bottom left -->
+  <ellipse cx="160" cy="136" rx="9" ry="4" fill="#6A7A42" transform="rotate(15 160 136)"/>
+  <!-- leaf 4 -->
+  <ellipse cx="152" cy="143" rx="8" ry="3.5" fill="#5C6A38" transform="rotate(10 152 143)"/>
+</svg>

@@ -10,6 +10,7 @@
  *   TELEGRAM_SECONDARY_CHAT_ID (optional)
  *   TELEGRAM_WEBHOOK_SECRET
  *   TEST_TOKEN          ← secret for test mode (wrangler secret put TEST_TOKEN)
+ *   GOOGLE_PLACES_KEY   ← Google Places API key (restricted to this Worker IP or HTTP referrer)
  *
  * Var (set in wrangler.toml or dashboard):
  *   ALLOWED_ORIGIN = "https://lanaskitchenmiami.com"
@@ -797,9 +798,13 @@ export default {
       return handleTelegramWebhook(request, env);
     }
 
+    // Allow localhost for development testing of Places autocomplete
+    const isLocalhost = origin.startsWith("http://localhost") || origin.startsWith("http://127.0.0.1");
+    const isAllowedOrigin = origin === allowed || isLocalhost;
+
     const corsHeaders = {
-      "Access-Control-Allow-Origin":  origin === allowed ? allowed : "",
-      "Access-Control-Allow-Methods": "POST, OPTIONS",
+      "Access-Control-Allow-Origin":  isAllowedOrigin ? origin : "",
+      "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
       "Access-Control-Allow-Headers": "Content-Type",
       "Access-Control-Max-Age":       "86400",
     };
@@ -813,6 +818,112 @@ export default {
 
     if (request.method === "OPTIONS") {
       return new Response(null, { status: 204, headers: corsHeaders });
+    }
+
+    // ── Google Places Autocomplete proxy ────────────────────────────────────────
+    if (url.pathname === "/places") {
+      if (request.method !== "GET") {
+        return new Response("Method not allowed", { status: 405, headers: { Allow: "GET, OPTIONS" } });
+      }
+      if (!isAllowedOrigin) {
+        return json({ ok: false, error: "forbidden_origin" }, 403);
+      }
+      if (!env.GOOGLE_PLACES_KEY) {
+        return json({ ok: false, error: "not_configured", suggestions: [] }, 200);
+      }
+      const input = url.searchParams.get("input") || "";
+      const sessionToken = url.searchParams.get("sessiontoken") || "";
+      if (!input || input.length < 3) {
+        return json({ ok: true, suggestions: [] });
+      }
+      try {
+        const placesResp = await fetch("https://places.googleapis.com/v1/places:autocomplete", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-Goog-Api-Key": env.GOOGLE_PLACES_KEY,
+            "X-Goog-FieldMask": "suggestions.placePrediction",
+          },
+          body: JSON.stringify({
+            input,
+            sessionToken,
+            locationRestriction: {
+              rectangle: {
+                low:  { latitude: 25.46, longitude: -80.93 },
+                high: { latitude: 26.37, longitude: -80.06 },
+              },
+            },
+            includedRegionCodes: ["us"],
+            includedPrimaryTypes: ["address"],
+            languageCode: "en",
+          }),
+        });
+        if (!placesResp.ok) {
+          return json({ ok: false, error: "google_api_error", suggestions: [] }, 200);
+        }
+        const data = await placesResp.json();
+        const suggestions = (data.suggestions || [])
+          .filter((s) => s.placePrediction)
+          .map((s) => ({
+            placeId: s.placePrediction.placeId,
+            text:    s.placePrediction.text?.text || "",
+            main:    s.placePrediction.structuredFormat?.mainText?.text || "",
+            secondary: s.placePrediction.structuredFormat?.secondaryText?.text || "",
+          }));
+        return json({ ok: true, suggestions });
+      } catch (err) {
+        console.error("Places autocomplete error:", err);
+        return json({ ok: false, error: "internal_error", suggestions: [] }, 200);
+      }
+    }
+
+    // ── Google Places Details proxy ─────────────────────────────────────────────
+    if (url.pathname === "/places/details") {
+      if (request.method !== "GET") {
+        return new Response("Method not allowed", { status: 405, headers: { Allow: "GET, OPTIONS" } });
+      }
+      if (!isAllowedOrigin) {
+        return json({ ok: false, error: "forbidden_origin" }, 403);
+      }
+      if (!env.GOOGLE_PLACES_KEY) {
+        return json({ ok: false, error: "not_configured" }, 200);
+      }
+      const placeId = url.searchParams.get("placeId") || "";
+      const sessionToken = url.searchParams.get("sessiontoken") || "";
+      if (!placeId) {
+        return json({ ok: false, error: "missing_place_id" }, 400);
+      }
+      try {
+        const detailsResp = await fetch(`https://places.googleapis.com/v1/places/${encodeURIComponent(placeId)}`, {
+          method: "GET",
+          headers: {
+            "X-Goog-Api-Key": env.GOOGLE_PLACES_KEY,
+            "X-Goog-FieldMask": "addressComponents,formattedAddress",
+            ...(sessionToken ? { "X-Goog-SessionToken": sessionToken } : {}),
+          },
+        });
+        if (!detailsResp.ok) {
+          return json({ ok: false, error: "google_api_error" }, 200);
+        }
+        const data = await detailsResp.json();
+        const components = data.addressComponents || [];
+        const get = (...types) => {
+          const c = components.find((c) => types.every((t) => c.types?.includes(t)));
+          return c?.longText || c?.shortText || "";
+        };
+        return json({
+          ok: true,
+          streetNumber: get("street_number"),
+          route: get("route"),
+          city: get("locality") || get("sublocality_level_1") || get("administrative_area_level_3"),
+          state: get("administrative_area_level_1"),
+          zip: get("postal_code"),
+          formatted: data.formattedAddress || "",
+        });
+      } catch (err) {
+        console.error("Places details error:", err);
+        return json({ ok: false, error: "internal_error" }, 200);
+      }
     }
 
     if (url.pathname === "/contact") {

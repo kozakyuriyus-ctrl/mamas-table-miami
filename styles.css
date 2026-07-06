@@ -1775,6 +1775,14 @@ fieldset.form-field {
   gap: 4px;
 }
 
+.footer-bowl {
+  width: 72px;
+  height: auto;
+  margin-bottom: 6px;
+  object-fit: contain;
+  display: block;
+}
+
 .footer-brand strong {
   color: var(--ink);
   font-family: "Playfair Display", Georgia, serif;
@@ -2318,6 +2326,10 @@ fieldset.form-field {
   .footer-links {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .footer-bowl {
+    width: 56px;
   }
 
   .footer-social {
@@ -4110,4 +4122,169 @@ body.nav-open {
   color: #7a7265;
   margin: 0;
   padding: 4px 0 0;
+}
+
+/* ── Phone field UI ────────────────────────────────────────────────────────── */
+
+.phone-field-wrap { position: relative; }
+
+.phone-us-wrap {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--line);
+  border-radius: var(--radius, 8px);
+  background: #fff;
+  overflow: hidden;
+  transition: border-color 160ms;
+}
+
+.phone-us-wrap:focus-within {
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px rgba(36, 63, 34, 0.08);
+}
+
+.form-field.is-invalid .phone-us-wrap {
+  border-color: #c0392b;
+}
+
+.phone-prefix {
+  padding: 0 10px 0 12px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  background: var(--bg, #fbf6ed);
+  border-right: 1px solid var(--line);
+  line-height: 42px;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.phone-us-input {
+  flex: 1;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  padding: 0 12px;
+  font-size: 14px;
+  background: transparent;
+  min-width: 0;
+  height: 42px;
+}
+
+.phone-intl-wrap {
+  display: flex;
+  gap: 8px;
+}
+
+.phone-cc-input {
+  width: 68px;
+  flex-shrink: 0;
+  text-align: center;
+  font-weight: 600;
+}
+
+.phone-intl-input { flex: 1; min-width: 0; }
+
+.phone-mode-link {
+  display: inline;
+  background: none;
+  border: none;
+  padding: 0;
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--green);
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-align: left;
+}
+
+.phone-mode-link:hover { opacity: 0.75; }
+
+/* International messenger question */
+.intl-messenger-block {
+  margin-top: 10px;
+  padding: 10px 12px;
+  background: var(--bg, #fbf6ed);
+  border-radius: 8px;
+  border: 1px solid var(--line);
+}
+
+.intl-messenger-q {
+  font-size: 13px;
+  color: var(--muted);
+  margin: 0 0 8px;
+  line-height: 1.4;
+}
+
+.intl-messenger-options { flex-wrap: wrap; gap: 6px; }
+
+/* ── Google Places autocomplete dropdown ──────────────────────────────────── */
+
+.places-dropdown {
+  position: absolute;
+  top: calc(100% + 2px);
+  left: 0;
+  right: 0;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  list-style: none;
+  margin: 0;
+  padding: 4px 0;
+  z-index: 1100;
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+.places-option {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  padding: 9px 14px;
+  cursor: pointer;
+  transition: background 100ms;
+}
+
+.places-option:hover,
+.places-option:focus {
+  background: var(--bg, #fbf6ed);
+}
+
+.places-main {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.places-secondary {
+  font-size: 12px;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.places-manual {
+  padding: 8px 14px;
+  font-size: 12px;
+  color: var(--green);
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  border-top: 1px solid var(--line);
+  margin-top: 2px;
+}
+
+.places-manual:hover { opacity: 0.75; }
+
+@media (max-width: 760px) {
+  .phone-prefix { font-size: 13px; padding: 0 8px 0 10px; }
+  .phone-us-input { font-size: 15px; }
+  .phone-cc-input { width: 60px; }
+  .places-dropdown { max-height: 180px; }
 }
