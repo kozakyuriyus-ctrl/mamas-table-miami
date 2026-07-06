@@ -70,6 +70,7 @@ const DELIVERY_CITIES = [
 
 const API_ENABLED = true;
 const PREORDER_API_URL = "https://api.lanaskitchenmiami.com/preorder";
+const PLACES_API_URL   = "https://api.lanaskitchenmiami.com/places";
 
 // Test mode — activated only when URL contains ?test=1&token=<secret>
 // The token is never stored here; it's read from the URL and passed to the Worker,
@@ -290,10 +291,22 @@ const copy = {
       cartSummaryTitle: "Ваш заказ в Lana's Kitchen",
       name: "Имя",
       phone: "Телефон",
+      phoneOtherCode: "Другой код страны",
+      phoneBackToUs: "← США (+1)",
+      phoneCountryCodeLabel: "Код страны",
+      phoneNumberLabel: "Номер телефона",
+      intlMessengerQ: "Этот номер доступен в WhatsApp или Telegram для подтверждения заказа?",
+      intlMessengerWhatsapp: "WhatsApp",
+      intlMessengerTelegram: "Telegram",
+      intlMessengerCall: "Обычный звонок",
+      intlMessengerOther: "Другой номер для связи",
+      altContact: "Контакт для связи (необязательно)",
+      placesManual: "Не нашли адрес? Введите вручную",
       address: "Адрес доставки",
       apt: "Квартира / Unit (необязательно)",
       city: "Город",
       zip: "ZIP-код",
+      addressPlaceholder: "100 NW 1st Ave, Miami, FL",
       cityPlaceholder: "Выберите город",
       cityOther: "Другой район — по согласованию",
       date: "Дата доставки",
@@ -685,10 +698,22 @@ const copy = {
       cartSummaryTitle: "Your Order at Lana's Kitchen",
       name: "Name",
       phone: "Phone",
+      phoneOtherCode: "Other country code",
+      phoneBackToUs: "← USA (+1)",
+      phoneCountryCodeLabel: "Country code",
+      phoneNumberLabel: "Phone number",
+      intlMessengerQ: "Is this number available on WhatsApp or Telegram for order confirmation?",
+      intlMessengerWhatsapp: "WhatsApp",
+      intlMessengerTelegram: "Telegram",
+      intlMessengerCall: "Phone call",
+      intlMessengerOther: "Different contact number",
+      altContact: "Contact for confirmation (optional)",
+      placesManual: "Can't find your address? Enter it manually",
       address: "Delivery address",
       apt: "Apartment / Unit (optional)",
       city: "City",
       zip: "ZIP code",
+      addressPlaceholder: "100 NW 1st Ave, Miami, FL",
       cityPlaceholder: "Select city",
       cityOther: "Other area — by arrangement",
       date: "Delivery date",
@@ -1080,10 +1105,22 @@ const copy = {
       cartSummaryTitle: "Ваше замовлення в Lana's Kitchen",
       name: "Ім'я",
       phone: "Телефон",
+      phoneOtherCode: "Інший код країни",
+      phoneBackToUs: "← США (+1)",
+      phoneCountryCodeLabel: "Код країни",
+      phoneNumberLabel: "Номер телефону",
+      intlMessengerQ: "Цей номер доступний у WhatsApp або Telegram для підтвердження замовлення?",
+      intlMessengerWhatsapp: "WhatsApp",
+      intlMessengerTelegram: "Telegram",
+      intlMessengerCall: "Телефонний дзвінок",
+      intlMessengerOther: "Інший номер для зв'язку",
+      altContact: "Контакт для підтвердження (необов'язково)",
+      placesManual: "Не знайшли адресу? Введіть вручну",
       address: "Адреса доставки",
       apt: "Квартира / Unit (необов'язково)",
       city: "Місто",
       zip: "ZIP-код",
+      addressPlaceholder: "100 NW 1st Ave, Miami, FL",
       cityPlaceholder: "Оберіть місто",
       cityOther: "Інший район — за погодженням",
       date: "Дата доставки",
@@ -1387,6 +1424,10 @@ const categories = [
 const createDefaultPreorderForm = () => ({
   name: "",
   phone: "",
+  phoneMode: "us",
+  phoneCountryCode: "",
+  intlMessenger: "",
+  altContact: "",
   fulfillmentType: "delivery",
   zone: "",
   city: "",
@@ -1416,6 +1457,114 @@ const createDefaultCateringForm = () => ({
   allergies: "",
   comment: "",
 });
+
+// ── Google Places Autocomplete state ──────────────────────────────────────────
+const placesState = {
+  debounceTimer: null,
+  sessionToken: null,
+  suggestions: [],
+  loading: false,
+  open: false,
+  manualMode: false,
+};
+
+const newPlacesSession = () => {
+  placesState.sessionToken = crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).slice(2);
+};
+
+const closePlacesDropdown = () => {
+  placesState.open = false;
+  placesState.suggestions = [];
+  document.getElementById("address-suggestions")?.remove();
+};
+
+const renderPlaceSuggestions = (inputEl) => {
+  document.getElementById("address-suggestions")?.remove();
+  if (!placesState.open || !placesState.suggestions.length) return;
+
+  const wrap = inputEl.closest(".form-field");
+  if (!wrap) return;
+
+  const list = document.createElement("ul");
+  list.id = "address-suggestions";
+  list.className = "places-dropdown";
+  list.setAttribute("role", "listbox");
+
+  placesState.suggestions.forEach((s, i) => {
+    const li = document.createElement("li");
+    li.className = "places-option";
+    li.setAttribute("role", "option");
+    li.setAttribute("data-place-idx", i);
+    li.innerHTML = `<span class="places-main">${escapeHtml(s.main)}</span><span class="places-secondary">${escapeHtml(s.secondary)}</span>`;
+    list.appendChild(li);
+  });
+
+  // "Enter manually" link at the bottom
+  const manual = document.createElement("li");
+  manual.className = "places-manual";
+  manual.setAttribute("data-places-manual", "");
+  manual.textContent = t("preorder.placesManual");
+  list.appendChild(manual);
+
+  wrap.style.position = "relative";
+  wrap.appendChild(list);
+};
+
+const fetchPlaceSuggestions = async (inputEl, value) => {
+  if (placesState.manualMode || value.length < 3) {
+    closePlacesDropdown();
+    return;
+  }
+  if (!placesState.sessionToken) newPlacesSession();
+  try {
+    const url = `${PLACES_API_URL}?input=${encodeURIComponent(value)}&sessiontoken=${encodeURIComponent(placesState.sessionToken)}`;
+    const resp = await fetch(url);
+    if (!resp.ok) { closePlacesDropdown(); return; }
+    const data = await resp.json();
+    if (!data.ok || !data.suggestions?.length) { closePlacesDropdown(); return; }
+    placesState.suggestions = data.suggestions;
+    placesState.open = true;
+    renderPlaceSuggestions(inputEl);
+  } catch {
+    closePlacesDropdown();
+  }
+};
+
+const selectPlaceOption = async (idx, inputEl) => {
+  const s = placesState.suggestions[idx];
+  if (!s) return;
+  closePlacesDropdown();
+  inputEl.value = s.main;
+  state.preorderForm.address = s.main;
+
+  try {
+    const url = `${PLACES_API_URL}/details?placeId=${encodeURIComponent(s.placeId)}&sessiontoken=${encodeURIComponent(placesState.sessionToken || "")}`;
+    newPlacesSession(); // start new session after selection (billing boundary)
+    const resp = await fetch(url);
+    if (!resp.ok) return;
+    const detail = await resp.json();
+    if (!detail.ok) return;
+
+    const form = state.preorderForm;
+    // Fill address fields without overwriting apt/gate
+    if (detail.streetNumber && detail.route) {
+      form.address = `${detail.streetNumber} ${detail.route}`;
+      inputEl.value = form.address;
+    }
+    // City: match against DELIVERY_CITIES or set "Other"
+    if (detail.city) {
+      const matched = DELIVERY_CITIES.find((c) => c.toLowerCase() === detail.city.toLowerCase());
+      form.city = matched || "Other";
+    }
+    // ZIP: trigger zone logic
+    if (detail.zip && /^\d{5}$/.test(detail.zip)) {
+      form.zip = detail.zip;
+      form.zone = zipToZoneKey(detail.zip);
+    }
+    // Re-render to show city/zip and zone pricing
+    renderPreorderModal();
+  } catch { /* keep manual values */ }
+};
 
 const CART_KEY = "lanasKitchenCart";
 const CART_KEY_OLD = "mamasTableCart";
@@ -1861,8 +2010,42 @@ const tgUrl = () => `https://t.me/${TELEGRAM_USERNAME}`;
 const normalizePhoneDigits = (raw) => raw.replace(/[\s()\-.]/g, "").replace(/^\+/, "");
 const allSameDigit = (s) => /^(\d)\1+$/.test(s);
 
-const validatePhone = (raw) => {
-  const trimmed = raw.trim();
+// Format 10 raw digits as US display: (XXX) XXX-XXXX
+const formatUSPhoneDisplay = (raw) => {
+  const digits = (raw || "").replace(/\D/g, "").slice(0, 10);
+  if (digits.length < 4) return digits;
+  if (digits.length < 7) return `(${digits.slice(0, 3)}) ${digits.slice(3)}`;
+  return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
+};
+
+// Returns E.164 string for payload. Pass form to handle intl mode.
+const phoneToE164 = (form) => {
+  if (form.phoneMode === "intl") {
+    const cc = (form.phoneCountryCode || "").trim();
+    const digits = (form.phone || "").replace(/\D/g, "");
+    return cc + digits;
+  }
+  const digits = normalizePhoneDigits(form.phone || "");
+  if (digits.length === 10) return `+1${digits}`;
+  if (digits.length === 11 && digits.startsWith("1")) return `+${digits}`;
+  return `+1${digits}`;
+};
+
+const validatePhone = (raw, form) => {
+  if (form && form.phoneMode === "intl") {
+    const cc = (form.phoneCountryCode || "").trim();
+    const trimmed = (raw || "").trim();
+    if (!cc && !trimmed) return "required";
+    if (!cc || !trimmed) return "invalid";
+    if (!cc.startsWith("+")) return "invalid";
+    const ccDigits = cc.slice(1).replace(/\D/g, "");
+    if (!ccDigits || ccDigits.length > 4) return "invalid";
+    const phoneDigits = trimmed.replace(/\D/g, "");
+    if (phoneDigits.length < 4 || phoneDigits.length > 14) return "invalid";
+    return null;
+  }
+  // US mode
+  const trimmed = (raw || "").trim();
   if (!trimmed) return "required";
   if (/[a-zA-Z]/.test(trimmed)) return "invalid";
   const hasPlus = trimmed.startsWith("+");
@@ -1874,8 +2057,13 @@ const validatePhone = (raw) => {
   return "invalid";
 };
 
-const formatPhoneForMessage = (raw) => {
-  const trimmed = raw.trim();
+const formatPhoneForMessage = (raw, form) => {
+  if (form && form.phoneMode === "intl") {
+    const cc = (form.phoneCountryCode || "").trim();
+    const digits = (raw || "").replace(/\D/g, "");
+    return `${cc}${digits}`;
+  }
+  const trimmed = (raw || "").trim();
   const hasPlus = trimmed.startsWith("+");
   const digits = normalizePhoneDigits(trimmed);
   if (!hasPlus && digits.length === 10)
@@ -2041,7 +2229,7 @@ const buildPreorderMessage = (orderId) => {
     `${t("order.createdAt")}: ${getMiamiTimestamp()} — ${t("order.miamiTime")}`,
     "",
     `${t("order.name")}: ${form.name}`,
-    `${t("order.phone")}: ${formatPhoneForMessage(form.phone)}`,
+    `${t("order.phone")}: ${formatPhoneForMessage(form.phone, form)}`,
   ];
   if (form.zone) lines.push(`${t("order.zone") || "Zone"}: ${t(`preorder.zone${form.zone}`)}`);
   if (form.address) lines.push(`${t("order.address")}: ${form.address}${form.apt ? `, ${form.apt}` : ""}`);
@@ -2070,7 +2258,7 @@ const buildCateringMessage = (orderId) => {
     `${t("order.createdAt")}: ${getMiamiTimestamp()} — ${t("order.miamiTime")}`,
     "",
     `${t("cateringForm.name")}: ${form.name}`,
-    `${t("order.phone")}: ${formatPhoneForMessage(form.phone)}`,
+    `${t("order.phone")}: ${formatPhoneForMessage(form.phone, form)}`,
     `${t("cateringForm.date")}: ${formatDateLocalized(form.date, state.lang)}`,
     `${t("cateringForm.occasion")}: ${form.occasion}`,
     `${t("cateringForm.guests")}: ${form.guests}`,
@@ -2132,7 +2320,7 @@ const createPreorderStage0 = () => {
       case "name": return !f.name ? "preorder.err.name" : null;
       case "phone":
         if (!f.phone) return "preorder.err.phone";
-        return validatePhone(f.phone) !== null ? "preorder.err.phoneInvalid" : null;
+        return validatePhone(f.phone, f) !== null ? "preorder.err.phoneInvalid" : null;
       case "contactMethod": return !f.contactMethod ? "preorder.fieldRequired" : null;
       case "address": return !f.address ? "preorder.err.address" : null;
       case "city": return !f.city ? "preorder.err.city" : null;
@@ -2225,6 +2413,64 @@ const createPreorderStage0 = () => {
       return `<label class="choice-btn${sel}"><input type="radio" name="contactMethod" value="${val}"${checked} /><span>${escapeHtml(t(`preorder.${key}`))}</span></label>`;
     }).join("");
 
+  const phoneBlockHtml = (() => {
+    if (form.phoneMode === "intl") {
+      const messengerOptions = ["whatsapp", "telegram", "call", "other"]
+        .map((opt) => {
+          const sel = form.intlMessenger === opt ? " checked" : "";
+          const selCls = form.intlMessenger === opt ? " is-selected" : "";
+          const key = `intlMessenger${opt.charAt(0).toUpperCase() + opt.slice(1)}`;
+          return `<label class="choice-btn${selCls}"><input type="radio" name="intlMessenger" value="${opt}"${sel} /><span>${escapeHtml(t(`preorder.${key}`))}</span></label>`;
+        }).join("");
+      const altContactField = form.intlMessenger === "other"
+        ? `<label class="form-field form-field-wide"><span>${escapeHtml(t("preorder.altContact"))}</span><input name="altContact" type="text" value="${escapeHtml(form.altContact)}" autocomplete="tel" /></label>`
+        : "";
+      return `
+        <div class="form-field form-field-wide phone-field-wrap${invCls("phone")}">
+          <span>${escapeHtml(t("preorder.phone"))} *</span>
+          <div class="phone-intl-wrap">
+            <input name="phoneCountryCode" type="tel" class="phone-cc-input"
+                   value="${escapeHtml(form.phoneCountryCode)}"
+                   placeholder="+44" maxlength="6" inputmode="tel"
+                   aria-label="${escapeHtml(t("preorder.phoneCountryCodeLabel"))}" />
+            <input name="phone" type="tel" class="phone-intl-input"
+                   value="${escapeHtml(form.phone)}"
+                   placeholder="555 123 4567"
+                   autocomplete="tel" required inputmode="tel"
+                   aria-label="${escapeHtml(t("preorder.phoneNumberLabel"))}" />
+          </div>
+          <button type="button" class="phone-mode-link" data-phone-mode="us">
+            ${escapeHtml(t("preorder.phoneBackToUs"))}
+          </button>
+          <div class="intl-messenger-block">
+            <p class="intl-messenger-q">${escapeHtml(t("preorder.intlMessengerQ"))}</p>
+            <div class="choice-btn-group intl-messenger-options">
+              ${messengerOptions}
+            </div>
+          </div>
+          ${altContactField}
+          ${errSpan("phone")}
+        </div>`;
+    }
+    const displayVal = formatUSPhoneDisplay(form.phone);
+    return `
+      <div class="form-field phone-field-wrap${invCls("phone")}">
+        <span>${escapeHtml(t("preorder.phone"))} *</span>
+        <div class="phone-us-wrap">
+          <span class="phone-prefix" aria-hidden="true">+1</span>
+          <input name="phone" type="tel" class="phone-us-input"
+                 value="${escapeHtml(displayVal)}"
+                 placeholder="(786) 123-4567"
+                 autocomplete="tel" required
+                 inputmode="numeric" maxlength="14" />
+        </div>
+        <button type="button" class="phone-mode-link" data-phone-mode="intl">
+          ${escapeHtml(t("preorder.phoneOtherCode"))}
+        </button>
+        ${errSpan("phone")}
+      </div>`;
+  })();
+
   const tgField = form.contactMethod === "telegram"
     ? `<label class="form-field form-field-wide"><span>${escapeHtml(t("preorder.telegramUsername"))}</span><input name="telegramUsername" type="text" value="${escapeHtml(form.telegramUsername)}" placeholder="@username" autocomplete="off" /></label>`
     : "";
@@ -2242,7 +2488,7 @@ const createPreorderStage0 = () => {
     <div class="form-grid">
       <label class="form-field form-field-wide${invCls("address")}">
         <span>${escapeHtml(t("preorder.address"))} *</span>
-        <input name="address" type="text" value="${escapeHtml(form.address)}" autocomplete="street-address" required />
+        <input name="address" type="text" value="${escapeHtml(form.address)}" placeholder="${escapeHtml(t("preorder.addressPlaceholder"))}" autocomplete="street-address" required />
         ${errSpan("address")}
       </label>
       <label class="form-field${invCls("city")}">
@@ -2303,11 +2549,7 @@ const createPreorderStage0 = () => {
           <input name="name" type="text" value="${escapeHtml(form.name)}" autocomplete="name" required />
           ${errSpan("name")}
         </label>
-        <label class="form-field${invCls("phone")}">
-          <span>${escapeHtml(t("preorder.phone"))} *</span>
-          <input name="phone" type="tel" value="${escapeHtml(form.phone)}" autocomplete="tel" required />
-          ${errSpan("phone")}
-        </label>
+        ${phoneBlockHtml}
         <div class="form-option-group form-field-wide${invCls("contactMethod")}">
           <span class="form-option-label">${escapeHtml(t("preorder.contactMethod"))} *</span>
           <div class="choice-btn-group">
@@ -2584,6 +2826,8 @@ let cateringTriggerEl = null;
 
 const openPreorderModal = (trigger = null) => {
   preorderTriggerEl = trigger;
+  placesState.manualMode = false;
+  closePlacesDropdown();
   if (state.preorderStage === 0 && !document.getElementById("preorder-modal")) {
     ga4("begin_checkout", {
       currency: "USD",
@@ -2955,6 +3199,10 @@ const syncPreorderForm = (formEl) => {
   state.preorderForm = {
     name: String(data.get("name") || "").trim(),
     phone: String(data.get("phone") || "").trim(),
+    phoneMode: state.preorderForm.phoneMode || "us",
+    phoneCountryCode: String(data.get("phoneCountryCode") || state.preorderForm.phoneCountryCode || "").trim(),
+    intlMessenger: String(data.get("intlMessenger") || ""),
+    altContact: String(data.get("altContact") || "").trim(),
     fulfillmentType: String(data.get("fulfillmentType") || "delivery"),
     city: String(data.get("city") || "").trim(),
     zip: rawZip,
@@ -2998,7 +3246,7 @@ const validatePreorderForm = () => {
   if (!f.name || !f.phone || !f.contactMethod || !f.date || !f.timeWindow) return "preorder.required";
   if (!f.address || !f.city || !f.zip) return "preorder.required";
   if (!/^\d{5}$/.test(f.zip)) return "preorder.required";
-  if (validatePhone(f.phone) !== null) return "preorder.phoneInvalid";
+  if (validatePhone(f.phone, f) !== null) return "preorder.phoneInvalid";
   const dd = new Date();
   dd.setDate(dd.getDate() + 1);
   if (f.date < dd.toISOString().slice(0, 10)) return "preorder.dateNotFuture";
@@ -3057,10 +3305,12 @@ const handlePreorderSubmit = async (formEl) => {
     items: cartEntries().map(({ dish, quantity }) => ({ id: dish.id, quantity })),
     customer: {
       name: form.name,
-      phone: form.phone,
+      phone: phoneToE164(form),
       contactMethod: form.contactMethod,
       telegramUsername: form.telegramUsername || null,
       whatsappSamePhone: form.whatsappSamePhone || false,
+      ...(form.phoneMode === "intl" && form.intlMessenger ? { intlMessenger: form.intlMessenger } : {}),
+      ...(form.phoneMode === "intl" && form.altContact ? { altContact: form.altContact } : {}),
     },
     delivery: {
       zone: form.zone,
@@ -3391,6 +3641,44 @@ const handleClick = (event) => {
     return;
   }
 
+  // Places autocomplete dropdown: option click
+  const placeOption = target.closest("[data-place-idx]");
+  if (placeOption) {
+    event.preventDefault();
+    const idx = Number(placeOption.dataset.placeIdx);
+    const inputEl = placeOption.closest(".form-field")?.querySelector("[name='address']");
+    if (inputEl) selectPlaceOption(idx, inputEl);
+    return;
+  }
+  // Places "Enter manually" link
+  const placesManualLink = target.closest("[data-places-manual]");
+  if (placesManualLink) {
+    event.preventDefault();
+    placesState.manualMode = true;
+    closePlacesDropdown();
+    return;
+  }
+
+  // Phone mode toggle (US ↔ international)
+  const phoneModeBtn = target.closest("[data-phone-mode]");
+  if (phoneModeBtn) {
+    event.preventDefault();
+    const formEl = phoneModeBtn.closest("[data-preorder-form]");
+    if (formEl) syncPreorderForm(formEl);
+    state.preorderForm.phoneMode = phoneModeBtn.dataset.phoneMode;
+    state.preorderForm.phone = "";
+    state.preorderForm.phoneCountryCode = state.preorderForm.phoneMode === "intl" ? "+" : "";
+    state.preorderForm.intlMessenger = "";
+    state.preorderForm.altContact = "";
+    renderPreorderModal();
+    // Focus the first phone input after render
+    setTimeout(() => {
+      const modal = document.getElementById("preorder-modal");
+      modal?.querySelector(".phone-us-input, .phone-cc-input")?.focus();
+    }, 50);
+    return;
+  }
+
   // "Continue shopping" — close cart review then scroll to categories
   const cartReviewBack = target.closest("[data-cart-review-back]");
   if (cartReviewBack) {
@@ -3573,6 +3861,11 @@ const handleClick = (event) => {
     return;
   }
 
+  // Close Places dropdown on click outside
+  if (!target.closest("#address-suggestions") && !target.closest("[name='address']")) {
+    closePlacesDropdown();
+  }
+
   // Click outside modal panel (overlay backdrop)
   const overlay = target.closest("[data-modal-overlay]");
   if (overlay && !target.closest(".modal-panel")) {
@@ -3587,6 +3880,24 @@ const handleFormInput = (event) => {
   const preorderField = event.target.closest("[data-preorder-form] [name]");
   if (preorderField) {
     state.preorderForm[preorderField.name] = preorderField.value;
+    // US phone: live format as (XXX) XXX-XXXX while typing
+    if (preorderField.name === "phone" && state.preorderForm.phoneMode !== "intl") {
+      const raw = preorderField.value.replace(/\D/g, "").slice(0, 10);
+      const formatted = formatUSPhoneDisplay(raw);
+      if (preorderField.value !== formatted) {
+        preorderField.value = formatted;
+        state.preorderForm.phone = formatted;
+      }
+    }
+    // Enforce country code format: must start with +
+    if (preorderField.name === "phoneCountryCode") {
+      let cc = preorderField.value;
+      if (cc && !cc.startsWith("+")) {
+        cc = "+" + cc.replace(/\D/g, "");
+        preorderField.value = cc;
+        state.preorderForm.phoneCountryCode = cc;
+      }
+    }
     if (preorderField.name === "zip") {
       const trimmed = preorderField.value.trim();
       // Keep zone always in sync with zip so no re-render can use a stale zone
@@ -3598,6 +3909,13 @@ const handleFormInput = (event) => {
         renderPreorderModal();
         return;
       }
+    }
+    // Address: trigger Places autocomplete with debounce
+    if (preorderField.name === "address" && !placesState.manualMode) {
+      clearTimeout(placesState.debounceTimer);
+      placesState.debounceTimer = setTimeout(() => {
+        fetchPlaceSuggestions(preorderField, preorderField.value.trim());
+      }, 280);
     }
     if (state.preorderSubmitAttempted) {
       const label = preorderField.closest(".form-field");
@@ -3629,7 +3947,8 @@ const handleFormChange = (event) => {
     // need state sync — zip re-render is already handled in handleFormInput at 5 digits.
     // Re-rendering on every field change resets modal scrollTop on iOS Safari,
     // causing the form to jump to top on every tap.
-    const reRenderFields = ["contactMethod", "fulfillmentType"];
+    // intlMessenger → shows/hides altContact field
+    const reRenderFields = ["contactMethod", "fulfillmentType", "intlMessenger"];
     if (reRenderFields.includes(preorderField.name)) {
       const formEl = preorderField.closest("[data-preorder-form]");
       if (formEl) syncPreorderForm(formEl);

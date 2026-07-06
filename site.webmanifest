@@ -1,0 +1,21 @@
+{
+  "name": "Lana's Kitchen Miami",
+  "short_name": "Lana's Kitchen",
+  "description": "Fresh homemade meals with delivery in Miami",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#fbf6ed",
+  "theme_color": "#243f22",
+  "icons": [
+    {
+      "src": "/assets/images/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/images/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
