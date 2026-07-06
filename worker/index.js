@@ -816,12 +816,16 @@ export default {
       return handleTelegramWebhook(request, env);
     }
 
-    // Allowed origins: production (with and without www) + localhost for dev
+    // Allowed origins: production (with and without www) + localhost/LAN for dev
     const allowedOrigins = new Set([
       allowed,                                // https://lanaskitchenmiami.com
       allowed.replace("://", "://www."),      // https://www.lanaskitchenmiami.com
     ]);
-    const isLocalhost = origin.startsWith("http://localhost") || origin.startsWith("http://127.0.0.1");
+    // Dev origins: loopback + RFC-1918 192.168.x.x (iPhone on local network).
+    // 10.x.x.x and 172.16-31.x.x are NOT included — not needed for this setup.
+    const isLocalhost = origin.startsWith("http://localhost")
+      || origin.startsWith("http://127.0.0.1")
+      || origin.startsWith("http://192.168.");
     const isAllowedOrigin = allowedOrigins.has(origin) || isLocalhost;
 
     const corsHeaders = {
