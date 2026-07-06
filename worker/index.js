@@ -885,7 +885,6 @@ export default {
               },
             },
             includedRegionCodes: ["us"],
-            includedPrimaryTypes: ["address"],
             languageCode: "en",
           }),
         });
