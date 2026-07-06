@@ -306,6 +306,7 @@ const copy = {
       apt: "Квартира / Unit (необязательно)",
       city: "Город",
       zip: "ZIP-код",
+      addressPlaceholder: "100 NW 1st Ave, Miami, FL",
       cityPlaceholder: "Выберите город",
       cityOther: "Другой район — по согласованию",
       date: "Дата доставки",
@@ -712,6 +713,7 @@ const copy = {
       apt: "Apartment / Unit (optional)",
       city: "City",
       zip: "ZIP code",
+      addressPlaceholder: "100 NW 1st Ave, Miami, FL",
       cityPlaceholder: "Select city",
       cityOther: "Other area — by arrangement",
       date: "Delivery date",
@@ -1118,6 +1120,7 @@ const copy = {
       apt: "Квартира / Unit (необов'язково)",
       city: "Місто",
       zip: "ZIP-код",
+      addressPlaceholder: "100 NW 1st Ave, Miami, FL",
       cityPlaceholder: "Оберіть місто",
       cityOther: "Інший район — за погодженням",
       date: "Дата доставки",
@@ -2485,7 +2488,7 @@ const createPreorderStage0 = () => {
     <div class="form-grid">
       <label class="form-field form-field-wide${invCls("address")}">
         <span>${escapeHtml(t("preorder.address"))} *</span>
-        <input name="address" type="text" value="${escapeHtml(form.address)}" autocomplete="street-address" required />
+        <input name="address" type="text" value="${escapeHtml(form.address)}" placeholder="${escapeHtml(t("preorder.addressPlaceholder"))}" autocomplete="street-address" required />
         ${errSpan("address")}
       </label>
       <label class="form-field${invCls("city")}">
