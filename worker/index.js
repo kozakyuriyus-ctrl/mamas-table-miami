@@ -821,11 +821,10 @@ export default {
       allowed,                                // https://lanaskitchenmiami.com
       allowed.replace("://", "://www."),      // https://www.lanaskitchenmiami.com
     ]);
-    // Dev origins: loopback + RFC-1918 192.168.x.x (iPhone on local network).
-    // 10.x.x.x and 172.16-31.x.x are NOT included — not needed for this setup.
+    // Dev origins: loopback + exact LAN origin for iPhone testing.
     const isLocalhost = origin.startsWith("http://localhost")
       || origin.startsWith("http://127.0.0.1")
-      || origin.startsWith("http://192.168.");
+      || origin === "http://192.168.1.85:4321";
     const isAllowedOrigin = allowedOrigins.has(origin) || isLocalhost;
 
     const corsHeaders = {
