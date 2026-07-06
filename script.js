@@ -1543,24 +1543,22 @@ const selectPlaceOption = async (idx, inputEl) => {
     if (!detail.ok) return;
 
     const form = state.preorderForm;
-    // Fill address fields without overwriting apt/gate
+    // Fill address from structured components
     if (detail.streetNumber && detail.route) {
       form.address = `${detail.streetNumber} ${detail.route}`;
       inputEl.value = form.address;
     }
-    // City: match against DELIVERY_CITIES or set "Other"
-    if (detail.city) {
-      const matched = DELIVERY_CITIES.find((c) => c.toLowerCase() === detail.city.toLowerCase());
-      form.city = matched || "Other";
-    }
-    // ZIP: trigger zone logic
-    if (detail.zip && /^\d{5}$/.test(detail.zip)) {
-      form.zip = detail.zip;
-      form.zone = zipToZoneKey(detail.zip);
-    }
+    // Atomic update — Google is single source of truth after selection.
+    // Always replace city/zip/zone; never let a previous address's values persist.
+    const matchedCity = detail.city
+      ? DELIVERY_CITIES.find((c) => c.toLowerCase() === detail.city.toLowerCase())
+      : null;
+    form.city = detail.city ? (matchedCity || "Other") : "";
+    form.zip = (detail.zip && /^\d{5}$/.test(detail.zip)) ? detail.zip : "";
+    form.zone = zipToZoneKey(form.zip);
     // Re-render to show city/zip and zone pricing
     renderPreorderModal();
-  } catch { /* keep manual values */ }
+  } catch { /* keep manual values on network error */ }
 };
 
 const CART_KEY = "lanasKitchenCart";
