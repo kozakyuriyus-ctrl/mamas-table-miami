@@ -4159,8 +4159,9 @@ body.nav-open {
   user-select: none;
 }
 
-.phone-us-input {
+.phone-us-wrap input.phone-us-input {
   flex: 1;
+  width: auto;
   border: none !important;
   outline: none !important;
   box-shadow: none !important;
@@ -4174,16 +4175,25 @@ body.nav-open {
 .phone-intl-wrap {
   display: flex;
   gap: 8px;
+  align-items: center;
+}
+
+/* Override form-field's width:100% so flex layout works */
+.phone-intl-wrap input {
+  width: auto;
 }
 
 .phone-cc-input {
-  width: 68px;
+  width: 72px;
   flex-shrink: 0;
   text-align: center;
   font-weight: 600;
 }
 
-.phone-intl-input { flex: 1; min-width: 0; }
+.phone-intl-input {
+  flex: 1;
+  min-width: 0;
+}
 
 .phone-mode-link {
   display: inline;
