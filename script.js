@@ -143,10 +143,12 @@ const copy = {
       oneText: "Соберите заказ из популярных домашних блюд.",
       twoTitle: "Отправьте предзаказ",
       twoText: "Лучше за 24–48 часов до нужного времени.",
-      threeTitle: "Мы готовим свежую еду",
-      threeText: "Все готовится под заказ из свежих ингредиентов.",
-      fourTitle: "Доставка",
-      fourText: "Получите еду свежей и вовремя.",
+      threeTitle: "Подтверждаем заказ",
+      threeText: "Подтверждаем состав заказа, дату, время и стоимость доставки. Способ оплаты согласовываем индивидуально. Заказ подтверждается после оплаты.",
+      fourTitle: "Мы готовим свежую еду",
+      fourText: "Все готовится под заказ из свежих ингредиентов.",
+      fiveTitle: "Доставка",
+      fiveText: "Получите еду свежей и вовремя.",
     },
     categories: {
       title: "Категории меню",
@@ -362,6 +364,7 @@ const copy = {
       timeG: "4:00 PM – 5:00 PM",
       timeH: "5:00 PM – 6:00 PM",
       timeI: "6:00 PM – 7:00 PM",
+      timeJ: "19:00–20:00",
       orderNotes: "Комментарий к заказу (необязательно)",
       preorderAdvanceNote: "Готовим свежую еду по предзаказу. Пожалуйста, оформляйте заказ минимум за 24–48 часов.",
       successTitle: "Ваша заявка получена.",
@@ -549,10 +552,12 @@ const copy = {
       oneText: "Browse the menu and pick favorites.",
       twoTitle: "Place your preorder",
       twoText: "Order 24–48 hours in advance.",
-      threeTitle: "We cook fresh",
-      threeText: "Prepared with fresh ingredients.",
-      fourTitle: "Delivery",
-      fourText: "Get your meals fresh and on time.",
+      threeTitle: "We confirm your order",
+      threeText: "We confirm the order details, delivery date, time, and cost. Payment method is arranged individually. Your order is confirmed after payment.",
+      fourTitle: "We cook fresh",
+      fourText: "Prepared with fresh ingredients.",
+      fiveTitle: "Delivery",
+      fiveText: "Get your meals fresh and on time.",
     },
     categories: {
       title: "Menu Categories",
@@ -768,6 +773,7 @@ const copy = {
       timeG: "4:00 PM – 5:00 PM",
       timeH: "5:00 PM – 6:00 PM",
       timeI: "6:00 PM – 7:00 PM",
+      timeJ: "7:00 PM – 8:00 PM",
       orderNotes: "Order notes (optional)",
       preorderAdvanceNote: "Orders are prepared fresh by preorder. Please order at least 24–48 hours in advance.",
       successTitle: "Your preorder request has been received.",
@@ -955,10 +961,12 @@ const copy = {
       oneText: "Зберіть замовлення з популярних домашніх страв.",
       twoTitle: "Надішліть передзамовлення",
       twoText: "Краще за 24–48 годин до потрібного часу.",
-      threeTitle: "Ми готуємо свіжу їжу",
-      threeText: "Все готується на замовлення зі свіжих інгредієнтів.",
-      fourTitle: "Доставка",
-      fourText: "Отримайте їжу свіжою і вчасно.",
+      threeTitle: "Підтверджуємо замовлення",
+      threeText: "Підтверджуємо склад замовлення, дату, час і вартість доставки. Спосіб оплати узгоджується індивідуально. Замовлення підтверджується після оплати.",
+      fourTitle: "Ми готуємо свіжу їжу",
+      fourText: "Все готується на замовлення зі свіжих інгредієнтів.",
+      fiveTitle: "Доставка",
+      fiveText: "Отримайте їжу свіжою і вчасно.",
     },
     categories: {
       title: "Категорії меню",
@@ -1174,6 +1182,7 @@ const copy = {
       timeG: "4:00 PM – 5:00 PM",
       timeH: "5:00 PM – 6:00 PM",
       timeI: "6:00 PM – 7:00 PM",
+      timeJ: "19:00–20:00",
       orderNotes: "Коментар до замовлення (необов'язково)",
       preorderAdvanceNote: "Ми готуємо свіжу їжу за попереднім замовленням. Будь ласка, оформлюйте замовлення щонайменше за 24–48 годин.",
       successTitle: "Вашу заявку отримано.",
@@ -2515,7 +2524,7 @@ const createPreorderStage0 = () => {
     </div>
     ${zipInfoHtml}`;
 
-  const TIME_SLOTS = ["A", "B", "C", "D", "E", "F", "G", "H", "I"];
+  const TIME_SLOTS = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
   const timeOptions = TIME_SLOTS.map((s) => {
     const selected = form.timeWindow === s ? " selected" : "";
     return `<option value="${s}"${selected}>${escapeHtml(t(`preorder.time${s}`))}</option>`;
@@ -2560,6 +2569,7 @@ const createPreorderStage0 = () => {
         <label class="form-field${invCls("date")}">
           <span>${escapeHtml(t("preorder.date"))} *</span>
           <input name="date" type="date" value="${escapeHtml(form.date)}" min="${tomorrowStr}" required />
+          ${form.date ? `<small class="date-localized">${escapeHtml(formatDateLocalized(form.date, state.lang))}</small>` : ""}
           ${errSpan("date")}
         </label>
         <label class="form-field${invCls("timeWindow")}">
@@ -3503,6 +3513,7 @@ const handleClick = (event) => {
     renderPopularDishes();
     renderRoute();
     renderOrderHistoryBtn();
+    if (document.getElementById("preorder-modal")) renderPreorderModal();
     return;
   }
 
@@ -3877,7 +3888,27 @@ const handleFormInput = (event) => {
     state.preorderForm[preorderField.name] = preorderField.value;
     // US phone: live format as (XXX) XXX-XXXX while typing
     if (preorderField.name === "phone" && state.preorderForm.phoneMode !== "intl") {
-      const raw = preorderField.value.replace(/\D/g, "").slice(0, 10);
+      const rawValue = preorderField.value;
+      // Non-US autofill (e.g. "+380...") — switch to intl mode automatically
+      if (rawValue.trimStart().startsWith("+") && !rawValue.trimStart().startsWith("+1")) {
+        const ccMatch = rawValue.match(/^\s*\+(\d{1,3})/);
+        const cc = ccMatch ? `+${ccMatch[1]}` : "+";
+        const allDigits = rawValue.replace(/\D/g, "");
+        const restDigits = ccMatch ? allDigits.slice(ccMatch[1].length) : allDigits;
+        const formEl = preorderField.closest("[data-preorder-form]");
+        if (formEl) syncPreorderForm(formEl);
+        state.preorderForm.phoneMode = "intl";
+        state.preorderForm.phoneCountryCode = cc;
+        state.preorderForm.phone = restDigits;
+        state.preorderForm.intlMessenger = "";
+        state.preorderForm.altContact = "";
+        renderPreorderModal();
+        setTimeout(() => document.getElementById("preorder-modal")?.querySelector(".phone-cc-input")?.focus(), 50);
+        return;
+      }
+      // US autofill may include leading "+1" or just "1" — strip the country code
+      const digits = rawValue.replace(/\D/g, "");
+      const raw = (digits.length === 11 && digits[0] === "1") ? digits.slice(1) : digits.slice(0, 10);
       const formatted = formatUSPhoneDisplay(raw);
       if (preorderField.value !== formatted) {
         preorderField.value = formatted;
@@ -3891,6 +3922,23 @@ const handleFormInput = (event) => {
         cc = "+" + cc.replace(/\D/g, "");
         preorderField.value = cc;
         state.preorderForm.phoneCountryCode = cc;
+      }
+    }
+    // Date: update localized date text in-place without full re-render
+    if (preorderField.name === "date") {
+      const formField = preorderField.closest(".form-field");
+      if (formField) {
+        let locEl = formField.querySelector(".date-localized");
+        if (preorderField.value) {
+          if (!locEl) {
+            locEl = document.createElement("small");
+            locEl.className = "date-localized";
+            preorderField.insertAdjacentElement("afterend", locEl);
+          }
+          locEl.textContent = formatDateLocalized(preorderField.value, state.lang);
+        } else if (locEl) {
+          locEl.remove();
+        }
       }
     }
     if (preorderField.name === "zip") {
