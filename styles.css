@@ -119,22 +119,15 @@ textarea {
 }
 
 .brand-mark {
-  display: grid;
-  width: 30px;
-  height: 38px;
-  place-items: center;
-  color: var(--gold);
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
 }
 
-.brand-mark svg {
+.brand-mark img {
   display: block;
-  width: 25px;
   height: 34px;
-  fill: none;
-  stroke: currentColor;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-width: 1.8;
+  width: auto;
 }
 
 .brand strong {
@@ -1824,11 +1817,7 @@ fieldset.form-field {
     padding-bottom: 8px;
   }
 
-  .brand-mark {
-    height: 34px;
-  }
-
-  .brand-mark svg {
+  .brand-mark img {
     height: 31px;
   }
 
@@ -1965,14 +1954,8 @@ fieldset.form-field {
     grid-template-columns: 1fr auto;
   }
 
-  .brand-mark {
-    width: 30px;
-    height: 38px;
-  }
-
-  .brand-mark svg {
-    width: 24px;
-    height: 34px;
+  .brand-mark img {
+    height: 30px;
   }
 
   .brand strong {
