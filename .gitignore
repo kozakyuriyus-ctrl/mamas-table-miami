@@ -1,0 +1,49 @@
+# ── Dependencies ─────────────────────────────────────────────────────────────
+node_modules/
+
+# ── Cloudflare / Wrangler ─────────────────────────────────────────────────────
+.wrangler/
+worker/.wrangler/
+
+# ── gstack ────────────────────────────────────────────────────────────────────
+.gstack/
+
+# ── macOS ─────────────────────────────────────────────────────────────────────
+.DS_Store
+.DS_Store?
+._*
+
+# ── Secrets — never commit these ──────────────────────────────────────────────
+.env
+.env.*
+.dev.vars
+worker/.dev.vars
+*.pem
+*.key
+credentials
+credentials.json
+
+# ── QA scripts & screenshots ──────────────────────────────────────────────────
+qa-*.mjs
+qa-shots-*/
+qa-shots-brand/
+qa-shots-delivery/
+qa-shots-mobile-checkout/
+qa-shots-placeholder/
+qa-shots-production/
+qa-shots-production-smoke/
+qa-shots-targeted/
+
+# ── Menu audit exports (local work files) ─────────────────────────────────────
+menu-audit-export.*
+dishes.before-menu-audit-backup.json
+
+# ── npm / build artifacts ─────────────────────────────────────────────────────
+package.json
+package-lock.json
+npm-debug.log*
+
+# ── Local backup archives (stored outside repo, listed here for safety) ───────
+*.tar.gz
+*.zip
+LanasKitchenBackups/
