@@ -295,7 +295,7 @@ textarea {
   display: grid;
   align-content: center;
   gap: clamp(24px, 4vh, 44px);
-  padding: clamp(30px, 4.5vw, 58px) clamp(28px, 5vw, 80px) 22px;
+  padding: clamp(30px, 4.5vw, 58px) clamp(28px, 5vw, 80px) 22px clamp(20px, calc((100vw - 1280px) / 2), 80px);
 }
 
 .eyebrow {
@@ -2293,7 +2293,7 @@ fieldset.form-field {
 .catering-section {
   background: var(--soft);
   border-radius: 16px;
-  padding: 56px 48px;
+  padding: 56px 0;
 }
 
 .catering-benefits {
