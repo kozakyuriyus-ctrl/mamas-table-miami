@@ -412,7 +412,7 @@ p {
 .how-strip {
   width: min(100%, var(--max));
   margin: 0 auto;
-  padding: 80px clamp(20px, 5vw, 80px);
+  padding: 80px clamp(20px, calc((100% - 1280px) / 2), 80px);
   border-bottom: 1px solid var(--line);
   background: rgba(255, 253, 248, 0.78);
   text-align: center;
