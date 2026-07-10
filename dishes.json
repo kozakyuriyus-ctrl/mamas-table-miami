@@ -244,6 +244,91 @@
     "sizeUa": "Об'єм: 1 qt (32 fl oz / 946 мл) · 3 порції"
   },
   {
+    "id": "cabbage-rolls",
+    "category": "main-dishes",
+    "badge": "bestseller",
+    "image": "assets/images/main-dishes/cabbage-rolls.webp",
+    "popular": true,
+    "price": 15,
+    "name": {
+      "ru": "Голубцы",
+      "en": "Cabbage Rolls",
+      "uk": "Голубці"
+    },
+    "description": {
+      "ru": "Голубцы с мясом и рисом в домашнем томатном соусе.",
+      "en": "Stuffed cabbage with meat and rice in tomato sauce.",
+      "uk": "Голубці з м'ясом і рисом у томатному соусі."
+    },
+    "unit": "lb",
+    "sizeRu": "Вес: 1 lb (454 г) · 2 порции",
+    "sizeEn": "Size: 1 lb (454 g) · Serves 2",
+    "sizeUa": "Вага: 1 lb (454 г) · 2 порції"
+  },
+  {
+    "id": "pork-pelmeni",
+    "category": "main-dishes",
+    "image": "assets/images/main-dishes/pork-pelmeni.webp",
+    "price": 14,
+    "name": {
+      "ru": "Пельмени со свининой",
+      "en": "Pork Pelmeni",
+      "uk": "Пельмені зі свинячим фаршем"
+    },
+    "description": {
+      "ru": "Домашние пельмени ручной лепки с сочной свиной начинкой.",
+      "en": "Homemade pelmeni with pork filling and classic serving.",
+      "uk": "Домашні пельмені зі свинячим фаршем і класичною подачею."
+    },
+    "unit": "lb",
+    "servings": "2",
+    "sizeRu": "Вес: 1 lb (454 г) · 2 порции",
+    "sizeEn": "Size: 1 lb (454 g) · Serves 2",
+    "sizeUa": "Вага: 1 lb (454 г) · 2 порції"
+  },
+  {
+    "id": "pork-beef-dumplings",
+    "category": "main-dishes",
+    "image": "assets/images/main-dishes/pork-pelmeni.webp",
+    "price": 15,
+    "name": {
+      "ru": "Пельмени со свининой и говядиной",
+      "en": "Pork & Beef Dumplings",
+      "uk": "Пельмені зі свининою та яловичиною"
+    },
+    "description": {
+      "ru": "Домашние пельмени ручной лепки с сочной свино-говяжьей начинкой.",
+      "en": "Handmade homemade dumplings with a juicy pork-and-beef filling.",
+      "uk": "Домашні пельмені ручної ліпки з соковитою свино-яловичою начинкою."
+    },
+    "unit": "lb",
+    "servings": "2",
+    "sizeRu": "Вес: 1 lb (454 г) · 2 порции",
+    "sizeEn": "Weight: 1 lb (454 g) · 2 servings",
+    "sizeUa": "Вага: 1 lb (454 г) · 2 порції"
+  },
+  {
+    "id": "chicken-pelmeni",
+    "category": "main-dishes",
+    "image": "assets/images/main-dishes/chicken-pelmeni.webp",
+    "price": 14,
+    "name": {
+      "ru": "Пельмени с курицей",
+      "en": "Chicken Pelmeni",
+      "uk": "Пельмені з курячим фаршем"
+    },
+    "description": {
+      "ru": "Нежные домашние пельмени ручной лепки с курицей.",
+      "en": "Tender homemade pelmeni with chicken filling.",
+      "uk": "Ніжні домашні пельмені з курячим фаршем."
+    },
+    "unit": "lb",
+    "servings": "2",
+    "sizeRu": "Вес: 1 lb (454 г) · 2 порции",
+    "sizeEn": "Size: 1 lb (454 g) · Serves 2",
+    "sizeUa": "Вага: 1 lb (454 г) · 2 порції"
+  },
+  {
     "id": "varenyky",
     "category": "main-dishes",
     "badge": "bestseller",
@@ -267,41 +352,19 @@
     "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції"
   },
   {
-    "id": "cabbage-rolls",
+    "id": "pork-mince-cutlets",
     "category": "main-dishes",
-    "badge": "bestseller",
-    "image": "assets/images/main-dishes/cabbage-rolls.webp",
-    "popular": true,
+    "image": "assets/images/main-dishes/pork-mince-cutlets.webp",
     "price": 15,
     "name": {
-      "ru": "Голубцы",
-      "en": "Cabbage Rolls",
-      "uk": "Голубці"
+      "ru": "Котлеты со свиным фаршем",
+      "en": "Pork Mince Cutlets",
+      "uk": "Котлети зі свинячим фаршем"
     },
     "description": {
-      "ru": "Голубцы с мясом и рисом в домашнем томатном соусе.",
-      "en": "Stuffed cabbage with meat and rice in tomato sauce.",
-      "uk": "Голубці з м'ясом і рисом у томатному соусі."
-    },
-    "unit": "lb",
-    "sizeRu": "Вес: 1 lb (454 г) · 2 порции",
-    "sizeEn": "Size: 1 lb (454 g) · Serves 2",
-    "sizeUa": "Вага: 1 lb (454 г) · 2 порції"
-  },
-  {
-    "id": "beef-stroganoff",
-    "category": "main-dishes",
-    "image": "assets/images/main-dishes/beef-stroganoff.webp",
-    "price": 19.5,
-    "name": {
-      "ru": "Бефстроганов",
-      "en": "Beef Stroganoff",
-      "uk": "Бефстроганов"
-    },
-    "description": {
-      "ru": "Нежная говядина в сливочном соусе.",
-      "en": "Tender beef in a creamy sauce with onion and mushroom notes.",
-      "uk": "Ніжна яловичина у вершковому соусі з цибулею та грибними нотами."
+      "ru": "Домашние котлеты из свиного фарша с нежной текстурой и насыщенным вкусом.",
+      "en": "Homemade pork mince cutlets with a tender texture and rich flavor.",
+      "uk": "Домашні котлети зі свинячого фаршу з ніжною текстурою та насиченим смаком."
     },
     "unit": "lb",
     "sizeRu": "Вес: 1 lb (454 г) · 2 порции",
@@ -329,19 +392,79 @@
     "sizeUa": "Вага: 1 lb (454 г) · 2 порції"
   },
   {
-    "id": "pork-mince-cutlets",
+    "id": "fish-cutlets",
     "category": "main-dishes",
-    "image": "assets/images/main-dishes/pork-mince-cutlets.webp",
-    "price": 15,
+    "image": "assets/images/main-dishes/fish-cutlets.webp",
+    "price": 17,
     "name": {
-      "ru": "Котлеты со свиным фаршем",
-      "en": "Pork Mince Cutlets",
-      "uk": "Котлети зі свинячим фаршем"
+      "ru": "Котлеты рыбные",
+      "en": "Fish Cutlets",
+      "uk": "Рибні котлети"
     },
     "description": {
-      "ru": "Домашние котлеты из свиного фарша с нежной текстурой и насыщенным вкусом.",
-      "en": "Homemade pork mince cutlets with a tender texture and rich flavor.",
-      "uk": "Домашні котлети зі свинячого фаршу з ніжною текстурою та насиченим смаком."
+      "ru": "Домашние рыбные котлеты с нежной текстурой и мягким вкусом.",
+      "en": "Homemade fish cutlets with a tender texture and mild flavor.",
+      "uk": "Домашні рибні котлети з ніжною текстурою та м'яким смаком."
+    },
+    "unit": "lb",
+    "sizeRu": "Вес: 1 lb (454 г) · 2 порции",
+    "sizeEn": "Size: 1 lb (454 g) · Serves 2",
+    "sizeUa": "Вага: 1 lb (454 г) · 2 порції"
+  },
+  {
+    "id": "meat-rice-meatballs",
+    "category": "main-dishes",
+    "image": "assets/images/main-dishes/meat-rice-meatballs.webp",
+    "price": 13,
+    "name": {
+      "ru": "Тефтели мясные с рисом",
+      "en": "Meatballs with Rice",
+      "uk": "М'ясні тефтелі з рисом"
+    },
+    "description": {
+      "ru": "Мясные тефтели с рисом в мягком домашнем соусе.",
+      "en": "Meatballs with rice in a soft homemade sauce.",
+      "uk": "М'ясні тефтелі з рисом у м'якому домашньому соусі."
+    },
+    "unit": "lb",
+    "sizeRu": "Вес: 1 lb (454 г) · 2 порции",
+    "sizeEn": "Size: 1 lb (454 g) · Serves 2",
+    "sizeUa": "Вага: 1 lb (454 г) · 2 порції"
+  },
+  {
+    "id": "potato-zrazy-meat",
+    "category": "main-dishes",
+    "image": "assets/images/main-dishes/potato-zrazy-meat.webp",
+    "price": 13.5,
+    "name": {
+      "ru": "Зразы картофельные с мясом",
+      "en": "Potato Zrazy with Meat",
+      "uk": "Картопляні зрази з м'ясом"
+    },
+    "description": {
+      "ru": "Картофельные зразы с мясной начинкой и золотистой корочкой.",
+      "en": "Potato zrazy with meat filling and a golden crust.",
+      "uk": "Картопляні зрази з м'ясною начинкою та золотистою скоринкою."
+    },
+    "unit": "lb",
+    "sizeRu": "Вес: 1 lb (454 г) · 2 порции",
+    "sizeEn": "Size: 1 lb (454 g) · Serves 2",
+    "sizeUa": "Вага: 1 lb (454 г) · 2 порції"
+  },
+  {
+    "id": "beef-stroganoff",
+    "category": "main-dishes",
+    "image": "assets/images/main-dishes/beef-stroganoff.webp",
+    "price": 19.5,
+    "name": {
+      "ru": "Бефстроганов",
+      "en": "Beef Stroganoff",
+      "uk": "Бефстроганов"
+    },
+    "description": {
+      "ru": "Нежная говядина в сливочном соусе.",
+      "en": "Tender beef in a creamy sauce with onion and mushroom notes.",
+      "uk": "Ніжна яловичина у вершковому соусі з цибулею та грибними нотами."
     },
     "unit": "lb",
     "sizeRu": "Вес: 1 lb (454 г) · 2 порции",
@@ -389,124 +512,19 @@
     "sizeUa": "Вага: 1 lb (454 г) · 2 порції"
   },
   {
-    "id": "eggplant-pepper-saute",
+    "id": "pork-chops",
     "category": "main-dishes",
-    "badge": "vegetarian",
-    "image": "assets/images/main-dishes/eggplant-pepper-saute.webp",
-    "price": 11.5,
+    "image": "assets/images/main-dishes/pork-chops.webp",
+    "price": 17,
     "name": {
-      "ru": "Соте из баклажанов с болгарским перцем",
-      "en": "Eggplant and Bell Pepper Saute",
-      "uk": "Соте з баклажана з болгарським перцем"
+      "ru": "Отбивные свиные",
+      "en": "Pork Chops",
+      "uk": "Свинячі відбивні"
     },
     "description": {
-      "ru": "Тёплое овощное блюдо из баклажанов, сладкого перца и ароматных трав.",
-      "en": "Warm vegetable dish with eggplant, bell pepper and aromatic herbs.",
-      "uk": "Тепла овочева страва з баклажана, перцю та ароматних трав."
-    },
-    "unit": "lb",
-    "sizeRu": "Вес: 1 lb (454 г) · 2–3 порции",
-    "sizeEn": "Size: 1 lb (454 g) · Serves 2–3",
-    "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції"
-  },
-  {
-    "id": "meat-filled-blini",
-    "category": "main-dishes",
-    "image": "assets/images/main-dishes/meat-filled-blini.webp",
-    "price": 13.5,
-    "name": {
-      "ru": "Блины с мясной начинкой",
-      "en": "Meat-Filled Blini",
-      "uk": "Млинці з м'ясною начинкою"
-    },
-    "description": {
-      "ru": "Тонкие домашние блины с сочной мясной начинкой.",
-      "en": "Thin blini filled with savory meat.",
-      "uk": "Тонкі млинці з соковитою м'ясною начинкою."
-    },
-    "unit": "lb",
-    "servings": "2",
-    "sizeRu": "Вес: 1 lb (454 г) · 2–3 порции",
-    "sizeEn": "Size: 1 lb (454 g) · Serves 2–3",
-    "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції"
-  },
-  {
-    "id": "cottage-cheese-blini",
-    "category": "main-dishes",
-    "image": "assets/images/main-dishes/cottage-cheese-blini.webp",
-    "price": 13.5,
-    "name": {
-      "ru": "Блины с творогом",
-      "en": "Cottage Cheese Blini",
-      "uk": "Млинці з сиром"
-    },
-    "description": {
-      "ru": "Домашние блины с нежной творожной начинкой.",
-      "en": "Homemade blini with a tender cottage cheese filling.",
-      "uk": "Домашні млинці з ніжною сирною начинкою."
-    },
-    "unit": "lb",
-    "servings": "2",
-    "sizeRu": "Вес: 1 lb (454 г) · 2–3 порции",
-    "sizeEn": "Size: 1 lb (454 g) · Serves 2–3",
-    "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції"
-  },
-  {
-    "id": "pork-pelmeni",
-    "category": "main-dishes",
-    "image": "assets/images/main-dishes/pork-pelmeni.webp",
-    "price": 14,
-    "name": {
-      "ru": "Пельмени со свининой",
-      "en": "Pork Pelmeni",
-      "uk": "Пельмені зі свинячим фаршем"
-    },
-    "description": {
-      "ru": "Домашние пельмени ручной лепки с сочной свиной начинкой.",
-      "en": "Homemade pelmeni with pork filling and classic serving.",
-      "uk": "Домашні пельмені зі свинячим фаршем і класичною подачею."
-    },
-    "unit": "lb",
-    "servings": "2",
-    "sizeRu": "Вес: 1 lb (454 г) · 2 порции",
-    "sizeEn": "Size: 1 lb (454 g) · Serves 2",
-    "sizeUa": "Вага: 1 lb (454 г) · 2 порції"
-  },
-  {
-    "id": "chicken-pelmeni",
-    "category": "main-dishes",
-    "image": "assets/images/main-dishes/chicken-pelmeni.webp",
-    "price": 14,
-    "name": {
-      "ru": "Пельмени с курицей",
-      "en": "Chicken Pelmeni",
-      "uk": "Пельмені з курячим фаршем"
-    },
-    "description": {
-      "ru": "Нежные домашние пельмени ручной лепки с курицей.",
-      "en": "Tender homemade pelmeni with chicken filling.",
-      "uk": "Ніжні домашні пельмені з курячим фаршем."
-    },
-    "unit": "lb",
-    "servings": "2",
-    "sizeRu": "Вес: 1 lb (454 г) · 2 порции",
-    "sizeEn": "Size: 1 lb (454 g) · Serves 2",
-    "sizeUa": "Вага: 1 lb (454 г) · 2 порції"
-  },
-  {
-    "id": "potato-zrazy-meat",
-    "category": "main-dishes",
-    "image": "assets/images/main-dishes/potato-zrazy-meat.webp",
-    "price": 13.5,
-    "name": {
-      "ru": "Зразы картофельные с мясом",
-      "en": "Potato Zrazy with Meat",
-      "uk": "Картопляні зрази з м'ясом"
-    },
-    "description": {
-      "ru": "Картофельные зразы с мясной начинкой и золотистой корочкой.",
-      "en": "Potato zrazy with meat filling and a golden crust.",
-      "uk": "Картопляні зрази з м'ясною начинкою та золотистою скоринкою."
+      "ru": "Сочные свиные отбивные в кляре.",
+      "en": "Juicy pork chops in a classic homemade style.",
+      "uk": "Соковиті свинячі відбивні у класичному домашньому стилі."
     },
     "unit": "lb",
     "sizeRu": "Вес: 1 lb (454 г) · 2 порции",
@@ -514,45 +532,45 @@
     "sizeUa": "Вага: 1 lb (454 г) · 2 порції"
   },
   {
-    "id": "liver-cake",
+    "id": "bbq-ribs",
     "category": "main-dishes",
-    "image": "assets/images/main-dishes/liver-cake.webp",
-    "price": 38,
+    "image": "assets/images/main-dishes/bbq-ribs.webp",
+    "price": 18,
     "name": {
-      "ru": "Печеночный торт",
-      "en": "Liver Cake",
-      "uk": "Печінковий торт"
+      "ru": "Ребра барбекю",
+      "en": "BBQ Ribs",
+      "uk": "Ребра барбекю"
     },
     "description": {
-      "ru": "Слоёный печёночный торт с нежной домашней прослойкой.",
-      "en": "Layered liver cake with a tender homemade filling.",
-      "uk": "Шаровий печінковий торт з ніжною домашньою начинкою."
+      "ru": "Сочные рёбра в насыщенном BBQ-соусе.",
+      "en": "Juicy ribs in a rich BBQ sauce.",
+      "uk": "Соковиті ребра у насиченому BBQ-соусі."
     },
     "unit": "lb",
-    "orderUnitRu": "1 шт. примерно 3 lb (1 кг 362 г) · 6–8 порций",
-    "sizeRu": "1 шт. примерно 3 lb (1 кг 362 г) · 6–8 порций",
-    "sizeEn": "1 piece, approximately 3 lb (1.36 kg) · 6–8 servings",
-    "sizeUa": "1 шт., приблизно 3 lb (1,36 кг) · 6–8 порцій"
+    "sizeRu": "Вес: 1 lb (454 г) с костью · 1–2 порции",
+    "sizeEn": "Size: 1 lb (454 g) with bone · 1–2 servings",
+    "sizeUa": "Вага: 1 lb (454 г) з кісткою · 1–2 порції"
   },
   {
-    "id": "meat-rice-meatballs",
+    "id": "buffalo-wings",
     "category": "main-dishes",
-    "image": "assets/images/main-dishes/meat-rice-meatballs.webp",
-    "price": 13,
+    "image": "assets/images/main-dishes/buffalo-wings.webp",
+    "price": 18,
     "name": {
-      "ru": "Тефтели мясные с рисом",
-      "en": "Meatballs with Rice",
-      "uk": "М'ясні тефтелі з рисом"
+      "ru": "Крылышки Баффало",
+      "en": "Buffalo Wings",
+      "uk": "Крильця Баффало"
     },
     "description": {
-      "ru": "Мясные тефтели с рисом в мягком домашнем соусе.",
-      "en": "Meatballs with rice in a soft homemade sauce.",
-      "uk": "М'ясні тефтелі з рисом у м'якому домашньому соусі."
+      "ru": "Куриные крылышки в насыщенном соусе Баффало — сочные, пикантные и острые.",
+      "en": "Chicken wings in a rich Buffalo sauce — juicy, flavorful, and spicy.",
+      "uk": "Курячі крильця в насиченому соусі Баффало — соковиті, пікантні та гострі."
     },
     "unit": "lb",
-    "sizeRu": "Вес: 1 lb (454 г) · 2 порции",
-    "sizeEn": "Size: 1 lb (454 g) · Serves 2",
-    "sizeUa": "Вага: 1 lb (454 г) · 2 порції"
+    "servings": "2",
+    "sizeRu": "Вес: 1 lb (454 г) · 1–2 порции",
+    "sizeEn": "Size: 1 lb (454 g) · 1–2 servings",
+    "sizeUa": "Вага: 1 lb (454 г) · 1–2 порції"
   },
   {
     "id": "chicken-tabaka",
@@ -615,24 +633,88 @@
     "sizeUa": "Вага: 1 lb (454 г) · 2 порції"
   },
   {
-    "id": "pork-chops",
+    "id": "grilled-salmon-broccoli",
     "category": "main-dishes",
-    "image": "assets/images/main-dishes/pork-chops.webp",
-    "price": 17,
+    "image": "assets/images/main-dishes/grilled-salmon-broccoli.webp",
+    "price": 22.5,
     "name": {
-      "ru": "Отбивные свиные",
-      "en": "Pork Chops",
-      "uk": "Свинячі відбивні"
+      "ru": "Лосось гриль с брокколи",
+      "en": "Grilled Salmon with Broccoli",
+      "uk": "Лосось гриль з брокколі"
     },
     "description": {
-      "ru": "Сочные свиные отбивные в кляре.",
-      "en": "Juicy pork chops in a classic homemade style.",
-      "uk": "Соковиті свинячі відбивні у класичному домашньому стилі."
+      "ru": "Сочное филе лосося на гриле с нежным брокколи, ароматными травами и лимонным акцентом.",
+      "en": "Juicy grilled salmon fillet with tender broccoli. A light, wholesome dish with aromatic herbs and a hint of lemon.",
+      "uk": "Соковите філе лосося на грилі з ніжним броколі. Легка, корисна та ситна страва з ароматними травами та лимонним акцентом."
+    },
+    "badge": "bestseller",
+    "unit": "lb",
+    "sizeRu": "Вес: 1 lb (454 г) · 1–2 порции",
+    "sizeEn": "Size: 1 lb (454 g) · 1–2 servings",
+    "sizeUa": "Вага: 1 lb (454 г) · 1–2 порції"
+  },
+  {
+    "id": "mashed-potatoes",
+    "category": "main-dishes",
+    "image": "assets/images/main-dishes/mashed-potatoes.webp",
+    "price": 6,
+    "name": {
+      "ru": "Картофельное пюре",
+      "en": "Mashed Potatoes",
+      "uk": "Картопляне пюре"
+    },
+    "description": {
+      "ru": "Нежное картофельное пюре — идеальный гарнир к домашним блюдам.",
+      "en": "Creamy mashed potatoes as a side for homemade meals.",
+      "uk": "Ніжне картопляне пюре як гарнір до домашніх страв."
     },
     "unit": "lb",
-    "sizeRu": "Вес: 1 lb (454 г) · 2 порции",
-    "sizeEn": "Size: 1 lb (454 g) · Serves 2",
-    "sizeUa": "Вага: 1 lb (454 г) · 2 порції"
+    "servings": "3",
+    "sizeRu": "Вес: 1 lb (454 г) · 2–3 порции",
+    "sizeEn": "Size: 1 lb (454 g) · Serves 2–3",
+    "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції"
+  },
+  {
+    "id": "meat-filled-blini",
+    "category": "main-dishes",
+    "image": "assets/images/main-dishes/meat-filled-blini.webp",
+    "price": 13.5,
+    "name": {
+      "ru": "Блины с мясной начинкой",
+      "en": "Meat-Filled Blini",
+      "uk": "Млинці з м'ясною начинкою"
+    },
+    "description": {
+      "ru": "Тонкие домашние блины с сочной мясной начинкой.",
+      "en": "Thin blini filled with savory meat.",
+      "uk": "Тонкі млинці з соковитою м'ясною начинкою."
+    },
+    "unit": "lb",
+    "servings": "2",
+    "sizeRu": "Вес: 1 lb (454 г) · 2–3 порции",
+    "sizeEn": "Size: 1 lb (454 g) · Serves 2–3",
+    "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції"
+  },
+  {
+    "id": "cottage-cheese-blini",
+    "category": "main-dishes",
+    "image": "assets/images/main-dishes/cottage-cheese-blini.webp",
+    "price": 13.5,
+    "name": {
+      "ru": "Блины с творогом",
+      "en": "Cottage Cheese Blini",
+      "uk": "Млинці з сиром"
+    },
+    "description": {
+      "ru": "Домашние блины с нежной творожной начинкой.",
+      "en": "Homemade blini with a tender cottage cheese filling.",
+      "uk": "Домашні млинці з ніжною сирною начинкою."
+    },
+    "unit": "lb",
+    "servings": "2",
+    "sizeRu": "Вес: 1 lb (454 г) · 2–3 порции",
+    "sizeEn": "Size: 1 lb (454 g) · Serves 2–3",
+    "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції"
   },
   {
     "id": "plain-blini",
@@ -656,6 +738,69 @@
     "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції"
   },
   {
+    "id": "chicken-benderiki",
+    "category": "main-dishes",
+    "image": "assets/images/main-dishes/chicken-benderiki.webp",
+    "price": 14,
+    "name": {
+      "ru": "Бендерики с куриной начинкой",
+      "en": "Chicken Benderiki",
+      "uk": "Бендерики з курячою начинкою"
+    },
+    "description": {
+      "ru": "Нежные домашние бендерики с куриной начинкой.",
+      "en": "Tender homemade benderiki with chicken filling.",
+      "uk": "Ніжні домашні бендерики з курячою начинкою."
+    },
+    "unit": "lb",
+    "servings": "2",
+    "sizeRu": "Вес: 1 lb (454 г) · 2–3 порции",
+    "sizeEn": "Weight: 1 lb (454 g) · 2–3 servings",
+    "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції"
+  },
+  {
+    "id": "eggplant-pepper-saute",
+    "category": "main-dishes",
+    "badge": "vegetarian",
+    "image": "assets/images/main-dishes/eggplant-pepper-saute.webp",
+    "price": 11.5,
+    "name": {
+      "ru": "Соте из баклажанов с болгарским перцем",
+      "en": "Eggplant and Bell Pepper Saute",
+      "uk": "Соте з баклажана з болгарським перцем"
+    },
+    "description": {
+      "ru": "Тёплое овощное блюдо из баклажанов, сладкого перца и ароматных трав.",
+      "en": "Warm vegetable dish with eggplant, bell pepper and aromatic herbs.",
+      "uk": "Тепла овочева страва з баклажана, перцю та ароматних трав."
+    },
+    "unit": "lb",
+    "sizeRu": "Вес: 1 lb (454 г) · 2–3 порции",
+    "sizeEn": "Size: 1 lb (454 g) · Serves 2–3",
+    "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції"
+  },
+  {
+    "id": "liver-cake",
+    "category": "main-dishes",
+    "image": "assets/images/main-dishes/liver-cake.webp",
+    "price": 38,
+    "name": {
+      "ru": "Печеночный торт",
+      "en": "Liver Cake",
+      "uk": "Печінковий торт"
+    },
+    "description": {
+      "ru": "Слоёный печёночный торт с нежной домашней прослойкой.",
+      "en": "Layered liver cake with a tender homemade filling.",
+      "uk": "Шаровий печінковий торт з ніжною домашньою начинкою."
+    },
+    "unit": "lb",
+    "orderUnitRu": "1 шт. примерно 3 lb (1 кг 362 г) · 6–8 порций",
+    "sizeRu": "1 шт. примерно 3 lb (1 кг 362 г) · 6–8 порций",
+    "sizeEn": "1 piece, approximately 3 lb (1.36 kg) · 6–8 servings",
+    "sizeUa": "1 шт., приблизно 3 lb (1,36 кг) · 6–8 порцій"
+  },
+  {
     "id": "chicken-liver-pate",
     "category": "main-dishes",
     "image": "assets/images/main-dishes/chicken-liver-pate.webp",
@@ -674,67 +819,6 @@
     "sizeRu": "Вес: 1 lb (454 г) · 4–6 порций как закуска",
     "sizeEn": "Size: 1 lb (454 g) · 4–6 servings as an appetizer",
     "sizeUa": "Вага: 1 lb (454 г) · 4–6 порцій як закуска"
-  },
-  {
-    "id": "bbq-ribs",
-    "category": "main-dishes",
-    "image": "assets/images/main-dishes/bbq-ribs.webp",
-    "price": 18,
-    "name": {
-      "ru": "Ребра барбекю",
-      "en": "BBQ Ribs",
-      "uk": "Ребра барбекю"
-    },
-    "description": {
-      "ru": "Сочные рёбра в насыщенном BBQ-соусе.",
-      "en": "Juicy ribs in a rich BBQ sauce.",
-      "uk": "Соковиті ребра у насиченому BBQ-соусі."
-    },
-    "unit": "lb",
-    "sizeRu": "Вес: 1 lb (454 г) с костью · 1–2 порции",
-    "sizeEn": "Size: 1 lb (454 g) with bone · 1–2 servings",
-    "sizeUa": "Вага: 1 lb (454 г) з кісткою · 1–2 порції"
-  },
-  {
-    "id": "fish-cutlets",
-    "category": "main-dishes",
-    "image": "assets/images/main-dishes/fish-cutlets.webp",
-    "price": 17,
-    "name": {
-      "ru": "Котлеты рыбные",
-      "en": "Fish Cutlets",
-      "uk": "Рибні котлети"
-    },
-    "description": {
-      "ru": "Домашние рыбные котлеты с нежной текстурой и мягким вкусом.",
-      "en": "Homemade fish cutlets with a tender texture and mild flavor.",
-      "uk": "Домашні рибні котлети з ніжною текстурою та м'яким смаком."
-    },
-    "unit": "lb",
-    "sizeRu": "Вес: 1 lb (454 г) · 2 порции",
-    "sizeEn": "Size: 1 lb (454 g) · Serves 2",
-    "sizeUa": "Вага: 1 lb (454 г) · 2 порції"
-  },
-  {
-    "id": "mashed-potatoes",
-    "category": "main-dishes",
-    "image": "assets/images/main-dishes/mashed-potatoes.webp",
-    "price": 6,
-    "name": {
-      "ru": "Картофельное пюре",
-      "en": "Mashed Potatoes",
-      "uk": "Картопляне пюре"
-    },
-    "description": {
-      "ru": "Нежное картофельное пюре — идеальный гарнир к домашним блюдам.",
-      "en": "Creamy mashed potatoes as a side for homemade meals.",
-      "uk": "Ніжне картопляне пюре як гарнір до домашніх страв."
-    },
-    "unit": "lb",
-    "servings": "3",
-    "sizeRu": "Вес: 1 lb (454 г) · 2–3 порции",
-    "sizeEn": "Size: 1 lb (454 g) · Serves 2–3",
-    "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції"
   },
   {
     "id": "pork-beef-kholodets",
@@ -777,27 +861,6 @@
     "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції"
   },
   {
-    "id": "grilled-salmon-broccoli",
-    "category": "main-dishes",
-    "image": "assets/images/main-dishes/grilled-salmon-broccoli.webp",
-    "price": 22.5,
-    "name": {
-      "ru": "Лосось гриль с брокколи",
-      "en": "Grilled Salmon with Broccoli",
-      "uk": "Лосось гриль з брокколі"
-    },
-    "description": {
-      "ru": "Сочное филе лосося на гриле с нежным брокколи, ароматными травами и лимонным акцентом.",
-      "en": "Juicy grilled salmon fillet with tender broccoli. A light, wholesome dish with aromatic herbs and a hint of lemon.",
-      "uk": "Соковите філе лосося на грилі з ніжним броколі. Легка, корисна та ситна страва з ароматними травами та лимонним акцентом."
-    },
-    "badge": "bestseller",
-    "unit": "lb",
-    "sizeRu": "Вес: 1 lb (454 г) · 1–2 порции",
-    "sizeEn": "Size: 1 lb (454 g) · 1–2 servings",
-    "sizeUa": "Вага: 1 lb (454 г) · 1–2 порції"
-  },
-  {
     "id": "olivier",
     "category": "salads",
     "image": "assets/images/salads/olivier.webp",
@@ -820,6 +883,69 @@
     "badge": "bestseller"
   },
   {
+    "id": "herring-under-fur-coat",
+    "category": "salads",
+    "image": "assets/images/salads/herring-under-fur-coat.webp",
+    "price": 28,
+    "name": {
+      "ru": "Салат Сельдь под шубой",
+      "en": "Herring Under a Fur Coat",
+      "uk": "Оселедець під шубою"
+    },
+    "description": {
+      "ru": "Классический слоёный салат с сельдью, свёклой, картофелем и морковью.",
+      "en": "Classic layered salad with herring, beets, potatoes and carrots.",
+      "uk": "Класичний шаровий салат з оселедцем, буряком, картоплею та морквою."
+    },
+    "unit": "lb",
+    "orderUnitRu": "Вес: 2 lb (908 г) · 6–8 порций",
+    "sizeRu": "Вес: 2 lb (908 г) · 5–6 порций",
+    "sizeEn": "Weight: 2 lb (908 g) · 5–6 servings",
+    "sizeUa": "Вага: 2 lb (908 г) · 5–6 порцій"
+  },
+  {
+    "id": "mimosa-salad",
+    "category": "salads",
+    "badge": "new",
+    "image": "assets/images/salads/mimosa-salad.webp",
+    "price": 27,
+    "name": {
+      "ru": "Салат Мимоза",
+      "en": "Mimosa Salad",
+      "uk": "Салат Мімоза"
+    },
+    "description": {
+      "ru": "Слоёный салат с рыбой, яйцом, овощами и нежной домашней заправкой.",
+      "en": "Layered salad with fish, egg, vegetables and a tender dressing.",
+      "uk": "Шаровий салат з рибою, яйцем, овочами та ніжною заправкою."
+    },
+    "unit": "lb",
+    "orderUnitRu": "Вес: 2 lb (908 г) · 6–8 порций",
+    "sizeRu": "Вес: 2 lb (908 г) · 5–6 порций",
+    "sizeEn": "Weight: 2 lb (908 g) · 5–6 servings",
+    "sizeUa": "Вага: 2 lb (908 г) · 5–6 порцій"
+  },
+  {
+    "id": "stolichny-chicken-salad",
+    "category": "salads",
+    "image": "assets/images/salads/stolichny-chicken-salad.webp",
+    "price": 13.5,
+    "name": {
+      "ru": "Салат Столичный с курицей",
+      "en": "Stolichny Chicken Salad",
+      "uk": "Салат Столичний з куркою"
+    },
+    "description": {
+      "ru": "Классический салат с курицей, овощами, яйцом и майонезом.",
+      "en": "Classic salad with chicken, vegetables, egg and mayonnaise.",
+      "uk": "Класичний салат з куркою, овочами, яйцем та майонезом."
+    },
+    "unit": "lb",
+    "sizeRu": "Вес: 1 lb (454 г) · 2–3 порции",
+    "sizeEn": "Size: 1 lb (454 g) · Serves 2–3",
+    "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції"
+  },
+  {
     "id": "vinaigrette",
     "category": "salads",
     "image": "assets/images/salads/vinaigrette.webp",
@@ -833,6 +959,46 @@
       "ru": "Свёкла, картофель, морковь, солёные огурцы и лёгкая домашняя заправка.",
       "en": "Beets, potatoes, carrots, pickles and a light dressing.",
       "uk": "Буряк, картопля, морква, солоні огірки та легка заправка."
+    },
+    "unit": "lb",
+    "sizeRu": "Вес: 1 lb (454 г) · 2–3 порции",
+    "sizeEn": "Size: 1 lb (454 g) · Serves 2–3",
+    "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції"
+  },
+  {
+    "id": "crab-salad",
+    "category": "salads",
+    "image": "assets/images/salads/crab-salad.webp",
+    "price": 13.5,
+    "name": {
+      "ru": "Салат Крабовый",
+      "en": "Crab Salad",
+      "uk": "Крабовий салат"
+    },
+    "description": {
+      "ru": "Домашний крабовый салат с кукурузой, яйцом и нежной заправкой.",
+      "en": "Homemade crab salad with corn, egg and a gentle dressing.",
+      "uk": "Домашній крабовий салат з кукурудзою, яйцем та ніжною заправкою."
+    },
+    "unit": "lb",
+    "sizeRu": "Вес: 1 lb (454 г) · 2–3 порции",
+    "sizeEn": "Size: 1 lb (454 g) · Serves 2–3",
+    "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції"
+  },
+  {
+    "id": "liver-mushroom-salad",
+    "category": "salads",
+    "image": "assets/images/salads/liver-mushroom-salad.webp",
+    "price": 12.5,
+    "name": {
+      "ru": "Салат с куриной печенью и грибами",
+      "en": "Liver Salad with Mushrooms",
+      "uk": "Печінковий салат з грибами"
+    },
+    "description": {
+      "ru": "Сытный салат с печенью, грибами и яйцом .",
+      "en": "Hearty salad with liver, mushrooms and homemade dressing.",
+      "uk": "Ситний салат з печінкою, грибами та домашньою заправкою."
     },
     "unit": "lb",
     "sizeRu": "Вес: 1 lb (454 г) · 2–3 порции",
@@ -859,49 +1025,6 @@
     "sizeRu": "Вес: 1 lb (454 г) · 2–3 порции",
     "sizeEn": "Size: 1 lb (454 g) · Serves 2–3",
     "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції"
-  },
-  {
-    "id": "mimosa-salad",
-    "category": "salads",
-    "badge": "new",
-    "image": "assets/images/salads/mimosa-salad.webp",
-    "price": 27,
-    "name": {
-      "ru": "Салат Мимоза",
-      "en": "Mimosa Salad",
-      "uk": "Салат Мімоза"
-    },
-    "description": {
-      "ru": "Слоёный салат с рыбой, яйцом, овощами и нежной домашней заправкой.",
-      "en": "Layered salad with fish, egg, vegetables and a tender dressing.",
-      "uk": "Шаровий салат з рибою, яйцем, овочами та ніжною заправкою."
-    },
-    "unit": "lb",
-    "orderUnitRu": "Вес: 2 lb (908 г) · 6–8 порций",
-    "sizeRu": "Вес: 2 lb (908 г) · 5–6 порций",
-    "sizeEn": "Weight: 2 lb (908 g) · 5–6 servings",
-    "sizeUa": "Вага: 2 lb (908 г) · 5–6 порцій"
-  },
-  {
-    "id": "herring-under-fur-coat",
-    "category": "salads",
-    "image": "assets/images/salads/herring-under-fur-coat.webp",
-    "price": 28,
-    "name": {
-      "ru": "Салат Сельдь под шубой",
-      "en": "Herring Under a Fur Coat",
-      "uk": "Оселедець під шубою"
-    },
-    "description": {
-      "ru": "Классический слоёный салат с сельдью, свёклой, картофелем и морковью.",
-      "en": "Classic layered salad with herring, beets, potatoes and carrots.",
-      "uk": "Класичний шаровий салат з оселедцем, буряком, картоплею та морквою."
-    },
-    "unit": "lb",
-    "orderUnitRu": "Вес: 2 lb (908 г) · 6–8 порций",
-    "sizeRu": "Вес: 2 lb (908 г) · 5–6 порций",
-    "sizeEn": "Weight: 2 lb (908 g) · 5–6 servings",
-    "sizeUa": "Вага: 2 lb (908 г) · 5–6 порцій"
   },
   {
     "id": "fresh-cabbage-salad",
@@ -987,64 +1110,25 @@
     "sizeUa": "Вага: 1 lb (454 г) · 4–6 порцій як закуска"
   },
   {
-    "id": "liver-mushroom-salad",
+    "id": "adjika",
     "category": "salads",
-    "image": "assets/images/salads/liver-mushroom-salad.webp",
-    "price": 12.5,
+    "image": "assets/images/salads/adjika.webp",
+    "price": 12,
     "name": {
-      "ru": "Салат с куриной печенью и грибами",
-      "en": "Liver Salad with Mushrooms",
-      "uk": "Печінковий салат з грибами"
+      "ru": "Аджика",
+      "en": "Adjika",
+      "uk": "Аджика"
     },
     "description": {
-      "ru": "Сытный салат с печенью, грибами и яйцом .",
-      "en": "Hearty salad with liver, mushrooms and homemade dressing.",
-      "uk": "Ситний салат з печінкою, грибами та домашньою заправкою."
+      "ru": "Домашняя острая аджика с перцем, чесноком и специями. Выдержка от 7 дней.",
+      "en": "Homemade spicy adjika made with peppers, garlic, and spices. A bold, flavorful sauce aged for at least 7 days.",
+      "uk": "Домашня гостра аджика з перцю, часнику та спецій. Насичений пікантний соус із витримкою від 7 днів."
     },
     "unit": "lb",
-    "sizeRu": "Вес: 1 lb (454 г) · 2–3 порции",
-    "sizeEn": "Size: 1 lb (454 g) · Serves 2–3",
-    "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції"
-  },
-  {
-    "id": "stolichny-chicken-salad",
-    "category": "salads",
-    "image": "assets/images/salads/stolichny-chicken-salad.webp",
-    "price": 13.5,
-    "name": {
-      "ru": "Салат Столичный с курицей",
-      "en": "Stolichny Chicken Salad",
-      "uk": "Салат Столичний з куркою"
-    },
-    "description": {
-      "ru": "Классический салат с курицей, овощами, яйцом и майонезом.",
-      "en": "Classic salad with chicken, vegetables, egg and mayonnaise.",
-      "uk": "Класичний салат з куркою, овочами, яйцем та майонезом."
-    },
-    "unit": "lb",
-    "sizeRu": "Вес: 1 lb (454 г) · 2–3 порции",
-    "sizeEn": "Size: 1 lb (454 g) · Serves 2–3",
-    "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції"
-  },
-  {
-    "id": "crab-salad",
-    "category": "salads",
-    "image": "assets/images/salads/crab-salad.webp",
-    "price": 13.5,
-    "name": {
-      "ru": "Салат Крабовый",
-      "en": "Crab Salad",
-      "uk": "Крабовий салат"
-    },
-    "description": {
-      "ru": "Домашний крабовый салат с кукурузой, яйцом и нежной заправкой.",
-      "en": "Homemade crab salad with corn, egg and a gentle dressing.",
-      "uk": "Домашній крабовий салат з кукурудзою, яйцем та ніжною заправкою."
-    },
-    "unit": "lb",
-    "sizeRu": "Вес: 1 lb (454 г) · 2–3 порции",
-    "sizeEn": "Size: 1 lb (454 g) · Serves 2–3",
-    "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції"
+    "servings": "1",
+    "sizeRu": "Вес: 0.5 lb (227 г) · к мясу и гарнирам",
+    "sizeEn": "Weight: 0.5 lb (227 g) · for meats, sides, and appetizers",
+    "sizeUa": "Вага: 0.5 lb (227 г) · до м'яса, гарнірів і закусок"
   },
   {
     "id": "blini",
@@ -1250,5 +1334,215 @@
       "uk": "Меню під кількість гостей, кухні, побажання та формат події."
     },
     "unit": "шт."
+  },
+  {
+    "id": "frozen-pork-pelmeni",
+    "category": "frozen",
+    "image": "assets/images/main-dishes/pork-pelmeni.webp",
+    "price": 14,
+    "name": {
+      "ru": "Замороженные пельмени со свининой",
+      "en": "Frozen Pork Dumplings",
+      "uk": "Заморожені пельмені зі свининою"
+    },
+    "description": {
+      "ru": "Домашние пельмени ручной лепки со свиной начинкой. Сварить дома.",
+      "en": "Homemade handmade pork dumplings. Boil at home.",
+      "uk": "Домашні пельмені ручної ліпки зі свинячою начинкою. Зварити вдома."
+    },
+    "unit": "lb",
+    "servings": "2",
+    "sizeRu": "Вес: 1 lb (454 г) · 2 порции",
+    "sizeEn": "Weight: 1 lb (454 g) · 2 servings",
+    "sizeUa": "Вага: 1 lb (454 г) · 2 порції"
+  },
+  {
+    "id": "frozen-pork-beef-dumplings",
+    "category": "frozen",
+    "image": "assets/images/main-dishes/pork-pelmeni.webp",
+    "price": 15,
+    "name": {
+      "ru": "Замороженные пельмени со свининой и говядиной",
+      "en": "Frozen Pork & Beef Dumplings",
+      "uk": "Заморожені пельмені зі свининою та яловичиною"
+    },
+    "description": {
+      "ru": "Домашние пельмени ручной лепки со свино-говяжьей начинкой. Сварить дома.",
+      "en": "Homemade handmade pork-and-beef dumplings. Boil at home.",
+      "uk": "Домашні пельмені ручної ліпки зі свино-яловичою начинкою. Зварити вдома."
+    },
+    "unit": "lb",
+    "servings": "2",
+    "sizeRu": "Вес: 1 lb (454 г) · 2 порции",
+    "sizeEn": "Weight: 1 lb (454 g) · 2 servings",
+    "sizeUa": "Вага: 1 lb (454 г) · 2 порції"
+  },
+  {
+    "id": "frozen-chicken-dumplings",
+    "category": "frozen",
+    "image": "assets/images/main-dishes/chicken-pelmeni.webp",
+    "price": 14,
+    "name": {
+      "ru": "Замороженные пельмени с куриным фаршем",
+      "en": "Frozen Chicken Dumplings",
+      "uk": "Заморожені пельмені з курячим фаршем"
+    },
+    "description": {
+      "ru": "Домашние пельмени ручной лепки с куриной начинкой. Сварить дома.",
+      "en": "Homemade handmade chicken dumplings. Boil at home.",
+      "uk": "Домашні пельмені ручної ліпки з курячою начинкою. Зварити вдома."
+    },
+    "unit": "lb",
+    "servings": "2",
+    "sizeRu": "Вес: 1 lb (454 г) · 2 порции",
+    "sizeEn": "Weight: 1 lb (454 g) · 2 servings",
+    "sizeUa": "Вага: 1 lb (454 г) · 2 порції"
+  },
+  {
+    "id": "frozen-vareniki-potato",
+    "category": "frozen",
+    "image": "assets/images/main-dishes/varenyky.webp",
+    "price": 12,
+    "name": {
+      "ru": "Замороженные вареники с картофелем",
+      "en": "Frozen Potato Vareniki",
+      "uk": "Заморожені вареники з картоплею"
+    },
+    "description": {
+      "ru": "Домашние вареники с картофелем и луком. Сварить дома.",
+      "en": "Homemade potato and onion vareniki. Boil at home.",
+      "uk": "Домашні вареники з картоплею та цибулею. Зварити вдома."
+    },
+    "unit": "lb",
+    "servings": "2",
+    "sizeRu": "Вес: 1 lb (454 г) · 2–3 порции",
+    "sizeEn": "Weight: 1 lb (454 g) · 2–3 servings",
+    "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції"
+  },
+  {
+    "id": "frozen-home-cutlets",
+    "category": "frozen",
+    "image": "assets/images/main-dishes/pork-mince-cutlets.webp",
+    "price": 15,
+    "name": {
+      "ru": "Замороженные котлеты домашние",
+      "en": "Frozen Homemade Cutlets",
+      "uk": "Заморожені котлети домашні"
+    },
+    "description": {
+      "ru": "Домашние сырые котлеты для приготовления дома. Обжарить на сковороде.",
+      "en": "Homemade raw cutlets for cooking at home. Pan-fry.",
+      "uk": "Домашні сирі котлети для приготування вдома. Обсмажити на сковороді."
+    },
+    "unit": "lb",
+    "servings": "2",
+    "sizeRu": "Вес: 1 lb (454 г) · 2 порции",
+    "sizeEn": "Weight: 1 lb (454 g) · 2 servings",
+    "sizeUa": "Вага: 1 lb (454 г) · 2 порції"
+  },
+  {
+    "id": "frozen-juicy-chicken-cutlets",
+    "category": "frozen",
+    "image": "assets/images/main-dishes/chicken-mince-cutlets.webp",
+    "price": 15,
+    "name": {
+      "ru": "Замороженные котлеты куриные сочные",
+      "en": "Frozen Juicy Chicken Cutlets",
+      "uk": "Заморожені котлети курячі соковиті"
+    },
+    "description": {
+      "ru": "Домашние сырые куриные котлеты для приготовления дома. Обжарить на сковороде.",
+      "en": "Homemade raw chicken cutlets for cooking at home. Pan-fry.",
+      "uk": "Домашні сирі курячі котлети для приготування вдома. Обсмажити на сковороді."
+    },
+    "unit": "lb",
+    "servings": "2",
+    "sizeRu": "Вес: 1 lb (454 г) · 2 порции",
+    "sizeEn": "Weight: 1 lb (454 g) · 2 servings",
+    "sizeUa": "Вага: 1 lb (454 г) · 2 порції"
+  },
+  {
+    "id": "frozen-fish-cutlets",
+    "category": "frozen",
+    "image": "assets/images/main-dishes/fish-cutlets.webp",
+    "price": 17,
+    "name": {
+      "ru": "Замороженные рыбные котлеты",
+      "en": "Frozen Fish Cutlets",
+      "uk": "Заморожені рибні котлети"
+    },
+    "description": {
+      "ru": "Домашние сырые рыбные котлеты для приготовления дома. Обжарить на сковороде.",
+      "en": "Homemade raw fish cutlets for cooking at home. Pan-fry.",
+      "uk": "Домашні сирі рибні котлети для приготування вдома. Обсмажити на сковороді."
+    },
+    "unit": "lb",
+    "servings": "2",
+    "sizeRu": "Вес: 1 lb (454 г) · 2 порции",
+    "sizeEn": "Weight: 1 lb (454 g) · 2 servings",
+    "sizeUa": "Вага: 1 lb (454 г) · 2 порції"
+  },
+  {
+    "id": "frozen-meat-blintzes",
+    "category": "frozen",
+    "image": "assets/images/main-dishes/meat-filled-blini.webp",
+    "price": 13.5,
+    "name": {
+      "ru": "Замороженные блинчики с мясом",
+      "en": "Frozen Meat Blintzes",
+      "uk": "Заморожені млинці з м'ясом"
+    },
+    "description": {
+      "ru": "Домашние блинчики с мясной начинкой. Разогреть на сковороде.",
+      "en": "Homemade meat-filled blintzes. Reheat in a pan.",
+      "uk": "Домашні млинці з м'ясною начинкою. Розігріти на сковороді."
+    },
+    "unit": "lb",
+    "servings": "2",
+    "sizeRu": "Вес: 1 lb (454 г) · 2–3 порции",
+    "sizeEn": "Weight: 1 lb (454 g) · 2–3 servings",
+    "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції"
+  },
+  {
+    "id": "frozen-cottage-cheese-blintzes",
+    "category": "frozen",
+    "image": "assets/images/main-dishes/cottage-cheese-blini.webp",
+    "price": 13.5,
+    "name": {
+      "ru": "Замороженные блинчики с творогом",
+      "en": "Frozen Cottage Cheese Blintzes",
+      "uk": "Заморожені млинці з сиром"
+    },
+    "description": {
+      "ru": "Домашние блинчики с творожной начинкой. Разогреть на сковороде.",
+      "en": "Homemade cottage cheese blintzes. Reheat in a pan.",
+      "uk": "Домашні млинці з сирною начинкою. Розігріти на сковороді."
+    },
+    "unit": "lb",
+    "servings": "2",
+    "sizeRu": "Вес: 1 lb (454 г) · 2–3 порции",
+    "sizeEn": "Weight: 1 lb (454 g) · 2–3 servings",
+    "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції"
+  },
+  {
+    "id": "frozen-chicken-benderiki",
+    "category": "frozen",
+    "image": "assets/images/main-dishes/chicken-benderiki.webp",
+    "price": 14,
+    "name": {
+      "ru": "Замороженные бендерики с куриной начинкой",
+      "en": "Frozen Chicken Benderiki",
+      "uk": "Заморожені бендерики з курячою начинкою"
+    },
+    "description": {
+      "ru": "Домашние бендерики с куриной начинкой. Разогреть на сковороде.",
+      "en": "Homemade chicken benderiki. Reheat in a pan.",
+      "uk": "Домашні бендерики з курячою начинкою. Розігріти на сковороді."
+    },
+    "unit": "lb",
+    "servings": "2",
+    "sizeRu": "Вес: 1 lb (454 г) · 2–3 порции",
+    "sizeEn": "Weight: 1 lb (454 g) · 2–3 servings",
+    "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції"
   }
 ]

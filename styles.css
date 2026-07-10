@@ -880,6 +880,25 @@ p {
   scroll-margin-top: calc(var(--header-height) + 18px);
 }
 
+.coming-soon-placeholder {
+  padding: 48px 24px 56px;
+  text-align: center;
+}
+
+.coming-soon-headline {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 12px;
+}
+
+.coming-soon-body {
+  color: var(--muted);
+  line-height: 1.65;
+  max-width: 440px;
+  margin: 0 auto;
+}
+
 .route-category-grid {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }

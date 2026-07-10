@@ -1395,7 +1395,7 @@ const categories = [
   {
     id: "soups",
     image: "assets/images/categories/category-pervye-blyuda-new.jpg",
-    icon: "utensils",
+    icon: "soup",
     title: tr("Первые блюда", "Soups", "Перші страви"),
     description: tr(
       "Домашние супы, которые готовятся свежими под предзаказ.",
@@ -1406,7 +1406,7 @@ const categories = [
   {
     id: "main-dishes",
     image: "assets/images/categories/category-vtorye-blyuda-new.jpg",
-    icon: "chef-hat",
+    icon: "utensils",
     title: tr("Вторые блюда", "Main Dishes", "Другі страви"),
     description: tr(
       "Сытные украинские, восточноевропейские и кавказские блюда для обеда или ужина.",
@@ -1423,6 +1423,45 @@ const categories = [
       "Классические домашние и свежие средиземноморские салаты.",
       "Classic homemade and fresh Mediterranean salads.",
       "Класичні домашні та свіжі середземноморські салати.",
+    ),
+  },
+  {
+    id: "frozen",
+    image: "assets/images/categories/category-frozen.jpg",
+    icon: "snowflake",
+    title: tr("Домашняя заморозка", "Homemade Frozen", "Домашня заморозка"),
+    description: tr(
+      "Полуготовые замороженные блюда для приготовления дома.",
+      "Frozen semi-prepared homemade dishes to cook at home.",
+      "Заморожені напівготові домашні страви для приготування вдома.",
+    ),
+  },
+  {
+    id: "desserts",
+    image: "assets/images/blini-crepes.jpg",
+    icon: "cake-slice",
+    title: tr("Десерты", "Desserts", "Десерти"),
+    description: tr("Скоро в меню", "Coming soon", "Скоро в меню"),
+    comingSoon: true,
+    hidden: true,
+    comingSoonBody: tr(
+      "Мы сейчас работаем над ассортиментом десертов.",
+      "We are currently working on the dessert selection.",
+      "Ми зараз працюємо над асортиментом десертів.",
+    ),
+  },
+  {
+    id: "drinks",
+    image: "assets/images/categories/category-drinks.jpg",
+    icon: "glass-water",
+    title: tr("Напитки", "Drinks", "Напої"),
+    description: tr("Скоро в меню", "Coming soon", "Скоро в меню"),
+    comingSoon: true,
+    hidden: true,
+    comingSoonBody: tr(
+      "Мы сейчас работаем над ассортиментом напитков.",
+      "We are currently working on the drink selection.",
+      "Ми зараз працюємо над асортиментом напоїв.",
     ),
   },
 ];
@@ -1667,6 +1706,9 @@ const categoryRouteAliases = {
   soups: "soups",
   "main-dishes": "main-dishes",
   salads: "salads",
+  frozen: "frozen",
+  drinks: "drinks",
+  desserts: "desserts",
 };
 
 const normalizeRoute = (route) => categoryRouteAliases[route] || route;
@@ -1834,7 +1876,7 @@ const createCategoryCard = (category) => {
 };
 
 const renderStaticData = () => {
-  document.querySelector("[data-category-grid]").innerHTML = categories.map(createCategoryCard).join("");
+  document.querySelector("[data-category-grid]").innerHTML = categories.filter(c => !c.hidden).map(createCategoryCard).join("");
   refreshIcons();
   observeReveals();
 };
@@ -1890,7 +1932,7 @@ const createMenuOverviewPage = () => `
           <div class="section-title">
             <h2>${escapeHtml(t("menuPage.categoriesTitle"))}</h2>
           </div>
-          <div class="category-grid route-category-grid">${categories.map(createCategoryCard).join("")}</div>
+          <div class="category-grid route-category-grid">${categories.filter(c => !c.hidden).map(createCategoryCard).join("")}</div>
         </section>
       </div>
       ${createRouteOrderCard()}
@@ -1898,7 +1940,35 @@ const createMenuOverviewPage = () => `
   </div>
 `;
 
-const createCategoryPage = (category) => `
+const createComingSoonPage = (category) => `
+  <div class="menu-page">
+    <header class="route-hero route-hero-image reveal">
+      <a class="back-link route-back-link" href="#/menu">
+        <i data-lucide="arrow-left"></i>
+        <span>${escapeHtml(t("menuPage.backMenu"))}</span>
+      </a>
+      <img src="${escapeHtml(category.image)}" alt="${escapeHtml(text(category.title))}" />
+      <div class="route-hero-copy">
+        <p class="eyebrow">${escapeHtml(t("nav.menu"))}</p>
+        <h1>${escapeHtml(text(category.title))}</h1>
+        <p>${escapeHtml(text(category.description))}</p>
+      </div>
+    </header>
+    <div class="menu-page-layout">
+      <section class="menu-panel menu-content category-dishes-panel reveal" id="${escapeHtml(category.id)}-dishes" data-category-dishes>
+        <div class="coming-soon-placeholder">
+          <p class="coming-soon-headline">${escapeHtml(text(category.description))}</p>
+          <p class="coming-soon-body">${escapeHtml(text(category.comingSoonBody))}</p>
+        </div>
+      </section>
+      ${createRouteOrderCard()}
+    </div>
+  </div>
+`;
+
+const createCategoryPage = (category) => {
+  if (category.comingSoon) return createComingSoonPage(category);
+  return `
   <div class="menu-page">
     <header class="route-hero route-hero-image reveal">
       <a class="back-link route-back-link" href="#/menu">
@@ -1922,6 +1992,8 @@ const createCategoryPage = (category) => `
     </div>
   </div>
 `;
+};
+
 
 const renderRoute = () => {
   const route = routeFromHash();
@@ -1955,7 +2027,6 @@ const renderRoute = () => {
   renderDishQuantities();
   refreshIcons();
   observeReveals();
-
   if (category) {
     if (category.id !== lastViewedCategoryId) {
       lastViewedCategoryId = category.id;
