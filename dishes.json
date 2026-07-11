@@ -1401,7 +1401,7 @@
   {
     "id": "frozen-vareniki-potato",
     "category": "frozen",
-    "image": "assets/images/main-dishes/varenyky.webp",
+    "image": "assets/images/frozen/frozen-vareniki-potato.png",
     "price": 12,
     "name": {
       "ru": "Замороженные вареники с картофелем",
