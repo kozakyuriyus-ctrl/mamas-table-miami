@@ -1338,7 +1338,7 @@
   {
     "id": "frozen-pork-pelmeni",
     "category": "frozen",
-    "image": "assets/images/main-dishes/pork-pelmeni.webp",
+    "image": "assets/images/frozen/frozen-pork-pelmeni.png",
     "price": 14,
     "name": {
       "ru": "Замороженные пельмени со свининой",
