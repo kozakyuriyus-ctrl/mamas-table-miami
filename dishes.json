@@ -1485,7 +1485,7 @@
   {
     "id": "frozen-meat-blintzes",
     "category": "frozen",
-    "image": "assets/images/main-dishes/meat-filled-blini.webp",
+    "image": "assets/images/frozen/frozen-meat-blintzes.png",
     "price": 13.5,
     "name": {
       "ru": "Замороженные блинчики с мясом",
