@@ -1464,7 +1464,7 @@
   {
     "id": "frozen-fish-cutlets",
     "category": "frozen",
-    "image": "assets/images/main-dishes/fish-cutlets.webp",
+    "image": "assets/images/frozen/frozen-fish-cutlets.png",
     "price": 17,
     "name": {
       "ru": "Замороженные рыбные котлеты",
