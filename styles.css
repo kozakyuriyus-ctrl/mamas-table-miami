@@ -691,7 +691,7 @@ p {
 
 .category-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(240px, 320px));
+  grid-template-columns: repeat(2, minmax(420px, 480px));
   justify-content: center;
   justify-items: stretch;
   gap: 28px;
@@ -701,8 +701,8 @@ p {
   position: relative;
   display: grid;
   width: 100%;
-  height: 210px;
-  min-height: 210px;
+  height: 240px;
+  min-height: 240px;
   overflow: hidden;
   border-radius: 8px;
   background: var(--green);
@@ -900,7 +900,10 @@ p {
 }
 
 .route-category-grid {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .menu-dish-grid {
