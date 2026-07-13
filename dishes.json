@@ -269,7 +269,7 @@
     "id": "stuffed-bell-peppers",
     "category": "main-dishes",
     "image": "assets/images/main-dishes/perec1.png",
-    "price": 18,
+    "price": 20,
     "name": {
       "ru": "Фаршированные перцы",
       "en": "Stuffed Bell Peppers",
@@ -283,7 +283,8 @@
     "unit": "lb",
     "sizeRu": "2 штуки · примерно 1.4–1.5 lb (635–680 г) · 2 порции",
     "sizeEn": "2 pieces · approximately 1.4–1.5 lb (635–680 g) · 2 servings",
-    "sizeUa": "2 штуки · приблизно 1.4–1.5 lb (635–680 г) · 2 порції"
+    "sizeUa": "2 штуки · приблизно 1.4–1.5 lb (635–680 г) · 2 порції",
+    "badge": "bestseller"
   },
   {
     "id": "pork-pelmeni",
