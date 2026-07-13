@@ -266,6 +266,26 @@
     "sizeUa": "Вага: 1 lb (454 г) · 2 порції"
   },
   {
+    "id": "stuffed-bell-peppers",
+    "category": "main-dishes",
+    "image": "assets/images/main-dishes/perec1.png",
+    "price": 18,
+    "name": {
+      "ru": "Фаршированные перцы",
+      "en": "Stuffed Bell Peppers",
+      "uk": "Фаршировані перці"
+    },
+    "description": {
+      "ru": "Домашние перцы с мясной начинкой и рисом.",
+      "en": "Homemade bell peppers stuffed with meat and rice.",
+      "uk": "Домашні перці з м'ясною начинкою та рисом."
+    },
+    "unit": "lb",
+    "sizeRu": "2 штуки · примерно 1.4–1.5 lb (635–680 г) · 2 порции",
+    "sizeEn": "2 pieces · approximately 1.4–1.5 lb (635–680 g) · 2 servings",
+    "sizeUa": "2 штуки · приблизно 1.4–1.5 lb (635–680 г) · 2 порції"
+  },
+  {
     "id": "pork-pelmeni",
     "category": "main-dishes",
     "image": "assets/images/main-dishes/pork-pelmeni.webp",
@@ -1544,5 +1564,45 @@
     "sizeRu": "Вес: 1 lb (454 г) · 2–3 порции",
     "sizeEn": "Weight: 1 lb (454 g) · 2–3 servings",
     "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції"
+  },
+  {
+    "id": "frozen-stuffed-bell-peppers",
+    "category": "frozen",
+    "image": "assets/images/frozen/perec2.png",
+    "price": 18,
+    "name": {
+      "ru": "Замороженные фаршированные перцы",
+      "en": "Frozen Stuffed Bell Peppers",
+      "uk": "Заморожені фаршировані перці"
+    },
+    "description": {
+      "ru": "Домашние перцы с мясной начинкой и рисом. Приготовить дома в томатном соусе.",
+      "en": "Homemade bell peppers stuffed with meat and rice. Cook at home in tomato sauce.",
+      "uk": "Домашні перці з м'ясною начинкою та рисом. Приготувати вдома в томатному соусі."
+    },
+    "unit": "lb",
+    "sizeRu": "2 штуки · примерно 1.4–1.5 lb (635–680 г) · 2 порции",
+    "sizeEn": "2 pieces · approximately 1.4–1.5 lb (635–680 g) · 2 servings",
+    "sizeUa": "2 штуки · приблизно 1.4–1.5 lb (635–680 г) · 2 порції"
+  },
+  {
+    "id": "frozen-cabbage-rolls",
+    "category": "frozen",
+    "image": "assets/images/frozen/golubci.png",
+    "price": 15,
+    "name": {
+      "ru": "Замороженные голубцы",
+      "en": "Frozen Cabbage Rolls",
+      "uk": "Заморожені голубці"
+    },
+    "description": {
+      "ru": "Замороженные голубцы с мясом и рисом.",
+      "en": "Frozen cabbage rolls with meat and rice.",
+      "uk": "Заморожені голубці з м'ясом і рисом."
+    },
+    "unit": "lb",
+    "sizeRu": "Вес: 1 lb (454 г) · 2 порции",
+    "sizeEn": "Weight: 1 lb (454 g) · 2 servings",
+    "sizeUa": "Вага: 1 lb (454 г) · 2 порції"
   }
 ]
