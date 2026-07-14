@@ -116,6 +116,7 @@ const copy = {
     },
     orderUnit: {
       piece: "1 шт.",
+      pcs: "(2 шт.)",
     },
     hero: {
       eyebrow: "Настоящая домашняя кухня",
@@ -271,6 +272,7 @@ const copy = {
       itemWord: "позиций",
       unitPrice: "за ед.",
       unitLb: "за фунт",
+      unitPcs: "2 шт.",
     },
     cartReview: {
       title: "Ваш заказ",
@@ -525,6 +527,7 @@ const copy = {
     },
     orderUnit: {
       piece: "1 piece",
+      pcs: "(2 pcs.)",
     },
     hero: {
       eyebrow: "Real Home Cooking",
@@ -680,6 +683,7 @@ const copy = {
       itemWord: "items",
       unitPrice: "each",
       unitLb: "per lb",
+      unitPcs: "2 pcs.",
     },
     cartReview: {
       title: "Your Order",
@@ -934,6 +938,7 @@ const copy = {
     },
     orderUnit: {
       piece: "1 шт.",
+      pcs: "(2 шт.)",
     },
     hero: {
       eyebrow: "Справжня домашня кухня",
@@ -1089,6 +1094,7 @@ const copy = {
       itemWord: "позицій",
       unitPrice: "за од.",
       unitLb: "за фунт",
+      unitPcs: "2 шт.",
     },
     cartReview: {
       title: "Ваше замовлення",
@@ -1792,6 +1798,7 @@ const buildOrderUnitStr = (dish) => {
   if (dish.id === "liver-cake") return t("size.liverCake");
   if (dish.id === "mimosa-salad") return t("size.mimosaSalad");
   if (dish.id === "herring-under-fur-coat") return t("size.herringUnderFurCoat");
+  if (dish.unit === "pcs") return t("orderUnit.pcs");
   if (dish.unit === "lb") return "1 lb";
   return t("orderUnit.piece");
 };
@@ -3004,13 +3011,16 @@ const createCartReviewModal = () => {
 
   const items = entries
     .map(({ dish, quantity }) => {
-      const unitLabel = dish.unit === "lb" ? t("cart.unitLb") : t("cart.unitPrice");
+      const unitLabel = dish.unit === "lb" ? t("cart.unitLb") : dish.unit === "pcs" ? null : t("cart.unitPrice");
+      const priceSpan = unitLabel === null
+        ? `<span>${escapeHtml(t("cart.unitPcs"))}</span><span>${money(dish.price)}</span>`
+        : `<span>${money(dish.price)} ${escapeHtml(unitLabel)}</span>`;
       return `
       <div class="cart-item cr-item">
         <div class="cart-item-main">
           <div>
             <strong>${escapeHtml(text(dish.name))}</strong>
-            <span>${money(dish.price)} ${escapeHtml(unitLabel)}</span>
+            ${priceSpan}
           </div>
           <em>${money(dish.price * quantity)}</em>
         </div>
@@ -3153,14 +3163,17 @@ const createCartActions = () => `
 const createCartDetails = (entries) =>
   entries
     .map(({ dish, quantity }) => {
-      const unitLabel = dish.unit === "lb" ? t("cart.unitLb") : t("cart.unitPrice");
-      const qtyStr = `×${quantity} ${dish.unit ?? "шт."}`;
+      const unitLabel = dish.unit === "lb" ? t("cart.unitLb") : dish.unit === "pcs" ? null : t("cart.unitPrice");
+      const qtyStr = dish.unit === "pcs" ? `×${quantity}` : `×${quantity} ${dish.unit ?? "шт."}`;
+      const priceSpan = unitLabel === null
+        ? `<span>${escapeHtml(t("cart.unitPcs"))} · ${qtyStr}</span>`
+        : `<span>${money(dish.price)} ${escapeHtml(unitLabel)} · ${qtyStr}</span>`;
       return `
       <div class="cart-item">
         <div class="cart-item-main">
           <div>
             <strong>${escapeHtml(text(dish.name))}</strong>
-            <span>${money(dish.price)} ${escapeHtml(unitLabel)} · ${qtyStr}</span>
+            ${priceSpan}
           </div>
           <em>${money(dish.price * quantity)}</em>
         </div>
