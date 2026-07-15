@@ -42,6 +42,9 @@ dishes.before-menu-audit-backup.json
 package.json
 package-lock.json
 npm-debug.log*
+# Worker dependencies must be tracked — wrangler needs them to bundle pdf-lib
+!worker/package.json
+!worker/package-lock.json
 
 # ── Local backup archives (stored outside repo, listed here for safety) ───────
 *.tar.gz

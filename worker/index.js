@@ -26,6 +26,9 @@
  * Activate via: https://lanaskitchenmiami.com/?test=1&token=<TEST_TOKEN>
  */
 
+import { PDFDocument, rgb } from "pdf-lib";
+import fontkit from "@pdf-lib/fontkit";
+
 // ── Delivery zone config (mirrors DELIVERY_ZONES in script.js) ───────────────
 const DELIVERY_ZONES = {
   "1": { letter: "A", fee: 10, minOrder: 60,  freeAt: 110 },
@@ -59,6 +62,8 @@ const PLACES_RATE_MAX       = 60;             // 60 autocomplete calls per minut
 const PLACES_INPUT_MAX      = 120;            // max chars in address search
 const PLACES_ID_MAX         = 500;            // placeId max length
 const MENU_CACHE_TTL_S = 300; // 5 minutes
+// NotoSans Regular from jsDelivr (Google Fonts repo) — full Cyrillic support, cached at CF edge
+const NOTO_SANS_TTF_URL = "https://cdn.jsdelivr.net/gh/googlefonts/noto-fonts/hinted/ttf/NotoSans/NotoSans-Regular.ttf";
 
 const ORDER_STATUSES = {
   confirmed: "✅ Подтверждено",
@@ -340,6 +345,170 @@ ${esc(notes.orderNotes?.trim() || "Нет")}${zoneMismatchLine}${statusLine}
 ${getInitialStatusText(delivery.zone)}`;
 }
 
+// ── Kitchen PDF helpers ───────────────────────────────────────────────────────
+
+// Parses start of delivery window and subtracts 30 min.
+// Handles: "4:00–5:00 PM", "10:00 AM – 2:00 PM", "10:00-14:00"
+// Returns formatted time string (12h) or null if unparseable.
+function computeReadyByTime(schedule) {
+  const label = String(schedule.timeWindowLabel || schedule.timeWindow || "");
+  if (!label) return null;
+  const m = label.match(/^(\d{1,2}):(\d{2})\s*(AM|PM)?\s*[–—-]/i);
+  if (!m) return null;
+  let h = parseInt(m[1]);
+  const min = parseInt(m[2]);
+  const startPeriod = m[3]?.toUpperCase() ?? null;
+  if (startPeriod === null) {
+    // No explicit period on start: "4:00-5:00 PM" → start inherits PM from end
+    if (/PM\s*$/i.test(label) && h < 12) h += 12;
+  } else {
+    if (startPeriod === "PM" && h !== 12) h += 12;
+    if (startPeriod === "AM" && h === 12) h = 0;
+  }
+  let totalMins = h * 60 + min - 30;
+  if (totalMins < 0) totalMins += 1440;
+  const nh = Math.floor(totalMins / 60) % 24;
+  const nm = totalMins % 60;
+  const period = nh >= 12 ? "PM" : "AM";
+  const h12 = nh % 12 || 12;
+  return `${h12}:${String(nm).padStart(2, "0")} ${period}`;
+}
+
+// Total quantity label for kitchen PDF (does not affect Telegram message format).
+// pcs items contain 2 pieces per order unit (stuffed peppers etc.).
+function formatPdfItemQty(it) {
+  const qty = it.quantity;
+  if (it.category === "soups") return `${qty} qt / примерно ${qty} л`;
+  if (it.unit === "lb") return `${qty} lb`;
+  if (it.unit === "pcs") return `${qty * 2} шт.`;
+  return `${qty} шт.`;
+}
+
+// ── Kitchen order PDF ─────────────────────────────────────────────────────────
+
+async function buildKitchenOrderPdf({ orderId, schedule, orderItems, notes }) {
+  const fontResp = await fetch(NOTO_SANS_TTF_URL, {
+    cf: { cacheTtl: 86400, cacheEverything: true },
+  });
+  if (!fontResp.ok) throw new Error(`Font fetch failed: ${fontResp.status}`);
+  const fontBytes = new Uint8Array(await fontResp.arrayBuffer());
+
+  const pdfDoc = await PDFDocument.create();
+  pdfDoc.registerFontkit(fontkit);
+  const font = await pdfDoc.embedFont(fontBytes);
+
+  const page = pdfDoc.addPage([595.28, 841.89]); // A4
+  const { width } = page.getSize();
+  const ML = 50;
+  const MR = 50;
+  let y = 841.89 - 50;
+
+  function put(text, x, sz, color = rgb(0, 0, 0)) {
+    page.drawText(String(text), { x, y, size: sz, font, color });
+  }
+  function nl(sz, gap = 5) { y -= sz + gap; }
+  function hr(gray = 0.5, wt = 0.5) {
+    page.drawLine({
+      start: { x: ML, y }, end: { x: width - MR, y },
+      thickness: wt, color: rgb(gray, gray, gray),
+    });
+    y -= 16;
+  }
+
+  // Title: centered, includes order ID
+  const titleSz = 16;
+  const titleText = `ЗАКАЗ-НАРЯД № ${orderId}`;
+  put(titleText, (width - font.widthOfTextAtSize(titleText, titleSz)) / 2, titleSz, rgb(0.05, 0.05, 0.05));
+  nl(titleSz, 10);
+  hr(0.25, 1.5);
+
+  // Cook schedule
+  y -= 4;
+  const metaSz = 12;
+  const labelW = Math.max(
+    font.widthOfTextAtSize("ПРИГОТОВИТЬ НА:", metaSz),
+    font.widthOfTextAtSize("ГОТОВО К:", metaSz),
+  ) + 12;
+  const valX = ML + labelW;
+
+  function metaRow(label, value) {
+    put(label, ML, metaSz, rgb(0.35, 0.35, 0.35));
+    put(value, valX, metaSz);
+    nl(metaSz);
+  }
+
+  const readableDateRu = (() => {
+    try {
+      return new Intl.DateTimeFormat("ru-RU", {
+        timeZone: "America/New_York",
+        weekday: "long", year: "numeric", month: "long", day: "numeric",
+      }).format(new Date(`${schedule.date}T00:00:00-05:00`));
+    } catch {
+      return schedule.date ?? "";
+    }
+  })();
+  metaRow("ПРИГОТОВИТЬ НА:", readableDateRu);
+
+  const readyBy = computeReadyByTime(schedule);
+  if (readyBy) {
+    metaRow("ГОТОВО К:", readyBy);
+  } else {
+    console.warn("[PDF] Cannot parse delivery time window:", schedule.timeWindowLabel, "/", schedule.timeWindow);
+    const fallback = String(schedule.timeWindowLabel || schedule.timeWindow || "").split(/[–—-]/)[0].trim();
+    metaRow("ГОТОВО К:", fallback || "—");
+  }
+
+  y -= 8;
+  hr();
+
+  // Items: merge same id, show total qty
+  const itemSz = 13;
+  const merged = new Map();
+  for (const it of orderItems) {
+    const prev = merged.get(it.id);
+    if (prev) { prev.quantity += it.quantity; }
+    else { merged.set(it.id, { ...it }); }
+  }
+  for (const it of merged.values()) {
+    put(`□  ${it.name} — ${formatPdfItemQty(it)}`, ML, itemSz);
+    nl(itemSz);
+  }
+
+  // Comment: show full customer input when non-empty
+  const fullComment = [(notes?.allergies ?? "").trim(), (notes?.orderNotes ?? "").trim()]
+    .filter(Boolean).join("\n");
+  if (fullComment) {
+    y -= 6;
+    hr();
+    const commentSz = 12;
+    put("ОСОБЕННОСТИ ЗАКАЗА:", ML, commentSz, rgb(0.1, 0.1, 0.1));
+    nl(commentSz, 8);
+    for (const line of fullComment.split("\n")) {
+      if (line.trim()) { put(line.trim(), ML + 6, commentSz); nl(commentSz); }
+    }
+  }
+
+  return pdfDoc.save();
+}
+
+async function sendKitchenOrderPdf(env, orderId, pdfBytes) {
+  const recipients = [env.TELEGRAM_CHAT_ID, env.TELEGRAM_SECONDARY_CHAT_ID].filter(Boolean);
+  for (const chatId of recipients) {
+    const form = new FormData();
+    form.append("chat_id", String(chatId));
+    form.append("caption", `📋 Заказ-наряд ${orderId}`);
+    form.append("document", new Blob([pdfBytes], { type: "application/pdf" }), `zakaznaryad-${orderId}.pdf`);
+    const resp = await fetch(`https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/sendDocument`, {
+      method: "POST",
+      body: form,
+    });
+    if (!resp.ok) {
+      const errText = await resp.text().catch(() => "");
+      console.error(`[PDF] sendDocument failed (${chatId}):`, errText.slice(0, 200));
+    }
+  }
+}
+
 // ── Core preorder handler ─────────────────────────────────────────────────────
 
 async function handlePreorder(request, env, json) {
@@ -540,6 +709,14 @@ async function handlePreorder(request, env, json) {
 
   if (!tgResult.ok) {
     return json({ ok: false, error: "delivery_failed", message: "Failed to send your order. Please try again or contact us directly." }, 500);
+  }
+
+  // ── Kitchen order PDF (fire-and-forget — never fails the main request) ────
+  try {
+    const pdfBytes = await buildKitchenOrderPdf({ orderId, schedule, orderItems, notes });
+    await sendKitchenOrderPdf(env, orderId, pdfBytes);
+  } catch (pdfErr) {
+    console.error("[PDF] Kitchen order PDF failed:", pdfErr?.message ?? String(pdfErr));
   }
 
   return json({ ok: true, orderId, pricing });
