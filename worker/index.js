@@ -386,7 +386,7 @@ function formatPdfItemQty(it) {
 
 // ── Kitchen order PDF ─────────────────────────────────────────────────────────
 
-async function buildKitchenOrderPdf({ orderId, schedule, orderItems, notes }) {
+async function buildKitchenOrderPdf({ orderId, customer, schedule, orderItems, notes }) {
   const fontResp = await fetch(NOTO_SANS_TTF_URL, {
     cf: { cacheTtl: 86400, cacheEverything: true },
   });
@@ -401,10 +401,15 @@ async function buildKitchenOrderPdf({ orderId, schedule, orderItems, notes }) {
   const { width } = page.getSize();
   const ML = 50;
   const MR = 50;
+  const contentW = width - ML - MR;
   let y = 841.89 - 50;
 
   function put(text, x, sz, color = rgb(0, 0, 0)) {
     page.drawText(String(text), { x, y, size: sz, font, color });
+  }
+  function putBold(text, x, sz, color = rgb(0, 0, 0)) {
+    page.drawText(String(text), { x, y, size: sz, font, color });
+    page.drawText(String(text), { x: x + 0.6, y, size: sz, font, color }); // simulated bold
   }
   function nl(sz, gap = 5) { y -= sz + gap; }
   function hr(gray = 0.5, wt = 0.5) {
@@ -414,29 +419,35 @@ async function buildKitchenOrderPdf({ orderId, schedule, orderItems, notes }) {
     });
     y -= 16;
   }
+  // Word wrap: splits text into lines that fit within contentW at given size
+  function wrapText(text, sz) {
+    const words = text.split(" ");
+    const lines = [];
+    let cur = "";
+    for (const w of words) {
+      const test = cur ? `${cur} ${w}` : w;
+      if (font.widthOfTextAtSize(test, sz) <= contentW) { cur = test; }
+      else { if (cur) lines.push(cur); cur = w; }
+    }
+    if (cur) lines.push(cur);
+    return lines.length ? lines : [text];
+  }
 
-  // Title: centered, includes order ID
+  // ── Title ──────────────────────────────────────────────────────────────────
   const titleSz = 16;
   const titleText = `ЗАКАЗ-НАРЯД № ${orderId}`;
   put(titleText, (width - font.widthOfTextAtSize(titleText, titleSz)) / 2, titleSz, rgb(0.05, 0.05, 0.05));
   nl(titleSz, 10);
   hr(0.25, 1.5);
 
-  // Cook schedule
-  y -= 4;
-  const metaSz = 12;
-  const labelW = Math.max(
-    font.widthOfTextAtSize("ПРИГОТОВИТЬ НА:", metaSz),
-    font.widthOfTextAtSize("ГОТОВО К:", metaSz),
-  ) + 12;
-  const valX = ML + labelW;
+  // ── Client name: 17pt bold for quick identification ───────────────────────
+  y -= 2;
+  putBold(`КЛИЕНТ: ${(customer?.name ?? "").trim()}`, ML, 17);
+  nl(17, 6);
+  hr(0.4);
 
-  function metaRow(label, value) {
-    put(label, ML, metaSz, rgb(0.35, 0.35, 0.35));
-    put(value, valX, metaSz);
-    nl(metaSz);
-  }
-
+  // ── Date: large, uppercase, visually dominant ──────────────────────────────
+  y -= 6;
   const readableDateRu = (() => {
     try {
       return new Intl.DateTimeFormat("ru-RU", {
@@ -447,22 +458,29 @@ async function buildKitchenOrderPdf({ orderId, schedule, orderItems, notes }) {
       return schedule.date ?? "";
     }
   })();
-  metaRow("ПРИГОТОВИТЬ НА:", readableDateRu);
+  const dateSz = 24;
+  const dateStr = readableDateRu.toUpperCase();
+  put(dateStr, Math.max(ML, (width - font.widthOfTextAtSize(dateStr, dateSz)) / 2), dateSz, rgb(0.07, 0.07, 0.07));
+  nl(dateSz, 10);
 
+  // ── Ready-by: maximum prominence, dark red ─────────────────────────────────
   const readyBy = computeReadyByTime(schedule);
+  let readyByLabel;
   if (readyBy) {
-    metaRow("ГОТОВО К:", readyBy);
+    readyByLabel = readyBy;
   } else {
-    console.warn("[PDF] Cannot parse delivery time window:", schedule.timeWindowLabel, "/", schedule.timeWindow);
-    const fallback = String(schedule.timeWindowLabel || schedule.timeWindow || "").split(/[–—-]/)[0].trim();
-    metaRow("ГОТОВО К:", fallback || "—");
+    console.warn("[PDF] Cannot parse time window:", schedule.timeWindowLabel, "/", schedule.timeWindow);
+    readyByLabel = String(schedule.timeWindowLabel || schedule.timeWindow || "").split(/[–—-]/)[0].trim() || "—";
   }
+  const readyBySz = 26;
+  const readyByStr = `ГОТОВО К: ${readyByLabel}`;
+  put(readyByStr, Math.max(ML, (width - font.widthOfTextAtSize(readyByStr, readyBySz)) / 2), readyBySz, rgb(0.65, 0.05, 0.05));
+  nl(readyBySz, 14);
 
-  y -= 8;
   hr();
 
-  // Items: merge same id, show total qty
-  const itemSz = 13;
+  // ── Items: merged, large (20pt), uppercase, word-wrapped ──────────────────
+  const itemSz = 20;
   const merged = new Map();
   for (const it of orderItems) {
     const prev = merged.get(it.id);
@@ -470,21 +488,32 @@ async function buildKitchenOrderPdf({ orderId, schedule, orderItems, notes }) {
     else { merged.set(it.id, { ...it }); }
   }
   for (const it of merged.values()) {
-    put(`□  ${it.name} — ${formatPdfItemQty(it)}`, ML, itemSz);
-    nl(itemSz);
+    const label = `□ ${it.name} — ${formatPdfItemQty(it)}`.toUpperCase();
+    const lines = wrapText(label, itemSz);
+    for (let i = 0; i < lines.length; i++) {
+      put(lines[i], i === 0 ? ML : ML + 26, itemSz);
+      nl(itemSz, 8);
+    }
+    y -= 4; // extra gap between dish rows
   }
 
-  // Comment: show full customer input when non-empty
+  // ── Comment: bullet points, full text, no truncation ──────────────────────
   const fullComment = [(notes?.allergies ?? "").trim(), (notes?.orderNotes ?? "").trim()]
     .filter(Boolean).join("\n");
   if (fullComment) {
-    y -= 6;
+    y -= 4;
     hr();
+    put("ОСОБЕННОСТИ ЗАКАЗА:", ML, 13, rgb(0.1, 0.1, 0.1));
+    nl(13, 10);
     const commentSz = 12;
-    put("ОСОБЕННОСТИ ЗАКАЗА:", ML, commentSz, rgb(0.1, 0.1, 0.1));
-    nl(commentSz, 8);
     for (const line of fullComment.split("\n")) {
-      if (line.trim()) { put(line.trim(), ML + 6, commentSz); nl(commentSz); }
+      if (!line.trim()) continue;
+      const wrapped = wrapText(`• ${line.trim()}`, commentSz);
+      for (let i = 0; i < wrapped.length; i++) {
+        put(wrapped[i], i === 0 ? ML : ML + 16, commentSz);
+        nl(commentSz, 5);
+      }
+      y -= 3; // extra gap between bullet items
     }
   }
 
@@ -713,7 +742,7 @@ async function handlePreorder(request, env, json) {
 
   // ── Kitchen order PDF (fire-and-forget — never fails the main request) ────
   try {
-    const pdfBytes = await buildKitchenOrderPdf({ orderId, schedule, orderItems, notes });
+    const pdfBytes = await buildKitchenOrderPdf({ orderId, customer, schedule, orderItems, notes });
     await sendKitchenOrderPdf(env, orderId, pdfBytes);
   } catch (pdfErr) {
     console.error("[PDF] Kitchen order PDF failed:", pdfErr?.message ?? String(pdfErr));
