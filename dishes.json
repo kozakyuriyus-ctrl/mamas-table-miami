@@ -1716,7 +1716,7 @@
     "id": "adjika-sauce",
     "category": "add-ons",
     "image": "assets/images/add-ons/add-on-adjika.webp",
-    "price": 4.0,
+    "price": 4,
     "name": {
       "ru": "Аджика",
       "en": "Adjika Sauce",
@@ -1744,12 +1744,12 @@
     "image": "assets/images/add-ons/add-on-strawberry-jam.webp",
     "price": 3.5,
     "name": {
-      "ru": "Клубничный джем",
+      "ru": "Клубничное варенье",
       "en": "Strawberry Jam",
       "uk": "Полунична варення"
     },
     "description": {
-      "ru": "Домашнее клубничное варенье к блинам и творогу.",
+      "ru": "Клубничное варенье к блинчикам.",
       "en": "Homemade strawberry jam for crepes and cottage cheese.",
       "uk": "Домашнє полуничне варення до млинців та сиру."
     },
