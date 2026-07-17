@@ -723,6 +723,10 @@ p {
   transition: transform 300ms ease;
 }
 
+[data-category-route="add-ons"] img {
+  object-position: center 35%;
+}
+
 .category-card:hover img {
   transform: scale(1.05);
 }
@@ -2575,10 +2579,106 @@ body.modal-open .route-order-card {
 
 #preorder-modal,
 #catering-modal,
-#cart-review-modal {
+#cart-review-modal,
+#addon-modal {
   position: fixed;
   inset: 0;
   z-index: 900;
+}
+
+.addon-modal-panel {
+  max-width: 440px;
+}
+
+.addon-modal-body {
+  padding: 8px 24px 16px;
+}
+
+.addon-rec-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.addon-rec-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+  flex-wrap: wrap;
+}
+
+.addon-rec-row:last-child {
+  border-bottom: none;
+}
+
+.addon-rec-info {
+  flex: 1;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink);
+  min-width: 0;
+}
+
+.addon-rec-btn {
+  flex-shrink: 0;
+  align-self: center;
+  padding: 9px 10px;
+  font-size: 14px;
+  min-height: 44px;
+}
+
+.addon-rec-added {
+  width: 100%;
+  font-size: 13px;
+  color: var(--green, #3a7c52);
+  font-weight: 600;
+  padding-bottom: 4px;
+}
+
+.addon-modal-footer {
+  display: flex;
+  gap: 10px;
+  padding: 14px 24px;
+  border-top: 1px solid var(--line);
+  flex-shrink: 0;
+}
+
+.addon-modal-footer .btn {
+  flex: 1;
+  justify-content: center;
+}
+
+@media (max-width: 600px) {
+  #addon-modal .modal-header h2 {
+    font-size: 15px;
+  }
+
+  .addon-modal-body {
+    padding: 4px 16px 10px;
+  }
+
+  .addon-rec-row {
+    padding: 9px 0;
+    gap: 8px;
+  }
+
+  .addon-rec-btn {
+    padding: 6px 10px;
+    font-size: 13px;
+    min-height: 44px;
+  }
+
+  .addon-modal-footer {
+    padding: 10px 16px;
+    gap: 8px;
+  }
+
+  .addon-modal-footer .btn {
+    font-size: 13px;
+    padding: 8px 8px;
+  }
 }
 
 .modal-overlay {

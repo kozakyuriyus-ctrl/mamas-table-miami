@@ -284,7 +284,8 @@
     "sizeRu": "2 штуки · примерно 1.4–1.5 lb (635–680 г) · 2 порции",
     "sizeEn": "2 pieces · approximately 1.4–1.5 lb (635–680 g) · 2 servings",
     "sizeUa": "2 штуки · приблизно 1.4–1.5 lb (635–680 г) · 2 порції",
-    "badge": "bestseller"
+    "badge": "bestseller",
+    "orderUnitRu": "2 шт."
   },
   {
     "id": "pork-pelmeni",
@@ -1584,7 +1585,8 @@
     "unit": "pcs",
     "sizeRu": "2 штуки · примерно 1.4–1.5 lb (635–680 г) · 2 порции",
     "sizeEn": "2 pieces · approximately 1.4–1.5 lb (635–680 g) · 2 servings",
-    "sizeUa": "2 штуки · приблизно 1.4–1.5 lb (635–680 г) · 2 порції"
+    "sizeUa": "2 штуки · приблизно 1.4–1.5 lb (635–680 г) · 2 порції",
+    "orderUnitRu": "2 шт."
   },
   {
     "id": "frozen-cabbage-rolls",
@@ -1605,5 +1607,239 @@
     "sizeRu": "Вес: 1 lb (454 г) · 2 порции",
     "sizeEn": "Weight: 1 lb (454 g) · 2 servings",
     "sizeUa": "Вага: 1 lb (454 г) · 2 порції"
+  },
+  {
+    "id": "sour-cream",
+    "category": "add-ons",
+    "image": "assets/images/add-ons/add-on-sour-cream.webp",
+    "price": 2.5,
+    "name": {
+      "ru": "Сметана",
+      "en": "Sour Cream",
+      "uk": "Сметана"
+    },
+    "description": {
+      "ru": "Домашняя натуральная сметана.",
+      "en": "Natural homemade sour cream.",
+      "uk": "Домашня натуральна сметана."
+    },
+    "unit": "pcs",
+    "sizeRu": "3.5 oz (примерно 100 г)",
+    "sizeEn": "3.5 oz (approx. 100 g)",
+    "sizeUa": "3.5 oz (приблизно 100 г)",
+    "pcsLabel": {
+      "ru": "3.5 oz (примерно 100 г)",
+      "en": "3.5 oz (approx. 100 g)",
+      "uk": "3.5 oz (приблизно 100 г)"
+    },
+    "orderUnitRu": "3.5 oz (примерно 100 г)"
+  },
+  {
+    "id": "garlic-sauce",
+    "category": "add-ons",
+    "image": "assets/images/add-ons/add-on-garlic-sauce.webp",
+    "price": 3.5,
+    "name": {
+      "ru": "Чесночный соус",
+      "en": "Garlic Sauce",
+      "uk": "Часниковий соус"
+    },
+    "description": {
+      "ru": "Домашний чесночный соус к мясу и гарнирам.",
+      "en": "Homemade garlic sauce for meats and sides.",
+      "uk": "Домашній часниковий соус до м'яса та гарнірів."
+    },
+    "unit": "pcs",
+    "sizeRu": "3.5 oz (примерно 100 г)",
+    "sizeEn": "3.5 oz (approx. 100 g)",
+    "sizeUa": "3.5 oz (приблизно 100 г)",
+    "pcsLabel": {
+      "ru": "3.5 oz (примерно 100 г)",
+      "en": "3.5 oz (approx. 100 g)",
+      "uk": "3.5 oz (приблизно 100 г)"
+    },
+    "orderUnitRu": "3.5 oz (примерно 100 г)"
+  },
+  {
+    "id": "tzatziki",
+    "category": "add-ons",
+    "image": "assets/images/add-ons/add-on-tzatziki.webp",
+    "price": 3.5,
+    "name": {
+      "ru": "Соус Дзадзики",
+      "en": "Tzatziki",
+      "uk": "Цацики"
+    },
+    "description": {
+      "ru": "Греческий соус из йогурта с огурцом и чесноком.",
+      "en": "Greek yogurt sauce with cucumber and garlic.",
+      "uk": "Грецький соус з йогурту з огірком та часником."
+    },
+    "unit": "pcs",
+    "sizeRu": "3.5 oz (примерно 100 г)",
+    "sizeEn": "3.5 oz (approx. 100 g)",
+    "sizeUa": "3.5 oz (приблизно 100 г)",
+    "pcsLabel": {
+      "ru": "3.5 oz (примерно 100 г)",
+      "en": "3.5 oz (approx. 100 g)",
+      "uk": "3.5 oz (приблизно 100 г)"
+    },
+    "orderUnitRu": "3.5 oz (примерно 100 г)"
+  },
+  {
+    "id": "homemade-mustard",
+    "category": "add-ons",
+    "image": "assets/images/add-ons/add-on-homemade-mustard.webp",
+    "price": 3.5,
+    "name": {
+      "ru": "Домашняя горчица",
+      "en": "Homemade Mustard",
+      "uk": "Домашня гірчиця"
+    },
+    "description": {
+      "ru": "Пикантная домашняя горчица.",
+      "en": "Tangy homemade mustard.",
+      "uk": "Пікантна домашня гірчиця."
+    },
+    "unit": "pcs",
+    "sizeRu": "3.5 oz (примерно 100 г)",
+    "sizeEn": "3.5 oz (approx. 100 g)",
+    "sizeUa": "3.5 oz (приблизно 100 г)",
+    "pcsLabel": {
+      "ru": "3.5 oz (примерно 100 г)",
+      "en": "3.5 oz (approx. 100 g)",
+      "uk": "3.5 oz (приблизно 100 г)"
+    },
+    "orderUnitRu": "3.5 oz (примерно 100 г)"
+  },
+  {
+    "id": "adjika-sauce",
+    "category": "add-ons",
+    "image": "assets/images/add-ons/add-on-adjika.webp",
+    "price": 4.0,
+    "name": {
+      "ru": "Аджика",
+      "en": "Adjika Sauce",
+      "uk": "Аджика (соус)"
+    },
+    "description": {
+      "ru": "Острый домашний соус из перца и специй.",
+      "en": "Spicy homemade pepper and spice sauce.",
+      "uk": "Гострий домашній соус із перцю та спецій."
+    },
+    "unit": "pcs",
+    "sizeRu": "3.5 oz (примерно 100 г)",
+    "sizeEn": "3.5 oz (approx. 100 g)",
+    "sizeUa": "3.5 oz (приблизно 100 г)",
+    "pcsLabel": {
+      "ru": "3.5 oz (примерно 100 г)",
+      "en": "3.5 oz (approx. 100 g)",
+      "uk": "3.5 oz (приблизно 100 г)"
+    },
+    "orderUnitRu": "3.5 oz (примерно 100 г)"
+  },
+  {
+    "id": "strawberry-jam",
+    "category": "add-ons",
+    "image": "assets/images/add-ons/add-on-strawberry-jam.webp",
+    "price": 3.5,
+    "name": {
+      "ru": "Клубничный джем",
+      "en": "Strawberry Jam",
+      "uk": "Полунична варення"
+    },
+    "description": {
+      "ru": "Домашнее клубничное варенье к блинам и творогу.",
+      "en": "Homemade strawberry jam for crepes and cottage cheese.",
+      "uk": "Домашнє полуничне варення до млинців та сиру."
+    },
+    "unit": "pcs",
+    "sizeRu": "3.5 oz (примерно 100 г)",
+    "sizeEn": "3.5 oz (approx. 100 g)",
+    "sizeUa": "3.5 oz (приблизно 100 г)",
+    "pcsLabel": {
+      "ru": "3.5 oz (примерно 100 г)",
+      "en": "3.5 oz (approx. 100 g)",
+      "uk": "3.5 oz (приблизно 100 г)"
+    },
+    "orderUnitRu": "3.5 oz (примерно 100 г)"
+  },
+  {
+    "id": "sweetened-condensed-milk",
+    "category": "add-ons",
+    "image": "assets/images/add-ons/add-on-condensed-milk.webp",
+    "price": 3.5,
+    "name": {
+      "ru": "Сгущённое молоко",
+      "en": "Sweetened Condensed Milk",
+      "uk": "Згущене молоко"
+    },
+    "description": {
+      "ru": "Классическое сгущённое молоко к блинам и творогу.",
+      "en": "Classic sweetened condensed milk for crepes and cottage cheese.",
+      "uk": "Класичне згущене молоко до млинців та сиру."
+    },
+    "unit": "pcs",
+    "sizeRu": "3.5 oz (примерно 100 г)",
+    "sizeEn": "3.5 oz (approx. 100 g)",
+    "sizeUa": "3.5 oz (приблизно 100 г)",
+    "pcsLabel": {
+      "ru": "3.5 oz (примерно 100 г)",
+      "en": "3.5 oz (approx. 100 g)",
+      "uk": "3.5 oz (приблизно 100 г)"
+    },
+    "orderUnitRu": "3.5 oz (примерно 100 г)"
+  },
+  {
+    "id": "pickled-hot-peppers",
+    "category": "add-ons",
+    "image": "assets/images/add-ons/add-on-pickled-peppers.webp",
+    "price": 3.5,
+    "name": {
+      "ru": "Маринованные острые перчики",
+      "en": "Pickled Hot Peppers",
+      "uk": "Мариновані гострі перчики"
+    },
+    "description": {
+      "ru": "Маленькие целые маринованные острые перчики.",
+      "en": "Small whole pickled hot peppers.",
+      "uk": "Маленькі цілі мариновані гострі перчики."
+    },
+    "unit": "pcs",
+    "sizeRu": "5–6 шт.",
+    "sizeEn": "5–6 pcs.",
+    "sizeUa": "5–6 шт.",
+    "pcsLabel": {
+      "ru": "5–6 шт.",
+      "en": "5–6 pcs.",
+      "uk": "5–6 шт."
+    },
+    "orderUnitRu": "5–6 шт."
+  },
+  {
+    "id": "garlic-pampushky",
+    "category": "add-ons",
+    "image": "assets/images/add-ons/add-on-garlic-pampushky.webp",
+    "price": 4.5,
+    "name": {
+      "ru": "Пампушки с чесночной заправкой",
+      "en": "Garlic Pampushky",
+      "uk": "Пампушки з часниковою заправкою"
+    },
+    "description": {
+      "ru": "Пышные украинские булочки с чесноком и зеленью к борщу.",
+      "en": "Fluffy Ukrainian garlic rolls with herbs, perfect with borscht.",
+      "uk": "Пишні українські булочки з часником та зеленню до борщу."
+    },
+    "unit": "pcs",
+    "pcsLabel": {
+      "ru": "4 шт.",
+      "en": "4 pcs.",
+      "uk": "4 шт."
+    },
+    "orderUnitRu": "4 шт.",
+    "sizeRu": "4 шт.",
+    "sizeEn": "4 pcs.",
+    "sizeUa": "4 шт."
   }
 ]

@@ -374,14 +374,58 @@ function computeReadyByTime(schedule) {
   return `${h12}:${String(nm).padStart(2, "0")} ${period}`;
 }
 
+// Parses size-per-unit from dish.sizeRu (server-side field, never from name or client data).
+// Returns the numeric count in the dish's natural unit.
+// Fallbacks: lb→1, qt→1, pcs→2 (known current dishes), шт.→1.
+function pdfSizePerUnit(it) {
+  const sr = String(it.sizeRu ?? "");
+  const u  = it.unit ?? "";
+  if (u === "lb") {
+    const m = sr.match(/(\d+(?:\.\d+)?)\s*lb/i);
+    return m ? parseFloat(m[1]) : 1;
+  }
+  if (u === "qt" || it.category === "soups") {
+    const m = sr.match(/(\d+(?:\.\d+)?)\s*qt/i);
+    return m ? parseFloat(m[1]) : 1;
+  }
+  if (u === "pcs") {
+    const m = sr.match(/(\d+)\s*(?:штук|шт)/i);
+    if (m) return parseInt(m[1], 10);
+    return 1; // container-type items (e.g. oz-based add-ons): 1 container per unit
+  }
+  // unit="шт." and fallback
+  const m = sr.match(/^(\d+)\s*шт/i);
+  return m ? parseInt(m[1], 10) : 1;
+}
+
 // Total quantity label for kitchen PDF (does not affect Telegram message format).
-// pcs items contain 2 pieces per order unit (stuffed peppers etc.).
+// Uses actual size-per-unit from sizeRu × quantity, not hardcoded values.
 function formatPdfItemQty(it) {
-  const qty = it.quantity;
-  if (it.category === "soups") return `${qty} qt / примерно ${qty} л`;
-  if (it.unit === "lb") return `${qty} lb`;
-  if (it.unit === "pcs") return `${qty * 2} шт.`;
-  return `${qty} шт.`;
+  const sr = String(it.sizeRu ?? "");
+  // oz-based containers: sizeRu starts with "N oz (Mg г)" — multiply by quantity
+  if (it.unit === "pcs") {
+    const mRange = sr.match(/^(\d+)\s*[–-]\s*(\d+)\s*(?:шт|pcs)/i);
+    if (mRange) {
+      const lo = parseInt(mRange[1], 10) * it.quantity;
+      const hi = parseInt(mRange[2], 10) * it.quantity;
+      return `${lo}–${hi} шт.`;
+    }
+    const mOz = sr.match(/^(\d+(?:\.\d+)?)\s*oz\s*\((примерно\s+|приблизно\s+|approx\.\s+)?(\d+(?:\.\d+)?)\s*г\)/i);
+    if (mOz) {
+      const prefix = mOz[2] || "";
+      const totalOz = parseFloat(mOz[1]) * it.quantity;
+      const totalG  = parseFloat(mOz[3]) * it.quantity;
+      const ozStr = Number.isInteger(totalOz) ? String(totalOz) : String(Math.round(totalOz * 100) / 100);
+      const gStr  = Number.isInteger(totalG)  ? String(totalG)  : String(Math.round(totalG * 100) / 100);
+      return `${ozStr} oz (${prefix}${gStr} г)`;
+    }
+  }
+  const spu   = pdfSizePerUnit(it);
+  const total = spu * it.quantity;
+  const t     = Number.isInteger(total) ? String(total) : String(Math.round(total * 100) / 100);
+  if (it.unit === "lb") return `${t} lb`;
+  if (it.unit === "qt" || it.category === "soups") return `${t} qt / примерно ${t} л`;
+  return `${t} шт.`;
 }
 
 // ── Kitchen order PDF ─────────────────────────────────────────────────────────
@@ -665,7 +709,7 @@ async function handlePreorder(request, env, json) {
       ? (dish.name.ru ?? dish.name.en ?? String(dish.name))
       : String(dish.name);
 
-    orderItems.push({ id: dish.id, name: dishName, quantity: item.quantity, unit: dish.unit ?? null, category: dish.category ?? null, orderUnitRu: dish.orderUnitRu ?? null, unitPrice: dish.price, lineTotal });
+    orderItems.push({ id: dish.id, name: dishName, quantity: item.quantity, unit: dish.unit ?? null, category: dish.category ?? null, orderUnitRu: dish.orderUnitRu ?? null, sizeRu: dish.sizeRu ?? null, unitPrice: dish.price, lineTotal });
   }
 
   // ── Minimum order check (food subtotal only, delivery excluded) ───────────

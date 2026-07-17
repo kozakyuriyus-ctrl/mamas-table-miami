@@ -273,6 +273,7 @@ const copy = {
       unitPrice: "за ед.",
       unitLb: "за фунт",
       unitPcs: "2 шт.",
+      addOnsOnly: "Добавки можно заказать только вместе с блюдами из основного меню.",
     },
     cartReview: {
       title: "Ваш заказ",
@@ -288,6 +289,13 @@ const copy = {
     },
     toast: {
       added: "Добавлено в заказ",
+    },
+    addOnModal: {
+      title: "Рекомендуем к этому блюду",
+      continueShopping: "Продолжить покупки",
+      goToCart: "Перейти в корзину",
+      added: "✓ Добавлено в корзину",
+      addBtn: "+ Добавить",
     },
     preorder: {
       modalTitle: "Детали предзаказа",
@@ -684,6 +692,7 @@ const copy = {
       unitPrice: "each",
       unitLb: "per lb",
       unitPcs: "2 pcs.",
+      addOnsOnly: "Add-ons can only be ordered together with items from the main menu.",
     },
     cartReview: {
       title: "Your Order",
@@ -699,6 +708,13 @@ const copy = {
     },
     toast: {
       added: "Added to order",
+    },
+    addOnModal: {
+      title: "Recommended with this dish",
+      continueShopping: "Continue shopping",
+      goToCart: "Go to cart",
+      added: "✓ Added to cart",
+      addBtn: "+ Add",
     },
     preorder: {
       modalTitle: "Pre-order details",
@@ -1095,6 +1111,7 @@ const copy = {
       unitPrice: "за од.",
       unitLb: "за фунт",
       unitPcs: "2 шт.",
+      addOnsOnly: "Додатки можна замовити лише разом зі стравами з основного меню.",
     },
     cartReview: {
       title: "Ваше замовлення",
@@ -1110,6 +1127,13 @@ const copy = {
     },
     toast: {
       added: "Додано до замовлення",
+    },
+    addOnModal: {
+      title: "Рекомендуємо до цієї страви",
+      continueShopping: "Продовжити покупки",
+      goToCart: "Перейти до кошика",
+      added: "✓ Додано до кошика",
+      addBtn: "+ Додати",
     },
     preorder: {
       modalTitle: "Деталі передзамовлення",
@@ -1432,6 +1456,18 @@ const categories = [
     ),
   },
   {
+    id: "add-ons",
+    image: "assets/images/categories/category-add-ons.jpg",
+    icon: "bowl-food",
+    iconSvg: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 9h20"/><path d="M4 9c0 7 3.5 12 8 12s8-5 8-12"/><path d="M8 21h8"/></svg>`,
+    title: tr("Добавки к блюдам", "Add-ons", "Додатки до страв"),
+    description: tr(
+      "Соусы, добавки и гарниры к домашним блюдам.",
+      "Sauces, condiments, and extras to complement your order.",
+      "Соуси, добавки та гарніри до домашніх страв.",
+    ),
+  },
+  {
     id: "frozen",
     image: "assets/images/categories/category-frozen.jpg",
     icon: "snowflake",
@@ -1711,6 +1747,7 @@ const categoryRouteAliases = {
   "first-dishes": "soups",
   soups: "soups",
   "main-dishes": "main-dishes",
+  "add-ons": "add-ons",
   salads: "salads",
   frozen: "frozen",
   drinks: "drinks",
@@ -1798,7 +1835,7 @@ const buildOrderUnitStr = (dish) => {
   if (dish.id === "liver-cake") return t("size.liverCake");
   if (dish.id === "mimosa-salad") return t("size.mimosaSalad");
   if (dish.id === "herring-under-fur-coat") return t("size.herringUnderFurCoat");
-  if (dish.unit === "pcs") return t("orderUnit.pcs");
+  if (dish.unit === "pcs") return dish.pcsLabel ? text(dish.pcsLabel) : t("orderUnit.pcs");
   if (dish.unit === "lb") return "1 lb";
   return t("orderUnit.piece");
 };
@@ -1867,14 +1904,17 @@ const createCategoryCard = (category) => {
   const dishes = menuItemsByCategory(category.id);
   const count = dishes.length;
   const minPrice = count ? Math.min(...dishes.map((d) => d.price)) : 0;
+  const countStr = category.id === "add-ons"
+    ? `${count} ${t("cart.itemWord")}`
+    : dishCountLabel(count);
   const meta = count
-    ? `${dishCountLabel(count)} · ${t("categories.from")} ${money(minPrice)}`
+    ? `${countStr} · ${t("categories.from")} ${money(minPrice)}`
     : escapeHtml(t("categories.open"));
   return `
   <a class="category-card reveal" href="#/${escapeHtml(category.id)}" data-category-route="${escapeHtml(category.id)}">
     <img src="${escapeHtml(category.image)}" alt="${escapeHtml(text(category.title))}" loading="lazy" />
     <span>
-      <i data-lucide="${escapeHtml(category.icon)}"></i>
+      ${category.iconSvg || `<i data-lucide="${escapeHtml(category.icon)}"></i>`}
       <strong>${escapeHtml(text(category.title))}</strong>
       <small>${escapeHtml(meta)}</small>
     </span>
@@ -2904,6 +2944,93 @@ const unlockBodyScroll = () => {
   window.scrollTo(0, y);
 };
 
+// ── Add-on recommendations ────────────────────────────────────────────────────
+
+const ADD_ON_RECS = {
+  "borscht":                   ["sour-cream", "garlic-pampushky", "adjika-sauce"],
+  "solyanka":                  ["sour-cream", "pickled-hot-peppers"],
+  "pea-soup":                  ["garlic-pampushky"],
+  "rassolnik":                 ["sour-cream"],
+  "ukrainian-kapustnyak":      ["sour-cream", "garlic-pampushky"],
+  "green-borscht":             ["sour-cream", "garlic-pampushky"],
+  "cabbage-rolls":             ["sour-cream", "adjika-sauce"],
+  "stuffed-bell-peppers":      ["sour-cream", "adjika-sauce"],
+  "pork-pelmeni":              ["sour-cream", "adjika-sauce"],
+  "pork-beef-dumplings":       ["sour-cream", "adjika-sauce"],
+  "chicken-pelmeni":           ["sour-cream", "adjika-sauce"],
+  "varenyky":                  ["sour-cream"],
+  "pork-mince-cutlets":        ["garlic-sauce"],
+  "chicken-mince-cutlets":     ["garlic-sauce"],
+  "fish-cutlets":              ["tzatziki"],
+  "potato-zrazy-meat":         ["sour-cream", "garlic-sauce"],
+  "pork-chops":                ["garlic-sauce"],
+  "bbq-ribs":                  ["pickled-hot-peppers"],
+  "buffalo-wings":             ["garlic-sauce", "pickled-hot-peppers"],
+  "chicken-tabaka":            ["garlic-sauce", "adjika-sauce"],
+  "chicken-chops":             ["garlic-sauce", "tzatziki"],
+  "grilled-salmon-broccoli":   ["tzatziki"],
+  "meat-filled-blini":         ["sour-cream"],
+  "cottage-cheese-blini":      ["sour-cream", "strawberry-jam", "sweetened-condensed-milk"],
+  "plain-blini":               ["sour-cream", "strawberry-jam", "sweetened-condensed-milk"],
+  "chicken-benderiki":         ["sour-cream", "garlic-sauce"],
+  "pork-beef-kholodets":       ["homemade-mustard"],
+  "chicken-kholodets":         ["homemade-mustard"],
+};
+
+const createAddOnModal = (dishId) => {
+  const recIds = ADD_ON_RECS[dishId] || [];
+  const rows = recIds.map((addonId) => {
+    const addon = dishById(addonId);
+    if (!addon) return "";
+    return `
+      <li class="addon-rec-row" data-rec-row="${escapeHtml(addonId)}">
+        <span class="addon-rec-info">${escapeHtml(text(addon.name))} &middot; ${money(addon.price)}</span>
+        <button class="btn btn-primary addon-rec-btn" type="button" data-rec-add="${escapeHtml(addonId)}">${escapeHtml(t("addOnModal.addBtn"))}</button>
+      </li>`;
+  }).join("");
+  return `
+    <div class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="addon-modal-title" data-modal-overlay="add-on">
+      <div class="modal-panel addon-modal-panel">
+        <div class="modal-header">
+          <div class="modal-header-top">
+            <h2 id="addon-modal-title">${escapeHtml(t("addOnModal.title"))}</h2>
+            <button class="modal-close-btn" type="button" data-close-modal="add-on" aria-label="✕">✕</button>
+          </div>
+        </div>
+        <div class="modal-body addon-modal-body">
+          <ul class="addon-rec-list">${rows}</ul>
+        </div>
+        <div class="addon-modal-footer">
+          <button class="btn btn-secondary" type="button" data-close-modal="add-on">${escapeHtml(t("addOnModal.continueShopping"))}</button>
+          <button class="btn btn-primary" type="button" data-add-on-go-cart>${escapeHtml(t("addOnModal.goToCart"))}</button>
+        </div>
+      </div>
+    </div>`;
+};
+
+let addOnModalTriggerEl = null;
+
+const openAddOnModal = (dishId) => {
+  const recs = ADD_ON_RECS[dishId];
+  if (!recs || recs.length === 0) return;
+  // Don't stack on top of preorder / catering / cart-review
+  if (document.getElementById("preorder-modal") || document.getElementById("catering-modal") || document.getElementById("cart-review-modal")) return;
+  if (document.getElementById("addon-modal")) closeAddOnModal();
+  let wrapper = document.createElement("div");
+  wrapper.id = "addon-modal";
+  document.body.appendChild(wrapper);
+  wrapper.innerHTML = createAddOnModal(dishId);
+  lockBodyScroll();
+  wrapper.querySelector(".modal-close-btn")?.focus();
+};
+
+const closeAddOnModal = () => {
+  document.getElementById("addon-modal")?.remove();
+  unlockBodyScroll();
+  addOnModalTriggerEl?.focus();
+  addOnModalTriggerEl = null;
+};
+
 let preorderTriggerEl = null;
 let cateringTriggerEl = null;
 
@@ -2974,6 +3101,7 @@ let cartReviewTriggerEl = null;
 
 const createCartReviewModal = () => {
   const entries = cartEntries();
+  const hasOnlyAddOns = entries.length > 0 && entries.every((e) => e.dish.category === "add-ons");
   const subtotal = cartTotal();
 
   // ── Delivery calculation (mirrors preorder form — same zone constants, same ZIP) ──
@@ -3013,7 +3141,7 @@ const createCartReviewModal = () => {
     .map(({ dish, quantity }) => {
       const unitLabel = dish.unit === "lb" ? t("cart.unitLb") : dish.unit === "pcs" ? null : t("cart.unitPrice");
       const priceSpan = unitLabel === null
-        ? `<span>${escapeHtml(t("cart.unitPcs"))}</span><span>${money(dish.price)}</span>`
+        ? `<span>${escapeHtml(dish.pcsLabel ? text(dish.pcsLabel) : t("cart.unitPcs"))}</span><span>${money(dish.price)}</span>`
         : `<span>${money(dish.price)} ${escapeHtml(unitLabel)}</span>`;
       return `
       <div class="cart-item cr-item">
@@ -3058,7 +3186,8 @@ const createCartReviewModal = () => {
             ${zoneNoteHtml}
           </div>
           <div class="cr-footer">
-            <button class="btn btn-primary" type="button" data-review-proceed>
+            ${hasOnlyAddOns ? `<p class="zone-min-warning">${escapeHtml(t("cart.addOnsOnly"))}</p>` : ""}
+            <button class="btn btn-primary" type="button" data-review-proceed${hasOnlyAddOns ? " disabled" : ""}>
               ${escapeHtml(t("cartReview.proceed"))}
             </button>
             <button class="btn btn-secondary" type="button" data-cart-review-back>
@@ -3166,7 +3295,7 @@ const createCartDetails = (entries) =>
       const unitLabel = dish.unit === "lb" ? t("cart.unitLb") : dish.unit === "pcs" ? null : t("cart.unitPrice");
       const qtyStr = dish.unit === "pcs" ? `×${quantity}` : `×${quantity} ${dish.unit ?? "шт."}`;
       const priceSpan = unitLabel === null
-        ? `<span>${escapeHtml(t("cart.unitPcs"))} · ${qtyStr}</span>`
+        ? `<span>${escapeHtml(dish.pcsLabel ? text(dish.pcsLabel) : t("cart.unitPcs"))} · ${qtyStr}</span>`
         : `<span>${money(dish.price)} ${escapeHtml(unitLabel)} · ${qtyStr}</span>`;
       return `
       <div class="cart-item">
@@ -3633,6 +3762,7 @@ const handleClick = (event) => {
         num_items: 1,
       });
     }
+    openAddOnModal(id);
     return;
   }
   if (plus) {
@@ -3725,6 +3855,7 @@ const handleClick = (event) => {
   const reviewProceed = target.closest("[data-review-proceed]");
   if (reviewProceed) {
     event.preventDefault();
+    if (cartEntries().every((e) => e.dish.category === "add-ons")) return;
     const trigger = cartReviewTriggerEl;
     closeCartReview();
     openPreorderModal(trigger);
@@ -3781,6 +3912,38 @@ const handleClick = (event) => {
     return;
   }
 
+  // Add-on modal: add add-on to cart
+  const recAdd = target.closest("[data-rec-add]");
+  if (recAdd) {
+    const addonId = recAdd.dataset.recAdd;
+    const addon = dishById(addonId);
+    if (!addon) return;
+    setQuantity(addonId, cartQuantity(addonId) + 1);
+    const row = recAdd.closest("[data-rec-row]");
+    if (row) {
+      let feedback = row.querySelector(".addon-rec-added");
+      if (!feedback) {
+        feedback = document.createElement("span");
+        feedback.className = "addon-rec-added";
+        feedback.setAttribute("aria-live", "polite");
+        row.appendChild(feedback);
+      }
+      feedback.textContent = t("addOnModal.added");
+      feedback.hidden = false;
+      clearTimeout(feedback._timer);
+      feedback._timer = setTimeout(() => { feedback.hidden = true; }, 1800);
+    }
+    return;
+  }
+
+  // Add-on modal: "Go to cart"
+  const goCart = target.closest("[data-add-on-go-cart]");
+  if (goCart) {
+    closeAddOnModal();
+    openCartReview(goCart);
+    return;
+  }
+
   // Close modal
   const closeModal = target.closest("[data-close-modal]");
   if (closeModal) {
@@ -3789,6 +3952,7 @@ const handleClick = (event) => {
     if (type === "preorder") closePreorderModal();
     else if (type === "catering") closeCateringModal();
     else if (type === "cart-review") closeCartReview();
+    else if (type === "add-on") closeAddOnModal();
     return;
   }
 
@@ -3963,6 +4127,7 @@ const handleClick = (event) => {
     if (type === "preorder" && (state.preorderStage === 0 || state.preorderStage === 1)) closePreorderModal();
     else if (type === "catering" && (state.cateringStage === 0 || state.cateringStage === 4)) closeCateringModal();
     else if (type === "cart-review") closeCartReview();
+    else if (type === "add-on") closeAddOnModal();
   }
 };
 
@@ -4109,6 +4274,7 @@ const handleKeydown = (event) => {
   if (event.key === "Escape") {
     // A1: Close nav drawer first if open
     if (isNavDrawerOpen()) { closeNavDrawer(); return; }
+    if (document.getElementById("addon-modal")) { closeAddOnModal(); return; }
     const preorderOpen = !!document.getElementById("preorder-modal");
     const cateringOpen = !!document.getElementById("catering-modal");
     const reviewOpen = !!document.getElementById("cart-review-modal");
@@ -4140,6 +4306,7 @@ const handleKeydown = (event) => {
       }
     }
     const modal =
+      document.getElementById("addon-modal")?.querySelector(".modal-overlay") ||
       document.getElementById("preorder-modal")?.querySelector(".modal-overlay") ||
       document.getElementById("catering-modal")?.querySelector(".modal-overlay");
     if (!modal) return;
