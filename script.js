@@ -3027,7 +3027,7 @@ const openAddOnModal = (dishId) => {
 const closeAddOnModal = () => {
   document.getElementById("addon-modal")?.remove();
   unlockBodyScroll();
-  addOnModalTriggerEl?.focus();
+  addOnModalTriggerEl?.focus({ preventScroll: true });
   addOnModalTriggerEl = null;
 };
 
