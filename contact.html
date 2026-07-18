@@ -165,16 +165,6 @@
         line-height: 1.55;
         margin: 0 0 24px;
       }
-      .cr-test-banner {
-        font-size: 13px;
-        font-weight: 700;
-        color: #92400e;
-        background: #fffbeb;
-        border: 1px solid #fde68a;
-        border-radius: 8px;
-        padding: 10px 14px;
-        margin-bottom: 16px;
-      }
       .field-error {
         font-size: 11px;
         color: #b91c1c;
@@ -247,8 +237,6 @@
 
         <!-- ── Form ── -->
         <div class="cr-form-card" id="cr-form-card">
-          <div id="cr-test-banner" class="cr-test-banner" style="display:none" data-cr="testBanner">🧪 TEST MODE — сообщение не отправляется в Telegram</div>
-
           <form id="cr-form" novalidate>
             <!-- Honeypot -->
             <input type="text" name="_hp" value="" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
@@ -306,7 +294,7 @@
                 <input name="area" type="text" />
               </label>
               <label class="form-field">
-                <span data-cr="labelContactPref">Удобный способ связи</span>
+                <span data-cr="labelContactPref">Как с вами связаться?</span>
                 <select name="contactPref">
                   <option value="" data-cr="contactPrefPlaceholder">Не указано</option>
                   <option value="whatsapp">WhatsApp</option>
@@ -379,7 +367,7 @@
           labelDate:            "Желаемая дата",
           labelGuests:          "Гостей / порций",
           labelArea:            "Район или ZIP",
-          labelContactPref:     "Удобный способ связи",
+          labelContactPref:     "Как с вами связаться?",
           contactPrefPlaceholder: "Не указано",
           contactPrefCall:      "Позвонить",
           labelComment:         "Дополнительный комментарий",
@@ -391,7 +379,6 @@
           successBack:          "Вернуться на сайт",
           errorGeneric:         "Не удалось отправить сообщение. Пожалуйста, попробуйте ещё раз или напишите нам напрямую.",
           errorRequired:        "Пожалуйста, заполните все обязательные поля.",
-          testBanner:           "🧪 TEST MODE — сообщение не отправляется в Telegram",
         },
         en: {
           back:                 "← Back",
@@ -418,7 +405,7 @@
           labelDate:            "Preferred date",
           labelGuests:          "Guests / portions",
           labelArea:            "Area or ZIP",
-          labelContactPref:     "Preferred contact method",
+          labelContactPref:     "How should we contact you?",
           contactPrefPlaceholder: "Not specified",
           contactPrefCall:      "Phone call",
           labelComment:         "Additional comment",
@@ -430,7 +417,6 @@
           successBack:          "Back to site",
           errorGeneric:         "Failed to send. Please try again or contact us directly.",
           errorRequired:        "Please fill in all required fields.",
-          testBanner:           "🧪 TEST MODE — message not sent to Telegram",
         },
         uk: {
           back:                 "← Назад",
@@ -457,7 +443,7 @@
           labelDate:            "Бажана дата",
           labelGuests:          "Гостей / порцій",
           labelArea:            "Район або ZIP",
-          labelContactPref:     "Зручний спосіб зв'язку",
+          labelContactPref:     "Як з вами зв'язатися?",
           contactPrefPlaceholder: "Не вказано",
           contactPrefCall:      "Зателефонувати",
           labelComment:         "Додатковий коментар",
@@ -469,14 +455,8 @@
           successBack:          "Повернутися на сайт",
           errorGeneric:         "Не вдалося надіслати повідомлення. Спробуйте ще раз або зв'яжіться з нами напряму.",
           errorRequired:        "Будь ласка, заповніть усі обов'язкові поля.",
-          testBanner:           "🧪 TEST MODE — повідомлення не надсилається в Telegram",
         },
       };
-
-      // ── Test mode ──────────────────────────────────────────────────────────
-      const qs = new URLSearchParams(location.search);
-      const TEST_MODE  = qs.get("test")  === "1";
-      const TEST_TOKEN = qs.get("token") || "";
 
       // ── Language ───────────────────────────────────────────────────────────
       function getLang() {
@@ -497,10 +477,6 @@
         document.querySelectorAll("[data-cr-lang]").forEach((btn) => {
           btn.classList.toggle("is-active", btn.dataset.crLang === lang);
         });
-        // Test banner
-        if (TEST_MODE) {
-          document.getElementById("cr-test-banner").style.display = "";
-        }
         // Update document lang attr for accessibility
         document.documentElement.lang = lang === "uk" ? "uk" : lang === "en" ? "en" : "ru";
       }
@@ -595,7 +571,6 @@
           comment:     fd.get("comment")?.trim() || "",
           _hp:         fd.get("_hp") || "",
           lang,
-          ...(TEST_MODE ? { testMode: true, testToken: TEST_TOKEN } : {}),
         };
 
         try {
