@@ -83,7 +83,7 @@ const tr = (ru, en, uk) => ({ ru, en, uk });
 
 const copy = {
   ru: {
-    meta: { title: "Lana's Kitchen Miami | Свежая домашняя еда" },
+    meta: { title: "Lana's Kitchen Miami | Домашняя еда с доставкой в Майами" },
     brand: { name: "Lana's Kitchen", tagline: "MIAMI" },
     nav: {
       menu: "Меню",
@@ -502,7 +502,7 @@ const copy = {
     },
   },
   en: {
-    meta: { title: "Lana's Kitchen Miami | Fresh Homemade Meals" },
+    meta: { title: "Lana's Kitchen Miami | Homemade Food Delivery in Miami" },
     brand: { name: "Lana's Kitchen", tagline: "MIAMI" },
     nav: {
       menu: "Menu",
@@ -921,7 +921,7 @@ const copy = {
     },
   },
   uk: {
-    meta: { title: "Lana's Kitchen Miami | Свіжа домашня їжа" },
+    meta: { title: "Lana's Kitchen Miami | Домашня їжа з доставкою в Майамі" },
     brand: { name: "Lana's Kitchen", tagline: "MIAMI" },
     nav: {
       menu: "Меню",
