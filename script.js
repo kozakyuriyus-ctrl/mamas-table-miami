@@ -3201,6 +3201,17 @@ const createCartReviewModal = () => {
 
 const openCartReview = (trigger = null) => {
   cartReviewTriggerEl = trigger;
+  ga4("view_cart", {
+    currency: "USD",
+    value: cartTotal(),
+    items: ga4CartItems(),
+  });
+  metaTrackCustom("ViewCart", {
+    content_ids: cartEntries().map(({ dish }) => dish.id),
+    value: cartTotal(),
+    currency: "USD",
+    num_items: cartEntries().reduce((s, { quantity }) => s + quantity, 0),
+  });
   let wrapper = document.getElementById("cart-review-modal");
   if (!wrapper) {
     wrapper = document.createElement("div");
