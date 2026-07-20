@@ -2086,7 +2086,7 @@ const renderRoute = () => {
         content_type: "product_group",
         content_category: category.id,
         content_name: category.title.en || category.title.ru,
-        currency: "USD",
+        content_ids: menuItemsByCategory(category.id).map((d) => d.id),
       });
     }
     // Scroll to dishes on ALL viewports — not just mobile.
