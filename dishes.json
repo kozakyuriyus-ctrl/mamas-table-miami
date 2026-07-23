@@ -19,7 +19,11 @@
     "unit": "qt",
     "sizeRu": "Объём: 1 qt (32 fl oz / 946 мл) · 3 порции",
     "sizeEn": "Size: 1 qt (32 fl oz / 946 ml) · Serves 3",
-    "sizeUa": "Об'єм: 1 qt (32 fl oz / 946 мл) · 3 порції"
+    "sizeUa": "Об'єм: 1 qt (32 fl oz / 946 мл) · 3 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "qt"
+    }
   },
   {
     "id": "chicken-soup",
@@ -39,7 +43,11 @@
     "unit": "qt",
     "sizeRu": "Объём: 1 qt (32 fl oz / 946 мл) · 3 порции",
     "sizeEn": "Size: 1 qt (32 fl oz / 946 ml) · Serves 3",
-    "sizeUa": "Об'єм: 1 qt (32 fl oz / 946 мл) · 3 порції"
+    "sizeUa": "Об'єм: 1 qt (32 fl oz / 946 мл) · 3 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "qt"
+    }
   },
   {
     "id": "topcheta-meatball-soup",
@@ -59,7 +67,11 @@
     "unit": "qt",
     "sizeRu": "Объём: 1 qt (32 fl oz / 946 мл) · 3 порции",
     "sizeEn": "Size: 1 qt (32 fl oz / 946 ml) · Serves 3",
-    "sizeUa": "Об'єм: 1 qt (32 fl oz / 946 мл) · 3 порції"
+    "sizeUa": "Об'єм: 1 qt (32 fl oz / 946 мл) · 3 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "qt"
+    }
   },
   {
     "id": "solyanka",
@@ -79,7 +91,11 @@
     "unit": "qt",
     "sizeRu": "Объём: 1 qt (32 fl oz / 946 мл) · 3 порции",
     "sizeEn": "Size: 1 qt (32 fl oz / 946 ml) · Serves 3",
-    "sizeUa": "Об'єм: 1 qt (32 fl oz / 946 мл) · 3 порції"
+    "sizeUa": "Об'єм: 1 qt (32 fl oz / 946 мл) · 3 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "qt"
+    }
   },
   {
     "id": "pea-soup",
@@ -99,7 +115,11 @@
     "unit": "qt",
     "sizeRu": "Объём: 1 qt (32 fl oz / 946 мл) · 3 порции",
     "sizeEn": "Size: 1 qt (32 fl oz / 946 ml) · Serves 3",
-    "sizeUa": "Об'єм: 1 qt (32 fl oz / 946 мл) · 3 порції"
+    "sizeUa": "Об'єм: 1 qt (32 fl oz / 946 мл) · 3 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "qt"
+    }
   },
   {
     "id": "rassolnik",
@@ -119,7 +139,11 @@
     "unit": "qt",
     "sizeRu": "Объём: 1 qt (32 fl oz / 946 мл) · 3 порции",
     "sizeEn": "Size: 1 qt (32 fl oz / 946 ml) · Serves 3",
-    "sizeUa": "Об'єм: 1 qt (32 fl oz / 946 мл) · 3 порції"
+    "sizeUa": "Об'єм: 1 qt (32 fl oz / 946 мл) · 3 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "qt"
+    }
   },
   {
     "id": "meatball-soup",
@@ -139,7 +163,11 @@
     "unit": "qt",
     "sizeRu": "Объём: 1 qt (32 fl oz / 946 мл) · 3 порции",
     "sizeEn": "Size: 1 qt (32 fl oz / 946 ml) · Serves 3",
-    "sizeUa": "Об'єм: 1 qt (32 fl oz / 946 мл) · 3 порції"
+    "sizeUa": "Об'єм: 1 qt (32 fl oz / 946 мл) · 3 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "qt"
+    }
   },
   {
     "id": "mercimek-soup",
@@ -160,7 +188,11 @@
     "unit": "qt",
     "sizeRu": "Объём: 1 qt (32 fl oz / 946 мл) · 3 порции",
     "sizeEn": "Size: 1 qt (32 fl oz / 946 ml) · Serves 3",
-    "sizeUa": "Об'єм: 1 qt (32 fl oz / 946 мл) · 3 порції"
+    "sizeUa": "Об'єм: 1 qt (32 fl oz / 946 мл) · 3 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "qt"
+    }
   },
   {
     "id": "ukrainian-kapustnyak",
@@ -180,7 +212,11 @@
     "unit": "qt",
     "sizeRu": "Объём: 1 qt (32 fl oz / 946 мл) · 3 порции",
     "sizeEn": "Size: 1 qt (32 fl oz / 946 ml) · Serves 3",
-    "sizeUa": "Об'єм: 1 qt (32 fl oz / 946 мл) · 3 порції"
+    "sizeUa": "Об'єм: 1 qt (32 fl oz / 946 мл) · 3 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "qt"
+    }
   },
   {
     "id": "ayran-okroshka",
@@ -200,7 +236,11 @@
     "unit": "qt",
     "sizeRu": "Объём: 1 qt (32 fl oz / 946 мл) · 3–4 порции",
     "sizeEn": "Size: 1 qt (32 fl oz / 946 ml) · Serves 3–4",
-    "sizeUa": "Об'єм: 1 qt (32 fl oz / 946 мл) · 3–4 порції"
+    "sizeUa": "Об'єм: 1 qt (32 fl oz / 946 мл) · 3–4 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "qt"
+    }
   },
   {
     "id": "mushroom-cream-soup",
@@ -220,7 +260,11 @@
     "unit": "qt",
     "sizeRu": "Объём: 1 qt (32 fl oz / 946 мл) · 3 порции",
     "sizeEn": "Size: 1 qt (32 fl oz / 946 ml) · Serves 3",
-    "sizeUa": "Об'єм: 1 qt (32 fl oz / 946 мл) · 3 порції"
+    "sizeUa": "Об'єм: 1 qt (32 fl oz / 946 мл) · 3 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "qt"
+    }
   },
   {
     "id": "green-borscht",
@@ -241,7 +285,11 @@
     "unit": "qt",
     "sizeRu": "Объём: 1 qt (32 fl oz / 946 мл) · 3 порции",
     "sizeEn": "Size: 1 qt (32 fl oz / 946 ml) · Serves 3",
-    "sizeUa": "Об'єм: 1 qt (32 fl oz / 946 мл) · 3 порції"
+    "sizeUa": "Об'єм: 1 qt (32 fl oz / 946 мл) · 3 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "qt"
+    }
   },
   {
     "id": "cabbage-rolls",
@@ -263,7 +311,11 @@
     "unit": "lb",
     "sizeRu": "Вес: 1 lb (454 г) · 2 порции",
     "sizeEn": "Size: 1 lb (454 g) · Serves 2",
-    "sizeUa": "Вага: 1 lb (454 г) · 2 порції"
+    "sizeUa": "Вага: 1 lb (454 г) · 2 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "lb"
+    }
   },
   {
     "id": "stuffed-bell-peppers",
@@ -285,7 +337,11 @@
     "sizeEn": "2 pieces · approximately 1.4–1.5 lb (635–680 g) · 2 servings",
     "sizeUa": "2 штуки · приблизно 1.4–1.5 lb (635–680 г) · 2 порції",
     "badge": "bestseller",
-    "orderUnitRu": "2 шт."
+    "orderUnitRu": "2 шт.",
+    "orderSize": {
+      "value": 2,
+      "unit": "pcs"
+    }
   },
   {
     "id": "pork-pelmeni",
@@ -306,7 +362,11 @@
     "servings": "2",
     "sizeRu": "Вес: 1 lb (454 г) · 2 порции",
     "sizeEn": "Size: 1 lb (454 g) · Serves 2",
-    "sizeUa": "Вага: 1 lb (454 г) · 2 порції"
+    "sizeUa": "Вага: 1 lb (454 г) · 2 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "lb"
+    }
   },
   {
     "id": "pork-beef-dumplings",
@@ -327,7 +387,11 @@
     "servings": "2",
     "sizeRu": "Вес: 1 lb (454 г) · 2 порции",
     "sizeEn": "Weight: 1 lb (454 g) · 2 servings",
-    "sizeUa": "Вага: 1 lb (454 г) · 2 порції"
+    "sizeUa": "Вага: 1 lb (454 г) · 2 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "lb"
+    }
   },
   {
     "id": "chicken-pelmeni",
@@ -348,7 +412,11 @@
     "servings": "2",
     "sizeRu": "Вес: 1 lb (454 г) · 2 порции",
     "sizeEn": "Size: 1 lb (454 g) · Serves 2",
-    "sizeUa": "Вага: 1 lb (454 г) · 2 порції"
+    "sizeUa": "Вага: 1 lb (454 г) · 2 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "lb"
+    }
   },
   {
     "id": "varenyky",
@@ -371,7 +439,11 @@
     "servings": "2",
     "sizeRu": "Вес: 1 lb (454 г) · 2–3 порции",
     "sizeEn": "Size: 1 lb (454 g) · Serves 2–3",
-    "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції"
+    "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "lb"
+    }
   },
   {
     "id": "pork-mince-cutlets",
@@ -391,7 +463,11 @@
     "unit": "lb",
     "sizeRu": "Вес: 1 lb (454 г) · 2 порции",
     "sizeEn": "Size: 1 lb (454 g) · Serves 2",
-    "sizeUa": "Вага: 1 lb (454 г) · 2 порції"
+    "sizeUa": "Вага: 1 lb (454 г) · 2 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "lb"
+    }
   },
   {
     "id": "chicken-mince-cutlets",
@@ -411,7 +487,11 @@
     "unit": "lb",
     "sizeRu": "Вес: 1 lb (454 г) · 2 порции",
     "sizeEn": "Size: 1 lb (454 g) · Serves 2",
-    "sizeUa": "Вага: 1 lb (454 г) · 2 порції"
+    "sizeUa": "Вага: 1 lb (454 г) · 2 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "lb"
+    }
   },
   {
     "id": "fish-cutlets",
@@ -431,7 +511,11 @@
     "unit": "lb",
     "sizeRu": "Вес: 1 lb (454 г) · 2 порции",
     "sizeEn": "Size: 1 lb (454 g) · Serves 2",
-    "sizeUa": "Вага: 1 lb (454 г) · 2 порції"
+    "sizeUa": "Вага: 1 lb (454 г) · 2 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "lb"
+    }
   },
   {
     "id": "meat-rice-meatballs",
@@ -451,7 +535,11 @@
     "unit": "lb",
     "sizeRu": "Вес: 1 lb (454 г) · 2 порции",
     "sizeEn": "Size: 1 lb (454 g) · Serves 2",
-    "sizeUa": "Вага: 1 lb (454 г) · 2 порції"
+    "sizeUa": "Вага: 1 lb (454 г) · 2 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "lb"
+    }
   },
   {
     "id": "potato-zrazy-meat",
@@ -471,7 +559,11 @@
     "unit": "lb",
     "sizeRu": "Вес: 1 lb (454 г) · 2 порции",
     "sizeEn": "Size: 1 lb (454 g) · Serves 2",
-    "sizeUa": "Вага: 1 lb (454 г) · 2 порції"
+    "sizeUa": "Вага: 1 lb (454 г) · 2 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "lb"
+    }
   },
   {
     "id": "beef-stroganoff",
@@ -491,7 +583,11 @@
     "unit": "lb",
     "sizeRu": "Вес: 1 lb (454 г) · 2 порции",
     "sizeEn": "Size: 1 lb (454 g) · Serves 2",
-    "sizeUa": "Вага: 1 lb (454 г) · 2 порції"
+    "sizeUa": "Вага: 1 lb (454 г) · 2 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "lb"
+    }
   },
   {
     "id": "beef-goulash",
@@ -511,7 +607,11 @@
     "unit": "lb",
     "sizeRu": "Вес: 1 lb (454 г) · 2 порции",
     "sizeEn": "Size: 1 lb (454 g) · Serves 2",
-    "sizeUa": "Вага: 1 lb (454 г) · 2 порції"
+    "sizeUa": "Вага: 1 lb (454 г) · 2 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "lb"
+    }
   },
   {
     "id": "pork-podzharka",
@@ -531,7 +631,11 @@
     "unit": "lb",
     "sizeRu": "Вес: 1 lb (454 г) · 2 порции",
     "sizeEn": "Size: 1 lb (454 g) · Serves 2",
-    "sizeUa": "Вага: 1 lb (454 г) · 2 порції"
+    "sizeUa": "Вага: 1 lb (454 г) · 2 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "lb"
+    }
   },
   {
     "id": "pork-chops",
@@ -551,7 +655,11 @@
     "unit": "lb",
     "sizeRu": "Вес: 1 lb (454 г) · 2 порции",
     "sizeEn": "Size: 1 lb (454 g) · Serves 2",
-    "sizeUa": "Вага: 1 lb (454 г) · 2 порції"
+    "sizeUa": "Вага: 1 lb (454 г) · 2 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "lb"
+    }
   },
   {
     "id": "bbq-ribs",
@@ -571,7 +679,11 @@
     "unit": "lb",
     "sizeRu": "Вес: 1 lb (454 г) с костью · 1–2 порции",
     "sizeEn": "Size: 1 lb (454 g) with bone · 1–2 servings",
-    "sizeUa": "Вага: 1 lb (454 г) з кісткою · 1–2 порції"
+    "sizeUa": "Вага: 1 lb (454 г) з кісткою · 1–2 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "lb"
+    }
   },
   {
     "id": "buffalo-wings",
@@ -592,7 +704,11 @@
     "servings": "2",
     "sizeRu": "Вес: 1 lb (454 г) · 1–2 порции",
     "sizeEn": "Size: 1 lb (454 g) · 1–2 servings",
-    "sizeUa": "Вага: 1 lb (454 г) · 1–2 порції"
+    "sizeUa": "Вага: 1 lb (454 г) · 1–2 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "lb"
+    }
   },
   {
     "id": "chicken-tabaka",
@@ -612,7 +728,11 @@
     "unit": "шт.",
     "sizeRu": "1 шт. · примерно 1.2–1.3 lb (545–595 г) · 2 порции",
     "sizeEn": "1 pc · approx. 1.2–1.3 lb (545–595 g) · 2 servings",
-    "sizeUa": "1 шт. · приблизно 1.2–1.3 lb (545–595 г) · 2 порції"
+    "sizeUa": "1 шт. · приблизно 1.2–1.3 lb (545–595 г) · 2 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "pcs"
+    }
   },
   {
     "id": "chicken-chops",
@@ -632,7 +752,11 @@
     "unit": "lb",
     "sizeRu": "Вес: 1 lb (454 г) · 2 порции",
     "sizeEn": "Size: 1 lb (454 g) · Serves 2",
-    "sizeUa": "Вага: 1 lb (454 г) · 2 порції"
+    "sizeUa": "Вага: 1 lb (454 г) · 2 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "lb"
+    }
   },
   {
     "id": "hawaiian-chicken-pineapple-cutlets",
@@ -652,7 +776,11 @@
     "unit": "lb",
     "sizeRu": "Вес: 1 lb (454 г) · 2 порции",
     "sizeEn": "Size: 1 lb (454 g) · Serves 2",
-    "sizeUa": "Вага: 1 lb (454 г) · 2 порції"
+    "sizeUa": "Вага: 1 lb (454 г) · 2 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "lb"
+    }
   },
   {
     "id": "grilled-salmon-broccoli",
@@ -673,7 +801,11 @@
     "unit": "lb",
     "sizeRu": "Вес: 1 lb (454 г) · 1–2 порции",
     "sizeEn": "Size: 1 lb (454 g) · 1–2 servings",
-    "sizeUa": "Вага: 1 lb (454 г) · 1–2 порції"
+    "sizeUa": "Вага: 1 lb (454 г) · 1–2 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "lb"
+    }
   },
   {
     "id": "mashed-potatoes",
@@ -694,7 +826,11 @@
     "servings": "3",
     "sizeRu": "Вес: 1 lb (454 г) · 2–3 порции",
     "sizeEn": "Size: 1 lb (454 g) · Serves 2–3",
-    "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції"
+    "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "lb"
+    }
   },
   {
     "id": "meat-filled-blini",
@@ -715,7 +851,11 @@
     "servings": "2",
     "sizeRu": "Вес: 1 lb (454 г) · 2–3 порции",
     "sizeEn": "Size: 1 lb (454 g) · Serves 2–3",
-    "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції"
+    "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "lb"
+    }
   },
   {
     "id": "cottage-cheese-blini",
@@ -736,7 +876,11 @@
     "servings": "2",
     "sizeRu": "Вес: 1 lb (454 г) · 2–3 порции",
     "sizeEn": "Size: 1 lb (454 g) · Serves 2–3",
-    "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції"
+    "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "lb"
+    }
   },
   {
     "id": "plain-blini",
@@ -757,7 +901,11 @@
     "servings": "2",
     "sizeRu": "Вес: 1 lb (454 г) · 2–3 порции",
     "sizeEn": "Size: 1 lb (454 g) · Serves 2–3",
-    "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції"
+    "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "lb"
+    }
   },
   {
     "id": "chicken-benderiki",
@@ -778,7 +926,11 @@
     "servings": "2",
     "sizeRu": "Вес: 1 lb (454 г) · 2–3 порции",
     "sizeEn": "Weight: 1 lb (454 g) · 2–3 servings",
-    "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції"
+    "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "lb"
+    }
   },
   {
     "id": "eggplant-pepper-saute",
@@ -799,7 +951,11 @@
     "unit": "lb",
     "sizeRu": "Вес: 1 lb (454 г) · 2–3 порции",
     "sizeEn": "Size: 1 lb (454 g) · Serves 2–3",
-    "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції"
+    "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "lb"
+    }
   },
   {
     "id": "liver-cake",
@@ -820,7 +976,15 @@
     "orderUnitRu": "1 шт. примерно 3 lb (1 кг 362 г) · 6–8 порций",
     "sizeRu": "1 шт. примерно 3 lb (1 кг 362 г) · 6–8 порций",
     "sizeEn": "1 piece, approximately 3 lb (1.36 kg) · 6–8 servings",
-    "sizeUa": "1 шт., приблизно 3 lb (1,36 кг) · 6–8 порцій"
+    "sizeUa": "1 шт., приблизно 3 lb (1,36 кг) · 6–8 порцій",
+    "orderSize": {
+      "value": 1,
+      "unit": "pcs"
+    },
+    "approximateWeight": {
+      "value": 3,
+      "unit": "lb"
+    }
   },
   {
     "id": "chicken-liver-pate",
@@ -840,7 +1004,11 @@
     "unit": "lb",
     "sizeRu": "Вес: 1 lb (454 г) · 4–6 порций как закуска",
     "sizeEn": "Size: 1 lb (454 g) · 4–6 servings as an appetizer",
-    "sizeUa": "Вага: 1 lb (454 г) · 4–6 порцій як закуска"
+    "sizeUa": "Вага: 1 lb (454 г) · 4–6 порцій як закуска",
+    "orderSize": {
+      "value": 1,
+      "unit": "lb"
+    }
   },
   {
     "id": "pork-beef-kholodets",
@@ -860,7 +1028,11 @@
     "unit": "lb",
     "sizeRu": "Вес: 1 lb (454 г) · 2–3 порции",
     "sizeEn": "Size: 1 lb (454 g) · Serves 2–3",
-    "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції"
+    "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "lb"
+    }
   },
   {
     "id": "chicken-kholodets",
@@ -880,7 +1052,11 @@
     "unit": "lb",
     "sizeRu": "Вес: 1 lb (454 г) · 2–3 порции",
     "sizeEn": "Size: 1 lb (454 g) · Serves 2–3",
-    "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції"
+    "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "lb"
+    }
   },
   {
     "id": "olivier",
@@ -902,7 +1078,11 @@
     "sizeRu": "Вес: 1 lb (454 г) · 2–3 порции",
     "sizeEn": "Size: 1 lb (454 g) · Serves 2–3",
     "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції",
-    "badge": "bestseller"
+    "badge": "bestseller",
+    "orderSize": {
+      "value": 1,
+      "unit": "lb"
+    }
   },
   {
     "id": "herring-under-fur-coat",
@@ -923,7 +1103,11 @@
     "orderUnitRu": "Вес: 2 lb (908 г) · 6–8 порций",
     "sizeRu": "Вес: 2 lb (908 г) · 5–6 порций",
     "sizeEn": "Weight: 2 lb (908 g) · 5–6 servings",
-    "sizeUa": "Вага: 2 lb (908 г) · 5–6 порцій"
+    "sizeUa": "Вага: 2 lb (908 г) · 5–6 порцій",
+    "orderSize": {
+      "value": 2,
+      "unit": "lb"
+    }
   },
   {
     "id": "mimosa-salad",
@@ -945,7 +1129,11 @@
     "orderUnitRu": "Вес: 2 lb (908 г) · 6–8 порций",
     "sizeRu": "Вес: 2 lb (908 г) · 5–6 порций",
     "sizeEn": "Weight: 2 lb (908 g) · 5–6 servings",
-    "sizeUa": "Вага: 2 lb (908 г) · 5–6 порцій"
+    "sizeUa": "Вага: 2 lb (908 г) · 5–6 порцій",
+    "orderSize": {
+      "value": 2,
+      "unit": "lb"
+    }
   },
   {
     "id": "stolichny-chicken-salad",
@@ -965,7 +1153,11 @@
     "unit": "lb",
     "sizeRu": "Вес: 1 lb (454 г) · 2–3 порции",
     "sizeEn": "Size: 1 lb (454 g) · Serves 2–3",
-    "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції"
+    "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "lb"
+    }
   },
   {
     "id": "vinaigrette",
@@ -985,7 +1177,11 @@
     "unit": "lb",
     "sizeRu": "Вес: 1 lb (454 г) · 2–3 порции",
     "sizeEn": "Size: 1 lb (454 g) · Serves 2–3",
-    "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції"
+    "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "lb"
+    }
   },
   {
     "id": "crab-salad",
@@ -1005,7 +1201,11 @@
     "unit": "lb",
     "sizeRu": "Вес: 1 lb (454 г) · 2–3 порции",
     "sizeEn": "Size: 1 lb (454 g) · Serves 2–3",
-    "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції"
+    "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "lb"
+    }
   },
   {
     "id": "liver-mushroom-salad",
@@ -1025,7 +1225,11 @@
     "unit": "lb",
     "sizeRu": "Вес: 1 lb (454 г) · 2–3 порции",
     "sizeEn": "Size: 1 lb (454 g) · Serves 2–3",
-    "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції"
+    "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "lb"
+    }
   },
   {
     "id": "spring-salad",
@@ -1046,7 +1250,11 @@
     "unit": "lb",
     "sizeRu": "Вес: 1 lb (454 г) · 2–3 порции",
     "sizeEn": "Size: 1 lb (454 g) · Serves 2–3",
-    "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції"
+    "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "lb"
+    }
   },
   {
     "id": "fresh-cabbage-salad",
@@ -1067,7 +1275,11 @@
     "unit": "lb",
     "sizeRu": "Вес: 1 lb (454 г) · 3–4 порции",
     "sizeEn": "Size: 1 lb (454 g) · Serves 3–4",
-    "sizeUa": "Вага: 1 lb (454 г) · 3–4 порції"
+    "sizeUa": "Вага: 1 lb (454 г) · 3–4 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "lb"
+    }
   },
   {
     "id": "korean-carrots",
@@ -1088,7 +1300,11 @@
     "badge": "vegetarian",
     "sizeRu": "Вес: 1 lb (454 г) · 3–4 порции",
     "sizeEn": "Size: 1 lb (454 g) · Serves 3–4",
-    "sizeUa": "Вага: 1 lb (454 г) · 3–4 порції"
+    "sizeUa": "Вага: 1 lb (454 г) · 3–4 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "lb"
+    }
   },
   {
     "id": "raw-eggplant-caviar",
@@ -1109,7 +1325,11 @@
     "sizeRu": "Вес: 1 lb (454 г) · 4–6 порций как закуска",
     "sizeEn": "Size: 1 lb (454 g) · 4–6 servings as an appetizer",
     "sizeUa": "Вага: 1 lb (454 г) · 4–6 порцій як закуска",
-    "badge": "vegetarian"
+    "badge": "vegetarian",
+    "orderSize": {
+      "value": 1,
+      "unit": "lb"
+    }
   },
   {
     "id": "fried-eggplant-caviar",
@@ -1129,7 +1349,11 @@
     "unit": "lb",
     "sizeRu": "Вес: 1 lb (454 г) · 4–6 порций как закуска",
     "sizeEn": "Size: 1 lb (454 g) · 4–6 servings as an appetizer",
-    "sizeUa": "Вага: 1 lb (454 г) · 4–6 порцій як закуска"
+    "sizeUa": "Вага: 1 lb (454 г) · 4–6 порцій як закуска",
+    "orderSize": {
+      "value": 1,
+      "unit": "lb"
+    }
   },
   {
     "id": "adjika",
@@ -1148,9 +1372,13 @@
     },
     "unit": "lb",
     "servings": "1",
-    "sizeRu": "Вес: 0.5 lb (227 г) · к мясу и гарнирам",
-    "sizeEn": "Weight: 0.5 lb (227 g) · for meats, sides, and appetizers",
-    "sizeUa": "Вага: 0.5 lb (227 г) · до м'яса, гарнірів і закусок"
+    "sizeRu": "Вес: 1 lb (454 г) · к мясу и гарнирам",
+    "sizeEn": "Weight: 1 lb (454 g) · for meats, sides, and appetizers",
+    "sizeUa": "Вага: 1 lb (454 г) · до м'яса, гарнірів і закусок",
+    "orderSize": {
+      "value": 1,
+      "unit": "lb"
+    }
   },
   {
     "id": "blini",
@@ -1168,7 +1396,11 @@
       "en": "Thin crepes with various fillings.",
       "uk": "Тонкі млинці з різними начинками."
     },
-    "unit": "шт."
+    "unit": "шт.",
+    "orderSize": {
+      "value": 1,
+      "unit": "pcs"
+    }
   },
   {
     "id": "cheese-nalistniki",
@@ -1185,7 +1417,11 @@
       "en": "Tender crepes filled with sweet farmer cheese and sour cream.",
       "uk": "Ніжні налисники з сирною начинкою та сметаною."
     },
-    "unit": "шт."
+    "unit": "шт.",
+    "orderSize": {
+      "value": 1,
+      "unit": "pcs"
+    }
   },
   {
     "id": "chicken-crepes",
@@ -1202,7 +1438,11 @@
       "en": "Savory crepes with chicken, mushrooms and cream sauce.",
       "uk": "Ситні млинці з куркою, грибами та вершковим соусом."
     },
-    "unit": "шт."
+    "unit": "шт.",
+    "orderSize": {
+      "value": 1,
+      "unit": "pcs"
+    }
   },
   {
     "id": "berry-crepes",
@@ -1219,7 +1459,11 @@
       "en": "Thin crepes with berries and a light sweet filling.",
       "uk": "Тонкі млинці з ягодами та легкою солодкою начинкою."
     },
-    "unit": "шт."
+    "unit": "шт.",
+    "orderSize": {
+      "value": 1,
+      "unit": "pcs"
+    }
   },
   {
     "id": "family-dinner",
@@ -1236,7 +1480,11 @@
       "en": "A balanced set for 4–6 guests with soup, mains and salad.",
       "uk": "Збалансований набір на 4–6 гостей із супом, основними стравами та салатом."
     },
-    "unit": "шт."
+    "unit": "шт.",
+    "orderSize": {
+      "value": 1,
+      "unit": "pcs"
+    }
   },
   {
     "id": "ukrainian-family-tray",
@@ -1253,7 +1501,11 @@
       "en": "Borscht, vareniki, cabbage rolls, salads and homemade pastries.",
       "uk": "Борщ, вареники, голубці, салати та домашня випічка для столу."
     },
-    "unit": "шт."
+    "unit": "шт.",
+    "orderSize": {
+      "value": 1,
+      "unit": "pcs"
+    }
   },
   {
     "id": "mediterranean-family-tray",
@@ -1270,7 +1522,11 @@
       "en": "Meat dishes, salads, vegetables and sauces for an easy family dinner.",
       "uk": "М'ясні страви, салати, овочі та соуси для легкої сімейної вечері."
     },
-    "unit": "шт."
+    "unit": "шт.",
+    "orderSize": {
+      "value": 1,
+      "unit": "pcs"
+    }
   },
   {
     "id": "comfort-dinner-set",
@@ -1287,7 +1543,11 @@
       "en": "Cutlets, sides, salad and crepes for a cozy homemade evening.",
       "uk": "Котлети, гарнір, салат і млинці для затишного домашнього вечора."
     },
-    "unit": "шт."
+    "unit": "шт.",
+    "orderSize": {
+      "value": 1,
+      "unit": "pcs"
+    }
   },
   {
     "id": "holiday-table",
@@ -1304,7 +1564,11 @@
       "en": "A custom dish set for family holidays and gatherings.",
       "uk": "Індивідуальний набір страв для сімейних свят і зустрічей."
     },
-    "unit": "шт."
+    "unit": "шт.",
+    "orderSize": {
+      "value": 1,
+      "unit": "pcs"
+    }
   },
   {
     "id": "party-varenyky-tray",
@@ -1321,7 +1585,11 @@
       "en": "A large vareniki tray for guests, office orders or family events.",
       "uk": "Великий піднос вареників для гостей, офісу або сімейної події."
     },
-    "unit": "шт."
+    "unit": "шт.",
+    "orderSize": {
+      "value": 1,
+      "unit": "pcs"
+    }
   },
   {
     "id": "blini-platter",
@@ -1338,7 +1606,11 @@
       "en": "Assorted blini and crepes with savory and sweet fillings.",
       "uk": "Асорті млинців і налисників із солоними та солодкими начинками."
     },
-    "unit": "шт."
+    "unit": "шт.",
+    "orderSize": {
+      "value": 1,
+      "unit": "pcs"
+    }
   },
   {
     "id": "custom-event-menu",
@@ -1355,7 +1627,11 @@
       "en": "A menu planned around guest count, cuisines, preferences and event style.",
       "uk": "Меню під кількість гостей, кухні, побажання та формат події."
     },
-    "unit": "шт."
+    "unit": "шт.",
+    "orderSize": {
+      "value": 1,
+      "unit": "pcs"
+    }
   },
   {
     "id": "frozen-pork-pelmeni",
@@ -1376,7 +1652,11 @@
     "servings": "2",
     "sizeRu": "Вес: 1 lb (454 г) · 2 порции",
     "sizeEn": "Weight: 1 lb (454 g) · 2 servings",
-    "sizeUa": "Вага: 1 lb (454 г) · 2 порції"
+    "sizeUa": "Вага: 1 lb (454 г) · 2 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "lb"
+    }
   },
   {
     "id": "frozen-pork-beef-dumplings",
@@ -1397,7 +1677,11 @@
     "servings": "2",
     "sizeRu": "Вес: 1 lb (454 г) · 2 порции",
     "sizeEn": "Weight: 1 lb (454 g) · 2 servings",
-    "sizeUa": "Вага: 1 lb (454 г) · 2 порції"
+    "sizeUa": "Вага: 1 lb (454 г) · 2 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "lb"
+    }
   },
   {
     "id": "frozen-chicken-dumplings",
@@ -1418,7 +1702,11 @@
     "servings": "2",
     "sizeRu": "Вес: 1 lb (454 г) · 2 порции",
     "sizeEn": "Weight: 1 lb (454 g) · 2 servings",
-    "sizeUa": "Вага: 1 lb (454 г) · 2 порції"
+    "sizeUa": "Вага: 1 lb (454 г) · 2 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "lb"
+    }
   },
   {
     "id": "frozen-vareniki-potato",
@@ -1439,7 +1727,11 @@
     "servings": "2",
     "sizeRu": "Вес: 1 lb (454 г) · 2–3 порции",
     "sizeEn": "Weight: 1 lb (454 g) · 2–3 servings",
-    "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції"
+    "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "lb"
+    }
   },
   {
     "id": "frozen-home-cutlets",
@@ -1460,7 +1752,11 @@
     "servings": "2",
     "sizeRu": "Вес: 1 lb (454 г) · 2 порции",
     "sizeEn": "Weight: 1 lb (454 g) · 2 servings",
-    "sizeUa": "Вага: 1 lb (454 г) · 2 порції"
+    "sizeUa": "Вага: 1 lb (454 г) · 2 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "lb"
+    }
   },
   {
     "id": "frozen-juicy-chicken-cutlets",
@@ -1481,7 +1777,11 @@
     "servings": "2",
     "sizeRu": "Вес: 1 lb (454 г) · 2 порции",
     "sizeEn": "Weight: 1 lb (454 g) · 2 servings",
-    "sizeUa": "Вага: 1 lb (454 г) · 2 порції"
+    "sizeUa": "Вага: 1 lb (454 г) · 2 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "lb"
+    }
   },
   {
     "id": "frozen-fish-cutlets",
@@ -1502,7 +1802,11 @@
     "servings": "2",
     "sizeRu": "Вес: 1 lb (454 г) · 2 порции",
     "sizeEn": "Weight: 1 lb (454 g) · 2 servings",
-    "sizeUa": "Вага: 1 lb (454 г) · 2 порції"
+    "sizeUa": "Вага: 1 lb (454 г) · 2 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "lb"
+    }
   },
   {
     "id": "frozen-meat-blintzes",
@@ -1523,7 +1827,11 @@
     "servings": "2",
     "sizeRu": "Вес: 1 lb (454 г) · 2–3 порции",
     "sizeEn": "Weight: 1 lb (454 g) · 2–3 servings",
-    "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції"
+    "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "lb"
+    }
   },
   {
     "id": "frozen-cottage-cheese-blintzes",
@@ -1544,7 +1852,11 @@
     "servings": "2",
     "sizeRu": "Вес: 1 lb (454 г) · 2–3 порции",
     "sizeEn": "Weight: 1 lb (454 g) · 2–3 servings",
-    "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції"
+    "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "lb"
+    }
   },
   {
     "id": "frozen-chicken-benderiki",
@@ -1565,7 +1877,11 @@
     "servings": "2",
     "sizeRu": "Вес: 1 lb (454 г) · 2–3 порции",
     "sizeEn": "Weight: 1 lb (454 g) · 2–3 servings",
-    "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції"
+    "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "lb"
+    }
   },
   {
     "id": "frozen-stuffed-bell-peppers",
@@ -1586,7 +1902,11 @@
     "sizeRu": "2 штуки · примерно 1.4–1.5 lb (635–680 г) · 2 порции",
     "sizeEn": "2 pieces · approximately 1.4–1.5 lb (635–680 g) · 2 servings",
     "sizeUa": "2 штуки · приблизно 1.4–1.5 lb (635–680 г) · 2 порції",
-    "orderUnitRu": "2 шт."
+    "orderUnitRu": "2 шт.",
+    "orderSize": {
+      "value": 2,
+      "unit": "pcs"
+    }
   },
   {
     "id": "frozen-cabbage-rolls",
@@ -1606,7 +1926,11 @@
     "unit": "lb",
     "sizeRu": "Вес: 1 lb (454 г) · 2 порции",
     "sizeEn": "Weight: 1 lb (454 g) · 2 servings",
-    "sizeUa": "Вага: 1 lb (454 г) · 2 порції"
+    "sizeUa": "Вага: 1 lb (454 г) · 2 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "lb"
+    }
   },
   {
     "id": "sour-cream",
@@ -1632,7 +1956,11 @@
       "en": "3.5 oz (approx. 100 g)",
       "uk": "3.5 oz (приблизно 100 г)"
     },
-    "orderUnitRu": "3.5 oz (примерно 100 г)"
+    "orderUnitRu": "3.5 oz (примерно 100 г)",
+    "orderSize": {
+      "value": 3.5,
+      "unit": "oz"
+    }
   },
   {
     "id": "garlic-sauce",
@@ -1658,7 +1986,11 @@
       "en": "3.5 oz (approx. 100 g)",
       "uk": "3.5 oz (приблизно 100 г)"
     },
-    "orderUnitRu": "3.5 oz (примерно 100 г)"
+    "orderUnitRu": "3.5 oz (примерно 100 г)",
+    "orderSize": {
+      "value": 3.5,
+      "unit": "oz"
+    }
   },
   {
     "id": "tzatziki",
@@ -1684,7 +2016,11 @@
       "en": "3.5 oz (approx. 100 g)",
       "uk": "3.5 oz (приблизно 100 г)"
     },
-    "orderUnitRu": "3.5 oz (примерно 100 г)"
+    "orderUnitRu": "3.5 oz (примерно 100 г)",
+    "orderSize": {
+      "value": 3.5,
+      "unit": "oz"
+    }
   },
   {
     "id": "homemade-mustard",
@@ -1710,7 +2046,11 @@
       "en": "3.5 oz (approx. 100 g)",
       "uk": "3.5 oz (приблизно 100 г)"
     },
-    "orderUnitRu": "3.5 oz (примерно 100 г)"
+    "orderUnitRu": "3.5 oz (примерно 100 г)",
+    "orderSize": {
+      "value": 3.5,
+      "unit": "oz"
+    }
   },
   {
     "id": "adjika-sauce",
@@ -1736,7 +2076,11 @@
       "en": "3.5 oz (approx. 100 g)",
       "uk": "3.5 oz (приблизно 100 г)"
     },
-    "orderUnitRu": "3.5 oz (примерно 100 г)"
+    "orderUnitRu": "3.5 oz (примерно 100 г)",
+    "orderSize": {
+      "value": 3.5,
+      "unit": "oz"
+    }
   },
   {
     "id": "strawberry-jam",
@@ -1762,7 +2106,11 @@
       "en": "3.5 oz (approx. 100 g)",
       "uk": "3.5 oz (приблизно 100 г)"
     },
-    "orderUnitRu": "3.5 oz (примерно 100 г)"
+    "orderUnitRu": "3.5 oz (примерно 100 г)",
+    "orderSize": {
+      "value": 3.5,
+      "unit": "oz"
+    }
   },
   {
     "id": "sweetened-condensed-milk",
@@ -1788,7 +2136,11 @@
       "en": "3.5 oz (approx. 100 g)",
       "uk": "3.5 oz (приблизно 100 г)"
     },
-    "orderUnitRu": "3.5 oz (примерно 100 г)"
+    "orderUnitRu": "3.5 oz (примерно 100 г)",
+    "orderSize": {
+      "value": 3.5,
+      "unit": "oz"
+    }
   },
   {
     "id": "pickled-hot-peppers",
@@ -1814,7 +2166,11 @@
       "en": "5–6 pcs.",
       "uk": "5–6 шт."
     },
-    "orderUnitRu": "5–6 шт."
+    "orderUnitRu": "5–6 шт.",
+    "orderSize": {
+      "value": 5,
+      "unit": "pcs"
+    }
   },
   {
     "id": "garlic-pampushky",
@@ -1840,6 +2196,10 @@
     "orderUnitRu": "4 шт.",
     "sizeRu": "4 шт.",
     "sizeEn": "4 pcs.",
-    "sizeUa": "4 шт."
+    "sizeUa": "4 шт.",
+    "orderSize": {
+      "value": 4,
+      "unit": "pcs"
+    }
   }
 ]

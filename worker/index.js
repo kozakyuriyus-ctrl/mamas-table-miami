@@ -267,8 +267,29 @@ async function sendTelegramToRecipients(env, messagePayload) {
 function getOrderUnitRu(it) {
   if (it.orderUnitRu) return it.orderUnitRu;
   if (it.category === "soups") return "1 qt";
-  if (it.unit === "lb") return "1 lb";
-  if (it.unit === "шт.") return "1 шт.";
+
+  const sr = String(it.sizeRu ?? "");
+  const u  = it.unit ?? "";
+
+  if (u === "lb") {
+    const m = sr.match(/(\d+(?:\.\d+)?)\s*lb/i);
+    return m ? `${m[1]} lb` : "1 lb";
+  }
+  if (u === "qt") {
+    const m = sr.match(/(\d+(?:\.\d+)?)\s*qt/i);
+    return m ? `${m[1]} qt` : "1 qt";
+  }
+  if (u === "шт.") {
+    const m = sr.match(/^(\d+)\s*шт/i);
+    return m ? `${m[1]} шт.` : "1 шт.";
+  }
+  if (u === "pcs") {
+    const mOz = sr.match(/^(\d+(?:\.\d+)?)\s*oz\s*\(примерно\s+\d+(?:\.\d+)?\s*г\)/i);
+    if (mOz) return mOz[0];
+    const mSht = sr.match(/^(\d+)\s*(?:штук[аи]?|шт\.?)/i);
+    if (mSht) return `${mSht[1]} шт.`;
+    return "1 шт.";
+  }
   return "1 шт.";
 }
 
@@ -374,58 +395,144 @@ function computeReadyByTime(schedule) {
   return `${h12}:${String(nm).padStart(2, "0")} ${period}`;
 }
 
-// Parses size-per-unit from dish.sizeRu (server-side field, never from name or client data).
-// Returns the numeric count in the dish's natural unit.
-// Fallbacks: lb→1, qt→1, pcs→2 (known current dishes), шт.→1.
-function pdfSizePerUnit(it) {
-  const sr = String(it.sizeRu ?? "");
-  const u  = it.unit ?? "";
-  if (u === "lb") {
-    const m = sr.match(/(\d+(?:\.\d+)?)\s*lb/i);
-    return m ? parseFloat(m[1]) : 1;
-  }
-  if (u === "qt" || it.category === "soups") {
-    const m = sr.match(/(\d+(?:\.\d+)?)\s*qt/i);
-    return m ? parseFloat(m[1]) : 1;
-  }
-  if (u === "pcs") {
-    const m = sr.match(/(\d+)\s*(?:штук|шт)/i);
-    if (m) return parseInt(m[1], 10);
-    return 1; // container-type items (e.g. oz-based add-ons): 1 container per unit
-  }
-  // unit="шт." and fallback
-  const m = sr.match(/^(\d+)\s*шт/i);
-  return m ? parseInt(m[1], 10) : 1;
+// ── Kitchen quantity system ───────────────────────────────────────────────────
+
+// Canonical units for internal calculations. Display labels are added at format time.
+const UNITS = Object.freeze({ LB: "lb", QT: "qt", OZ: "oz", PCS: "pcs" });
+
+// Maps any unit string variant to a canonical unit.
+// Returns null for unrecognised strings so callers can log a diagnostic.
+function normalizeOrderUnit(raw) {
+  const s = String(raw ?? "").trim().toLowerCase();
+  if (s === "lb" || s === "lbs" || s === "pound" || s === "pounds") return UNITS.LB;
+  if (s === "qt" || s === "quart" || s === "quarts")                return UNITS.QT;
+  if (s === "oz" || s === "ounce" || s === "ounces")                return UNITS.OZ;
+  if (s === "pcs" || s === "pc" || s === "piece" || s === "pieces" ||
+      s === "шт" || s === "шт." || s === "штук" || s === "штуки")  return UNITS.PCS;
+  return null;
 }
 
-// Total quantity label for kitchen PDF (does not affect Telegram message format).
-// Uses actual size-per-unit from sizeRu × quantity, not hardcoded values.
-function formatPdfItemQty(it) {
+// Formats a numeric quantity without trailing zeros.
+//   fmtNum(2)   → "2"
+//   fmtNum(2.5) → "2.5"
+//   fmtNum(2.0) → "2"
+function fmtNum(n) {
+  if (!isFinite(n) || isNaN(n)) return "?";
+  return Number.isInteger(n) ? String(n) : String(Math.round(n * 1000) / 1000).replace(/\.?0+$/, "");
+}
+
+// Converts oz to grams, rounded to nearest 10 g for kitchen readability.
+function ozToGrams(oz) { return Math.round(oz * 28.3495 / 10) * 10; }
+
+// Converts qt to litres, rounded to nearest 0.5 L.
+function qtToLitres(qt) { return Math.round(qt * 0.946353 * 2) / 2; }
+
+// Extracts a structured {value, unit} from a dish's legacy text fields.
+// Returns null when size cannot be determined (triggers fallback warning).
+function parseSizeFromLegacy(it) {
+  const u  = normalizeOrderUnit(it.unit ?? "");
   const sr = String(it.sizeRu ?? "");
-  // oz-based containers: sizeRu starts with "N oz (Mg г)" — multiply by quantity
-  if (it.unit === "pcs") {
-    const mRange = sr.match(/^(\d+)\s*[–-]\s*(\d+)\s*(?:шт|pcs)/i);
-    if (mRange) {
-      const lo = parseInt(mRange[1], 10) * it.quantity;
-      const hi = parseInt(mRange[2], 10) * it.quantity;
-      return `${lo}–${hi} шт.`;
-    }
-    const mOz = sr.match(/^(\d+(?:\.\d+)?)\s*oz\s*\((примерно\s+|приблизно\s+|approx\.\s+)?(\d+(?:\.\d+)?)\s*г\)/i);
-    if (mOz) {
-      const prefix = mOz[2] || "";
-      const totalOz = parseFloat(mOz[1]) * it.quantity;
-      const totalG  = parseFloat(mOz[3]) * it.quantity;
-      const ozStr = Number.isInteger(totalOz) ? String(totalOz) : String(Math.round(totalOz * 100) / 100);
-      const gStr  = Number.isInteger(totalG)  ? String(totalG)  : String(Math.round(totalG * 100) / 100);
-      return `${ozStr} oz (${prefix}${gStr} г)`;
+
+  if (u === UNITS.LB) {
+    const m = sr.match(/(\d+(?:\.\d+)?)\s*lb/i);
+    if (m) return { value: parseFloat(m[1]), unit: UNITS.LB };
+    return { value: 1, unit: UNITS.LB }; // safe fallback for lb items
+  }
+  if (u === UNITS.QT) {
+    const m = sr.match(/(\d+(?:\.\d+)?)\s*qt/i);
+    if (m) return { value: parseFloat(m[1]), unit: UNITS.QT };
+    return { value: 1, unit: UNITS.QT };
+  }
+  if (u === UNITS.OZ) {
+    const m = sr.match(/(\d+(?:\.\d+)?)\s*oz/i);
+    if (m) return { value: parseFloat(m[1]), unit: UNITS.OZ };
+    return null;
+  }
+  if (u === UNITS.PCS || u === null) {
+    // oz-labelled add-ons with unit=pcs (e.g. "3.5 oz (примерно 100 г)")
+    const mOz = sr.match(/^(\d+(?:\.\d+)?)\s*oz/i);
+    if (mOz) return { value: parseFloat(mOz[1]), unit: UNITS.OZ };
+    // штуки: "4 шт.", "2 штуки", "5–6 шт." (use lower bound of range)
+    const mSht = sr.match(/^(\d+)/);
+    if (mSht && /шт|pcs|pс/i.test(sr)) return { value: parseInt(mSht[1], 10), unit: UNITS.PCS };
+    // generic шт. unit
+    if (it.unit === "шт." || it.unit === "шт") return { value: 1, unit: UNITS.PCS };
+    return null;
+  }
+  return null;
+}
+
+// Determines {value, unit} of one sellable unit from the item snapshot.
+// Priority: orderSize (structured) → sizeRu/unit fallback (legacy).
+// Returns { size: {value, unit}, source: "structured"|"fallback" }.
+function resolveSingleUnitSize(it) {
+  // Priority 1: structured orderSize
+  if (it.orderSize && it.orderSize.unit && it.orderSize.value != null) {
+    const u = normalizeOrderUnit(it.orderSize.unit);
+    const v = Number(it.orderSize.value);
+    if (u && isFinite(v) && v > 0) {
+      return { size: { value: v, unit: u }, source: "structured" };
     }
   }
-  const spu   = pdfSizePerUnit(it);
-  const total = spu * it.quantity;
-  const t     = Number.isInteger(total) ? String(total) : String(Math.round(total * 100) / 100);
-  if (it.unit === "lb") return `${t} lb`;
-  if (it.unit === "qt" || it.category === "soups") return `${t} qt / примерно ${t} л`;
-  return `${t} шт.`;
+  // Priority 2: legacy sizeRu/unit text (with diagnostic warning)
+  const parsed = parseSizeFromLegacy(it);
+  if (parsed) {
+    console.warn(`[Kitchen PDF] fallback: dish "${it.id ?? it.name}" uses parsed sizeRu instead of orderSize`);
+    return { size: parsed, source: "fallback" };
+  }
+  // Priority 3: last-resort (should not normally reach here)
+  console.warn(`[Kitchen PDF] unknown size: dish "${it.id ?? it.name}" — defaulting to 1 pcs`);
+  return { size: { value: 1, unit: UNITS.PCS }, source: "fallback" };
+}
+
+// Calculates kitchen quantity for an ordered item.
+// Returns { value, unit, approximate } where approximate may be null.
+// Formula: single-unit size × quantity.
+function calculateKitchenQuantity(it) {
+  const qty = Number(it.quantity ?? 1);
+
+  // Composite: pcs + approximateWeight lb (e.g. liver cake: 1 pcs / ~3 lb)
+  const os = it.orderSize;
+  if (os && normalizeOrderUnit(os.unit) === UNITS.PCS) {
+    const aw = it.approximateWeight;
+    if (aw && normalizeOrderUnit(aw.unit) === UNITS.LB) {
+      const pieces = os.value * qty;
+      const lbs    = aw.value * qty;
+      return { value: pieces, unit: UNITS.PCS, approximate: { value: lbs, unit: UNITS.LB } };
+    }
+  }
+
+  const { size } = resolveSingleUnitSize(it);
+  return { value: size.value * qty, unit: size.unit, approximate: null };
+}
+
+// Formats a calculateKitchenQuantity result for the kitchen PDF label.
+// Returns an UPPERCASE string ready for the PDF.
+function formatKitchenQuantity(calc) {
+  const { value, unit, approximate } = calc;
+  const v = fmtNum(value);
+
+  if (unit === UNITS.PCS) {
+    if (approximate && approximate.unit === UNITS.LB) {
+      return `${v} шт. / примерно ${fmtNum(approximate.value)} lb`;
+    }
+    return `${v} шт.`;
+  }
+  if (unit === UNITS.LB) return `${v} lb`;
+  if (unit === UNITS.QT) {
+    const litres = fmtNum(qtToLitres(value));
+    return `${v} qt / примерно ${litres} л`;
+  }
+  if (unit === UNITS.OZ) {
+    const grams = ozToGrams(value);
+    return `${v} oz (примерно ${grams} г)`;
+  }
+  return `${v} шт.`; // safe fallback
+}
+
+// Convenience wrapper: item → formatted kitchen quantity string.
+function formatPdfItemQty(it) {
+  return formatKitchenQuantity(calculateKitchenQuantity(it));
 }
 
 // ── Kitchen order PDF ─────────────────────────────────────────────────────────
@@ -441,29 +548,45 @@ async function buildKitchenOrderPdf({ orderId, customer, schedule, orderItems, n
   pdfDoc.registerFontkit(fontkit);
   const font = await pdfDoc.embedFont(fontBytes);
 
-  const page = pdfDoc.addPage([595.28, 841.89]); // A4
-  const { width } = page.getSize();
+  const PAGE_W = 595.28;
+  const PAGE_H = 841.89;
   const ML = 50;
   const MR = 50;
-  const contentW = width - ML - MR;
-  let y = 841.89 - 50;
+  const MT = 50;
+  const MB = 60; // bottom margin — page numbers sit at y=28, content must stay above MB
+  const contentW = PAGE_W - ML - MR;
+
+  // Merge duplicate dish IDs before measuring
+  const merged = new Map();
+  for (const it of orderItems) {
+    const prev = merged.get(it.id);
+    if (prev) { prev.quantity += it.quantity; }
+    else { merged.set(it.id, { ...it }); }
+  }
+  const items = Array.from(merged.values());
+  const totalItems = items.length;
+
+  // Adaptive font size: 20pt ≤10 items, 18pt 11–18, 16pt ≥19
+  const itemSz = totalItems <= 10 ? 20 : totalItems <= 18 ? 18 : 16;
+
+  const pages = [];
+  let curPage;
+  let y;
 
   function put(text, x, sz, color = rgb(0, 0, 0)) {
-    page.drawText(String(text), { x, y, size: sz, font, color });
+    curPage.drawText(String(text), { x, y, size: sz, font, color });
   }
   function putBold(text, x, sz, color = rgb(0, 0, 0)) {
-    page.drawText(String(text), { x, y, size: sz, font, color });
-    page.drawText(String(text), { x: x + 0.6, y, size: sz, font, color }); // simulated bold
+    curPage.drawText(String(text), { x, y, size: sz, font, color });
   }
   function nl(sz, gap = 5) { y -= sz + gap; }
   function hr(gray = 0.5, wt = 0.5) {
-    page.drawLine({
-      start: { x: ML, y }, end: { x: width - MR, y },
+    curPage.drawLine({
+      start: { x: ML, y }, end: { x: PAGE_W - MR, y },
       thickness: wt, color: rgb(gray, gray, gray),
     });
     y -= 16;
   }
-  // Word wrap: splits text into lines that fit within contentW at given size
   function wrapText(text, sz) {
     const words = text.split(" ");
     const lines = [];
@@ -476,21 +599,60 @@ async function buildKitchenOrderPdf({ orderId, customer, schedule, orderItems, n
     if (cur) lines.push(cur);
     return lines.length ? lines : [text];
   }
+  // Pre-measure full height of one dish item (all wrapped lines + spacing)
+  function calcItemH(label, sz) {
+    return wrapText(label, sz).length * (sz + 8) + 4;
+  }
+  // Returns true when content of `needed` height won't fit above bottom margin
+  function needsNewPage(needed) {
+    return y - needed < MB;
+  }
 
-  // ── Title ──────────────────────────────────────────────────────────────────
+  function newPage() {
+    const pg = pdfDoc.addPage([PAGE_W, PAGE_H]);
+    pages.push(pg);
+    curPage = pg;
+    y = PAGE_H - MT;
+  }
+
+  // Compact header for page 2+: order ID, client, item range or comment note
+  function addContinuationHeader(firstItemIdx, isCommentCont = false) {
+    const sz = 11;
+    const h1 = `ЗАКАЗ-НАРЯД № ${orderId} — ПРОДОЛЖЕНИЕ`;
+    curPage.drawText(h1, { x: (PAGE_W - font.widthOfTextAtSize(h1, sz)) / 2, y, size: sz, font, color: rgb(0.2, 0.2, 0.2) });
+    y -= sz + 4;
+    curPage.drawText(`КЛИЕНТ: ${(customer?.name ?? "").trim()}`, { x: ML, y, size: sz, font, color: rgb(0.2, 0.2, 0.2) });
+    y -= sz + 4;
+    const h3 = isCommentCont
+      ? "ОСОБЕННОСТИ ЗАКАЗА (ПРОДОЛЖЕНИЕ)"
+      : `ПОЗИЦИИ ${firstItemIdx}–${totalItems} ИЗ ${totalItems}`;
+    curPage.drawText(h3, { x: ML, y, size: sz, font, color: rgb(0.3, 0.3, 0.3) });
+    y -= sz + 4;
+    curPage.drawLine({ start: { x: ML, y }, end: { x: PAGE_W - MR, y }, thickness: 0.5, color: rgb(0.5, 0.5, 0.5) });
+    y -= 14;
+  }
+
+  // ── First page ────────────────────────────────────────────────────────────
+  newPage();
+
+  // Title
   const titleSz = 16;
   const titleText = `ЗАКАЗ-НАРЯД № ${orderId}`;
-  put(titleText, (width - font.widthOfTextAtSize(titleText, titleSz)) / 2, titleSz, rgb(0.05, 0.05, 0.05));
+  put(titleText, (PAGE_W - font.widthOfTextAtSize(titleText, titleSz)) / 2, titleSz, rgb(0.05, 0.05, 0.05));
   nl(titleSz, 10);
   hr(0.25, 1.5);
 
-  // ── Client name: 17pt bold for quick identification ───────────────────────
+  // Client name
   y -= 2;
   putBold(`КЛИЕНТ: ${(customer?.name ?? "").trim()}`, ML, 17);
-  nl(17, 6);
+  nl(17, 4);
+
+  // Total items count on first page
+  put(`ВСЕГО ПОЗИЦИЙ: ${totalItems}`, ML, 13, rgb(0.2, 0.2, 0.2));
+  nl(13, 4);
   hr(0.4);
 
-  // ── Date: large, uppercase, visually dominant ──────────────────────────────
+  // Date: large, uppercase
   y -= 6;
   const readableDateRu = (() => {
     try {
@@ -504,10 +666,10 @@ async function buildKitchenOrderPdf({ orderId, customer, schedule, orderItems, n
   })();
   const dateSz = 24;
   const dateStr = readableDateRu.toUpperCase();
-  put(dateStr, Math.max(ML, (width - font.widthOfTextAtSize(dateStr, dateSz)) / 2), dateSz, rgb(0.07, 0.07, 0.07));
+  put(dateStr, Math.max(ML, (PAGE_W - font.widthOfTextAtSize(dateStr, dateSz)) / 2), dateSz, rgb(0.07, 0.07, 0.07));
   nl(dateSz, 10);
 
-  // ── Ready-by: maximum prominence, dark red ─────────────────────────────────
+  // Ready-by: maximum prominence, dark red
   const readyBy = computeReadyByTime(schedule);
   let readyByLabel;
   if (readyBy) {
@@ -518,33 +680,52 @@ async function buildKitchenOrderPdf({ orderId, customer, schedule, orderItems, n
   }
   const readyBySz = 26;
   const readyByStr = `ГОТОВО К: ${readyByLabel}`;
-  put(readyByStr, Math.max(ML, (width - font.widthOfTextAtSize(readyByStr, readyBySz)) / 2), readyBySz, rgb(0.65, 0.05, 0.05));
+  put(readyByStr, Math.max(ML, (PAGE_W - font.widthOfTextAtSize(readyByStr, readyBySz)) / 2), readyBySz, rgb(0.65, 0.05, 0.05));
   nl(readyBySz, 14);
-
   hr();
 
-  // ── Items: merged, large (20pt), uppercase, word-wrapped ──────────────────
-  const itemSz = 20;
-  const merged = new Map();
-  for (const it of orderItems) {
-    const prev = merged.get(it.id);
-    if (prev) { prev.quantity += it.quantity; }
-    else { merged.set(it.id, { ...it }); }
-  }
-  for (const it of merged.values()) {
-    const label = `□ ${it.name} — ${formatPdfItemQty(it)}`.toUpperCase();
+  // ── Items: numbered, uppercase, word-wrapped, multi-page ─────────────────
+  let renderedCount = 0;
+
+  for (let idx = 0; idx < items.length; idx++) {
+    const it = items[idx];
+    const itemNum = idx + 1;
+    const label = `${itemNum}. □ ${it.name} — ${formatPdfItemQty(it)}`.toUpperCase();
+    const needed = calcItemH(label, itemSz);
+
+    // If the full item doesn't fit, start a new page before drawing it
+    if (needsNewPage(needed)) {
+      newPage();
+      addContinuationHeader(itemNum);
+    }
+
     const lines = wrapText(label, itemSz);
-    for (let i = 0; i < lines.length; i++) {
-      put(lines[i], i === 0 ? ML : ML + 26, itemSz);
+    for (let li = 0; li < lines.length; li++) {
+      put(lines[li], li === 0 ? ML : ML + 26, itemSz);
       nl(itemSz, 8);
     }
-    y -= 4; // extra gap between dish rows
+    y -= 4;
+    renderedCount++;
   }
 
-  // ── Comment: bullet points, full text, no truncation ──────────────────────
+  // ── Internal validation: detect any item loss before saving ───────────────
+  if (renderedCount !== totalItems) {
+    console.error(`[PDF] item count mismatch: expected ${totalItems}, rendered ${renderedCount}`);
+    console.error(`[PDF] numbering mismatch: expected 1–${totalItems}, rendered 1–${renderedCount}`);
+    throw new Error(`PDF item count mismatch: expected ${totalItems}, rendered ${renderedCount}`);
+  }
+
+  // ── Comment section ───────────────────────────────────────────────────────
+  // "Нет" values are meaningful in the Telegram message but noise in the kitchen PDF.
   const fullComment = [(notes?.allergies ?? "").trim(), (notes?.orderNotes ?? "").trim()]
-    .filter(Boolean).join("\n");
+    .filter(line => line && line.toLowerCase() !== "нет")
+    .join("\n");
   if (fullComment) {
+    // Minimum space to start section: hr(16) + title(13+10) + one line(12+5) ≈ 56
+    if (needsNewPage(56)) {
+      newPage();
+      addContinuationHeader(0, true);
+    }
     y -= 4;
     hr();
     put("ОСОБЕННОСТИ ЗАКАЗА:", ML, 13, rgb(0.1, 0.1, 0.1));
@@ -553,12 +734,31 @@ async function buildKitchenOrderPdf({ orderId, customer, schedule, orderItems, n
     for (const line of fullComment.split("\n")) {
       if (!line.trim()) continue;
       const wrapped = wrapText(`• ${line.trim()}`, commentSz);
-      for (let i = 0; i < wrapped.length; i++) {
-        put(wrapped[i], i === 0 ? ML : ML + 16, commentSz);
+      for (let li = 0; li < wrapped.length; li++) {
+        if (needsNewPage(commentSz + 5)) {
+          newPage();
+          addContinuationHeader(0, true);
+        }
+        put(wrapped[li], li === 0 ? ML : ML + 16, commentSz);
         nl(commentSz, 5);
       }
-      y -= 3; // extra gap between bullet items
+      y -= 3;
     }
+  }
+
+  // ── Page numbers: added last so total page count is known ─────────────────
+  const totalPages = pages.length;
+  const pageNumSz = 9;
+  for (let i = 0; i < pages.length; i++) {
+    const pageNumText = `СТРАНИЦА ${i + 1} ИЗ ${totalPages}`;
+    const tw = font.widthOfTextAtSize(pageNumText, pageNumSz);
+    pages[i].drawText(pageNumText, {
+      x: (PAGE_W - tw) / 2,
+      y: 28,
+      size: pageNumSz,
+      font,
+      color: rgb(0.5, 0.5, 0.5),
+    });
   }
 
   return pdfDoc.save();
@@ -709,7 +909,7 @@ async function handlePreorder(request, env, json) {
       ? (dish.name.ru ?? dish.name.en ?? String(dish.name))
       : String(dish.name);
 
-    orderItems.push({ id: dish.id, name: dishName, quantity: item.quantity, unit: dish.unit ?? null, category: dish.category ?? null, orderUnitRu: dish.orderUnitRu ?? null, sizeRu: dish.sizeRu ?? null, unitPrice: dish.price, lineTotal });
+    orderItems.push({ id: dish.id, name: dishName, quantity: item.quantity, unit: dish.unit ?? null, category: dish.category ?? null, orderUnitRu: dish.orderUnitRu ?? null, sizeRu: dish.sizeRu ?? null, orderSize: dish.orderSize ?? null, approximateWeight: dish.approximateWeight ?? null, unitPrice: dish.price, lineTotal });
   }
 
   // ── Minimum order check (food subtotal only, delivery excluded) ───────────
