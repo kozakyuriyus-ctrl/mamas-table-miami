@@ -808,6 +808,30 @@
     }
   },
   {
+    "id": "salomur-fillet",
+    "category": "main-dishes",
+    "image": "assets/images/main-dishes/salomur-fillet.webp",
+    "price": 17,
+    "name": {
+      "ru": "Филе саломур",
+      "en": "Salomur Herring Fillet",
+      "uk": "Філе саломур"
+    },
+    "description": {
+      "ru": "Домашнее маринованное филе сельди с луком и ароматными специями. Отлично подходит как самостоятельная закуска или с горячим картофелем и ржаным хлебом.",
+      "en": "Homemade marinated herring fillet with onions and aromatic spices. Perfect as an appetizer or served with hot potatoes and rye bread.",
+      "uk": "Домашнє мариноване філе оселедця з цибулею та ароматними спеціями. Смакує як самостійна закуска або з гарячою картоплею та житнім хлібом."
+    },
+    "unit": "lb",
+    "sizeRu": "Вес: 1 lb (454 г) · 2–3 порции",
+    "sizeEn": "Weight: 1 lb (454 g) · 2–3 servings",
+    "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "lb"
+    }
+  },
+  {
     "id": "mashed-potatoes",
     "category": "main-dishes",
     "image": "assets/images/main-dishes/mashed-potatoes.webp",
@@ -826,6 +850,30 @@
     "servings": "3",
     "sizeRu": "Вес: 1 lb (454 г) · 2–3 порции",
     "sizeEn": "Size: 1 lb (454 g) · Serves 2–3",
+    "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "lb"
+    }
+  },
+  {
+    "id": "buckwheat",
+    "category": "main-dishes",
+    "image": "assets/images/main-dishes/buckwheat.webp",
+    "price": 8,
+    "name": {
+      "ru": "Гречка",
+      "en": "Buckwheat",
+      "uk": "Гречка"
+    },
+    "description": {
+      "ru": "Рассыпчатая домашняя гречневая каша со сливочным маслом. Идеальный гарнир к мясным и рыбным блюдам или самостоятельное домашнее блюдо.",
+      "en": "Fluffy homemade buckwheat with butter. A perfect side for meat or fish, or a comforting dish on its own.",
+      "uk": "Розсипчаста домашня гречана каша з вершковим маслом. Чудовий гарнір до м'ясних і рибних страв або самостійна домашня страва."
+    },
+    "unit": "lb",
+    "sizeRu": "Вес: 1 lb (454 г) · 2–3 порции",
+    "sizeEn": "Weight: 1 lb (454 g) · 2–3 servings",
     "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції",
     "orderSize": {
       "value": 1,
