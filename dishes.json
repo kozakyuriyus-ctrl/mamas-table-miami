@@ -829,7 +829,8 @@
     "orderSize": {
       "value": 1,
       "unit": "lb"
-    }
+    },
+    "badge": "new"
   },
   {
     "id": "mashed-potatoes",
