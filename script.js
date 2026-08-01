@@ -3930,6 +3930,16 @@ const handleClick = (event) => {
     const addon = dishById(addonId);
     if (!addon) return;
     setQuantity(addonId, cartQuantity(addonId) + 1);
+    ga4("add_to_cart", { currency: "USD", value: addon.price, items: [ga4Item(addon, 1)] });
+    metaTrack("AddToCart", {
+      content_ids: [addon.id],
+      content_name: addon.name.en || addon.name.ru,
+      content_type: "product",
+      content_category: addon.category,
+      value: addon.price,
+      currency: "USD",
+      num_items: 1,
+    });
     const row = recAdd.closest("[data-rec-row]");
     if (row) {
       let feedback = row.querySelector(".addon-rec-added");
@@ -4119,7 +4129,7 @@ const handleClick = (event) => {
       // Always open checkout when cart has items — even on category/route pages.
       // Previously this only worked on the home page; on route pages it scrolled
       // to the order card instead, which required an extra tap to reach checkout.
-      openPreorderModal(mobileOrder);
+      openCartReview(mobileOrder);
     } else if (routeFromHash()) {
       document.querySelector("[data-route-order-card]")?.scrollIntoView({ behavior: "smooth", block: "start" });
     }
