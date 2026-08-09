@@ -1424,7 +1424,7 @@ let lastViewedCategoryId = null;
 const categories = [
   {
     id: "soups",
-    image: "assets/images/categories/category-pervye-blyuda-new.jpg",
+    image: "assets/images/categories/category-pervye-blyuda-new.webp",
     icon: "soup",
     title: tr("Первые блюда", "Soups", "Перші страви"),
     description: tr(
@@ -1435,7 +1435,7 @@ const categories = [
   },
   {
     id: "main-dishes",
-    image: "assets/images/categories/category-vtorye-blyuda-new.jpg",
+    image: "assets/images/categories/category-vtorye-blyuda-new.webp",
     icon: "utensils",
     title: tr("Вторые блюда", "Main Dishes", "Другі страви"),
     description: tr(
@@ -1446,7 +1446,7 @@ const categories = [
   },
   {
     id: "salads",
-    image: "assets/images/categories/category-salaty-new.jpg",
+    image: "assets/images/categories/category-salaty-new.webp",
     icon: "leaf",
     title: tr("Салаты", "Salads", "Салати"),
     description: tr(
@@ -1469,7 +1469,7 @@ const categories = [
   },
   {
     id: "frozen",
-    image: "assets/images/categories/category-frozen.jpg",
+    image: "assets/images/categories/category-frozen.webp",
     icon: "snowflake",
     title: tr("Домашняя заморозка", "Homemade Frozen", "Домашня заморозка"),
     description: tr(
@@ -1480,7 +1480,7 @@ const categories = [
   },
   {
     id: "desserts",
-    image: "assets/images/blini-crepes.jpg",
+    image: "assets/images/blini-crepes.webp",
     icon: "cake-slice",
     title: tr("Десерты", "Desserts", "Десерти"),
     description: tr("Скоро в меню", "Coming soon", "Скоро в меню"),
@@ -1494,7 +1494,7 @@ const categories = [
   },
   {
     id: "drinks",
-    image: "assets/images/categories/category-drinks.jpg",
+    image: "assets/images/categories/category-drinks.webp",
     icon: "glass-water",
     title: tr("Напитки", "Drinks", "Напої"),
     description: tr("Скоро в меню", "Coming soon", "Скоро в меню"),
