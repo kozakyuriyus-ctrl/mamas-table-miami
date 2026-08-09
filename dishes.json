@@ -566,6 +566,54 @@
     }
   },
   {
+    "id": "liver-fritters",
+    "category": "main-dishes",
+    "image": "assets/images/main-dishes/liver-fritters.webp",
+    "price": 16,
+    "name": {
+      "ru": "Печёночные оладьи",
+      "en": "Liver Fritters",
+      "uk": "Печінкові оладки"
+    },
+    "description": {
+      "ru": "Мягкие и сочные домашние оладьи из печени с луком. Нежные внутри, с аппетитной румяной корочкой.",
+      "en": "Soft and juicy homestyle liver fritters with onion. Tender inside with an appetizing golden-brown crust.",
+      "uk": "М'які та соковиті домашні оладки з печінки та цибулі. Ніжні всередині, з апетитною рум'яною скоринкою."
+    },
+    "unit": "lb",
+    "sizeRu": "Вес: 1 lb (454 г) · 2–3 порции",
+    "sizeEn": "Size: 1 lb (454 g) · Serves 2–3",
+    "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "lb"
+    }
+  },
+  {
+    "id": "cabbage-fritters",
+    "category": "main-dishes",
+    "image": "assets/images/main-dishes/cabbage-fritters.webp",
+    "price": 12,
+    "name": {
+      "ru": "Капустные оладьи",
+      "en": "Cabbage Fritters",
+      "uk": "Капустяні оладки"
+    },
+    "description": {
+      "ru": "Нежные оладьи из свежей капусты, обжаренные до золотистой корочки. Сочные, лёгкие и по-настоящему домашние.",
+      "en": "Tender fritters made with fresh cabbage and pan-fried until golden. Juicy, light and genuinely homestyle.",
+      "uk": "Ніжні оладки зі свіжої капусти, обсмажені до золотистої скоринки. Соковиті, легкі та по-справжньому домашні."
+    },
+    "unit": "lb",
+    "sizeRu": "Вес: 1 lb (454 г) · 2–3 порции",
+    "sizeEn": "Size: 1 lb (454 g) · Serves 2–3",
+    "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "lb"
+    }
+  },
+  {
     "id": "beef-stroganoff",
     "category": "main-dishes",
     "image": "assets/images/main-dishes/beef-stroganoff.webp",
@@ -1394,6 +1442,78 @@
       "ru": "Жареная баклажанная икра с овощами и насыщенным домашним вкусом.",
       "en": "Roasted eggplant spread with vegetables and a rich homemade taste.",
       "uk": "Смажена баклажанна ікра з овочами та насиченим домашнім смаком."
+    },
+    "unit": "lb",
+    "sizeRu": "Вес: 1 lb (454 г) · 4–6 порций как закуска",
+    "sizeEn": "Size: 1 lb (454 g) · 4–6 servings as an appetizer",
+    "sizeUa": "Вага: 1 lb (454 г) · 4–6 порцій як закуска",
+    "orderSize": {
+      "value": 1,
+      "unit": "lb"
+    }
+  },
+  {
+    "id": "forshmak",
+    "category": "salads",
+    "image": "assets/images/salads/forshmak.webp",
+    "price": 18,
+    "name": {
+      "ru": "Форшмак по-домашнему",
+      "en": "Homestyle Forshmak",
+      "uk": "Форшмак по-домашньому"
+    },
+    "description": {
+      "ru": "Нежная закуска из сельди с яйцом, луком и яблоком. Сбалансированный солоновато-сливочный вкус по классическому домашнему рецепту.",
+      "en": "A delicate herring spread with egg, onion and apple. A balanced savory and creamy flavor made in the classic homestyle tradition.",
+      "uk": "Ніжна закуска з оселедця з яйцем, цибулею та яблуком. Збалансований солонувато-вершковий смак за класичним домашнім рецептом."
+    },
+    "unit": "lb",
+    "sizeRu": "Вес: 1 lb (454 г) · 4–6 порций как закуска",
+    "sizeEn": "Size: 1 lb (454 g) · 4–6 servings as an appetizer",
+    "sizeUa": "Вага: 1 lb (454 г) · 4–6 порцій як закуска",
+    "orderSize": {
+      "value": 1,
+      "unit": "lb"
+    }
+  },
+  {
+    "id": "zakusochniy-salad",
+    "category": "salads",
+    "image": "assets/images/salads/zakusochniy-salad.webp",
+    "price": 16,
+    "name": {
+      "ru": "Салат «Закусочный»",
+      "en": "Savory Cheese & Garlic Salad",
+      "uk": "Салат «Закусочний»"
+    },
+    "description": {
+      "ru": "Классическая пикантная закуска из сыра, яйца, чеснока и майонеза. Нежная, сливочная, с выразительной чесночной ноткой.",
+      "en": "A classic savory salad made with cheese, egg, garlic and mayonnaise. Creamy and tender with a distinctive garlic note.",
+      "uk": "Класична пікантна закуска із сиру, яйця, часнику та майонезу. Ніжна, вершкова, з виразною часниковою ноткою."
+    },
+    "unit": "lb",
+    "sizeRu": "Вес: 1 lb (454 г) · 4–6 порций как закуска",
+    "sizeEn": "Size: 1 lb (454 g) · 4–6 servings as an appetizer",
+    "sizeUa": "Вага: 1 lb (454 г) · 4–6 порцій як закуска",
+    "orderSize": {
+      "value": 1,
+      "unit": "lb"
+    }
+  },
+  {
+    "id": "beet-garlic-salad",
+    "category": "salads",
+    "image": "assets/images/salads/beet-garlic-salad.webp",
+    "price": 10,
+    "name": {
+      "ru": "Свёкла с чесноком",
+      "en": "Beet & Garlic Salad",
+      "uk": "Буряк з часником"
+    },
+    "description": {
+      "ru": "Нежная тёртая свёкла с чесноком и майонезом. Сочный, пикантный и по-настоящему домашний салат.",
+      "en": "Tender grated beets with garlic and mayonnaise. Juicy, savory and genuinely homestyle.",
+      "uk": "Ніжний тертий буряк із часником та майонезом. Соковитий, пікантний і по-справжньому домашній салат."
     },
     "unit": "lb",
     "sizeRu": "Вес: 1 lb (454 г) · 4–6 порций как закуска",
