@@ -600,9 +600,9 @@
       "uk": "Капустяні оладки"
     },
     "description": {
-      "ru": "Нежные оладьи из свежей капусты, обжаренные до золотистой корочки.",
-      "en": "Tender fritters made with fresh cabbage and pan-fried until golden.",
-      "uk": "Ніжні оладки зі свіжої капусти, обсмажені до золотистої скоринки."
+      "ru": "Нежные оладьи из свежей капусты, обжаренные до золотистой корочки. Сочные, лёгкие и по-настоящему домашние.",
+      "en": "Tender fritters made with fresh cabbage and pan-fried until golden. Juicy, light and genuinely homestyle.",
+      "uk": "Ніжні оладки зі свіжої капусти, обсмажені до золотистої скоринки. Соковиті, легкі та по-справжньому домашні."
     },
     "unit": "lb",
     "sizeRu": "Вес: 1 lb (454 г) · 2–3 порции",
@@ -611,8 +611,7 @@
     "orderSize": {
       "value": 1,
       "unit": "lb"
-    },
-    "badge": "vegetarian"
+    }
   },
   {
     "id": "beef-stroganoff",
@@ -1008,7 +1007,7 @@
   {
     "id": "chicken-benderiki",
     "category": "main-dishes",
-    "image": "assets/images/main-dishes/chicken-benderiki.png",
+    "image": "assets/images/main-dishes/chicken-benderiki.webp",
     "price": 14,
     "name": {
       "ru": "Бендерики с куриной начинкой",
@@ -1464,9 +1463,9 @@
       "uk": "Форшмак по-домашньому"
     },
     "description": {
-      "ru": "Нежная закуска из сельди с яйцом, луком и яблоком.",
-      "en": "A delicate herring spread with egg, onion and apple.",
-      "uk": "Ніжна закуска з оселедця з яйцем, цибулею та яблуком."
+      "ru": "Нежная закуска из сельди с яйцом, луком и яблоком. Сбалансированный солоновато-сливочный вкус по классическому домашнему рецепту.",
+      "en": "A delicate herring spread with egg, onion and apple. A balanced savory and creamy flavor made in the classic homestyle tradition.",
+      "uk": "Ніжна закуска з оселедця з яйцем, цибулею та яблуком. Збалансований солонувато-вершковий смак за класичним домашнім рецептом."
     },
     "unit": "lb",
     "sizeRu": "Вес: 1 lb (454 г) · 4–6 порций как закуска",
@@ -1488,9 +1487,9 @@
       "uk": "Салат «Закусочний»"
     },
     "description": {
-      "ru": "Классическая пикантная закуска из сыра, яйца, чеснока и майонеза.",
-      "en": "A classic savory salad made with cheese, egg, garlic and mayonnaise.",
-      "uk": "Класична пікантна закуска із сиру, яйця, часнику та майонезу."
+      "ru": "Классическая пикантная закуска из сыра, яйца, чеснока и майонеза. Нежная, сливочная, с выразительной чесночной ноткой.",
+      "en": "A classic savory salad made with cheese, egg, garlic and mayonnaise. Creamy and tender with a distinctive garlic note.",
+      "uk": "Класична пікантна закуска із сиру, яйця, часнику та майонезу. Ніжна, вершкова, з виразною часниковою ноткою."
     },
     "unit": "lb",
     "sizeRu": "Вес: 1 lb (454 г) · 4–6 порций как закуска",
@@ -1806,7 +1805,7 @@
   {
     "id": "frozen-pork-pelmeni",
     "category": "frozen",
-    "image": "assets/images/frozen/frozen-pork-pelmeni.png",
+    "image": "assets/images/frozen/frozen-pork-pelmeni.webp",
     "price": 14,
     "name": {
       "ru": "Замороженные пельмени со свининой",
@@ -1831,7 +1830,7 @@
   {
     "id": "frozen-pork-beef-dumplings",
     "category": "frozen",
-    "image": "assets/images/frozen/frozen-pork-beef-dumplings.png",
+    "image": "assets/images/frozen/frozen-pork-beef-dumplings.webp",
     "price": 15,
     "name": {
       "ru": "Замороженные пельмени со свининой и говядиной",
@@ -1856,7 +1855,7 @@
   {
     "id": "frozen-chicken-dumplings",
     "category": "frozen",
-    "image": "assets/images/frozen/frozen-chicken-dumplings.png",
+    "image": "assets/images/frozen/frozen-chicken-dumplings.webp",
     "price": 14,
     "name": {
       "ru": "Замороженные пельмени с куриным фаршем",
@@ -1881,7 +1880,7 @@
   {
     "id": "frozen-vareniki-potato",
     "category": "frozen",
-    "image": "assets/images/frozen/frozen-vareniki-potato.png",
+    "image": "assets/images/frozen/frozen-vareniki-potato.webp",
     "price": 12,
     "name": {
       "ru": "Замороженные вареники с картофелем",
@@ -1906,7 +1905,7 @@
   {
     "id": "frozen-home-cutlets",
     "category": "frozen",
-    "image": "assets/images/frozen/frozen-home-cutlets.png",
+    "image": "assets/images/frozen/frozen-home-cutlets.webp",
     "price": 15,
     "name": {
       "ru": "Замороженные котлеты домашние",
@@ -1931,7 +1930,7 @@
   {
     "id": "frozen-juicy-chicken-cutlets",
     "category": "frozen",
-    "image": "assets/images/frozen/frozen-juicy-chicken-cutlets.png",
+    "image": "assets/images/frozen/frozen-juicy-chicken-cutlets.webp",
     "price": 15,
     "name": {
       "ru": "Замороженные котлеты куриные сочные",
@@ -1956,7 +1955,7 @@
   {
     "id": "frozen-fish-cutlets",
     "category": "frozen",
-    "image": "assets/images/frozen/frozen-fish-cutlets.png",
+    "image": "assets/images/frozen/frozen-fish-cutlets.webp",
     "price": 17,
     "name": {
       "ru": "Замороженные рыбные котлеты",
@@ -1981,7 +1980,7 @@
   {
     "id": "frozen-meat-blintzes",
     "category": "frozen",
-    "image": "assets/images/frozen/frozen-meat-blintzes.png",
+    "image": "assets/images/frozen/frozen-meat-blintzes.webp",
     "price": 13.5,
     "name": {
       "ru": "Замороженные блинчики с мясом",
@@ -2006,7 +2005,7 @@
   {
     "id": "frozen-cottage-cheese-blintzes",
     "category": "frozen",
-    "image": "assets/images/frozen/frozen-cottage-cheese-blintzes.png",
+    "image": "assets/images/frozen/frozen-cottage-cheese-blintzes.webp",
     "price": 13.5,
     "name": {
       "ru": "Замороженные блинчики с творогом",
@@ -2031,7 +2030,7 @@
   {
     "id": "frozen-chicken-benderiki",
     "category": "frozen",
-    "image": "assets/images/frozen/frozen-chicken-benderiki.png",
+    "image": "assets/images/frozen/frozen-chicken-benderiki.webp",
     "price": 14,
     "name": {
       "ru": "Замороженные бендерики с куриной начинкой",
@@ -2056,7 +2055,7 @@
   {
     "id": "frozen-stuffed-bell-peppers",
     "category": "frozen",
-    "image": "assets/images/frozen/perec2.png",
+    "image": "assets/images/frozen/perec2.webp",
     "price": 20,
     "name": {
       "ru": "Замороженные фаршированные перцы",
@@ -2081,7 +2080,7 @@
   {
     "id": "frozen-cabbage-rolls",
     "category": "frozen",
-    "image": "assets/images/frozen/golubci.png",
+    "image": "assets/images/frozen/golubci.webp",
     "price": 15,
     "name": {
       "ru": "Замороженные голубцы",
