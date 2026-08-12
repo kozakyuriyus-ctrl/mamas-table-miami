@@ -3577,6 +3577,12 @@ const handlePreorderSubmit = async (formEl) => {
       transaction_id: orderId,
       items: ga4CartItems(),
     });
+    ga4("purchase", {
+      currency: "USD",
+      value: cartTotal(),
+      transaction_id: orderId,
+      items: ga4CartItems(),
+    });
     metaTrack("Lead", {
       content_ids: cartEntries().map(({ dish }) => dish.id),
       content_type: "product",
@@ -3614,6 +3620,12 @@ const handlePreorderSubmit = async (formEl) => {
     const orderId = result.orderId;
     state.preorderDraft = { orderId, form: { ...form }, stage: 1, requestType: "preorder" };
     ga4("preorder_submitted", {
+      currency: "USD",
+      value: cartTotal(),
+      transaction_id: orderId,
+      items: ga4CartItems(),
+    });
+    ga4("purchase", {
       currency: "USD",
       value: cartTotal(),
       transaction_id: orderId,
