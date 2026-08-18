@@ -3638,6 +3638,13 @@ const handlePreorderSubmit = async (formEl) => {
       value: cartTotal(),
       currency: "USD",
     });
+    metaTrack("Purchase", {
+      content_ids: cartEntries().map(({ dish }) => dish.id),
+      content_type: "product",
+      num_items: cartEntries().reduce((s, { quantity }) => s + quantity, 0),
+      value: cartTotal(),
+      currency: "USD",
+    });
     state.cart.clear();
     saveCart(state.cart);
     clearDraft("preorder");
@@ -3680,6 +3687,13 @@ const handlePreorderSubmit = async (formEl) => {
       items: ga4CartItems(),
     });
     metaTrack("Lead", {
+      content_ids: cartEntries().map(({ dish }) => dish.id),
+      content_type: "product",
+      num_items: cartEntries().reduce((s, { quantity }) => s + quantity, 0),
+      value: cartTotal(),
+      currency: "USD",
+    });
+    metaTrack("Purchase", {
       content_ids: cartEntries().map(({ dish }) => dish.id),
       content_type: "product",
       num_items: cartEntries().reduce((s, { quantity }) => s + quantity, 0),
@@ -3842,15 +3856,6 @@ const handleClick = (event) => {
     setQuantity(id, cartQuantity(id) + 1);
     if (dish) {
       ga4("add_to_cart", { currency: "USD", value: dish.price, items: [ga4Item(dish, 1)] });
-      metaTrack("AddToCart", {
-        content_ids: [dish.id],
-        content_name: dish.name.en || dish.name.ru,
-        content_type: "product",
-        content_category: dish.category,
-        value: dish.price,
-        currency: "USD",
-        num_items: 1,
-      });
     }
     return;
   }
