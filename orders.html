@@ -248,8 +248,8 @@
         </div>`;
       };
 
-      const render = () => {
-        const history = loadHistory();
+      const render = (overrideHistory = null) => {
+        const history = overrideHistory || loadHistory();
         const backUrl = "/?lang=" + encodeURIComponent(lang);
 
         let content;
@@ -313,6 +313,54 @@
       };
 
       render();
+
+      // Async: fetch server-side history and merge with localStorage
+      (async () => {
+        const HISTORY_API = "https://api.lanaskitchenmiami.com";
+        const TOKEN_KEY = "lk_history_token";
+        const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+        const params = new URLSearchParams(location.search);
+        let token = params.get("token") || "";
+
+        if (token) {
+          try { localStorage.setItem(TOKEN_KEY, token); } catch {}
+          const clean = new URL(location.href);
+          clean.searchParams.delete("token");
+          history.replaceState(null, "", clean.pathname + (clean.search || "") + (clean.hash || ""));
+        } else {
+          try { token = localStorage.getItem(TOKEN_KEY) || ""; } catch {}
+        }
+
+        if (!token || !UUID_RE.test(token)) return;
+
+        try {
+          const controller = new AbortController();
+          const tid = setTimeout(() => controller.abort(), 5000);
+          const resp = await fetch(`${HISTORY_API}/orders?token=${encodeURIComponent(token)}`, { signal: controller.signal });
+          clearTimeout(tid);
+          if (!resp.ok) return;
+          const data = await resp.json();
+          if (!data.ok || !Array.isArray(data.orders) || data.orders.length === 0) return;
+
+          const local = loadHistory();
+          const seen = new Set(local.map(o => o.orderId));
+          const merged = [...local];
+          for (const so of data.orders) {
+            if (so.orderId && !seen.has(so.orderId)) {
+              seen.add(so.orderId);
+              merged.push(so);
+            }
+          }
+          merged.sort((a, b) => {
+            try { return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(); } catch { return 0; }
+          });
+          const final = merged.slice(0, 5);
+          if (final.length > local.length) render(final);
+        } catch {
+          // network error — localStorage history already rendered
+        }
+      })();
     </script>
   </body>
 </html>

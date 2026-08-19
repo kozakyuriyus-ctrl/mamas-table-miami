@@ -6,6 +6,11 @@ compatibility_flags = ["nodejs_compat"]
 [vars]
 ALLOWED_ORIGIN = "https://lanaskitchenmiami.com"
 
+[[kv_namespaces]]
+binding = "ORDER_HISTORY"
+id = "19952cac8fe349de992e3909b4b405c4"
+
 # Secrets must be set in Cloudflare only:
 # - TELEGRAM_CHAT_ID
 # - TELEGRAM_BOT_TOKEN
+# - HISTORY_SECRET

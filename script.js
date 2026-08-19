@@ -2772,12 +2772,29 @@ const createPreorderStage0 = () => {
 
 const createPreorderSuccess = () => {
   const draft = state.preorderDraft;
+  const historyToken = state.preorderHistoryToken || null;
+  const isIAB = /FBAN|FBAV|Instagram/i.test(navigator.userAgent);
+
+  let iabBlock = "";
+  if (isIAB && historyToken) {
+    const ordersUrl = `https://lanaskitchenmiami.com/orders.html?token=${encodeURIComponent(historyToken)}`;
+    const smsUrl = `sms:?body=${encodeURIComponent(ordersUrl)}`;
+    iabBlock = `
+      <div class="preorder-iab-notice">
+        <p class="preorder-iab-text">Сохраните ссылку, чтобы открыть историю заказов в Safari или Chrome.</p>
+        <div class="preorder-iab-actions">
+          <a href="${escapeHtml(smsUrl)}" class="btn btn-secondary preorder-iab-btn">Отправить себе →</a>
+          <button type="button" class="btn btn-secondary preorder-iab-btn" data-copy-history-url="${escapeHtml(ordersUrl)}">Скопировать ссылку</button>
+        </div>
+      </div>`;
+  }
   return `
     <div class="modal-stage modal-stage-final preorder-success">
       <i data-lucide="check-circle-2" class="stage-icon-lg"></i>
       <h3 class="stage-title">${escapeHtml(t("preorder.successTitle"))}</h3>
       <p class="stage-intro">${escapeHtml(t("preorder.successText"))}</p>
       <p class="success-ref">${escapeHtml(t("preorder.successRef"))} <strong>${escapeHtml(draft?.orderId || "")}</strong></p>
+      ${iabBlock}
       <button class="btn btn-primary" type="button" data-close-modal="preorder">
         ${escapeHtml(t("preorder.close"))}
       </button>
@@ -3729,6 +3746,13 @@ const handlePreorderSubmit = async (formEl) => {
       });
       renderOrderHistoryBtn();
     }
+    state.preorderHistoryToken = null;
+    try {
+      if (result.historyToken) {
+        state.preorderHistoryToken = result.historyToken;
+        localStorage.setItem("lk_history_token", result.historyToken);
+      }
+    } catch {}
     state.cart.clear();
     saveCart(state.cart);
     clearDraft("preorder");
@@ -4156,7 +4180,28 @@ const handleClick = (event) => {
     return;
   }
 
-  // Copy message
+  // Copy history URL to clipboard (IAB success screen)
+  const copyHistoryUrl = target.closest("[data-copy-history-url]");
+  if (copyHistoryUrl) {
+    event.preventDefault();
+    const url = copyHistoryUrl.dataset.copyHistoryUrl;
+    const orig = copyHistoryUrl.textContent.trim();
+    (navigator.clipboard?.writeText(url) ?? Promise.resolve()).catch(() => {
+      try {
+        const tmp = document.createElement("textarea");
+        tmp.value = url;
+        document.body.appendChild(tmp);
+        tmp.select();
+        document.execCommand("copy");
+        tmp.remove();
+      } catch {}
+    });
+    copyHistoryUrl.textContent = "Скопировано ✓";
+    setTimeout(() => { copyHistoryUrl.textContent = orig; }, 2500);
+    return;
+  }
+
+  // Copy order message
   const copyMessage = target.closest("[data-copy-message]");
   if (copyMessage) {
     event.preventDefault();

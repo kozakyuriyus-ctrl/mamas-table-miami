@@ -782,6 +782,50 @@ async function sendKitchenOrderPdf(env, orderId, pdfBytes) {
   }
 }
 
+// ── Order history helpers ─────────────────────────────────────────────────────
+
+function normalizePhone(phone) {
+  return String(phone || "").replace(/\D/g, "").slice(-10);
+}
+
+async function computeHistKey(normalizedPhone, secret) {
+  const enc = new TextEncoder();
+  const key = await crypto.subtle.importKey(
+    "raw", enc.encode(secret),
+    { name: "HMAC", hash: "SHA-256" },
+    false, ["sign"]
+  );
+  const sig = await crypto.subtle.sign("HMAC", key, enc.encode(normalizedPhone));
+  return Array.from(new Uint8Array(sig)).map(b => b.toString(16).padStart(2, "0")).join("");
+}
+
+async function saveOrderHistory(env, phone, orderId, summary) {
+  if (!env.ORDER_HISTORY || !env.HISTORY_SECRET) return null;
+  const normalized = normalizePhone(phone);
+  if (normalized.length < 10) return null;
+  const histKey = await computeHistKey(normalized, env.HISTORY_SECRET);
+  const kvHistKey = `hist:${histKey}`;
+  const TTL = 2592000; // 30 days
+
+  let existing = null;
+  try {
+    const raw = await env.ORDER_HISTORY.get(kvHistKey);
+    if (raw) existing = JSON.parse(raw);
+  } catch {}
+
+  const historyToken = existing?.historyToken ?? crypto.randomUUID();
+  const orders = Array.isArray(existing?.orders) ? existing.orders : [];
+
+  if (!orders.some(o => o.orderId === orderId)) {
+    orders.unshift(summary);
+  }
+  const trimmed = orders.slice(0, 5);
+
+  await env.ORDER_HISTORY.put(kvHistKey, JSON.stringify({ historyToken, orders: trimmed }), { expirationTtl: TTL });
+  await env.ORDER_HISTORY.put(`tok:${historyToken}`, histKey, { expirationTtl: TTL });
+  return historyToken;
+}
+
 // ── Core preorder handler ─────────────────────────────────────────────────────
 
 async function handlePreorder(request, env, json) {
@@ -992,7 +1036,29 @@ async function handlePreorder(request, env, json) {
     console.error("[PDF] Kitchen order PDF failed:", pdfErr?.message ?? String(pdfErr));
   }
 
-  return json({ ok: true, orderId, pricing });
+  // ── Server-side order history (fire-and-forget — never fails the request) ─
+  const orderSummary = {
+    orderId,
+    createdAt: new Date().toISOString(),
+    deliveryDate: schedule.date,
+    timeWindow: schedule.timeWindowLabel,
+    items: orderItems.map(it => ({ name: it.name, quantity: it.quantity, unit: it.unit, price: it.unitPrice })),
+    subtotal: pricing.foodSubtotal,
+    deliveryFee: pricing.deliveryFee,
+    total: pricing.orderTotal,
+    city: serverDelivery.city,
+    status: "pending",
+  };
+  let historyToken = null;
+  try {
+    historyToken = await saveOrderHistory(env, customer.phone, orderId, orderSummary);
+  } catch (histErr) {
+    console.error("[History] Failed:", histErr?.message ?? String(histErr));
+  }
+
+  const successPayload = { ok: true, orderId, pricing };
+  if (historyToken) successPayload.historyToken = historyToken;
+  return json(successPayload);
 }
 
 async function answerCallback(env, callbackQueryId, text = "OK") {
@@ -1442,6 +1508,34 @@ export default {
       } catch (err) {
         console.error("Unhandled custom-order error:", err);
         return json({ ok: false, error: "internal_error" }, 500);
+      }
+    }
+
+    // ── Order history endpoint ──────────────────────────────────────────────
+    if (url.pathname === "/orders") {
+      if (request.method !== "GET") {
+        return new Response("Method not allowed", { status: 405, headers: { Allow: "GET, OPTIONS" } });
+      }
+      if (!isAllowedOrigin) {
+        return json({ ok: false, error: "not_found" }, 404);
+      }
+      const token = String(url.searchParams.get("token") || "");
+      const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+      if (!token || token.length > 36 || !UUID_RE.test(token)) {
+        return json({ ok: false, error: "not_found" }, 404);
+      }
+      if (!env.ORDER_HISTORY) {
+        return json({ ok: false, error: "not_found" }, 404);
+      }
+      try {
+        const histKey = await env.ORDER_HISTORY.get(`tok:${token}`);
+        if (!histKey) return json({ ok: false, error: "not_found" }, 404);
+        const raw = await env.ORDER_HISTORY.get(`hist:${histKey}`);
+        if (!raw) return json({ ok: false, error: "not_found" }, 404);
+        const record = JSON.parse(raw);
+        return json({ ok: true, orders: Array.isArray(record.orders) ? record.orders : [] });
+      } catch {
+        return json({ ok: false, error: "not_found" }, 404);
       }
     }
 
