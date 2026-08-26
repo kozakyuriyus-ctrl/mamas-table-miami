@@ -545,7 +545,7 @@
     "id": "potato-zrazy-meat",
     "category": "main-dishes",
     "image": "assets/images/main-dishes/potato-zrazy-meat.webp",
-    "price": 13.9,
+    "price": 13.5,
     "name": {
       "ru": "Зразы картофельные с мясом",
       "en": "Potato Zrazy with Meat",
@@ -810,7 +810,7 @@
     "id": "hawaiian-chicken-pineapple-cutlets",
     "category": "main-dishes",
     "image": "assets/images/main-dishes/hawaiian-chicken-pineapple-cutlets.webp",
-    "price": 17.9,
+    "price": 17.5,
     "name": {
       "ru": "Куриные отбивные по-гавайски с ананасом",
       "en": "Hawaiian Chicken Cutlets with Pineapple",
@@ -834,7 +834,7 @@
     "id": "grilled-salmon-broccoli",
     "category": "main-dishes",
     "image": "assets/images/main-dishes/grilled-salmon-broccoli.webp",
-    "price": 22.9,
+    "price": 22.5,
     "name": {
       "ru": "Лосось гриль с брокколи",
       "en": "Grilled Salmon with Broccoli",
@@ -933,7 +933,7 @@
     "id": "meat-filled-blini",
     "category": "main-dishes",
     "image": "assets/images/main-dishes/meat-filled-blini.webp",
-    "price": 13.9,
+    "price": 13.5,
     "name": {
       "ru": "Блины с мясной начинкой",
       "en": "Meat-Filled Blini",
@@ -958,7 +958,7 @@
     "id": "cottage-cheese-blini",
     "category": "main-dishes",
     "image": "assets/images/main-dishes/cottage-cheese-blini.webp",
-    "price": 13.9,
+    "price": 13.5,
     "name": {
       "ru": "Блины с творогом",
       "en": "Cottage Cheese Blini",
@@ -1034,7 +1034,7 @@
     "category": "main-dishes",
     "badge": "vegetarian",
     "image": "assets/images/main-dishes/eggplant-pepper-saute.webp",
-    "price": 11.9,
+    "price": 11.5,
     "name": {
       "ru": "Соте из баклажанов с болгарским перцем",
       "en": "Eggplant and Bell Pepper Saute",
@@ -1111,7 +1111,7 @@
     "id": "pork-beef-kholodets",
     "category": "main-dishes",
     "image": "assets/images/main-dishes/pork-beef-kholodets.webp",
-    "price": 17.9,
+    "price": 17.5,
     "name": {
       "ru": "Холодец свино-говяжий",
       "en": "Pork & Beef Aspic",
@@ -1135,7 +1135,7 @@
     "id": "chicken-kholodets",
     "category": "main-dishes",
     "image": "assets/images/main-dishes/chicken-kholodets.webp",
-    "price": 16.9,
+    "price": 16.5,
     "name": {
       "ru": "Холодец куриный",
       "en": "Chicken Aspic",
@@ -1236,7 +1236,7 @@
     "id": "stolichny-chicken-salad",
     "category": "salads",
     "image": "assets/images/salads/stolichny-chicken-salad.webp",
-    "price": 13.5,
+    "price": 13.9,
     "name": {
       "ru": "Салат Столичный с курицей",
       "en": "Stolichny Chicken Salad",
