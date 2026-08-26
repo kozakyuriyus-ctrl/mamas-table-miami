@@ -50,6 +50,30 @@
     }
   },
   {
+    "id": "wild-salmon-fish-soup",
+    "category": "soups",
+    "image": "assets/images/soups/wild-salmon-fish-soup.webp",
+    "price": 23,
+    "name": {
+      "ru": "Уха из дикого лосося",
+      "en": "Wild Salmon Fish Soup",
+      "uk": "Юшка з дикого лосося"
+    },
+    "description": {
+      "ru": "Домашняя уха из дикого розового лосося с картофелем, морковью, луком и зеленью в ароматном рыбном бульоне.",
+      "en": "Homemade fish soup made with wild-caught pink salmon, potatoes, carrots, onion and herbs in a flavorful fish broth.",
+      "uk": "Домашня юшка з дикого рожевого лосося з картоплею, морквою, цибулею та зеленню в ароматному рибному бульйоні."
+    },
+    "unit": "qt",
+    "sizeRu": "Объём: 1 qt (32 fl oz / 946 мл) · 3 порции",
+    "sizeEn": "Size: 1 qt (32 fl oz / 946 ml) · Serves 3",
+    "sizeUa": "Об'єм: 1 qt (32 fl oz / 946 мл) · 3 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "qt"
+    }
+  },
+  {
     "id": "topcheta-meatball-soup",
     "category": "soups",
     "image": "assets/images/soups/topcheta-meatball-soup.webp",
@@ -545,7 +569,7 @@
     "id": "potato-zrazy-meat",
     "category": "main-dishes",
     "image": "assets/images/main-dishes/potato-zrazy-meat.webp",
-    "price": 13.5,
+    "price": 14,
     "name": {
       "ru": "Зразы картофельные с мясом",
       "en": "Potato Zrazy with Meat",
@@ -617,7 +641,7 @@
     "id": "beef-stroganoff",
     "category": "main-dishes",
     "image": "assets/images/main-dishes/beef-stroganoff.webp",
-    "price": 19.5,
+    "price": 20,
     "name": {
       "ru": "Бефстроганов",
       "en": "Beef Stroganoff",
@@ -641,7 +665,7 @@
     "id": "beef-goulash",
     "category": "main-dishes",
     "image": "assets/images/main-dishes/beef-goulash.webp",
-    "price": 19.5,
+    "price": 20,
     "name": {
       "ru": "Гуляш из говядины",
       "en": "Beef Goulash",
@@ -810,7 +834,7 @@
     "id": "hawaiian-chicken-pineapple-cutlets",
     "category": "main-dishes",
     "image": "assets/images/main-dishes/hawaiian-chicken-pineapple-cutlets.webp",
-    "price": 17.5,
+    "price": 18,
     "name": {
       "ru": "Куриные отбивные по-гавайски с ананасом",
       "en": "Hawaiian Chicken Cutlets with Pineapple",
@@ -834,7 +858,7 @@
     "id": "grilled-salmon-broccoli",
     "category": "main-dishes",
     "image": "assets/images/main-dishes/grilled-salmon-broccoli.webp",
-    "price": 22.5,
+    "price": 23,
     "name": {
       "ru": "Лосось гриль с брокколи",
       "en": "Grilled Salmon with Broccoli",
@@ -933,7 +957,7 @@
     "id": "meat-filled-blini",
     "category": "main-dishes",
     "image": "assets/images/main-dishes/meat-filled-blini.webp",
-    "price": 13.5,
+    "price": 14,
     "name": {
       "ru": "Блины с мясной начинкой",
       "en": "Meat-Filled Blini",
@@ -958,7 +982,7 @@
     "id": "cottage-cheese-blini",
     "category": "main-dishes",
     "image": "assets/images/main-dishes/cottage-cheese-blini.webp",
-    "price": 13.5,
+    "price": 14,
     "name": {
       "ru": "Блины с творогом",
       "en": "Cottage Cheese Blini",
@@ -1034,7 +1058,7 @@
     "category": "main-dishes",
     "badge": "vegetarian",
     "image": "assets/images/main-dishes/eggplant-pepper-saute.webp",
-    "price": 11.5,
+    "price": 12,
     "name": {
       "ru": "Соте из баклажанов с болгарским перцем",
       "en": "Eggplant and Bell Pepper Saute",
@@ -1111,7 +1135,7 @@
     "id": "pork-beef-kholodets",
     "category": "main-dishes",
     "image": "assets/images/main-dishes/pork-beef-kholodets.webp",
-    "price": 17.5,
+    "price": 18,
     "name": {
       "ru": "Холодец свино-говяжий",
       "en": "Pork & Beef Aspic",
@@ -1135,7 +1159,7 @@
     "id": "chicken-kholodets",
     "category": "main-dishes",
     "image": "assets/images/main-dishes/chicken-kholodets.webp",
-    "price": 16.5,
+    "price": 17,
     "name": {
       "ru": "Холодец куриный",
       "en": "Chicken Aspic",
@@ -1554,7 +1578,7 @@
     "category": "crepes-blini",
     "image": "assets/images/blini-crepes.jpg",
     "popular": true,
-    "price": 10.5,
+    "price": 11,
     "name": {
       "ru": "Блины / Налистники",
       "en": "Crepes / Blini",
@@ -1575,7 +1599,7 @@
     "id": "cheese-nalistniki",
     "category": "crepes-blini",
     "image": "assets/images/blini-crepes.jpg",
-    "price": 11.5,
+    "price": 12,
     "name": {
       "ru": "Налистники с творогом",
       "en": "Cheese Nalistniki",
@@ -1596,7 +1620,7 @@
     "id": "chicken-crepes",
     "category": "crepes-blini",
     "image": "assets/images/chicken-comfort.jpg",
-    "price": 12.5,
+    "price": 13,
     "name": {
       "ru": "Блины с курицей и грибами",
       "en": "Chicken Mushroom Crepes",
@@ -1617,7 +1641,7 @@
     "id": "berry-crepes",
     "category": "crepes-blini",
     "image": "assets/images/blini-crepes.jpg",
-    "price": 10.5,
+    "price": 11,
     "name": {
       "ru": "Блины с ягодами",
       "en": "Berry Crepes",
@@ -1981,7 +2005,7 @@
     "id": "frozen-meat-blintzes",
     "category": "frozen",
     "image": "assets/images/frozen/frozen-meat-blintzes.webp",
-    "price": 13.5,
+    "price": 14,
     "name": {
       "ru": "Замороженные блинчики с мясом",
       "en": "Frozen Meat Blintzes",
@@ -2006,7 +2030,7 @@
     "id": "frozen-cottage-cheese-blintzes",
     "category": "frozen",
     "image": "assets/images/frozen/frozen-cottage-cheese-blintzes.webp",
-    "price": 13.5,
+    "price": 14,
     "name": {
       "ru": "Замороженные блинчики с творогом",
       "en": "Frozen Cottage Cheese Blintzes",
