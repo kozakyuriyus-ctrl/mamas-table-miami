@@ -545,7 +545,7 @@
     "id": "potato-zrazy-meat",
     "category": "main-dishes",
     "image": "assets/images/main-dishes/potato-zrazy-meat.webp",
-    "price": 13.5,
+    "price": 13.9,
     "name": {
       "ru": "Зразы картофельные с мясом",
       "en": "Potato Zrazy with Meat",
@@ -617,7 +617,7 @@
     "id": "beef-stroganoff",
     "category": "main-dishes",
     "image": "assets/images/main-dishes/beef-stroganoff.webp",
-    "price": 19.9,
+    "price": 19.5,
     "name": {
       "ru": "Бефстроганов",
       "en": "Beef Stroganoff",
@@ -641,7 +641,7 @@
     "id": "beef-goulash",
     "category": "main-dishes",
     "image": "assets/images/main-dishes/beef-goulash.webp",
-    "price": 19.9,
+    "price": 19.5,
     "name": {
       "ru": "Гуляш из говядины",
       "en": "Beef Goulash",
@@ -810,7 +810,7 @@
     "id": "hawaiian-chicken-pineapple-cutlets",
     "category": "main-dishes",
     "image": "assets/images/main-dishes/hawaiian-chicken-pineapple-cutlets.webp",
-    "price": 17.9,
+    "price": 17.5,
     "name": {
       "ru": "Куриные отбивные по-гавайски с ананасом",
       "en": "Hawaiian Chicken Cutlets with Pineapple",
@@ -834,7 +834,7 @@
     "id": "grilled-salmon-broccoli",
     "category": "main-dishes",
     "image": "assets/images/main-dishes/grilled-salmon-broccoli.webp",
-    "price": 22.9,
+    "price": 22.5,
     "name": {
       "ru": "Лосось гриль с брокколи",
       "en": "Grilled Salmon with Broccoli",
