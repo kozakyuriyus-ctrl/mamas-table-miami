@@ -55,12 +55,12 @@
     "image": "assets/images/soups/wild-salmon-fish-soup.webp",
     "price": 23,
     "name": {
-      "ru": "Уха из дикого лосося",
+      "ru": "Уха из дикой горбуши",
       "en": "Wild Salmon Fish Soup",
       "uk": "Юшка з дикого лосося"
     },
     "description": {
-      "ru": "Домашняя уха из дикого розового лосося с картофелем, морковью, луком и зеленью в ароматном рыбном бульоне.",
+      "ru": "Домашняя уха из дикой горбуши с картофелем, морковью, луком и зеленью.",
       "en": "Homemade fish soup made with wild-caught pink salmon, potatoes, carrots, onion and herbs in a flavorful fish broth.",
       "uk": "Домашня юшка з дикого рожевого лосося з картоплею, морквою, цибулею та зеленню в ароматному рибному бульйоні."
     },
