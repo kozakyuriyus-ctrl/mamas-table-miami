@@ -14,9 +14,9 @@ const DELIVERY_ZONES = {
 
 // ZIP → zone map — single source of truth, mirrors ZIP_DELIVERY_ZONES in worker/index.js
 const ZIP_DELIVERY_ZONES = {
-  A: ["33009", "33160", "33180", "33019", "33020", "33023"],
-  B: ["33004", "33021", "33024", "33025", "33154"],
-  C: ["33305", "33306", "33334"],
+  A: ["33009", "33019", "33020", "33021", "33023", "33004"],
+  B: ["33024", "33025", "33160", "33180", "33305", "33306", "33154"],
+  C: ["33334"],
 };
 
 const zipToZoneKey = (zip) => {
