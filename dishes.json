@@ -1279,7 +1279,8 @@
     "orderSize": {
       "value": 2,
       "unit": "lb"
-    }
+    },
+    "badge": "new"
   },
   {
     "id": "stolichny-chicken-salad",
