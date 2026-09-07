@@ -112,6 +112,7 @@ const copy = {
       mashedPotatoes: "Вес: 1 lb (454 г) · 3 порции",
       liverCake: "1 шт. примерно 3 lb (1 кг 362 г) · 6–8 порций",
       mimosaSalad: "Вес: 2 lb (908 г) · 6–8 порций",
+      bunitoSalad: "Вес: 2 lb (908 г) · 5–6 порций",
       herringUnderFurCoat: "Вес: 2 lb (908 г) · 6–8 порций",
     },
     orderUnit: {
@@ -547,6 +548,7 @@ const copy = {
       mashedPotatoes: "Size: 1 lb (454 g) · Serves 3",
       liverCake: "1 piece, approximately 3 lb (1.36 kg) · 6–8 servings",
       mimosaSalad: "Weight: 2 lb (908 g) · 6–8 servings",
+      bunitoSalad: "Weight: 2 lb (908 g) · 5–6 servings",
       herringUnderFurCoat: "Weight: 2 lb (908 g) · 6–8 servings",
     },
     orderUnit: {
@@ -982,6 +984,7 @@ const copy = {
       mashedPotatoes: "Вага: 1 lb (454 г) · 3 порції",
       liverCake: "1 шт., приблизно 3 lb (1,36 кг) · 6–8 порцій",
       mimosaSalad: "Вага: 2 lb (908 г) · 6–8 порцій",
+      bunitoSalad: "Вага: 2 lb (908 г) · 5–6 порцій",
       herringUnderFurCoat: "Вага: 2 lb (908 г) · 6–8 порцій",
     },
     orderUnit: {
@@ -1882,6 +1885,7 @@ const buildOrderUnitStr = (dish) => {
   if (dish.category === "soups") return "1 qt";
   if (dish.id === "liver-cake") return t("size.liverCake");
   if (dish.id === "mimosa-salad") return t("size.mimosaSalad");
+  if (dish.id === "bunito-salad") return t("size.bunitoSalad");
   if (dish.id === "herring-under-fur-coat") return t("size.herringUnderFurCoat");
   if (dish.unit === "pcs") return dish.pcsLabel ? text(dish.pcsLabel) : t("orderUnit.pcs");
   if (dish.unit === "lb") return "1 lb";

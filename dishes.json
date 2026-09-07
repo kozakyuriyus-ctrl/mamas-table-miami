@@ -1257,6 +1257,31 @@
     }
   },
   {
+    "id": "bunito-salad",
+    "category": "salads",
+    "image": "assets/images/salads/bunito-salad.webp",
+    "price": 29,
+    "name": {
+      "ru": "Салат «Бунито» с курицей, корейской морковью и жареными грибами",
+      "en": "Bunito Salad with Chicken, Korean Carrots & Fried Mushrooms",
+      "uk": "Салат «Буніто» з куркою, корейською морквою та смаженими грибами"
+    },
+    "description": {
+      "ru": "Нежный слоёный салат с курицей, пикантной корейской морковью, жареными шампиньонами, яйцом, сыром и майонезом.",
+      "en": "A layered salad with tender chicken, Korean-style carrots, fried mushrooms, eggs, cheese, and mayonnaise.",
+      "uk": "Ніжний листковий салат із куркою, пікантною корейською морквою, смаженими печерицями, яйцем, сиром і майонезом."
+    },
+    "unit": "lb",
+    "sizeRu": "Вес: 2 lb (908 г) · 5–6 порций",
+    "sizeEn": "Weight: 2 lb (908 g) · 5–6 servings",
+    "sizeUa": "Вага: 2 lb (908 г) · 5–6 порцій",
+    "orderUnitRu": "Вес: 2 lb (908 г) · 5–6 порций",
+    "orderSize": {
+      "value": 2,
+      "unit": "lb"
+    }
+  },
+  {
     "id": "stolichny-chicken-salad",
     "category": "salads",
     "image": "assets/images/salads/stolichny-chicken-salad.webp",
