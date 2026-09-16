@@ -954,6 +954,30 @@
     }
   },
   {
+    "id": "buckwheat-mushrooms",
+    "category": "main-dishes",
+    "image": "assets/images/main-dishes/buckwheat-mushrooms.webp",
+    "price": 10,
+    "name": {
+      "ru": "Гречка с грибами и жареным луком",
+      "en": "Buckwheat with Mushrooms & Caramelized Onions",
+      "uk": "Гречка з грибами та смаженою цибулею"
+    },
+    "description": {
+      "ru": "Рассыпчатая гречка с обжаренными грибами и золотистым луком, приготовленная со сливочным маслом.",
+      "en": "Fluffy buckwheat with sautéed mushrooms and golden onions, finished with butter.",
+      "uk": "Розсипчаста гречка з обсмаженими грибами та золотистою цибулею, приготована з вершковим маслом."
+    },
+    "unit": "lb",
+    "sizeRu": "Вес: 1 lb (454 г) · 2–3 порции",
+    "sizeEn": "Weight: 1 lb (454 g) · 2–3 servings",
+    "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "lb"
+    }
+  },
+  {
     "id": "meat-filled-blini",
     "category": "main-dishes",
     "image": "assets/images/main-dishes/meat-filled-blini.webp",
