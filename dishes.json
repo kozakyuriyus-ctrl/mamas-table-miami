@@ -957,7 +957,7 @@
     "id": "buckwheat-mushrooms",
     "category": "main-dishes",
     "image": "assets/images/main-dishes/buckwheat-mushrooms.webp",
-    "price": 10,
+    "price": 12,
     "name": {
       "ru": "Гречка с грибами и жареным луком",
       "en": "Buckwheat with Mushrooms & Caramelized Onions",
@@ -975,7 +975,8 @@
     "orderSize": {
       "value": 1,
       "unit": "lb"
-    }
+    },
+    "badge": "new"
   },
   {
     "id": "meat-filled-blini",
