@@ -246,7 +246,7 @@
     "id": "ayran-okroshka",
     "category": "soups",
     "image": "assets/images/soups/okroshka-ayran.webp",
-    "price": 15,
+    "price": 16,
     "name": {
       "ru": "Окрошка на айране",
       "en": "Ayran Okroshka",
@@ -321,7 +321,7 @@
     "badge": "bestseller",
     "image": "assets/images/main-dishes/cabbage-rolls.webp",
     "popular": true,
-    "price": 15,
+    "price": 16,
     "name": {
       "ru": "Голубцы",
       "en": "Cabbage Rolls",
@@ -545,7 +545,7 @@
     "id": "meat-rice-meatballs",
     "category": "main-dishes",
     "image": "assets/images/main-dishes/meat-rice-meatballs.webp",
-    "price": 13,
+    "price": 14,
     "name": {
       "ru": "Тефтели мясные с рисом",
       "en": "Meatballs with Rice",
@@ -569,7 +569,7 @@
     "id": "potato-zrazy-meat",
     "category": "main-dishes",
     "image": "assets/images/main-dishes/potato-zrazy-meat.webp",
-    "price": 14,
+    "price": 15,
     "name": {
       "ru": "Зразы картофельные с мясом",
       "en": "Potato Zrazy with Meat",
@@ -1032,7 +1032,7 @@
     "id": "plain-blini",
     "category": "main-dishes",
     "image": "assets/images/main-dishes/plain-blini.webp",
-    "price": 8,
+    "price": 9,
     "name": {
       "ru": "Блины без начинки",
       "en": "Plain Blini",
@@ -1172,13 +1172,14 @@
       "uk": "Домашній холодець зі свинини та яловичини за традиційним рецептом. Насичений бульйон, ніжне м'ясо, часник та лавровий лист."
     },
     "unit": "lb",
-    "sizeRu": "Вес: 1 lb (454 г) · 2–3 порции",
-    "sizeEn": "Size: 1 lb (454 g) · Serves 2–3",
-    "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції",
+    "sizeRu": "Минимальный заказ: 2 lb (908 г) · 5–6 порций",
+    "sizeEn": "Minimum order: 2 lb (908 g) · 5–6 servings",
+    "sizeUa": "Мінімальне замовлення: 2 lb (908 г) · 5–6 порцій",
     "orderSize": {
       "value": 1,
       "unit": "lb"
-    }
+    },
+    "minQty": 2
   },
   {
     "id": "chicken-kholodets",
@@ -1196,13 +1197,14 @@
       "uk": "Легкий домашній холодець з курки з прозорим бульйоном, морквою та зеленню."
     },
     "unit": "lb",
-    "sizeRu": "Вес: 1 lb (454 г) · 2–3 порции",
-    "sizeEn": "Size: 1 lb (454 g) · Serves 2–3",
-    "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції",
+    "sizeRu": "Минимальный заказ: 2 lb (908 г) · 5–6 порций",
+    "sizeEn": "Minimum order: 2 lb (908 g) · 5–6 servings",
+    "sizeUa": "Мінімальне замовлення: 2 lb (908 г) · 5–6 порцій",
     "orderSize": {
       "value": 1,
       "unit": "lb"
-    }
+    },
+    "minQty": 2
   },
   {
     "id": "olivier",
@@ -1358,7 +1360,7 @@
     "id": "crab-salad",
     "category": "salads",
     "image": "assets/images/salads/crab-salad.webp",
-    "price": 13.9,
+    "price": 14,
     "name": {
       "ru": "Салат Крабовый",
       "en": "Crab Salad",
@@ -1382,7 +1384,7 @@
     "id": "liver-mushroom-salad",
     "category": "salads",
     "image": "assets/images/salads/liver-mushroom-salad.webp",
-    "price": 12.9,
+    "price": 14,
     "name": {
       "ru": "Салат с куриной печенью и грибами",
       "en": "Liver Salad with Mushrooms",
@@ -1481,7 +1483,7 @@
     "id": "raw-eggplant-caviar",
     "category": "salads",
     "image": "assets/images/salads/raw-eggplant-caviar.webp",
-    "price": 9,
+    "price": 11,
     "name": {
       "ru": "Икра баклажанная",
       "en": "Fresh Eggplant Caviar",
@@ -1506,7 +1508,7 @@
     "id": "fried-eggplant-caviar",
     "category": "salads",
     "image": "assets/images/salads/fried-eggplant-caviar.webp",
-    "price": 9,
+    "price": 11,
     "name": {
       "ru": "Икра баклажанная жареная",
       "en": "Roasted Eggplant Caviar",

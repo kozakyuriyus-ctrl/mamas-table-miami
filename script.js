@@ -3861,18 +3861,19 @@ const handleClick = (event) => {
   if (add) {
     const id = add.dataset.add;
     const dish = dishById(id);
-    setQuantity(id, cartQuantity(id) + 1);
+    const startQty = dish?.minQty ?? 1;
+    setQuantity(id, cartQuantity(id) + startQty);
     if (dish) {
       showToast(text(dish.name));
-      ga4("add_to_cart", { currency: "USD", value: dish.price, items: [ga4Item(dish, 1)] });
+      ga4("add_to_cart", { currency: "USD", value: dish.price * startQty, items: [ga4Item(dish, startQty)] });
       metaTrack("AddToCart", {
         content_ids: [dish.id],
         content_name: dish.name.en || dish.name.ru,
         content_type: "product",
         content_category: dish.category,
-        value: dish.price,
+        value: dish.price * startQty,
         currency: "USD",
-        num_items: 1,
+        num_items: startQty,
       });
     }
     openAddOnModal(id);
@@ -3891,6 +3892,8 @@ const handleClick = (event) => {
     const id = minus.dataset.minus;
     const dish = dishById(id);
     const prevQty = cartQuantity(id);
+    const floorQty = dish?.minQty ?? 0;
+    if (prevQty <= floorQty) return;
     setQuantity(id, prevQty - 1);
     if (dish && prevQty > 0) {
       ga4("remove_from_cart", { currency: "USD", value: dish.price, items: [ga4Item(dish, 1)] });
@@ -4598,6 +4601,17 @@ document.addEventListener("DOMContentLoaded", async () => {
     const r = await fetch("dishes.json");
     if (r.ok) menuItems = await r.json();
   } catch {}
+
+  // Normalize stale cart entries saved before a dish's minQty was introduced (e.g. холодец min 2 lb)
+  let cartNeedsResave = false;
+  state.cart.forEach((quantity, id) => {
+    const dish = dishById(id);
+    if (dish?.minQty && quantity < dish.minQty) {
+      state.cart.set(id, dish.minQty);
+      cartNeedsResave = true;
+    }
+  });
+  if (cartNeedsResave) saveCart(state.cart);
 
   setupHeader();
   setupFaqAccordion();
