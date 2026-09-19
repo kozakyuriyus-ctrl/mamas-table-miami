@@ -3304,8 +3304,12 @@ const renderCartReviewModal = () => {
   const wrapper = document.getElementById("cart-review-modal");
   if (!wrapper) return;
   if (!cartEntries().length) { closeCartReview(); return; }
+  const scrollEl = wrapper.querySelector(".modal-body");
+  const scrollTop = scrollEl ? scrollEl.scrollTop : 0;
   wrapper.innerHTML = createCartReviewModal();
   refreshIcons();
+  const newScrollEl = wrapper.querySelector(".modal-body");
+  if (newScrollEl) newScrollEl.scrollTop = scrollTop;
 };
 
 const openCateringModal = (trigger = null) => {
