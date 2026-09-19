@@ -1709,6 +1709,50 @@ fieldset.form-field {
   font-size: 18px;
 }
 
+/* ── Mobile/tablet "back to menu categories" floating button ─────────────── */
+.scroll-to-menu-btn {
+  display: none;
+}
+
+@media (max-width: 1199px) {
+  .scroll-to-menu-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    right: 12px;
+    bottom: max(12px, env(safe-area-inset-bottom));
+    z-index: 59;
+    padding: 10px 14px;
+    border: none;
+    border-radius: 999px;
+    background: var(--ink);
+    color: var(--cream);
+    font-size: 13px;
+    font-weight: 700;
+    box-shadow: 0 12px 30px rgba(21, 19, 15, 0.24);
+    opacity: 0;
+    transform: translateY(10px);
+    pointer-events: none;
+    transition: transform 200ms ease, opacity 200ms ease, bottom 200ms ease;
+  }
+
+  body.has-scrolled .scroll-to-menu-btn {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  /* Stay clear of the cart bar when it's shown */
+  body.has-cart .scroll-to-menu-btn {
+    bottom: calc(58px + 12px + max(12px, env(safe-area-inset-bottom)));
+  }
+}
+
+body.modal-open .scroll-to-menu-btn {
+  display: none;
+}
+
 .site-footer {
   display: flex;
   align-items: center;
@@ -2475,6 +2519,13 @@ fieldset.form-field {
   font-size: 13px;
   color: var(--muted);
   line-height: 1.55;
+}
+
+.zone-card-body .zone-min-info {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.4;
 }
 
 /* ── Testimonials placeholder ───────────────────────────────────────────────── */

@@ -102,6 +102,7 @@ const copy = {
       howItWorks: "Как заказать",
       questionsWA: "Вопросы или индивидуальный заказ",
       viewFullMenu: "Все меню",
+      scrollToMenu: "↑ Меню",
     },
     size: {
       soups: "Объём: 1 qt (32 fl oz / 946 мл) · 3–4 порции",
@@ -216,13 +217,17 @@ const copy = {
       title: "Доставка по Miami-Dade и Broward",
       subtitle: "Точная стоимость и возможность доставки определяются по ZIP-коду.",
       zone1Label: "Зона A — $10",
-      zone1Cities: "Hallandale Beach, Dania Beach, часть Hollywood и ближайшие районы.",
+      zone1Cities: "Hollywood, Hallandale Beach, Dania Beach и ближайшие районы.",
+      zone1MinInfo: "Мин. заказ $60 · бесплатно от $110",
       zone2Label: "Зона B — $15",
-      zone2Cities: "Aventura, Sunny Isles Beach, Golden Beach, North Miami Beach, часть Hollywood, Pembroke Pines, Bal Harbour.",
+      zone2Cities: "Aventura, Sunny Isles Beach, Golden Beach, North Miami Beach, часть Hollywood, Pembroke Pines.",
+      zone2MinInfo: "Мин. заказ $80 · бесплатно от $145",
       zone3Label: "Зона C — $20",
-      zone3Cities: "Fort Lauderdale, Wilton Manors, Oakland Park и ближайшие районы.",
+      zone3Cities: "Fort Lauderdale, Wilton Manors, Oakland Park и ближайшие районы Broward.",
+      zone3MinInfo: "Мин. заказ $120 · бесплатно от $200",
       zone4Label: "Удалённые районы — по подтверждению адреса",
-      zone4Cities: "Включая Miami Beach. Мы свяжемся с вами для уточнения возможности и стоимости доставки.",
+      zone4Cities: "Включая Miami Beach и адреса вне основных зон.",
+      zone4MinInfo: "Мин. заказ $120. Возможность и стоимость доставки подтверждаем после адреса.",
       footer: "Точная стоимость и возможность доставки определяются по ZIP-коду.",
     },
     testimonials: {
@@ -538,6 +543,7 @@ const copy = {
       howItWorks: "How ordering works",
       questionsWA: "Questions or custom order",
       viewFullMenu: "View full menu",
+      scrollToMenu: "↑ Menu",
     },
     size: {
       soups: "Size: 1 qt (32 fl oz / 946 ml) · Serves 3–4",
@@ -652,13 +658,17 @@ const copy = {
       title: "Delivery across Miami-Dade & Broward",
       subtitle: "Final delivery availability and cost are determined by ZIP code.",
       zone1Label: "Zone A — $10",
-      zone1Cities: "Hallandale Beach, Dania Beach, part of Hollywood, and nearby areas.",
+      zone1Cities: "Hollywood, Hallandale Beach, Dania Beach, and nearby areas.",
+      zone1MinInfo: "Min. order $60 · free from $110",
       zone2Label: "Zone B — $15",
-      zone2Cities: "Aventura, Sunny Isles Beach, Golden Beach, North Miami Beach, part of Hollywood, Pembroke Pines, Bal Harbour.",
+      zone2Cities: "Aventura, Sunny Isles Beach, Golden Beach, North Miami Beach, part of Hollywood, Pembroke Pines.",
+      zone2MinInfo: "Min. order $80 · free from $145",
       zone3Label: "Zone C — $20",
-      zone3Cities: "Fort Lauderdale, Wilton Manors, Oakland Park, and nearby areas.",
+      zone3Cities: "Fort Lauderdale, Wilton Manors, Oakland Park, and nearby Broward areas.",
+      zone3MinInfo: "Min. order $120 · free from $200",
       zone4Label: "Remote areas — address confirmation required",
-      zone4Cities: "Including Miami Beach. We'll contact you to confirm delivery availability and cost.",
+      zone4Cities: "Including Miami Beach and addresses outside the main zones.",
+      zone4MinInfo: "Min. order $120. We confirm delivery availability and cost after reviewing the address.",
       footer: "Final delivery availability and cost are determined by ZIP code.",
     },
     testimonials: {
@@ -974,6 +984,7 @@ const copy = {
       howItWorks: "Як замовити",
       questionsWA: "Запитання або індивідуальне замовлення",
       viewFullMenu: "Все меню",
+      scrollToMenu: "↑ Меню",
     },
     size: {
       soups: "Об'єм: 1 qt (32 fl oz / 946 мл) · 3–4 порції",
@@ -1088,13 +1099,17 @@ const copy = {
       title: "Доставка по Miami-Dade та Broward",
       subtitle: "Точна вартість і можливість доставки визначаються за ZIP-кодом.",
       zone1Label: "Зона A — $10",
-      zone1Cities: "Hallandale Beach, Dania Beach, частина Hollywood та найближчі райони.",
+      zone1Cities: "Hollywood, Hallandale Beach, Dania Beach та найближчі райони.",
+      zone1MinInfo: "Мін. замовлення $60 · безкоштовно від $110",
       zone2Label: "Зона B — $15",
-      zone2Cities: "Aventura, Sunny Isles Beach, Golden Beach, North Miami Beach, частина Hollywood, Pembroke Pines, Bal Harbour.",
+      zone2Cities: "Aventura, Sunny Isles Beach, Golden Beach, North Miami Beach, частина Hollywood, Pembroke Pines.",
+      zone2MinInfo: "Мін. замовлення $80 · безкоштовно від $145",
       zone3Label: "Зона C — $20",
-      zone3Cities: "Fort Lauderdale, Wilton Manors, Oakland Park та найближчі райони.",
+      zone3Cities: "Fort Lauderdale, Wilton Manors, Oakland Park та найближчі райони Broward.",
+      zone3MinInfo: "Мін. замовлення $120 · безкоштовно від $200",
       zone4Label: "Віддалені райони — після підтвердження адреси",
-      zone4Cities: "Включаючи Miami Beach. Ми зв'яжемося з вами, щоб уточнити можливість і вартість доставки.",
+      zone4Cities: "Включно з Miami Beach та адресами поза основними зонами.",
+      zone4MinInfo: "Мін. замовлення $120. Можливість і вартість доставки підтверджуємо після адреси.",
       footer: "Точна вартість і можливість доставки визначаються за ZIP-кодом.",
     },
     testimonials: {
@@ -3814,6 +3829,19 @@ const handleCateringSubmit = (formEl) => {
 
 const handleClick = (event) => {
   const target = event.target;
+
+  // Mobile/tablet floating button: scroll to the menu categories list, not page top.
+  // On the home page that's the category grid; on a category/menu route it's the
+  // route view itself (dish grid start), since the home category grid is hidden there.
+  const scrollToMenuBtn = target.closest("[data-scroll-to-menu]");
+  if (scrollToMenuBtn) {
+    const homeView = document.querySelector("[data-home-view]");
+    const scrollTarget = homeView && !homeView.hidden
+      ? document.getElementById("categories")
+      : document.querySelector("[data-route-view]");
+    scrollTarget?.scrollIntoView({ behavior: "smooth", block: "start" });
+    return;
+  }
 
   // Language switch
   // A1: Hamburger toggle
