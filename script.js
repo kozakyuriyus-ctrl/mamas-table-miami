@@ -303,6 +303,7 @@ const copy = {
       delivery: "Доставка",
       deliveryNote: "Стоимость будет рассчитана после ввода адреса",
       deliveryConfirming: "Доставка подтверждается после проверки адреса",
+      zipHint: "Минимальная сумма и доставка зависят от ZIP-кода.",
       proceed: "Перейти к оформлению заказа",
       backToMenu: "Продолжить покупки",
     },
@@ -744,6 +745,7 @@ const copy = {
       delivery: "Delivery",
       deliveryNote: "Cost calculated after entering your address",
       deliveryConfirming: "Delivery will be confirmed after address review",
+      zipHint: "Minimum order and delivery depend on your ZIP code.",
       proceed: "Proceed to checkout",
       backToMenu: "Continue shopping",
     },
@@ -1185,6 +1187,7 @@ const copy = {
       delivery: "Доставка",
       deliveryNote: "Вартість буде розрахована після введення адреси",
       deliveryConfirming: "Доставка буде підтверджена після перевірки адреси",
+      zipHint: "Мінімальна сума та доставка залежать від ZIP-коду.",
       proceed: "Перейти до оформлення замовлення",
       backToMenu: "Продовжити вибір",
     },
@@ -3268,6 +3271,7 @@ const createCartReviewModal = () => {
             </div>
             ${totalRowHtml}
             ${zoneNoteHtml}
+            <p class="cr-zip-hint">${escapeHtml(t("cartReview.zipHint"))}</p>
           </div>
           <div class="cr-footer">
             ${hasOnlyAddOns ? `<p class="zone-min-warning">${escapeHtml(t("cart.addOnsOnly"))}</p>` : ""}
@@ -4502,7 +4506,7 @@ const setupHeader = () => {
   const header = document.querySelector("[data-header]");
   const update = () => {
     header.classList.toggle("is-scrolled", window.scrollY > 24);
-    document.body.classList.toggle("has-scrolled", window.scrollY > 420);
+    document.body.classList.toggle("has-scrolled", window.scrollY > 200);
   };
   update();
   window.addEventListener("scroll", update, { passive: true });

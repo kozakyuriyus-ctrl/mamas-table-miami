@@ -4100,6 +4100,12 @@ body.nav-open {
   gap: 10px;
 }
 
+.cr-zip-hint {
+  margin: 0;
+  font-size: 12px;
+  color: var(--muted);
+}
+
 .cr-row {
   display: flex;
   justify-content: space-between;
