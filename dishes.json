@@ -326,7 +326,7 @@
       "uk": "Пісний овочевий суп-пюре"
     },
     "description": {
-      "ru": "Нежный суп-пюре из картофеля, моркови, лука, кабачка и сезонных овощей. Лёгкий, ароматный и приготовленный на овощной основе.",
+      "ru": "Нежный суп-пюре из картофеля, моркови, лука, кабачка и сезонных овощей.",
       "en": "A delicate pureed soup with potato, carrot, onion, zucchini and seasonal vegetables. Light, aromatic and made on a vegetable base.",
       "uk": "Ніжний суп-пюре з картоплі, моркви, цибулі, кабачка та сезонних овочів. Легкий, ароматний, приготований на овочевій основі."
     },
@@ -337,7 +337,8 @@
     "orderSize": {
       "value": 1,
       "unit": "qt"
-    }
+    },
+    "badge": "vegetarian"
   },
   {
     "id": "lenten-carrot-soup",
