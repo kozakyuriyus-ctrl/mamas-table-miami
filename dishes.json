@@ -351,7 +351,7 @@
       "uk": "Пісний морквяний суп-пюре"
     },
     "description": {
-      "ru": "Бархатистый суп-пюре из моркови, лука и овощей с мягким натуральным вкусом и лёгкой сладостью моркови.",
+      "ru": "Нежный суп-пюре из моркови, с мягким натуральным вкусом.",
       "en": "A velvety pureed soup with carrot, onion and vegetables, gently sweet with a soft natural flavor.",
       "uk": "Оксамитовий суп-пюре з моркви, цибулі та овочів з м'яким натуральним смаком і легкою солодкістю моркви."
     },
@@ -362,7 +362,8 @@
     "orderSize": {
       "value": 1,
       "unit": "qt"
-    }
+    },
+    "badge": "vegetarian"
   },
   {
     "id": "lenten-galushki-soup",
