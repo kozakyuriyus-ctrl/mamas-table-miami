@@ -371,12 +371,12 @@
     "image": "assets/images/soups/lenten-galushki-soup.webp",
     "price": 15,
     "name": {
-      "ru": "Постный суп с домашними галушками",
+      "ru": "Постный суп с галушками и грибами",
       "en": "Lenten Soup with Homemade Galushki",
       "uk": "Пісний суп з домашніми галушками"
     },
     "description": {
-      "ru": "Овощной суп с картофелем, морковью, и нежными галушками.",
+      "ru": "Овощной суп с картофелем, морковью грибами и галушками.",
       "en": "A golden vegetable soup with potato, carrot, onion, herbs and small handmade galushki dumplings. No meat or meat broth.",
       "uk": "Золотистий овочевий суп з картоплею, морквою, цибулею, зеленню та маленькими домашніми галушками ручної роботи. Без м'яса та м'ясного бульйону."
     },
