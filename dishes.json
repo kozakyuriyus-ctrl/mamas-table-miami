@@ -1204,7 +1204,8 @@
       "value": 1,
       "unit": "lb"
     },
-    "minQty": 2
+    "minQty": 2,
+    "badge": "bestseller"
   },
   {
     "id": "chicken-kholodets",
