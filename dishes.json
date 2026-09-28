@@ -173,7 +173,7 @@
     "id": "meatball-soup",
     "category": "soups",
     "image": "assets/images/soups/meatball-soup.webp",
-    "price": 15,
+    "price": 16,
     "name": {
       "ru": "Суп с фрикадельками",
       "en": "Meatball Soup",
@@ -316,6 +316,102 @@
     }
   },
   {
+    "id": "lenten-vegetable-soup",
+    "category": "soups",
+    "image": "assets/images/soups/lenten-vegetable-soup.webp",
+    "price": 15,
+    "name": {
+      "ru": "Постный овощной суп-пюре",
+      "en": "Lenten Vegetable Puree Soup",
+      "uk": "Пісний овочевий суп-пюре"
+    },
+    "description": {
+      "ru": "Нежный суп-пюре из картофеля, моркови, лука, кабачка и сезонных овощей. Лёгкий, ароматный и приготовленный на овощной основе.",
+      "en": "A delicate pureed soup with potato, carrot, onion, zucchini and seasonal vegetables. Light, aromatic and made on a vegetable base.",
+      "uk": "Ніжний суп-пюре з картоплі, моркви, цибулі, кабачка та сезонних овочів. Легкий, ароматний, приготований на овочевій основі."
+    },
+    "unit": "qt",
+    "sizeRu": "Объём: 1 qt (32 fl oz / 946 мл) · 3 порции",
+    "sizeEn": "Size: 1 qt (32 fl oz / 946 ml) · Serves 3",
+    "sizeUa": "Об'єм: 1 qt (32 fl oz / 946 мл) · 3 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "qt"
+    }
+  },
+  {
+    "id": "lenten-carrot-soup",
+    "category": "soups",
+    "image": "assets/images/soups/lenten-carrot-soup.webp",
+    "price": 15,
+    "name": {
+      "ru": "Постный морковный суп-пюре",
+      "en": "Lenten Carrot Puree Soup",
+      "uk": "Пісний морквяний суп-пюре"
+    },
+    "description": {
+      "ru": "Бархатистый суп-пюре из моркови, лука и овощей с мягким натуральным вкусом и лёгкой сладостью моркови.",
+      "en": "A velvety pureed soup with carrot, onion and vegetables, gently sweet with a soft natural flavor.",
+      "uk": "Оксамитовий суп-пюре з моркви, цибулі та овочів з м'яким натуральним смаком і легкою солодкістю моркви."
+    },
+    "unit": "qt",
+    "sizeRu": "Объём: 1 qt (32 fl oz / 946 мл) · 3 порции",
+    "sizeEn": "Size: 1 qt (32 fl oz / 946 ml) · Serves 3",
+    "sizeUa": "Об'єм: 1 qt (32 fl oz / 946 мл) · 3 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "qt"
+    }
+  },
+  {
+    "id": "lenten-galushki-soup",
+    "category": "soups",
+    "image": "assets/images/soups/lenten-galushki-soup.webp",
+    "price": 15,
+    "name": {
+      "ru": "Постный суп с домашними галушками",
+      "en": "Lenten Soup with Homemade Galushki",
+      "uk": "Пісний суп з домашніми галушками"
+    },
+    "description": {
+      "ru": "Золотистый овощной суп с картофелем, морковью, луком, зеленью и маленькими домашними галушками ручной работы. Без мяса и мясного бульона.",
+      "en": "A golden vegetable soup with potato, carrot, onion, herbs and small handmade galushki dumplings. No meat or meat broth.",
+      "uk": "Золотистий овочевий суп з картоплею, морквою, цибулею, зеленню та маленькими домашніми галушками ручної роботи. Без м'яса та м'ясного бульйону."
+    },
+    "unit": "qt",
+    "sizeRu": "Объём: 1 qt (32 fl oz / 946 мл) · 3 порции",
+    "sizeEn": "Size: 1 qt (32 fl oz / 946 ml) · Serves 3",
+    "sizeUa": "Об'єм: 1 qt (32 fl oz / 946 мл) · 3 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "qt"
+    }
+  },
+  {
+    "id": "lenten-bean-soup",
+    "category": "soups",
+    "image": "assets/images/soups/lenten-bean-soup.webp",
+    "price": 15,
+    "name": {
+      "ru": "Постный фасолевый суп",
+      "en": "Lenten Bean Soup",
+      "uk": "Пісний квасолевий суп"
+    },
+    "description": {
+      "ru": "Сытный постный суп с красной и белой фасолью, картофелем, морковью, луком и ароматными травами на лёгкой овощной основе.",
+      "en": "A hearty lenten soup with red and white beans, potato, carrot, onion and aromatic herbs on a light vegetable base.",
+      "uk": "Ситний пісний суп з червоною та білою квасолею, картоплею, морквою, цибулею та ароматними травами на легкій овочевій основі."
+    },
+    "unit": "qt",
+    "sizeRu": "Объём: 1 qt (32 fl oz / 946 мл) · 3 порции",
+    "sizeEn": "Size: 1 qt (32 fl oz / 946 ml) · Serves 3",
+    "sizeUa": "Об'єм: 1 qt (32 fl oz / 946 мл) · 3 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "qt"
+    }
+  },
+  {
     "id": "cabbage-rolls",
     "category": "main-dishes",
     "badge": "bestseller",
@@ -365,108 +461,6 @@
     "orderSize": {
       "value": 2,
       "unit": "pcs"
-    }
-  },
-  {
-    "id": "pork-pelmeni",
-    "category": "main-dishes",
-    "image": "assets/images/main-dishes/pork-pelmeni.webp",
-    "price": 14,
-    "name": {
-      "ru": "Пельмени со свининой",
-      "en": "Pork Pelmeni",
-      "uk": "Пельмені зі свинячим фаршем"
-    },
-    "description": {
-      "ru": "Домашние пельмени ручной лепки с сочной свиной начинкой.",
-      "en": "Homemade pelmeni with pork filling and classic serving.",
-      "uk": "Домашні пельмені зі свинячим фаршем і класичною подачею."
-    },
-    "unit": "lb",
-    "servings": "2",
-    "sizeRu": "Вес: 1 lb (454 г) · 2 порции",
-    "sizeEn": "Size: 1 lb (454 g) · Serves 2",
-    "sizeUa": "Вага: 1 lb (454 г) · 2 порції",
-    "orderSize": {
-      "value": 1,
-      "unit": "lb"
-    }
-  },
-  {
-    "id": "pork-beef-dumplings",
-    "category": "main-dishes",
-    "image": "assets/images/main-dishes/pork-pelmeni.webp",
-    "price": 15,
-    "name": {
-      "ru": "Пельмени со свининой и говядиной",
-      "en": "Pork & Beef Dumplings",
-      "uk": "Пельмені зі свининою та яловичиною"
-    },
-    "description": {
-      "ru": "Домашние пельмени ручной лепки с сочной свино-говяжьей начинкой.",
-      "en": "Handmade homemade dumplings with a juicy pork-and-beef filling.",
-      "uk": "Домашні пельмені ручної ліпки з соковитою свино-яловичою начинкою."
-    },
-    "unit": "lb",
-    "servings": "2",
-    "sizeRu": "Вес: 1 lb (454 г) · 2 порции",
-    "sizeEn": "Weight: 1 lb (454 g) · 2 servings",
-    "sizeUa": "Вага: 1 lb (454 г) · 2 порції",
-    "orderSize": {
-      "value": 1,
-      "unit": "lb"
-    }
-  },
-  {
-    "id": "chicken-pelmeni",
-    "category": "main-dishes",
-    "image": "assets/images/main-dishes/chicken-pelmeni.webp",
-    "price": 14,
-    "name": {
-      "ru": "Пельмени с курицей",
-      "en": "Chicken Pelmeni",
-      "uk": "Пельмені з курячим фаршем"
-    },
-    "description": {
-      "ru": "Нежные домашние пельмени ручной лепки с курицей.",
-      "en": "Tender homemade pelmeni with chicken filling.",
-      "uk": "Ніжні домашні пельмені з курячим фаршем."
-    },
-    "unit": "lb",
-    "servings": "2",
-    "sizeRu": "Вес: 1 lb (454 г) · 2 порции",
-    "sizeEn": "Size: 1 lb (454 g) · Serves 2",
-    "sizeUa": "Вага: 1 lb (454 г) · 2 порції",
-    "orderSize": {
-      "value": 1,
-      "unit": "lb"
-    }
-  },
-  {
-    "id": "varenyky",
-    "category": "main-dishes",
-    "badge": "bestseller",
-    "image": "assets/images/main-dishes/varenyky.webp",
-    "popular": true,
-    "price": 12,
-    "name": {
-      "ru": "Вареники",
-      "en": "Vareniki",
-      "uk": "Вареники"
-    },
-    "description": {
-      "ru": "Домашние вареники с картофелем и жареным луком.",
-      "en": "Dumplings with potatoes and fried onions.",
-      "uk": "Домашні вареники з картоплею та смаженою цибулею."
-    },
-    "unit": "lb",
-    "servings": "2",
-    "sizeRu": "Вес: 1 lb (454 г) · 2–3 порции",
-    "sizeEn": "Size: 1 lb (454 g) · Serves 2–3",
-    "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції",
-    "orderSize": {
-      "value": 1,
-      "unit": "lb"
     }
   },
   {
@@ -979,6 +973,30 @@
     "badge": "new"
   },
   {
+    "id": "braised-cabbage-mushrooms",
+    "category": "main-dishes",
+    "image": "assets/images/main-dishes/braised-cabbage-mushrooms.webp",
+    "price": 10,
+    "name": {
+      "ru": "Тушеная капуста с грибами",
+      "en": "Braised Cabbage with Mushrooms",
+      "uk": "Тушкована капуста з грибами"
+    },
+    "description": {
+      "ru": "Нежная белокочанная капуста, тушенная с грибами, луком, морковью и ароматными травами.",
+      "en": "Tender white cabbage braised with mushrooms, onion, carrot and aromatic herbs.",
+      "uk": "Ніжна білокачанна капуста, тушкована з грибами, цибулею, морквою та ароматними травами."
+    },
+    "unit": "lb",
+    "sizeRu": "Вес: 1 lb (454 г) · 2–3 порции",
+    "sizeEn": "Weight: 1 lb (454 g) · 2–3 servings",
+    "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "lb"
+    }
+  },
+  {
     "id": "meat-filled-blini",
     "category": "main-dishes",
     "image": "assets/images/main-dishes/meat-filled-blini.webp",
@@ -1205,6 +1223,108 @@
       "unit": "lb"
     },
     "minQty": 2
+  },
+  {
+    "id": "pork-pelmeni",
+    "category": "main-dishes",
+    "image": "assets/images/main-dishes/pork-pelmeni.webp",
+    "price": 14,
+    "name": {
+      "ru": "Пельмени со свининой",
+      "en": "Pork Pelmeni",
+      "uk": "Пельмені зі свинячим фаршем"
+    },
+    "description": {
+      "ru": "Домашние пельмени ручной лепки с сочной свиной начинкой.",
+      "en": "Homemade pelmeni with pork filling and classic serving.",
+      "uk": "Домашні пельмені зі свинячим фаршем і класичною подачею."
+    },
+    "unit": "lb",
+    "servings": "2",
+    "sizeRu": "Вес: 1 lb (454 г) · 2 порции",
+    "sizeEn": "Size: 1 lb (454 g) · Serves 2",
+    "sizeUa": "Вага: 1 lb (454 г) · 2 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "lb"
+    }
+  },
+  {
+    "id": "pork-beef-dumplings",
+    "category": "main-dishes",
+    "image": "assets/images/main-dishes/pork-pelmeni.webp",
+    "price": 15,
+    "name": {
+      "ru": "Пельмени со свининой и говядиной",
+      "en": "Pork & Beef Dumplings",
+      "uk": "Пельмені зі свининою та яловичиною"
+    },
+    "description": {
+      "ru": "Домашние пельмени ручной лепки с сочной свино-говяжьей начинкой.",
+      "en": "Handmade homemade dumplings with a juicy pork-and-beef filling.",
+      "uk": "Домашні пельмені ручної ліпки з соковитою свино-яловичою начинкою."
+    },
+    "unit": "lb",
+    "servings": "2",
+    "sizeRu": "Вес: 1 lb (454 г) · 2 порции",
+    "sizeEn": "Weight: 1 lb (454 g) · 2 servings",
+    "sizeUa": "Вага: 1 lb (454 г) · 2 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "lb"
+    }
+  },
+  {
+    "id": "chicken-pelmeni",
+    "category": "main-dishes",
+    "image": "assets/images/main-dishes/chicken-pelmeni.webp",
+    "price": 14,
+    "name": {
+      "ru": "Пельмени с курицей",
+      "en": "Chicken Pelmeni",
+      "uk": "Пельмені з курячим фаршем"
+    },
+    "description": {
+      "ru": "Нежные домашние пельмени ручной лепки с курицей.",
+      "en": "Tender homemade pelmeni with chicken filling.",
+      "uk": "Ніжні домашні пельмені з курячим фаршем."
+    },
+    "unit": "lb",
+    "servings": "2",
+    "sizeRu": "Вес: 1 lb (454 г) · 2 порции",
+    "sizeEn": "Size: 1 lb (454 g) · Serves 2",
+    "sizeUa": "Вага: 1 lb (454 г) · 2 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "lb"
+    }
+  },
+  {
+    "id": "varenyky",
+    "category": "main-dishes",
+    "badge": "bestseller",
+    "image": "assets/images/main-dishes/varenyky.webp",
+    "popular": true,
+    "price": 12,
+    "name": {
+      "ru": "Вареники",
+      "en": "Vareniki",
+      "uk": "Вареники"
+    },
+    "description": {
+      "ru": "Домашние вареники с картофелем и жареным луком.",
+      "en": "Dumplings with potatoes and fried onions.",
+      "uk": "Домашні вареники з картоплею та смаженою цибулею."
+    },
+    "unit": "lb",
+    "servings": "2",
+    "sizeRu": "Вес: 1 lb (454 г) · 2–3 порции",
+    "sizeEn": "Size: 1 lb (454 g) · Serves 2–3",
+    "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "lb"
+    }
   },
   {
     "id": "olivier",
