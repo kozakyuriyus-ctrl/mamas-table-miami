@@ -658,7 +658,8 @@
     "orderSize": {
       "value": 1,
       "unit": "lb"
-    }
+    },
+    "badge": "bestseller"
   },
   {
     "id": "beef-goulash",
