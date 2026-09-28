@@ -1537,7 +1537,7 @@
   {
     "id": "spring-salad",
     "category": "salads",
-    "badge": "new",
+    "badge": "vegetarian",
     "image": "assets/images/salads/spring-salad.webp",
     "price": 9,
     "name": {
