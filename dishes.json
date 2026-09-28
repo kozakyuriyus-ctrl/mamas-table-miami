@@ -1405,7 +1405,8 @@
     "orderSize": {
       "value": 2,
       "unit": "lb"
-    }
+    },
+    "badge": "bestseller"
   },
   {
     "id": "bunito-salad",
