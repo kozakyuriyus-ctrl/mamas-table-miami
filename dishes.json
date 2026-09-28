@@ -71,7 +71,8 @@
     "orderSize": {
       "value": 1,
       "unit": "qt"
-    }
+    },
+    "badge": "bestseller"
   },
   {
     "id": "topcheta-meatball-soup",
