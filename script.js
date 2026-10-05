@@ -3063,6 +3063,10 @@ const ADD_ON_RECS = {
   "pork-beef-kholodets":       ["homemade-mustard"],
   "chicken-kholodets":         ["homemade-mustard"],
   "chicken-pilaf":              ["adjika-sauce"],
+  "chicken-soup":               ["garlic-pampushky"],
+  "topcheta-meatball-soup":     ["garlic-pampushky"],
+  "pork-podzharka":             ["garlic-sauce"],
+  "braised-cabbage-mushrooms":  ["sour-cream"],
 };
 
 const createAddOnModal = (dishId) => {
