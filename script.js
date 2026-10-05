@@ -3062,6 +3062,7 @@ const ADD_ON_RECS = {
   "chicken-benderiki":         ["sour-cream", "garlic-sauce"],
   "pork-beef-kholodets":       ["homemade-mustard"],
   "chicken-kholodets":         ["homemade-mustard"],
+  "chicken-pilaf":              ["adjika-sauce"],
 };
 
 const createAddOnModal = (dishId) => {

@@ -930,6 +930,30 @@
     }
   },
   {
+    "id": "jasmine-rice",
+    "category": "main-dishes",
+    "image": "assets/images/main-dishes/jasmine-rice.webp",
+    "price": 6,
+    "name": {
+      "ru": "Ароматный жасминовый рис",
+      "en": "Fragrant Jasmine Rice",
+      "uk": "Ароматний жасміновий рис"
+    },
+    "description": {
+      "ru": "Ароматный жасминовый рис со сливочным маслом.",
+      "en": "Fragrant jasmine rice with butter.",
+      "uk": "Ароматний жасміновий рис із вершковим маслом."
+    },
+    "unit": "lb",
+    "sizeRu": "Вес: 1 lb (454 г) · 2–3 порции",
+    "sizeEn": "Weight: 1 lb (454 g) · 2–3 servings",
+    "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "lb"
+    }
+  },
+  {
     "id": "buckwheat",
     "category": "main-dishes",
     "image": "assets/images/main-dishes/buckwheat.webp",
@@ -979,6 +1003,30 @@
     "badge": "new"
   },
   {
+    "id": "chicken-pilaf",
+    "category": "main-dishes",
+    "image": "assets/images/main-dishes/chicken-pilaf.webp",
+    "price": 18,
+    "name": {
+      "ru": "Домашний плов с курицей",
+      "en": "Homemade Chicken Pilaf",
+      "uk": "Домашній плов з куркою"
+    },
+    "description": {
+      "ru": "Рассыпчатый выдержанный рис басмати с сочным куриным бедром, морковью, луком, зирой, чесноком и барбарисом.",
+      "en": "Fluffy aged basmati rice with juicy chicken thigh, carrots, onion, cumin, garlic and barberries.",
+      "uk": "Розсипчастий витриманий рис басматі із соковитим курячим стегном, морквою, цибулею, зірою, часником та барбарисом."
+    },
+    "unit": "lb",
+    "sizeRu": "Вес: 1 lb (454 г) · 2–3 порции",
+    "sizeEn": "Weight: 1 lb (454 g) · 2–3 servings",
+    "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "lb"
+    }
+  },
+  {
     "id": "braised-cabbage-mushrooms",
     "category": "main-dishes",
     "image": "assets/images/main-dishes/braised-cabbage-mushrooms.webp",
@@ -1002,6 +1050,30 @@
       "unit": "lb"
     },
     "badge": "new"
+  },
+  {
+    "id": "jasmine-rice-vegetables",
+    "category": "main-dishes",
+    "image": "assets/images/main-dishes/jasmine-rice-vegetables.webp",
+    "price": 10,
+    "name": {
+      "ru": "Рис с овощами",
+      "en": "Jasmine Rice with Vegetables",
+      "uk": "Рис з овочами"
+    },
+    "description": {
+      "ru": "Ароматный жасминовый рис с морковью, зелёным горошком, кукурузой, сладким перцем и луком.",
+      "en": "Fragrant jasmine rice with carrots, green peas, corn, sweet peppers and onion.",
+      "uk": "Ароматний жасміновий рис з морквою, зеленим горошком, кукурудзою, солодким перцем та цибулею."
+    },
+    "unit": "lb",
+    "sizeRu": "Вес: 1 lb (454 г) · 2–3 порции",
+    "sizeEn": "Weight: 1 lb (454 g) · 2–3 servings",
+    "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "lb"
+    }
   },
   {
     "id": "meat-filled-blini",
