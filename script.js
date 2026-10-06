@@ -1929,7 +1929,7 @@ const createDishCard = (dish, options = {}) => {
   <article class="dish-card${options.reveal === false ? "" : " reveal"}">
     <div class="dish-media">
       ${createDishBadge(dish.badge)}
-      <img src="${escapeHtml(dish.image)}" alt="${escapeHtml(text(dish.name))}" loading="${options.loading ?? "lazy"}" />
+      <img src="${escapeHtml(dish.image)}" alt="${escapeHtml(text(dish.name))}" loading="${options.loading ?? "lazy"}" decoding="async" />
     </div>
     <div class="dish-card-body">
       <h3>${escapeHtml(text(dish.name))}</h3>
@@ -1982,7 +1982,7 @@ const createCategoryCard = (category) => {
     : escapeHtml(t("categories.open"));
   return `
   <a class="category-card reveal" href="#/${escapeHtml(category.id)}" data-category-route="${escapeHtml(category.id)}">
-    <img src="${escapeHtml(category.image)}" alt="${escapeHtml(text(category.title))}" loading="lazy" />
+    <img src="${escapeHtml(category.image)}" alt="${escapeHtml(text(category.title))}" loading="lazy" decoding="async" />
     <span>
       ${category.iconSvg || `<i data-lucide="${escapeHtml(category.icon)}"></i>`}
       <strong>${escapeHtml(text(category.title))}</strong>
