@@ -935,7 +935,7 @@
     "image": "assets/images/main-dishes/jasmine-rice.webp",
     "price": 6,
     "name": {
-      "ru": "Ароматный жасминовый рис",
+      "ru": "Ароматный рассыпчатый рис",
       "en": "Fragrant Jasmine Rice",
       "uk": "Ароматний жасміновий рис"
     },
@@ -951,7 +951,8 @@
     "orderSize": {
       "value": 1,
       "unit": "lb"
-    }
+    },
+    "badge": "vegetarian"
   },
   {
     "id": "buckwheat",
