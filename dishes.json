@@ -1089,7 +1089,7 @@
       "uk": "Домашні сирники"
     },
     "description": {
-      "ru": "Нежные домашние сырники из творога с румяной корочкой. Отлично сочетаются со сметаной, клубничным вареньем или сгущённым молоком.",
+      "ru": "Нежные домашние сырники из творога с румяной корочкой.",
       "en": "Tender homestyle syrniki made with cottage cheese and cooked until golden. Perfect with sour cream, strawberry jam, or condensed milk.",
       "uk": "Ніжні домашні сирники з кисломолочного сиру із золотистою скоринкою. Чудово смакують зі сметаною, полуничним варенням або згущеним молоком."
     },
@@ -1100,7 +1100,8 @@
     "orderSize": {
       "value": 1,
       "unit": "lb"
-    }
+    },
+    "badge": "new"
   },
   {
     "id": "meat-filled-blini",
