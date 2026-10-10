@@ -1079,6 +1079,30 @@
     "badge": "new"
   },
   {
+    "id": "homestyle-syrniki",
+    "category": "main-dishes",
+    "image": "assets/images/main-dishes/homestyle-syrniki.webp",
+    "price": 18,
+    "name": {
+      "ru": "Домашние сырники",
+      "en": "Homestyle Syrniki",
+      "uk": "Домашні сирники"
+    },
+    "description": {
+      "ru": "Нежные домашние сырники из творога с румяной корочкой. Отлично сочетаются со сметаной, клубничным вареньем или сгущённым молоком.",
+      "en": "Tender homestyle syrniki made with cottage cheese and cooked until golden. Perfect with sour cream, strawberry jam, or condensed milk.",
+      "uk": "Ніжні домашні сирники з кисломолочного сиру із золотистою скоринкою. Чудово смакують зі сметаною, полуничним варенням або згущеним молоком."
+    },
+    "unit": "lb",
+    "sizeRu": "Вес: 1 lb (454 г) · примерно 6–7 шт.",
+    "sizeEn": "Weight: 1 lb (454 g) · about 6–7 pieces",
+    "sizeUa": "Вага: 1 lb (454 г) · приблизно 6–7 шт.",
+    "orderSize": {
+      "value": 1,
+      "unit": "lb"
+    }
+  },
+  {
     "id": "meat-filled-blini",
     "category": "main-dishes",
     "image": "assets/images/main-dishes/meat-filled-blini.webp",

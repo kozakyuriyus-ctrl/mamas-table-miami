@@ -3067,6 +3067,7 @@ const ADD_ON_RECS = {
   "topcheta-meatball-soup":     ["garlic-pampushky"],
   "pork-podzharka":             ["garlic-sauce"],
   "braised-cabbage-mushrooms":  ["sour-cream"],
+  "homestyle-syrniki":          ["sour-cream", "strawberry-jam", "sweetened-condensed-milk"],
 };
 
 const createAddOnModal = (dishId) => {
