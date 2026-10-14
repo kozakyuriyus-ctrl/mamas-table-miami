@@ -1078,6 +1078,30 @@
     "badge": "new"
   },
   {
+    "id": "beef-pilaf",
+    "category": "main-dishes",
+    "image": "assets/images/main-dishes/beef-pilaf.webp",
+    "price": 22,
+    "name": {
+      "ru": "Домашний плов с говядиной",
+      "en": "Homemade Beef Pilaf",
+      "uk": "Домашній плов з яловичиною"
+    },
+    "description": {
+      "ru": "Рассыпчатый рис басмати с нежной говядиной, морковью, луком, чесноком и ароматной зирой.",
+      "en": "Fluffy basmati rice with tender beef, carrots, onion, garlic and aromatic cumin.",
+      "uk": "Розсипчастий рис басматі з ніжною яловичиною, морквою, цибулею, часником та ароматною зірою."
+    },
+    "unit": "lb",
+    "sizeRu": "Вес: 1 lb (454 г) · 2–3 порции",
+    "sizeEn": "Weight: 1 lb (454 g) · Serves 2–3",
+    "sizeUa": "Вага: 1 lb (454 г) · 2–3 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "lb"
+    }
+  },
+  {
     "id": "braised-cabbage-mushrooms",
     "category": "main-dishes",
     "image": "assets/images/main-dishes/braised-cabbage-mushrooms.webp",
