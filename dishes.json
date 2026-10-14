@@ -1734,6 +1734,30 @@
     }
   },
   {
+    "id": "marinated-green-tomatoes",
+    "category": "salads",
+    "image": "assets/images/salads/marinated-green-tomatoes.webp",
+    "price": 10,
+    "name": {
+      "ru": "Маринованные зелёные помидоры",
+      "en": "Marinated Green Tomatoes",
+      "uk": "Мариновані зелені помідори"
+    },
+    "description": {
+      "ru": "Зелёные помидоры в ароматном кисло-сладком маринаде со сладким перцем, чесноком и зеленью.",
+      "en": "Green tomatoes in an aromatic sweet-and-sour marinade with sweet peppers, garlic and herbs.",
+      "uk": "Зелені помідори в ароматному кисло-солодкому маринаді із солодким перцем, часником і зеленню."
+    },
+    "unit": "lb",
+    "sizeRu": "Вес: 1 lb (454 г) · 3–4 порции",
+    "sizeEn": "Weight: 1 lb (454 g) · Serves 3–4",
+    "sizeUa": "Вага: 1 lb (454 г) · 3–4 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "lb"
+    }
+  },
+  {
     "id": "korean-carrots",
     "category": "salads",
     "image": "assets/images/salads/korean-carrots.webp",
