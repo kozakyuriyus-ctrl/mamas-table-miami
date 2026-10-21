@@ -307,6 +307,12 @@ function buildTelegramMessage({ orderId, customer, delivery, schedule, orderItem
   ].filter(Boolean);
 
   const itemsLines = orderItems.map((it) => {
+    // Dishes sold with a minimum total weight (e.g. kholodets, minQty=2 lb):
+    // quantity already represents the total lb ordered, so show it directly
+    // instead of multiplying a per-unit label by quantity ("2 lb × 2").
+    if (it.minQty) {
+      return `• ${esc(it.name)} — ${it.quantity} ${esc(it.unit ?? "lb")} — $${it.lineTotal.toFixed(2)}`;
+    }
     const unitLabel = getOrderUnitRu(it);
     const qtyPart = it.quantity !== 1 ? ` × ${it.quantity}` : "";
     return `• ${esc(it.name)} ${esc(unitLabel)}${qtyPart} — $${it.lineTotal.toFixed(2)}`;
@@ -955,7 +961,7 @@ async function handlePreorder(request, env, json) {
       ? (dish.name.ru ?? dish.name.en ?? String(dish.name))
       : String(dish.name);
 
-    orderItems.push({ id: dish.id, name: dishName, quantity: item.quantity, unit: dish.unit ?? null, category: dish.category ?? null, orderUnitRu: dish.orderUnitRu ?? null, sizeRu: dish.sizeRu ?? null, orderSize: dish.orderSize ?? null, approximateWeight: dish.approximateWeight ?? null, unitPrice: dish.price, lineTotal });
+    orderItems.push({ id: dish.id, name: dishName, quantity: item.quantity, unit: dish.unit ?? null, category: dish.category ?? null, orderUnitRu: dish.orderUnitRu ?? null, sizeRu: dish.sizeRu ?? null, orderSize: dish.orderSize ?? null, approximateWeight: dish.approximateWeight ?? null, minQty: dish.minQty ?? null, unitPrice: dish.price, lineTotal });
   }
 
   // ── Minimum order check (food subtotal only, delivery excluded) ───────────
@@ -994,6 +1000,9 @@ async function handlePreorder(request, env, json) {
     console.log(`[TEST ORDER] ${testId} zone=${serverZone}(${zoneConfig.letter}) fee=${pricing.deliveryFee ?? "TBD"} subtotal=${pricing.foodSubtotal} total=${pricing.orderTotal ?? "TBD"}`);
     // Include formatted order lines so test-mode callers can verify the Telegram message format.
     const orderItemsFormatted = orderItems.map((it) => {
+      if (it.minQty) {
+        return `• ${it.name} — ${it.quantity} ${it.unit ?? "lb"} — $${it.lineTotal.toFixed(2)}`;
+      }
       const unitLabel = getOrderUnitRu(it);
       const qtyPart = it.quantity !== 1 ? ` × ${it.quantity}` : "";
       return `• ${it.name} ${unitLabel}${qtyPart} — $${it.lineTotal.toFixed(2)}`;
