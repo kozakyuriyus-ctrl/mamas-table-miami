@@ -62,8 +62,9 @@ const PLACES_RATE_MAX       = 60;             // 60 autocomplete calls per minut
 const PLACES_INPUT_MAX      = 120;            // max chars in address search
 const PLACES_ID_MAX         = 500;            // placeId max length
 const MENU_CACHE_TTL_S = 300; // 5 minutes
-// NotoSans Regular from jsDelivr (Google Fonts repo) — full Cyrillic support, cached at CF edge
+// NotoSans Regular/Bold from jsDelivr (Google Fonts repo) — full Cyrillic support, cached at CF edge
 const NOTO_SANS_TTF_URL = "https://cdn.jsdelivr.net/gh/googlefonts/noto-fonts/hinted/ttf/NotoSans/NotoSans-Regular.ttf";
+const NOTO_SANS_BOLD_TTF_URL = "https://cdn.jsdelivr.net/gh/googlefonts/noto-fonts/hinted/ttf/NotoSans/NotoSans-Bold.ttf";
 
 const ORDER_STATUSES = {
   confirmed: "✅ Подтверждено",
@@ -541,18 +542,35 @@ function formatPdfItemQty(it) {
   return formatKitchenQuantity(calculateKitchenQuantity(it));
 }
 
+// Returns the uppercase "VALUE LB" substring to render in bold within the
+// kitchen PDF item line, when the item's weight in lb exceeds 1 lb.
+// Weight ≤ 1 lb, or non-lb units (qt/oz/pcs without an lb approximation),
+// are not bolded. Returns null when nothing should be bolded.
+function getBoldWeightSubstring(calc) {
+  const { value, unit, approximate } = calc;
+  if (unit === UNITS.LB && value > 1) return `${fmtNum(value)} LB`;
+  if (unit === UNITS.PCS && approximate?.unit === UNITS.LB && approximate.value > 1) {
+    return `${fmtNum(approximate.value)} LB`;
+  }
+  return null;
+}
+
 // ── Kitchen order PDF ─────────────────────────────────────────────────────────
 
-async function buildKitchenOrderPdf({ orderId, customer, schedule, orderItems, notes }) {
-  const fontResp = await fetch(NOTO_SANS_TTF_URL, {
-    cf: { cacheTtl: 86400, cacheEverything: true },
-  });
+async function buildKitchenOrderPdf({ orderId, customer, schedule, orderItems, notes, pricing }) {
+  const [fontResp, boldFontResp] = await Promise.all([
+    fetch(NOTO_SANS_TTF_URL, { cf: { cacheTtl: 86400, cacheEverything: true } }),
+    fetch(NOTO_SANS_BOLD_TTF_URL, { cf: { cacheTtl: 86400, cacheEverything: true } }),
+  ]);
   if (!fontResp.ok) throw new Error(`Font fetch failed: ${fontResp.status}`);
+  if (!boldFontResp.ok) throw new Error(`Bold font fetch failed: ${boldFontResp.status}`);
   const fontBytes = new Uint8Array(await fontResp.arrayBuffer());
+  const boldFontBytes = new Uint8Array(await boldFontResp.arrayBuffer());
 
   const pdfDoc = await PDFDocument.create();
   pdfDoc.registerFontkit(fontkit);
   const font = await pdfDoc.embedFont(fontBytes);
+  const boldFont = await pdfDoc.embedFont(boldFontBytes);
 
   const PAGE_W = 595.28;
   const PAGE_H = 841.89;
@@ -583,7 +601,26 @@ async function buildKitchenOrderPdf({ orderId, customer, schedule, orderItems, n
     curPage.drawText(String(text), { x, y, size: sz, font, color });
   }
   function putBold(text, x, sz, color = rgb(0, 0, 0)) {
-    curPage.drawText(String(text), { x, y, size: sz, font, color });
+    curPage.drawText(String(text), { x, y, size: sz, font: boldFont, color });
+  }
+  // Draws `line`, rendering the first occurrence of `boldSubstr` (exact match)
+  // in the bold font and the rest in the regular font. Falls back to a plain
+  // put() when boldSubstr is absent or not found in this particular line
+  // (e.g. it landed on a different wrapped line).
+  function putLineWithBold(line, x, sz, boldSubstr, color = rgb(0, 0, 0)) {
+    const idx = boldSubstr ? line.indexOf(boldSubstr) : -1;
+    if (idx === -1) { put(line, x, sz, color); return; }
+    const before = line.slice(0, idx);
+    const bold = line.slice(idx, idx + boldSubstr.length);
+    const after = line.slice(idx + boldSubstr.length);
+    let curX = x;
+    if (before) {
+      curPage.drawText(before, { x: curX, y, size: sz, font, color });
+      curX += font.widthOfTextAtSize(before, sz);
+    }
+    curPage.drawText(bold, { x: curX, y, size: sz, font: boldFont, color });
+    curX += boldFont.widthOfTextAtSize(bold, sz);
+    if (after) curPage.drawText(after, { x: curX, y, size: sz, font, color });
   }
   function nl(sz, gap = 5) { y -= sz + gap; }
   function hr(gray = 0.5, wt = 0.5) {
@@ -656,6 +693,19 @@ async function buildKitchenOrderPdf({ orderId, customer, schedule, orderItems, n
   // Total items count on first page
   put(`ВСЕГО ПОЗИЦИЙ: ${totalItems}`, ML, 13, rgb(0.2, 0.2, 0.2));
   nl(13, 4);
+
+  // Total to pay — reused as-is from the already-computed order pricing
+  // (includes delivery and any applied free-delivery discount), never
+  // recalculated here from the current menu.
+  const confirmedTotal = pricing?.orderTotal;
+  const preliminaryTotal = pricing?.preliminaryOrderTotal;
+  if (typeof confirmedTotal === "number") {
+    putBold(`ИТОГО К ОПЛАТЕ: $${confirmedTotal.toFixed(2)}`, ML, 15, rgb(0.05, 0.05, 0.05));
+    nl(15, 4);
+  } else if (typeof preliminaryTotal === "number") {
+    putBold(`ПРЕДВАРИТЕЛЬНЫЙ ИТОГ: $${preliminaryTotal.toFixed(2)}`, ML, 15, rgb(0.05, 0.05, 0.05));
+    nl(15, 4);
+  }
   hr(0.4);
 
   // Date: large, uppercase
@@ -696,7 +746,9 @@ async function buildKitchenOrderPdf({ orderId, customer, schedule, orderItems, n
   for (let idx = 0; idx < items.length; idx++) {
     const it = items[idx];
     const itemNum = idx + 1;
-    const label = `${itemNum}. □ ${it.name} — ${formatPdfItemQty(it)}`.toUpperCase();
+    const calc = calculateKitchenQuantity(it);
+    const label = `${itemNum}. □ ${it.name} — ${formatKitchenQuantity(calc)}`.toUpperCase();
+    const boldWeight = getBoldWeightSubstring(calc);
     const needed = calcItemH(label, itemSz);
 
     // If the full item doesn't fit, start a new page before drawing it
@@ -707,7 +759,7 @@ async function buildKitchenOrderPdf({ orderId, customer, schedule, orderItems, n
 
     const lines = wrapText(label, itemSz);
     for (let li = 0; li < lines.length; li++) {
-      put(lines[li], li === 0 ? ML : ML + 26, itemSz);
+      putLineWithBold(lines[li], li === 0 ? ML : ML + 26, itemSz, boldWeight);
       nl(itemSz, 8);
     }
     y -= 4;
@@ -1041,7 +1093,7 @@ async function handlePreorder(request, env, json) {
 
   // ── Kitchen order PDF (fire-and-forget — never fails the main request) ────
   try {
-    const pdfBytes = await buildKitchenOrderPdf({ orderId, customer, schedule, orderItems, notes });
+    const pdfBytes = await buildKitchenOrderPdf({ orderId, customer, schedule, orderItems, notes, pricing });
     await sendKitchenOrderPdf(env, orderId, pdfBytes);
   } catch (pdfErr) {
     console.error("[PDF] Kitchen order PDF failed:", pdfErr?.message ?? String(pdfErr));
