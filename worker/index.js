@@ -542,13 +542,14 @@ function formatPdfItemQty(it) {
   return formatKitchenQuantity(calculateKitchenQuantity(it));
 }
 
-// Returns the uppercase "VALUE LB" substring to render in bold within the
-// kitchen PDF item line, when the item's weight in lb exceeds 1 lb.
-// Weight ≤ 1 lb, or non-lb units (qt/oz/pcs without an lb approximation),
-// are not bolded. Returns null when nothing should be bolded.
+// Returns the uppercase "VALUE LB"/"VALUE QT" substring to render in bold
+// within the kitchen PDF item line, when the item's weight/volume exceeds
+// 1 lb / 1 qt. Values ≤ 1, or units without such a threshold (oz/pcs without
+// an lb approximation), are not bolded. Returns null when nothing should be bolded.
 function getBoldWeightSubstring(calc) {
   const { value, unit, approximate } = calc;
   if (unit === UNITS.LB && value > 1) return `${fmtNum(value)} LB`;
+  if (unit === UNITS.QT && value > 1) return `${fmtNum(value)} QT`;
   if (unit === UNITS.PCS && approximate?.unit === UNITS.LB && approximate.value > 1) {
     return `${fmtNum(approximate.value)} LB`;
   }
