@@ -706,6 +706,10 @@ async function buildKitchenOrderPdf({ orderId, customer, schedule, orderItems, n
   } else if (typeof preliminaryTotal === "number") {
     putBold(`ПРЕДВАРИТЕЛЬНЫЙ ИТОГ: $${preliminaryTotal.toFixed(2)}`, ML, 15, rgb(0.05, 0.05, 0.05));
     nl(15, 4);
+  } else if (typeof pricing?.foodSubtotal === "number") {
+    // Remote zone: delivery fee pending manual confirmation, no order total yet.
+    putBold(`ПРЕДВАРИТЕЛЬНО (без доставки): $${pricing.foodSubtotal.toFixed(2)}`, ML, 15, rgb(0.05, 0.05, 0.05));
+    nl(15, 4);
   }
   hr(0.4);
 
