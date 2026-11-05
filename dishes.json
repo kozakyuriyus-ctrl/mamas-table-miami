@@ -904,6 +904,30 @@
     }
   },
   {
+    "id": "french-style-pork",
+    "category": "main-dishes",
+    "image": "assets/images/main-dishes/french-style-pork.webp",
+    "price": 20,
+    "name": {
+      "ru": "Свинина по-французски",
+      "en": "French-Style Pork",
+      "uk": "Свинина по-французьки"
+    },
+    "description": {
+      "ru": "Сочная свинина, запечённая с луком под румяной сырной корочкой.",
+      "en": "Juicy pork baked with onions under a golden cheese crust.",
+      "uk": "Соковита свинина, запечена з цибулею під рум’яною сирною скоринкою."
+    },
+    "unit": "lb",
+    "sizeRu": "Вес: 1 lb (454 г) · 2 порции",
+    "sizeEn": "Size: 1 lb (454 g) · Serves 2",
+    "sizeUa": "Вага: 1 lb (454 г) · 2 порції",
+    "orderSize": {
+      "value": 1,
+      "unit": "lb"
+    }
+  },
+  {
     "id": "grilled-salmon-broccoli",
     "category": "main-dishes",
     "image": "assets/images/main-dishes/grilled-salmon-broccoli.webp",
