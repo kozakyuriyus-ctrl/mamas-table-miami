@@ -665,6 +665,7 @@
     "id": "beef-stroganoff",
     "category": "main-dishes",
     "image": "assets/images/main-dishes/beef-stroganoff.webp",
+    "popular": true,
     "price": 20,
     "name": {
       "ru": "Бефстроганов",
@@ -1432,6 +1433,7 @@
   },
   {
     "id": "pork-pelmeni",
+    "available": false,
     "category": "main-dishes",
     "image": "assets/images/main-dishes/pork-pelmeni.webp",
     "price": 14,
@@ -1457,6 +1459,7 @@
   },
   {
     "id": "pork-beef-dumplings",
+    "available": false,
     "category": "main-dishes",
     "image": "assets/images/main-dishes/pork-pelmeni.webp",
     "price": 15,
@@ -1482,6 +1485,7 @@
   },
   {
     "id": "chicken-pelmeni",
+    "available": false,
     "category": "main-dishes",
     "image": "assets/images/main-dishes/chicken-pelmeni.webp",
     "price": 14,
@@ -1507,10 +1511,10 @@
   },
   {
     "id": "varenyky",
+    "available": false,
     "category": "main-dishes",
     "badge": "bestseller",
     "image": "assets/images/main-dishes/varenyky.webp",
-    "popular": true,
     "price": 13,
     "name": {
       "ru": "Вареники",
@@ -1613,6 +1617,7 @@
     "id": "bunito-salad",
     "category": "salads",
     "image": "assets/images/salads/bunito-salad.webp",
+    "popular": true,
     "price": 29,
     "name": {
       "ru": "Салат «Бунито» с курицей, корейской морковью и грибами",
@@ -2233,6 +2238,7 @@
   },
   {
     "id": "frozen-pork-pelmeni",
+    "available": false,
     "category": "frozen",
     "image": "assets/images/frozen/frozen-pork-pelmeni.webp",
     "price": 14,
@@ -2258,6 +2264,7 @@
   },
   {
     "id": "frozen-pork-beef-dumplings",
+    "available": false,
     "category": "frozen",
     "image": "assets/images/frozen/frozen-pork-beef-dumplings.webp",
     "price": 15,
@@ -2283,6 +2290,7 @@
   },
   {
     "id": "frozen-chicken-dumplings",
+    "available": false,
     "category": "frozen",
     "image": "assets/images/frozen/frozen-chicken-dumplings.webp",
     "price": 14,
@@ -2308,6 +2316,7 @@
   },
   {
     "id": "frozen-vareniki-potato",
+    "available": false,
     "category": "frozen",
     "image": "assets/images/frozen/frozen-vareniki-potato.webp",
     "price": 12,

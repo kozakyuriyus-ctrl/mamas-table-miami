@@ -1008,6 +1008,8 @@ async function handlePreorder(request, env, json) {
     const dish = dishMap.get(item.id);
     if (!dish)
       return json({ ok: false, error: "unknown_item", message: `Item not found: ${item.id}` }, 400);
+    if (dish.available === false)
+      return json({ ok: false, error: "item_unavailable", itemId: item.id, message: `Item temporarily unavailable: ${item.id}` }, 400);
     if (dish.minQty && item.quantity < dish.minQty)
       return json({ ok: false, error: "below_min_quantity", message: `Minimum order for ${item.id} is ${dish.minQty} ${dish.unit ?? ""}.` }, 400);
 

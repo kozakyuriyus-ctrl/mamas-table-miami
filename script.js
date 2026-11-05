@@ -291,6 +291,10 @@ const copy = {
       mobileCTA: "Ваш заказ",
       addFirst: "Сначала добавьте блюда",
       remove: "Убрать",
+      unavailable: "Временно недоступно",
+      removeFromCart: "Убрать из корзины",
+      unavailableBlock: "Некоторые блюда временно недоступны. Уберите их из корзины, чтобы оформить заказ.",
+      unavailableAdd: "Временно недоступно",
       itemWord: "позиций",
       unitPrice: "за ед.",
       unitLb: "за фунт",
@@ -733,6 +737,10 @@ const copy = {
       mobileCTA: "Your order",
       addFirst: "Add dishes first",
       remove: "Remove",
+      unavailable: "Temporarily unavailable",
+      removeFromCart: "Remove from cart",
+      unavailableBlock: "Some dishes are temporarily unavailable. Remove them from your cart to place the order.",
+      unavailableAdd: "Temporarily unavailable",
       itemWord: "items",
       unitPrice: "each",
       unitLb: "per lb",
@@ -1175,6 +1183,10 @@ const copy = {
       mobileCTA: "Ваше замовлення",
       addFirst: "Спочатку додайте страви",
       remove: "Прибрати",
+      unavailable: "Тимчасово недоступно",
+      removeFromCart: "Прибрати з кошика",
+      unavailableBlock: "Деякі страви тимчасово недоступні. Приберіть їх із кошика, щоб оформити замовлення.",
+      unavailableAdd: "Тимчасово недоступно",
       itemWord: "позицій",
       unitPrice: "за од.",
       unitLb: "за фунт",
@@ -1867,6 +1879,9 @@ const cartEntries = () =>
     .map(([id, quantity]) => ({ dish: dishById(id), quantity }))
     .filter((entry) => entry.dish && entry.quantity > 0);
 
+const isUnavailable = (dish) => dish?.available === false;
+const cartHasUnavailable = () => cartEntries().some(({ dish }) => isUnavailable(dish));
+
 const cartCount = () => cartEntries().reduce((sum, entry) => sum + entry.quantity, 0);
 const cartTotal = () => cartEntries().reduce((sum, entry) => sum + entry.dish.price * entry.quantity, 0);
 const cartQuantity = (id) => state.cart.get(id) || 0;
@@ -1937,6 +1952,7 @@ const createDishCard = (dish, options = {}) => {
       <strong>${money(dish.price)}${unitHtml}</strong>
       ${sizeHtml}
       <div class="dish-actions">
+        ${isUnavailable(dish) ? `<span class="dish-unavailable" role="status">${escapeHtml(t("cart.unavailable"))}</span>` : `
         <button class="add-btn${quantity > 0 ? " is-hidden" : ""}" type="button" data-add="${escapeHtml(dish.id)}"${quantity > 0 ? " hidden" : ""}>
           <span>${escapeHtml(t("cart.add"))}</span>
           <i data-lucide="plus-circle"></i>
@@ -1945,7 +1961,7 @@ const createDishCard = (dish, options = {}) => {
           <button type="button" data-minus="${escapeHtml(dish.id)}">−</button>
           <span data-dish-qty="${escapeHtml(dish.id)}">${quantity}</span>
           <button type="button" data-plus="${escapeHtml(dish.id)}">+</button>
-        </div>
+        </div>`}
       </div>
     </div>
   </article>
@@ -2170,6 +2186,11 @@ const renderRoute = () => {
 };
 
 const setQuantity = (id, quantity) => {
+  const dish = dishById(id);
+  if (isUnavailable(dish) && quantity > cartQuantity(id)) {
+    showToast(text(dish.name), "cart.unavailableAdd");
+    return;
+  }
   const safeQuantity = Math.max(0, Math.min(quantity, 99));
   if (safeQuantity === 0) state.cart.delete(id);
   else state.cart.set(id, safeQuantity);
@@ -2723,9 +2744,12 @@ const createPreorderStage0 = () => {
   const validationBanner = anyFieldErr
     ? `<div class="validation-banner" role="alert">${escapeHtml(t("preorder.validationBanner"))}</div>`
     : "";
-  const submitHelper = belowMin && zoneConfig?.minOrder
-    ? buildMinOrderMsg(zoneConfig.minOrder, zoneConfig.minOrder - foodSubtotal)
-    : "";
+  const hasUnavailable = cartHasUnavailable();
+  const submitHelper = hasUnavailable
+    ? t("cart.unavailableBlock")
+    : belowMin && zoneConfig?.minOrder
+      ? buildMinOrderMsg(zoneConfig.minOrder, zoneConfig.minOrder - foodSubtotal)
+      : "";
   return `
     <div class="modal-cart-summary">
       <h3>${escapeHtml(t("preorder.cartSummaryTitle"))}</h3>
@@ -2783,7 +2807,7 @@ const createPreorderStage0 = () => {
       ${state.preorderError && state.preorderErrorMsg
         ? `<p class="preorder-api-error">${escapeHtml(state.preorderErrorMsg)}</p>`
         : ""}
-      <button class="btn btn-primary checkout-submit" type="submit"${state.preorderSubmitting ? " disabled" : ""}>
+      <button class="btn btn-primary checkout-submit" type="submit"${state.preorderSubmitting || hasUnavailable ? " disabled" : ""}>
         <span>${escapeHtml(state.preorderSubmitting ? t("preorder.submitting") : t("preorder.submit"))}</span>
         ${state.preorderSubmitting ? "" : '<i data-lucide="send"></i>'}
       </button>
@@ -3196,6 +3220,7 @@ let cartReviewTriggerEl = null;
 const createCartReviewModal = () => {
   const entries = cartEntries();
   const hasOnlyAddOns = entries.length > 0 && entries.every((e) => e.dish.category === "add-ons");
+  const hasUnavailable = cartHasUnavailable();
   const subtotal = cartTotal();
 
   // ── Delivery calculation (mirrors preorder form — same zone constants, same ZIP) ──
@@ -3247,10 +3272,7 @@ const createCartReviewModal = () => {
           <em>${money(dish.price * quantity)}</em>
         </div>
         <div class="cart-row">
-          <button type="button" class="cr-qty-btn" data-minus="${escapeHtml(dish.id)}" aria-label="−1">−</button>
-          <span class="cr-qty">${quantity}</span>
-          <button type="button" class="cr-qty-btn" data-plus="${escapeHtml(dish.id)}" aria-label="+1">+</button>
-          <button type="button" class="cr-remove" data-remove="${escapeHtml(dish.id)}">${escapeHtml(t("cart.remove"))}</button>
+          ${createCartItemControls(dish, quantity, "cr-qty-btn", "cr-remove")}
         </div>
       </div>`;
     })
@@ -3282,7 +3304,8 @@ const createCartReviewModal = () => {
           </div>
           <div class="cr-footer">
             ${hasOnlyAddOns ? `<p class="zone-min-warning">${escapeHtml(t("cart.addOnsOnly"))}</p>` : ""}
-            <button class="btn btn-primary" type="button" data-review-proceed${hasOnlyAddOns ? " disabled" : ""}>
+            ${hasUnavailable ? `<p class="zone-min-warning" role="alert">${escapeHtml(t("cart.unavailableBlock"))}</p>` : ""}
+            <button class="btn btn-primary" type="button" data-review-proceed${hasOnlyAddOns || hasUnavailable ? " disabled" : ""}>
               ${escapeHtml(t("cartReview.proceed"))}
             </button>
             <button class="btn btn-secondary" type="button" data-cart-review-back>
@@ -3390,14 +3413,28 @@ const createCartEmptyState = () => `
 const createCartSummary = (count, total) =>
   `<p>${count} ${escapeHtml(cartItemLabel(count))} · <strong>${money(total)}</strong></p>`;
 
-const createCartActions = () => `
+const createCartActions = () => {
+  const blocked = cartHasUnavailable();
+  return `
   <button class="cart-secondary-action" type="button" data-toggle-cart>
     ${escapeHtml(state.cartExpanded ? t("cart.hideOrder") : t("cart.viewOrder"))}
   </button>
-  <button class="btn btn-primary cart-checkout" type="button" data-open-checkout>
+  ${blocked ? `<p class="zone-min-warning" role="alert">${escapeHtml(t("cart.unavailableBlock"))}</p>` : ""}
+  <button class="btn btn-primary cart-checkout" type="button" data-open-checkout${blocked ? " disabled" : ""}>
     ${escapeHtml(t("cart.checkout"))}
   </button>
 `;
+};
+
+const createCartItemControls = (dish, quantity, qtyBtnCls = "", removeCls = "") =>
+  isUnavailable(dish)
+    ? `<span class="dish-unavailable" role="status">${escapeHtml(t("cart.unavailable"))}</span>
+          <span${qtyBtnCls ? ' class="cr-qty"' : ""}>×${quantity}</span>
+          <button type="button"${removeCls ? ` class="${removeCls}"` : ""} data-remove="${escapeHtml(dish.id)}">${escapeHtml(t("cart.removeFromCart"))}</button>`
+    : `<button type="button"${qtyBtnCls ? ` class="${qtyBtnCls}"` : ""} data-minus="${escapeHtml(dish.id)}"${qtyBtnCls ? ' aria-label="−1"' : ""}>−</button>
+          <span${qtyBtnCls ? ' class="cr-qty"' : ""}>${quantity}</span>
+          <button type="button"${qtyBtnCls ? ` class="${qtyBtnCls}"` : ""} data-plus="${escapeHtml(dish.id)}"${qtyBtnCls ? ' aria-label="+1"' : ""}>+</button>
+          <button type="button"${removeCls ? ` class="${removeCls}"` : ""} data-remove="${escapeHtml(dish.id)}">${escapeHtml(t("cart.remove"))}</button>`;
 
 const createCartDetails = (entries) =>
   entries
@@ -3417,10 +3454,7 @@ const createCartDetails = (entries) =>
           <em>${money(dish.price * quantity)}</em>
         </div>
         <div class="cart-row">
-          <button type="button" data-minus="${escapeHtml(dish.id)}">−</button>
-          <span>${quantity}</span>
-          <button type="button" data-plus="${escapeHtml(dish.id)}">+</button>
-          <button type="button" data-remove="${escapeHtml(dish.id)}">${escapeHtml(t("cart.remove"))}</button>
+          ${createCartItemControls(dish, quantity)}
         </div>
       </div>
     `;
@@ -3607,6 +3641,7 @@ const detectCityZipMismatch = (zipZone, city) => {
 const handlePreorderSubmit = async (formEl) => {
   // Guard against double-submit (rapid double-click or re-entry during async fetch)
   if (state.preorderSubmitting) return;
+  if (cartHasUnavailable()) { renderPreorderModal(); return; }
 
   syncPreorderForm(formEl);
   const errorKey = validatePreorderForm();
@@ -3720,6 +3755,18 @@ const handlePreorderSubmit = async (formEl) => {
     try { result = await resp.json(); } catch { result = { ok: false }; }
 
     if (!result.ok) {
+      if (result.error === "item_unavailable") {
+        // Local catalog is stale: mark the dish unavailable so the cart blocks checkout and offers removal.
+        const stale = dishById(result.itemId);
+        if (stale) stale.available = false;
+        state.preorderSubmitting = false;
+        state.preorderError = false;
+        closePreorderModal();
+        renderCart();
+        renderRoute();
+        openCartReview();
+        return;
+      }
       throw new Error(result.message || `HTTP ${resp.status}`);
     }
 
@@ -3904,6 +3951,7 @@ const handleClick = (event) => {
   if (add) {
     const id = add.dataset.add;
     const dish = dishById(id);
+    if (isUnavailable(dish)) { setQuantity(id, 1); return; }
     const startQty = dish?.minQty ?? 1;
     setQuantity(id, cartQuantity(id) + startQty);
     if (dish) {
@@ -3925,6 +3973,7 @@ const handleClick = (event) => {
   if (plus) {
     const id = plus.dataset.plus;
     const dish = dishById(id);
+    if (isUnavailable(dish)) { setQuantity(id, cartQuantity(id) + 1); return; }
     setQuantity(id, cartQuantity(id) + 1);
     if (dish) {
       ga4("add_to_cart", { currency: "USD", value: dish.price, items: [ga4Item(dish, 1)] });
@@ -3996,7 +4045,7 @@ const handleClick = (event) => {
   const openCheckout = target.closest("[data-open-checkout]");
   if (openCheckout) {
     event.preventDefault();
-    if (!cartEntries().length) return;
+    if (!cartEntries().length || cartHasUnavailable()) return;
     openCartReview(openCheckout);
     return;
   }
@@ -4005,7 +4054,7 @@ const handleClick = (event) => {
   const reviewProceed = target.closest("[data-review-proceed]");
   if (reviewProceed) {
     event.preventDefault();
-    if (cartEntries().every((e) => e.dish.category === "add-ons")) return;
+    if (cartEntries().every((e) => e.dish.category === "add-ons") || cartHasUnavailable()) return;
     const trigger = cartReviewTriggerEl;
     closeCartReview();
     openPreorderModal(trigger);
@@ -4610,12 +4659,12 @@ const isNavDrawerOpen = () =>
 
 // ── A3: Toast ─────────────────────────────────────────────────────────────────
 
-const showToast = (dishName) => {
+const showToast = (dishName, labelKey = "toast.added") => {
   const root = document.getElementById("toast-root");
   if (!root) return;
   const toast = document.createElement("div");
   toast.className = "toast";
-  toast.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg><span>${escapeHtml(t("toast.added"))}: <strong>${escapeHtml(dishName)}</strong></span>`;
+  toast.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg><span>${escapeHtml(t(labelKey))}: <strong>${escapeHtml(dishName)}</strong></span>`;
   root.appendChild(toast);
   const DURATION = 2500;
   const FADE = 300;

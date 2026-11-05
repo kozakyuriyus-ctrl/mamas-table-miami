@@ -653,6 +653,34 @@ p {
   font-weight: 900;
 }
 
+.dish-unavailable {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
+  padding: 0 10px;
+  border: 1px solid rgba(183, 138, 85, 0.35);
+  border-radius: 8px;
+  background: #f3e6d0;
+  color: #5a4630;
+  font-size: 13px;
+  font-weight: 800;
+  text-align: center;
+  pointer-events: none;
+  user-select: none;
+}
+
+.cart-row .dish-unavailable {
+  min-height: 30px;
+  font-size: 12px;
+}
+
+.cart-checkout:disabled,
+.cart-checkout[disabled] {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
 .add-btn svg {
   width: 16px;
   height: 16px;
