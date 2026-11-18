@@ -3984,19 +3984,22 @@ const handleClick = (event) => {
     const id = minus.dataset.minus;
     const dish = dishById(id);
     const prevQty = cartQuantity(id);
-    const floorQty = dish?.minQty ?? 0;
-    if (prevQty <= floorQty) return;
-    setQuantity(id, prevQty - 1);
+    const minQty = dish?.minQty ?? 0;
+    // At (or below) the minimum order the next "−" removes the dish; above it, step down but never below the minimum.
+    const nextQty = prevQty <= minQty ? 0 : Math.max(prevQty - 1, minQty);
+    if (nextQty === prevQty) return;
+    const removedQty = prevQty - nextQty;
+    setQuantity(id, nextQty);
     if (dish && prevQty > 0) {
-      ga4("remove_from_cart", { currency: "USD", value: dish.price, items: [ga4Item(dish, 1)] });
+      ga4("remove_from_cart", { currency: "USD", value: dish.price * removedQty, items: [ga4Item(dish, removedQty)] });
       metaTrackCustom("RemoveFromCart", {
         content_ids: [dish.id],
         content_name: dish.name.en || dish.name.ru,
         content_type: "product",
         content_category: dish.category,
-        value: dish.price,
+        value: dish.price * removedQty,
         currency: "USD",
-        num_items: 1,
+        num_items: removedQty,
       });
     }
     return;
