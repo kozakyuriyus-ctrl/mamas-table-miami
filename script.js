@@ -69,6 +69,7 @@ const DELIVERY_CITIES = [
 ];
 
 const API_ENABLED = true;
+const PREORDER_TIMEOUT_MS = 20000;
 const PREORDER_API_URL = "https://api.lanaskitchenmiami.com/preorder";
 const PLACES_API_URL   = "https://api.lanaskitchenmiami.com/places";
 
@@ -123,7 +124,7 @@ const copy = {
     hero: {
       eyebrow: "Настоящая домашняя кухня",
       title: "Свежая домашняя еда в Майами",
-      lede: "Борщ, вареники, пельмени, домашние салаты, горячие блюда, семейные ужины и кейтеринг.",
+      lede: "Борщ, голубцы, домашние салаты, горячие блюда, семейные ужины и кейтеринг.",
       ledeSub: "Готовим свежим к вашему столу",
       cardLabel: "Популярный заказ",
       cardTitle: "Семейный ужин от $95",
@@ -353,7 +354,17 @@ const copy = {
       submit: "Отправить заявку",
       submitting: "Отправляем заявку…",
       testModeBanner: "⚠ Тестовый режим: заказ не будет отправлен как реальный.",
-      apiError: "Ошибка при отправке заявки. Пожалуйста, попробуйте ещё раз.",
+      apiError: "Не удалось отправить заявку. Попробуйте ещё раз или свяжитесь с нами:",
+      apiTimeout: "Не удалось подтвердить получение заявки. Свяжитесь с нами, чтобы уточнить её статус:",
+      apiDate: "Эта дата недоступна. Выберите другую дату доставки — ближайшая завтра.",
+      apiBelowMin: "Сумма блюд ниже минимума для вашего района. Добавьте блюда в заказ и отправьте заявку снова.",
+      apiRate: "Слишком много попыток отправки. Подождите около 15 минут и попробуйте снова.",
+      addMore: "Добавьте блюда ещё на",
+      paymentNote: "Оплата на сайте не требуется. Подтвердим состав, время и стоимость в выбранном мессенджере.",
+      iabText: "Сохраните ссылку, чтобы открыть историю заказов в Safari или Chrome.",
+      iabSms: "Отправить себе →",
+      iabCopy: "Скопировать ссылку",
+      iabCopied: "Скопировано ✓",
       required: "Заполните все обязательные поля.",
       completeRequired: "Заполните обязательные поля, чтобы продолжить.",
       phoneInvalid: "Укажите корректный номер телефона.",
@@ -403,7 +414,7 @@ const copy = {
       timeI: "6:00 PM – 7:00 PM",
       timeJ: "7:00 PM – 8:00 PM",
       orderNotes: "Комментарий к заказу (необязательно)",
-      preorderAdvanceNote: "Готовим свежую еду по предзаказу. Пожалуйста, оформляйте заказ минимум за 24–48 часов.",
+      preorderAdvanceNote: "Готовим свежую еду по предзаказу. Ближайшая дата доставки — завтра; лучше заказывать за 24–48 часов.",
       successTitle: "Ваша заявка получена.",
       successText: "Мы проверим адрес, детали доставки и возможность приготовления, затем свяжемся с вами выбранным способом. Заказ будет поставлен в приготовление только после подтверждения и оплаты.",
       successRef: "№ заявки:",
@@ -415,7 +426,7 @@ const copy = {
         phoneInvalid: "Неверный формат телефона",
         address: "Введите адрес доставки",
         city: "Выберите город",
-        zip: "Введите ZIP-код (5 цифр)",
+        zip: "Введите 5-значный ZIP-код, например 33020",
         date: "Выберите дату (минимум завтра)",
         timeWindow: "Выберите временной интервал",
       },
@@ -569,7 +580,7 @@ const copy = {
     hero: {
       eyebrow: "Real Home Cooking",
       title: "Fresh Homemade Meals in Miami",
-      lede: "Borscht, varenyky, pelmeni, homestyle salads, hot dishes, family dinners and catering.",
+      lede: "Borscht, cabbage rolls, homestyle salads, hot dishes, family dinners and catering.",
       ledeSub: "Made fresh for your table.",
       cardLabel: "Popular Order",
       cardTitle: "Family Dinner from $95",
@@ -799,7 +810,17 @@ const copy = {
       submit: "Send preorder request",
       submitting: "Sending request…",
       testModeBanner: "⚠ Test mode: this order will not be sent as a real order.",
-      apiError: "Failed to send request. Please try again.",
+      apiError: "We couldn't send your request. Please try again or contact us:",
+      apiTimeout: "We couldn't confirm that your request was received. Contact us to check its status:",
+      apiDate: "This date isn't available. Please choose another delivery date — the earliest is tomorrow.",
+      apiBelowMin: "Your food subtotal is below the minimum for your area. Add dishes to your order and send the request again.",
+      apiRate: "Too many attempts. Please wait about 15 minutes and try again.",
+      addMore: "Add more dishes for",
+      paymentNote: "No payment is required on the website. We'll confirm the order, timing and total in your chosen messenger.",
+      iabText: "Save the link to open your order history in Safari or Chrome.",
+      iabSms: "Send to myself →",
+      iabCopy: "Copy link",
+      iabCopied: "Copied ✓",
       required: "Please fill in all required fields.",
       completeRequired: "Complete the required fields to continue.",
       phoneInvalid: "Please enter a valid phone number.",
@@ -849,7 +870,7 @@ const copy = {
       timeI: "6:00 PM – 7:00 PM",
       timeJ: "7:00 PM – 8:00 PM",
       orderNotes: "Order notes (optional)",
-      preorderAdvanceNote: "Orders are prepared fresh by preorder. Please order at least 24–48 hours in advance.",
+      preorderAdvanceNote: "Orders are prepared fresh by preorder. The earliest delivery date is tomorrow; we recommend ordering 24–48 hours ahead.",
       successTitle: "Your preorder request has been received.",
       successText: "We will review the address, delivery details, and availability, then contact you using your preferred method. Your order will be placed in preparation only after confirmation and payment.",
       successRef: "Request #:",
@@ -861,7 +882,7 @@ const copy = {
         phoneInvalid: "Invalid phone number format",
         address: "Enter your delivery address",
         city: "Select a city",
-        zip: "Enter ZIP code (5 digits)",
+        zip: "Enter a 5-digit ZIP code, for example 33020",
         date: "Select a date (tomorrow or later)",
         timeWindow: "Select a delivery time window",
       },
@@ -1015,7 +1036,7 @@ const copy = {
     hero: {
       eyebrow: "Справжня домашня кухня",
       title: "Свіжа домашня їжа в Маямі",
-      lede: "Борщ, вареники, пельмені, домашні салати, гарячі страви, сімейні вечері та кейтеринг.",
+      lede: "Борщ, голубці, домашні салати, гарячі страви, сімейні вечері та кейтеринг.",
       ledeSub: "Готуємо свіжим до вашого столу",
       cardLabel: "Популярне замовлення",
       cardTitle: "Сімейна вечеря від $95",
@@ -1245,7 +1266,17 @@ const copy = {
       submit: "Надіслати заявку",
       submitting: "Надсилаємо заявку…",
       testModeBanner: "⚠ Тестовий режим: це замовлення не буде надіслано як реальне.",
-      apiError: "Помилка при відправці заявки. Будь ласка, спробуйте ще раз.",
+      apiError: "Не вдалося надіслати заявку. Спробуйте ще раз або зв'яжіться з нами:",
+      apiTimeout: "Не вдалося підтвердити отримання заявки. Зв'яжіться з нами, щоб уточнити її статус:",
+      apiDate: "Ця дата недоступна. Оберіть іншу дату доставки — найближча завтра.",
+      apiBelowMin: "Сума страв нижча за мінімум для вашого району. Додайте страви до замовлення й надішліть заявку знову.",
+      apiRate: "Забагато спроб надсилання. Зачекайте близько 15 хвилин і спробуйте знову.",
+      addMore: "Додайте страв ще на",
+      paymentNote: "Оплата на сайті не потрібна. Підтвердимо склад, час і вартість у вибраному месенджері.",
+      iabText: "Збережіть посилання, щоб відкрити історію замовлень у Safari або Chrome.",
+      iabSms: "Надіслати собі →",
+      iabCopy: "Скопіювати посилання",
+      iabCopied: "Скопійовано ✓",
       required: "Заповніть усі обов'язкові поля.",
       completeRequired: "Заповніть обов’язкові поля, щоб продовжити.",
       phoneInvalid: "Вкажіть коректний номер телефону.",
@@ -1295,7 +1326,7 @@ const copy = {
       timeI: "6:00 PM – 7:00 PM",
       timeJ: "7:00 PM – 8:00 PM",
       orderNotes: "Коментар до замовлення (необов'язково)",
-      preorderAdvanceNote: "Ми готуємо свіжу їжу за попереднім замовленням. Будь ласка, оформлюйте замовлення щонайменше за 24–48 годин.",
+      preorderAdvanceNote: "Ми готуємо свіжу їжу за попереднім замовленням. Найближча дата доставки — завтра; краще замовляти за 24–48 годин.",
       successTitle: "Вашу заявку отримано.",
       successText: "Ми перевіримо адресу, деталі доставки та можливість приготування, після чого зв'яжемося з вами обраним способом. Замовлення буде передано в приготування лише після підтвердження та оплаті.",
       successRef: "№ заявки:",
@@ -1307,7 +1338,7 @@ const copy = {
         phoneInvalid: "Невірний формат телефону",
         address: "Введіть адресу доставки",
         city: "Оберіть місто",
-        zip: "Введіть ZIP-код (5 цифр)",
+        zip: "Введіть 5-значний ZIP-код, наприклад 33020",
         date: "Оберіть дату (мінімум завтра)",
         timeWindow: "Оберіть часовий інтервал",
       },
@@ -1784,6 +1815,8 @@ const state = {
   preorderError: false,
   preorderErrorKey: "preorder.required",
   preorderErrorMsg: null,
+  preorderErrorContact: false,
+  addOnShown: false,
   preorderSubmitAttempted: false,
   preorderSubmitting: false,
   preorderZoneMismatch: null,
@@ -1815,9 +1848,17 @@ const slavicPlural = (count, one, few, many) => {
 };
 
 const cartItemLabel = (count) => {
-  if (state.lang === "ru") return slavicPlural(count, "позиция", "позиции", "позиций");
-  if (state.lang === "uk") return slavicPlural(count, "позиція", "позиції", "позицій");
-  return count === 1 ? "item" : "items";
+  if (state.lang === "ru") return slavicPlural(count, "блюдо", "блюда", "блюд");
+  if (state.lang === "uk") return slavicPlural(count, "страва", "страви", "страв");
+  return count === 1 ? "dish" : "dishes";
+};
+
+// Dishes sold as one 2 lb unit (orderSize.value 2): the price and the ×N counter are per that unit, not per lb.
+const cartUnitSize = (dish) => (dish.unit === "lb" && dish.orderSize?.unit === "lb" && dish.orderSize.value > 1 ? dish.orderSize.value : 1);
+const cartPriceLabel = (dish) => {
+  const size = cartUnitSize(dish);
+  if (size > 1) return `${state.lang === "en" ? "for" : "за"} ${size} lb`;
+  return dish.unit === "lb" ? t("cart.unitLb") : dish.unit === "pcs" ? null : t("cart.unitPrice");
 };
 
 const dishById = (id) => menuItems.find((dish) => dish.id === id);
@@ -1886,8 +1927,17 @@ const cartCount = () => cartEntries().reduce((sum, entry) => sum + entry.quantit
 const cartTotal = () => cartEntries().reduce((sum, entry) => sum + entry.dish.price * entry.quantity, 0);
 const cartQuantity = (id) => state.cart.get(id) || 0;
 
-const categoryUnits = {};
-const unitLabels = {};
+// Price-unit line under the price ("за фунт · $34 за 2 lb"); only lb/qt dishes — piece-priced dishes describe size in sizeRu/En/Ua.
+const dishPriceUnitText = (dish) => {
+  if (dish.unit !== "lb" && dish.unit !== "qt") return "";
+  const per = dish.orderSize?.unit === dish.unit ? dish.orderSize.value : 1;
+  const en = state.lang === "en";
+  const base = per === 1
+    ? (dish.unit === "lb" ? (en ? "per lb" : "за фунт") : (en ? "per qt" : "за qt"))
+    : `${en ? "for" : "за"} ${per} ${dish.unit}`;
+  if (dish.minQty > 1) return `${base} · ${money(dish.price * dish.minQty)} ${en ? "for" : "за"} ${dish.minQty} ${dish.unit}`;
+  return base;
+};
 
 const DUMPLINGS_AND_CREPES = new Set([
   "varenyky", "pork-pelmeni", "chicken-pelmeni",
@@ -1935,8 +1985,8 @@ const createDishBadge = (badge) => {
 };
 
 const createDishCard = (dish, options = {}) => {
-  const rawUnit = dish.unit ? unitLabels[dish.unit] : categoryUnits[dish.category];
-  const unitHtml = rawUnit ? `<span class="dish-unit">${escapeHtml(text(rawUnit))}</span>` : "";
+  const unitText = dishPriceUnitText(dish);
+  const unitHtml = unitText ? `<span class="dish-unit">${escapeHtml(unitText)}</span>` : "";
   const sizeStr = buildDishSizeStr(dish);
   const sizeHtml = sizeStr ? `<small class="dish-size">${escapeHtml(sizeStr)}</small>` : "";
   const quantity = cartQuantity(dish.id);
@@ -1952,7 +2002,7 @@ const createDishCard = (dish, options = {}) => {
       <strong>${money(dish.price)}${unitHtml}</strong>
       ${sizeHtml}
       <div class="dish-actions">
-        ${isUnavailable(dish) ? `<span class="dish-unavailable" role="status">${escapeHtml(t("cart.unavailable"))}</span>` : `
+        ${isUnavailable(dish) ? `<button class="add-btn dish-unavailable" type="button" disabled aria-disabled="true">${escapeHtml(t("cart.unavailable"))}</button>` : `
         <button class="add-btn${quantity > 0 ? " is-hidden" : ""}" type="button" data-add="${escapeHtml(dish.id)}"${quantity > 0 ? " hidden" : ""}>
           <span>${escapeHtml(t("cart.add"))}</span>
           <i data-lucide="plus-circle"></i>
@@ -2365,6 +2415,26 @@ const generatePreorderId = () => {
 
 // ── Delivery helpers ──────────────────────────────────────────────────────────
 
+const buildZoneTerms = (zoneKey) => {
+  const cfg = DELIVERY_ZONES[zoneKey] || DELIVERY_ZONES["1"];
+  const lang = state.lang;
+  const pick = (ru, en, uk) => (lang === "en" ? en : lang === "uk" ? uk : ru);
+  if (zoneKey === "remote") {
+    return pick(
+      `Другой район: минимальный заказ ${money(cfg.minOrder)}. Возможность и стоимость доставки подтвердим после проверки адреса.`,
+      `Other area: minimum order ${money(cfg.minOrder)}. We'll confirm delivery availability and cost after checking the address.`,
+      `Інший район: мінімальне замовлення ${money(cfg.minOrder)}. Можливість і вартість доставки підтвердимо після перевірки адреси.`,
+    );
+  }
+  const terms = pick(
+    `Зона ${cfg.label}: доставка ${money(cfg.fee)}, минимальный заказ ${money(cfg.minOrder)}, бесплатно от ${money(cfg.freeAt)}.`,
+    `Zone ${cfg.label}: delivery ${money(cfg.fee)}, minimum order ${money(cfg.minOrder)}, free delivery from ${money(cfg.freeAt)}.`,
+    `Зона ${cfg.label}: доставка ${money(cfg.fee)}, мінімальне замовлення ${money(cfg.minOrder)}, безкоштовно від ${money(cfg.freeAt)}.`,
+  );
+  if (zoneKey) return terms;
+  return `${terms} ${pick("Условия для вашего адреса — после ввода ZIP.", "Terms for your address — after you enter your ZIP.", "Умови для вашої адреси — після введення ZIP.")}`;
+};
+
 const buildMinOrderMsg = (minOrder, remaining) => {
   const m = money(minOrder), r = money(remaining);
   if (state.lang === "en")
@@ -2522,9 +2592,7 @@ const createPreorderStage0 = () => {
   const isZipUnknown = isRemote && !!form.zip;
   state.preorderZoneMismatch = cityZipMismatch;
 
-  const ddTomorrow = new Date();
-  ddTomorrow.setDate(ddTomorrow.getDate() + 1);
-  const tomorrowStr = ddTomorrow.toISOString().slice(0, 10);
+  const tomorrowStr = miamiTomorrowISO();
 
   const fieldErrKey = (fieldName) => {
     if (!state.preorderSubmitAttempted) return null;
@@ -2537,7 +2605,7 @@ const createPreorderStage0 = () => {
       case "contactMethod": return !f.contactMethod ? "preorder.fieldRequired" : null;
       case "address": return !f.address ? "preorder.err.address" : null;
       case "city": return !f.city ? "preorder.err.city" : null;
-      case "zip": return !f.zip ? "preorder.err.zip" : null;
+      case "zip": return !/^\d{5}$/.test(String(f.zip || "").trim()) ? "preorder.err.zip" : null;
       case "date": return (!f.date || f.date < tomorrowStr) ? "preorder.err.date" : null;
       case "timeWindow": return !f.timeWindow ? "preorder.err.timeWindow" : null;
       default: return null;
@@ -2750,6 +2818,13 @@ const createPreorderStage0 = () => {
     : belowMin && zoneConfig?.minOrder
       ? buildMinOrderMsg(zoneConfig.minOrder, zoneConfig.minOrder - foodSubtotal)
       : "";
+  const minBanner = state.preorderSubmitAttempted && belowMin && zoneConfig?.minOrder
+    ? `<div class="validation-banner min-order-banner" role="alert" data-min-order-banner>
+        <strong>${escapeHtml(t("preorder.addMore"))} ${money(zoneConfig.minOrder - foodSubtotal)}</strong>
+        <span>${escapeHtml(buildMinOrderMsg(zoneConfig.minOrder, zoneConfig.minOrder - foodSubtotal))}</span>
+        <button class="btn btn-secondary" type="button" data-close-modal="preorder">${escapeHtml(t("preorder.backToMenu"))}</button>
+      </div>`
+    : "";
   return `
     <div class="modal-cart-summary">
       <h3>${escapeHtml(t("preorder.cartSummaryTitle"))}</h3>
@@ -2803,15 +2878,19 @@ const createPreorderStage0 = () => {
         </label>
       </div>
       <input type="text" name="_hp" value="" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
+      ${minBanner}
       ${TEST_MODE ? `<p class="checkout-test-mode-banner" role="alert">${escapeHtml(t("preorder.testModeBanner"))}</p>` : ""}
       ${state.preorderError && state.preorderErrorMsg
-        ? `<p class="preorder-api-error">${escapeHtml(state.preorderErrorMsg)}</p>`
+        ? `<p class="preorder-api-error">${escapeHtml(state.preorderErrorMsg)}${state.preorderErrorContact
+            ? ` <a href="${tgUrl()}" target="_blank" rel="noopener">Telegram</a> · <a href="${waUrl("")}" target="_blank" rel="noopener">WhatsApp</a> · <a href="tel:+${WHATSAPP_NUMBER}">${escapeHtml(DISPLAY_PHONE)}</a>`
+            : ""}</p>`
         : ""}
       <button class="btn btn-primary checkout-submit" type="submit"${state.preorderSubmitting || hasUnavailable ? " disabled" : ""}>
         <span>${escapeHtml(state.preorderSubmitting ? t("preorder.submitting") : t("preorder.submit"))}</span>
         ${state.preorderSubmitting ? "" : '<i data-lucide="send"></i>'}
       </button>
       ${submitHelper ? `<p class="checkout-submit-helper">${escapeHtml(submitHelper)}</p>` : ""}
+      <p class="checkout-payment-note">${escapeHtml(t("preorder.paymentNote"))}</p>
     </form>
   `;
 };
@@ -2827,10 +2906,10 @@ const createPreorderSuccess = () => {
     const smsUrl = `sms:?body=${encodeURIComponent(ordersUrl)}`;
     iabBlock = `
       <div class="preorder-iab-notice">
-        <p class="preorder-iab-text">Сохраните ссылку, чтобы открыть историю заказов в Safari или Chrome.</p>
+        <p class="preorder-iab-text">${escapeHtml(t("preorder.iabText"))}</p>
         <div class="preorder-iab-actions">
-          <a href="${escapeHtml(smsUrl)}" class="btn btn-secondary preorder-iab-btn">Отправить себе →</a>
-          <button type="button" class="btn btn-secondary preorder-iab-btn" data-copy-history-url="${escapeHtml(ordersUrl)}">Скопировать ссылку</button>
+          <a href="${escapeHtml(smsUrl)}" class="btn btn-secondary preorder-iab-btn">${escapeHtml(t("preorder.iabSms"))}</a>
+          <button type="button" class="btn btn-secondary preorder-iab-btn" data-copy-history-url="${escapeHtml(ordersUrl)}">${escapeHtml(t("preorder.iabCopy"))}</button>
         </div>
       </div>`;
   }
@@ -3133,6 +3212,8 @@ const openAddOnModal = (dishId) => {
   if (!recs || recs.length === 0) return;
   // Don't stack on top of preorder / catering / cart-review
   if (document.getElementById("preorder-modal") || document.getElementById("catering-modal") || document.getElementById("cart-review-modal")) return;
+  if (state.addOnShown) return;
+  state.addOnShown = true;
   if (document.getElementById("addon-modal")) closeAddOnModal();
   let wrapper = document.createElement("div");
   wrapper.id = "addon-modal";
@@ -3258,7 +3339,7 @@ const createCartReviewModal = () => {
 
   const items = entries
     .map(({ dish, quantity }) => {
-      const unitLabel = dish.unit === "lb" ? t("cart.unitLb") : dish.unit === "pcs" ? null : t("cart.unitPrice");
+      const unitLabel = cartPriceLabel(dish);
       const priceSpan = unitLabel === null
         ? `<span>${escapeHtml(dish.pcsLabel ? text(dish.pcsLabel) : t("cart.unitPcs"))}</span><span>${money(dish.price)}</span>`
         : `<span>${money(dish.price)} ${escapeHtml(unitLabel)}</span>`;
@@ -3300,7 +3381,7 @@ const createCartReviewModal = () => {
             </div>
             ${totalRowHtml}
             ${zoneNoteHtml}
-            <p class="cr-zip-hint">${escapeHtml(t("cartReview.zipHint"))}</p>
+            <p class="cr-zip-hint">${escapeHtml(buildZoneTerms(zoneKey))}</p>
           </div>
           <div class="cr-footer">
             ${hasOnlyAddOns ? `<p class="zone-min-warning">${escapeHtml(t("cart.addOnsOnly"))}</p>` : ""}
@@ -3439,8 +3520,8 @@ const createCartItemControls = (dish, quantity, qtyBtnCls = "", removeCls = "") 
 const createCartDetails = (entries) =>
   entries
     .map(({ dish, quantity }) => {
-      const unitLabel = dish.unit === "lb" ? t("cart.unitLb") : dish.unit === "pcs" ? null : t("cart.unitPrice");
-      const qtyStr = dish.unit === "pcs" ? `×${quantity}` : `×${quantity} ${dish.unit ?? "шт."}`;
+      const unitLabel = cartPriceLabel(dish);
+      const qtyStr = dish.unit === "pcs" || cartUnitSize(dish) > 1 ? `×${quantity}` : `×${quantity} ${dish.unit ?? "шт."}`;
       const priceSpan = unitLabel === null
         ? `<span>${escapeHtml(dish.pcsLabel ? text(dish.pcsLabel) : t("cart.unitPcs"))} · ${qtyStr}</span>`
         : `<span>${money(dish.price)} ${escapeHtml(unitLabel)} · ${qtyStr}</span>`;
@@ -3464,7 +3545,8 @@ const createCartDetails = (entries) =>
 const renderCart = () => {
   const entries = cartEntries();
   const total = cartTotal();
-  const count = cartCount();
+  const count = entries.length; // distinct dishes, not summed lb/qt
+  if (!state.cart.size) state.addOnShown = false;
   const hasEntries = entries.length > 0;
 
   document.querySelectorAll(".order-card").forEach((card) => {
@@ -3601,17 +3683,21 @@ const syncCateringForm = (formEl) => {
 
 // ── Validation ────────────────────────────────────────────────────────────────
 
+// Earliest delivery date = tomorrow in America/New_York (the Worker's rule), not the device's UTC date.
+const miamiTomorrowISO = () => {
+  const today = new Intl.DateTimeFormat("en-CA", { timeZone: "America/New_York", year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date());
+  const [y, m, d] = today.split("-").map(Number);
+  return new Date(Date.UTC(y, m - 1, d + 1)).toISOString().slice(0, 10);
+};
 const todayStr = () => new Date().toISOString().slice(0, 10);
 
 const validatePreorderForm = () => {
   const f = state.preorderForm;
   if (!f.name || !f.phone || !f.contactMethod || !f.date || !f.timeWindow) return "preorder.required";
   if (!f.address || !f.city || !f.zip) return "preorder.required";
-  if (!/^\d{5}$/.test(f.zip)) return "preorder.required";
+  if (!/^\d{5}$/.test(String(f.zip).trim())) return "preorder.required";
   if (validatePhone(f.phone, f) !== null) return "preorder.phoneInvalid";
-  const dd = new Date();
-  dd.setDate(dd.getDate() + 1);
-  if (f.date < dd.toISOString().slice(0, 10)) return "preorder.dateNotFuture";
+  if (f.date < miamiTomorrowISO()) return "preorder.dateNotFuture";
   const zoneConfig = DELIVERY_ZONES[zipToZoneKey(f.zip)];
   if (zoneConfig?.minOrder && cartTotal() < zoneConfig.minOrder) return "preorder.zoneRequired";
   return null;
@@ -3650,8 +3736,10 @@ const handlePreorderSubmit = async (formEl) => {
     state.preorderError = false;
     renderPreorderModal();
     const modal = document.getElementById("preorder-modal");
-    const banner = modal?.querySelector(".validation-banner");
+    const minBannerEl = modal?.querySelector("[data-min-order-banner]");
+    const banner = modal?.querySelector(".validation-banner:not([data-min-order-banner])");
     const firstInvalid = modal?.querySelector(".is-invalid input, .is-invalid select, .is-invalid [type='radio']");
+    if (!banner && !firstInvalid && minBannerEl) { minBannerEl.scrollIntoView({ block: "center" }); return; }
     (banner || firstInvalid)?.scrollIntoView({ block: "start" });
     firstInvalid?.focus();
     return;
@@ -3745,11 +3833,19 @@ const handlePreorderSubmit = async (formEl) => {
   }
 
   try {
-    const resp = await fetch(PREORDER_API_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    });
+    const abortCtl = new AbortController();
+    const abortTimer = setTimeout(() => abortCtl.abort(), PREORDER_TIMEOUT_MS);
+    let resp;
+    try {
+      resp = await fetch(PREORDER_API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+        signal: abortCtl.signal,
+      });
+    } finally {
+      clearTimeout(abortTimer);
+    }
 
     let result;
     try { result = await resp.json(); } catch { result = { ok: false }; }
@@ -3767,7 +3863,10 @@ const handlePreorderSubmit = async (formEl) => {
         openCartReview();
         return;
       }
-      throw new Error(result.message || `HTTP ${resp.status}`);
+      const apiErr = new Error(result.message || `HTTP ${resp.status}`);
+      apiErr.code = result.error;
+      apiErr.status = resp.status;
+      throw apiErr;
     }
 
     const orderId = result.orderId;
@@ -3845,12 +3944,27 @@ const handlePreorderSubmit = async (formEl) => {
     renderPreorderModal();
     renderCart();
 
-  } catch {
+  } catch (err) {
     state.preorderSubmitting = false;
     state.preorderError = true;
-    state.preorderErrorMsg = t("preorder.apiError");
+    // Known server answers get a concrete next step; timeouts, 5xx and network failures also show support contacts.
+    state.preorderErrorContact = false;
+    if (err?.name === "AbortError") {
+      state.preorderErrorMsg = t("preorder.apiTimeout");
+      state.preorderErrorContact = true;
+    } else if (err?.code === "date_too_soon") {
+      state.preorderErrorMsg = t("preorder.apiDate");
+    } else if (err?.code === "below_minimum") {
+      state.preorderErrorMsg = t("preorder.apiBelowMin");
+    } else if (err?.status === 429 || err?.code === "rate_limited") {
+      state.preorderErrorMsg = t("preorder.apiRate");
+    } else {
+      state.preorderErrorMsg = t("preorder.apiError");
+      state.preorderErrorContact = true;
+    }
     state.preorderZoneMismatch = zoneMismatch;
     renderPreorderModal();
+    document.querySelector("#preorder-modal .preorder-api-error")?.scrollIntoView({ block: "center" });
   }
 };
 
@@ -4298,7 +4412,7 @@ const handleClick = (event) => {
         tmp.remove();
       } catch {}
     });
-    copyHistoryUrl.textContent = "Скопировано ✓";
+    copyHistoryUrl.textContent = t("preorder.iabCopied");
     setTimeout(() => { copyHistoryUrl.textContent = orig; }, 2500);
     return;
   }
@@ -4442,7 +4556,7 @@ const handleFormInput = (event) => {
         fetchPlaceSuggestions(preorderField, preorderField.value.trim());
       }, 280);
     }
-    if (state.preorderSubmitAttempted) {
+    if (state.preorderSubmitAttempted && (preorderField.name !== "zip" || /^\d{5}$/.test(preorderField.value.trim()))) {
       const label = preorderField.closest(".form-field");
       if (label) {
         label.classList.remove("is-invalid");

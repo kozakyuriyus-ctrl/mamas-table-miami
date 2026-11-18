@@ -659,13 +659,14 @@ p {
   justify-content: center;
   min-height: 38px;
   padding: 0 10px;
-  border: 1px solid rgba(183, 138, 85, 0.35);
+  border: 0;
   border-radius: 8px;
-  background: #f3e6d0;
-  color: #5a4630;
+  background: #e3e1dc;
+  color: #77736a;
   font-size: 13px;
   font-weight: 800;
   text-align: center;
+  cursor: not-allowed;
   pointer-events: none;
   user-select: none;
 }
@@ -673,6 +674,19 @@ p {
 .cart-row .dish-unavailable {
   min-height: 30px;
   font-size: 12px;
+}
+
+.min-order-banner {
+  display: grid;
+  gap: 8px;
+  margin: 12px 0;
+}
+
+.checkout-payment-note {
+  margin: 10px 0 0;
+  font-size: 13px;
+  color: var(--muted);
+  text-align: center;
 }
 
 .cart-checkout:disabled,
